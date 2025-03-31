@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'landing\css\style_l.css' %}" />
+<link rel="stylesheet" href="{% static 'landing\css\style_c.css' %}" />
+{% endblock %}
+{% block title %}Подтверждение{% endblock %}
+{% block content %}
+<main class="verification-container">
+    <h1 class="verification-title">Авторизация</h1>
+    <div class="verification-code-container">
+      <input
+        type="number"
+        class="code-input"
+        maxlength="1"
+        aria-label="First digit"
+      />
+      <input
+        type="number"
+        class="code-input"
+        maxlength="1"
+        aria-label="Second digit"
+      />
+      <input
+        type="number"
+        class="code-input"
+        maxlength="1"
+        aria-label="Third digit"
+      />
+      <input
+        type="number"
+        class="code-input"
+        maxlength="1"
+        aria-label="Fourth digit"
+      />
+      <input
+        type="number"
+        class="code-input"
+        maxlength="1"
+        aria-label="Fifth digit"
+      />
+      <input
+        type="number"
+        class="code-input"
+        maxlength="1"
+        aria-label="Sixth digit"
+      />
+    </div>
+    <p class="verification-message">
+      Код пришел вам на номер телефона, проверьте смс
+    </p>
+    <button class="resend-code">Прислать код еще раз</button>
+  </main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('.code-input');
+
+    // Переключение фокуса на следующий инпут при вводе
+    inputs.forEach((input, index) => {
+        input.addEventListener('input', function(e) {
+            if (this.value.length === 1 && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        });
+
+        // Обработка backspace
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+                inputs[index - 1].focus();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

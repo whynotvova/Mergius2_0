@@ -1,0 +1,131 @@
+/* Base styles */
+body {
+  margin: 0;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Main content styles */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 20px;
+}
+
+.auth-title {
+  color: #5863f8;
+  font-size: 64px;
+  font-family:
+    "Druk Text Wide Cyr",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 700;
+  margin-top: 100px;
+  margin-bottom: 0;
+}
+
+.social-auth-primary {
+  border-radius: 25px;
+  background-color: #5863f8;
+  display: flex;
+  margin-top: 100px;
+  width: 470px;
+  max-width: 100%;
+  padding: 28px 20px;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.social-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  transition: transform 0.3s ease; /* Плавная анимация масштабирования */
+}
+.social-icon-phone {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.social-auth-row {
+  display: flex;
+  margin-top: 20px;
+  width: 470px;
+  max-width: 100%;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.social-auth-row.secondary {
+  width: 340px;
+}
+
+.social-auth-button {
+  background-color: #fff;
+  border: 1px solid #5863f8;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Плавная анимация масштабирования */
+}
+
+.social-button-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Стили для поля ввода телефона, чтобы сливалось с .social-auth-primary */
+.phone-input {
+  width: 200px; /* Ширина поля ввода */
+  padding: 10px;
+  font-size: 22px;
+  border: none;
+  border-radius: 25px; /* Такие же закругленные углы, как у .social-auth-primary */
+  background-color: #5863f8; /* Тот же синий фон */
+  color: #fff; /* Белый текст для контраста */
+  outline: none;
+  font-family: inherit; /* Наследуем шрифт */
+}
+
+/* Плейсхолдер тоже белый с небольшой прозрачностью */
+.phone-input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Белый с прозрачностью для плейсхолдера */
+}
+
+/* Убираем эффект фокуса, чтобы не выделялось */
+.phone-input:focus {
+  background-color: #5863f8; /* Оставляем тот же фон */
+  color: #fff; /* Сохраняем белый текст */
+}
+
+.phone-input::-webkit-inner-spin-button,
+.phone-input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Убираем стрелки в Chrome, Safari */
+  margin: 0; /* Убираем лишние отступы */
+}
+
+/* Анимация при наведении на social-icon */
+.social-icon:hover {
+  transform: scale(1.2); /* Увеличение на 20% */
+}
+
+/* Анимация при наведении на social-auth-button */
+.social-auth-button:hover {
+  transform: scale(1.1); /* Увеличение на 10% */
+}
