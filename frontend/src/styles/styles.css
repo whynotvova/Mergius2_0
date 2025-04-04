@@ -172,7 +172,25 @@ body {
   color: #f24236;
   border-color: #f24236;
   background-color: #ffffff;
-  transform: translateY(10px);
+}
+
+.register-btn:hover {
+  color: #fff;
+  background-color: #f24236;
+  transform: scale(1.05);
+}
+
+.login-button {
+  width: 150px;
+  color: #5863f8;
+  border-color: #5863f8;
+  background-color: #ffffff;
+}
+
+.login-button:hover {
+  background-color: #5863f8;
+  color: #fff;
+  transform: scale(1.05);
 }
 
 .nav-container:hover .register-btn {
@@ -184,6 +202,19 @@ body {
 .register-btn:hover {
   color: #fff;
   background-color: #f24236;
+  transform: scale(1.05);
+}
+
+.mail-button {
+  width: 150px;
+  color: #5863f8;
+  border-color: #5863f8;
+  background-color: #ffffff;
+}
+
+.mail-button:hover {
+  background-color: #5863f8;
+  color: #fff;
   transform: scale(1.05);
 }
 

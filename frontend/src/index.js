@@ -1,11 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
-import './styles/styles.css'; // Единый файл стилей
+import AppWrapper from './App'; // Используем AppWrapper из-за useLocation
+import './styles/styles.css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AppWrapper />
   </React.StrictMode>
 );

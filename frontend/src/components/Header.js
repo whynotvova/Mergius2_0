@@ -2,16 +2,25 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
-const Header = () => {
+const Header = ({ isMailPage = false }) => {
   const navigate = useNavigate();
 
-  const handleAuthClick = () => {
+  const handleLoginClick = () => {
     navigate('/auth');
   };
 
   const handleRegisterClick = () => {
     navigate('/register');
   };
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+  };
+
+  const handleSettingsClick = () => {
+    navigate('/settings');
+  };
+
   return (
     <header className="main-header">
       <div className="logo-container">
@@ -57,8 +66,25 @@ const Header = () => {
       </div>
       <nav className="nav-container">
         <button className="nav-button border-button tariffs-btn">Тарифы</button>
-        <button className="nav-button border-button register-btn hidden" onClick={handleRegisterClick}>Регистрация</button>
-        <button className="nav-button login-button" onClick={handleAuthClick}>Войти</button>
+        {isMailPage ? (
+          <>
+            <button className="nav-button border-button profile-btn" onClick={handleProfileClick}>
+              Профиль
+            </button>
+            <button className="nav-button settings-button" onClick={handleSettingsClick}>
+              Настройки
+            </button>
+          </>
+        ) : (
+          <>
+            <button className="nav-button border-button register-btn" onClick={handleRegisterClick}>
+              Регистрация
+            </button>
+            <button className="nav-button login-button" onClick={handleLoginClick}>
+              Войти
+            </button>
+          </>
+        )}
         <div className="language-dropdown">
           <button className="language-selector">
             <img
