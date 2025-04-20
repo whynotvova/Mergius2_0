@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/styles.css';
 
 const VerificationForm = ({ type }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const inputs = document.querySelectorAll('.code-input');
@@ -27,6 +28,8 @@ const VerificationForm = ({ type }) => {
     });
   }, [navigate, type]);
 
+  const isVerificationPage = ['/confirm-auth', '/confirm-reg'].includes(location.pathname);
+
   return (
     <main className="verification-container">
       <h1 className="verification-title">{type === 'login' ? 'Авторизация' : 'Регистрация'}</h1>
@@ -42,7 +45,9 @@ const VerificationForm = ({ type }) => {
         ))}
       </div>
       <p className="verification-message">Код пришел вам на номер телефона, проверьте смс</p>
-      <button className="resend-code">Прислать код еще раз</button>
+      <button className={`resend-code ${isVerificationPage ? 'active-login' : ''}`}>
+        Прислать код еще раз
+      </button>
     </main>
   );
 };

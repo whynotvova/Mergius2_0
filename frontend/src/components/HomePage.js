@@ -6,8 +6,8 @@ const HomePage = () => {
     <main>
       <section className="about-section">
         <img
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b43f423379edb45e66dc112c7103b563f42970d5"
-          alt="Group 2"
+          src={`${process.env.PUBLIC_URL}/images/landing/M-img.png`}
+          alt="M-img"
           className="about-image"
         />
         <article className="about-content">
@@ -23,7 +23,7 @@ const HomePage = () => {
         <div className="features-grid">
           <article className="feature-card">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/291a4aeacecab31aa0fd265832f88ac1841c37bc?placeholderIfAbsent=true"
+              src={`${process.env.PUBLIC_URL}/images/landing/no-ad.png`}
               alt="No Ads"
               className="feature-icon"
             />
@@ -31,7 +31,7 @@ const HomePage = () => {
           </article>
           <article className="feature-card">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/490c7d65f53d121e2c6fc870d0ad02eee6966852?placeholderIfAbsent=true"
+              src={`${process.env.PUBLIC_URL}/images/landing/send-mail.png`}
               alt="Flexible Messaging"
               className="feature-icon"
             />
@@ -39,7 +39,7 @@ const HomePage = () => {
           </article>
         </div>
         <img
-          src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/0250a57406f5302862c312c1bce462077a4b2707?placeholderIfAbsent=true"
+          src={`${process.env.PUBLIC_URL}/images/landing/shield-security.png`}
           alt="Privacy"
           className="feature-image"
         />
@@ -47,7 +47,7 @@ const HomePage = () => {
         <div className="features-grid">
           <article className="feature-card">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/e884f0f52f5e99fcb46ff3d854f6cd46399d5a57?placeholderIfAbsent=true"
+              src={`${process.env.PUBLIC_URL}/images/landing/control-mail.png`}
               alt="Email Management"
               className="feature-icon"
             />
@@ -55,7 +55,7 @@ const HomePage = () => {
           </article>
           <article className="feature-card">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/1083f9b1ec1a508a943f264f41ee8180e13181da?placeholderIfAbsent=true"
+              src={`${process.env.PUBLIC_URL}/images/landing/custom-folder.png`}
               alt="Customization"
               className="feature-icon"
             />
@@ -73,7 +73,7 @@ const HomePage = () => {
           <article className="service-card service-card--offset">
             <div className="service-icon service-icon--red">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/e9135778c4b782adb8586a4f39ec7e027cb23885?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/google-logo.png`}
                 alt="Gmail icon"
                 className="icon-image"
               />
@@ -83,7 +83,7 @@ const HomePage = () => {
           <article className="service-card">
             <div className="service-icon service-icon--blue">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/fee9730c98ea2da16104cfa540d2b615e401441f?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/yahoo-logo.png`}
                 alt="Yahoo icon"
                 className="icon-image"
               />
@@ -93,7 +93,7 @@ const HomePage = () => {
           <article className="service-card service-card--offset">
             <div className="service-icon service-icon--blue">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/c8d3c858ec23ad31265a9d7157e0d4771c44c101?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/mail-logo.png`}
                 alt="Mail.ru icon"
                 className="icon-image"
               />
@@ -103,7 +103,7 @@ const HomePage = () => {
           <article className="service-card">
             <div className="service-icon service-icon--red">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/e9135778c4b782adb8586a4f39ec7e027cb23885?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/google-logo.png`}
                 alt="Gmail icon"
                 className="icon-image"
               />
@@ -113,7 +113,7 @@ const HomePage = () => {
           <article className="service-card service-card--offset">
             <div className="service-icon service-icon--red">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/fee9730c98ea2da16104cfa540d2b615e401441f?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/yahoo-logo.png`}
                 alt="Yahoo icon"
                 className="icon-image"
               />
@@ -164,7 +164,7 @@ const HomePage = () => {
             <summary className="faq-question">
               <span>Как зарегистрироваться?</span>
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/5c04037d380842db706614fea1a5e48fdbd0b9f3?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/check-mark-blue.png`}
                 alt="Toggle"
                 className="faq-toggle"
               />
@@ -177,7 +177,7 @@ const HomePage = () => {
             <summary className="faq-question">
               <span>Как добавить почту?</span>
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/f8de3a37ac097df0f98fdbd3a172a2846116430b?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/check-mark-red.png`}
                 alt="Toggle"
                 className="faq-toggle"
               />
@@ -190,7 +190,7 @@ const HomePage = () => {
             <summary className="faq-question">
               <span>Почему не отправляется письмо?</span>
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/7df3584b63edef5aac8bc0aa2130ae2329dcce8d?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/check-mark-blue.png`}
                 alt="Toggle"
                 className="faq-toggle"
               />
@@ -203,7 +203,7 @@ const HomePage = () => {
             <summary className="faq-question">
               <span>Как перейти на другой тариф?</span>
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/f8de3a37ac097df0f98fdbd3a172a2846116430b?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/check-mark-red.png`}
                 alt="Toggle"
                 className="faq-toggle"
               />
@@ -216,7 +216,7 @@ const HomePage = () => {
             <summary className="faq-question">
               <span>Почему не создается временная почта?</span>
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/7df3584b63edef5aac8bc0aa2130ae2329dcce8d?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/check-mark-blue.png`}
                 alt="Toggle"
                 className="faq-toggle"
               />
@@ -233,7 +233,7 @@ const HomePage = () => {
         <div className="social-links">
           <a href="#" className="social-link">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/5754efa1f4129b51ea20d65af08cce95b697f5c3?placeholderIfAbsent=true"
+              src={`${process.env.PUBLIC_URL}/images/landing/vc-logo.png`}
               alt="VC"
               className="social-icon"
             />
@@ -242,7 +242,7 @@ const HomePage = () => {
           <a href="#" className="social-link">
             <div className="social-icon-wrapper">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/20c74088640d4ca4961eb9996ca340f39a966ae7?placeholderIfAbsent=true"
+                src={`${process.env.PUBLIC_URL}/images/landing/vk-logo.png`}
                 alt="VK"
                 className="social-icon"
               />
@@ -251,7 +251,7 @@ const HomePage = () => {
           </a>
           <a href="#" className="social-link">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/32faebae267c139dde767168e952619421e2fc01?placeholderIfAbsent=true"
+              src={`${process.env.PUBLIC_URL}/images/landing/tg-logo.png`}
               alt="Telegram"
               className="social-icon"
             />

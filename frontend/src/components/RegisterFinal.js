@@ -15,7 +15,7 @@ const RegisterFinal = () => {
       <div className="registration__form">
         <div className="social-login">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a0629ee19ccdb0d72fd24e245780e16a4bf262e"
+            src={`${process.env.PUBLIC_URL}/images/register/user-white.png`}
             alt="Social Login Option 1"
             className="social-login__icon"
           />
@@ -23,7 +23,7 @@ const RegisterFinal = () => {
         </div>
         <div className="social-login">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9131ab6aabbd8801b3e74668ebdc5b8afe36307e"
+            src={`${process.env.PUBLIC_URL}/images/register/birthday-white.png`}
             alt="Social Login Option 2"
             className="social-login__icon"
           />
@@ -31,7 +31,7 @@ const RegisterFinal = () => {
         </div>
         <div className="social-login">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/827f73382d6cb744582ed9a97bf4677c424ec199"
+            src={`${process.env.PUBLIC_URL}/images/register/geo-white.png`}
             alt="Social Login Option 3"
             className="social-login__icon"
           />

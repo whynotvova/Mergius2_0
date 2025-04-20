@@ -1,34 +1,103 @@
-/* Base styles */
-/* Header */
+/* Базовая тема сайта */
+:root {
+  --primary-color: #5863f8;
+  --secondary-color: #f24236;
+  --background-color: #ffffff;
+  --email-bg: #d6d8fe;
+  --modal-bg: rgba(88, 99, 248, 0.9);
+  --text-color: #000000;
+  --button-border: #5863f8;
+  --button-hover-bg: #5863f8;
+  --button-hover-text: #ffffff;
+}
+
+/* Красная тема */
+[data-theme="red"] {
+  --primary-color: #ff0000;
+  --secondary-color: #5863f8;
+  --background-color: #fff5f5;
+  --email-bg: #ffe6e6;
+  --modal-bg: rgba(255, 0, 0, 0.9);
+  --text-color: #000000;
+  --button-border: #ff0000;
+  --button-hover-bg: #ff0000;
+  --button-hover-text: #ffffff;
+}
+
+/* Желтая тема */
+[data-theme="yellow"] {
+  --primary-color: #ffcc00;
+  --secondary-color: #00ff00;
+  --background-color: #fffde7;
+  --email-bg: #fff9c4;
+  --modal-bg: rgba(255, 204, 0, 0.9);
+  --text-color: #000000;
+  --button-border: #ffcc00;
+  --button-hover-bg: #ffcc00;
+  --button-hover-text: #000000;
+}
+
+/* Фиолетовая тема */
+[data-theme="purple"] {
+  --primary-color: #d900ff;
+  --secondary-color: #00ffff;
+  --background-color: #f3e5f5;
+  --email-bg: #f3e5f5;
+  --modal-bg: rgba(217, 0, 255, 0.9);
+  --text-color: #000000;
+  --button-border: #d900ff;
+  --button-hover-bg: #d900ff;
+  --button-hover-text: #ffffff;
+}
+
+/* Базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background-color);
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+
+@font-face {
+  font-family: "Druk Text Wide Cyr";
+  src: url("./fonts/drukwidecyr-bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Wix Madefor Display";
+  src: url("./fonts/WixMadeforDisplay-Regular.woff2") format("woff2");
+}
+
+/* Шапочка */
 .main-header {
-  width: 85%;
+  width: 100%;
   height: 120px;
   background-color: #fafbff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 140px;
-  margin-right: 140px;
+  padding: 0 140px;
   font-family: "Didact Gothic", sans-serif !important;
-  position: fixed; /* Закрепляем шапку */
-  top: 0; /* Прижимаем к верху */
-  left: 0; /* Выравниваем по ширине */
-  right: 0; /* Выравниваем по ширине */
-  z-index: 1000; /* Устанавливаем поверх других элементов */
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-sizing: border-box;
 }
 
-/* Добавляем отступ для контента под фиксированной шапкой */
-body {
-  max-width: 200vw;
-  overflow-x: hidden;
-  margin: 0;
-  background-color: #fff;
-  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+/* Шапочка(стили) */
+.logo-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding-top: 120px; /* Отступ равный высоте шапки */
 }
 
 .logo {
@@ -50,35 +119,75 @@ body {
   border: 2px solid;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  background: none;
 }
 
 .border-button {
   width: 190px;
-  color: #f24236;
-  border-color: #f24236;
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
   background-color: #ffffff;
 }
 
 .border-button:hover {
-  color: #fff;
-  background-color: #f24236;
+  color: var(--button-hover-text);
+  background-color: var(--secondary-color);
   transform: scale(1.05);
 }
 
 .login-button {
   width: 150px;
-  color: #5863f8;
-  border-color: #5863f8;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
   background-color: #ffffff;
 }
 
 .login-button:hover {
-  background-color: #5863f8;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
   transform: scale(1.05);
 }
 
-/* Language Dropdown */
+.mail-button {
+  width: 150px;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background-color: #ffffff;
+}
+
+.mail-button:hover {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+.mail-button.active {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
+}
+
+.login-button.active-login {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
+}
+
+.border-button.active-register {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+}
+
+.login-button.active-login:hover {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+.border-button.active-register:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
 .language-dropdown {
   position: relative;
   display: inline-block;
@@ -161,75 +270,29 @@ body {
   color: #fff;
 }
 
-/* Hidden Register Button */
-.hidden {
-  display: none;
-  opacity: 0;
+/* Стили главной страницы */
+.page-body {
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.register-btn {
-  width: 190px;
-  color: #f24236;
-  border-color: #f24236;
-  background-color: #ffffff;
+.non-mail-body {
+  max-width: 200vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.register-btn:hover {
-  color: #fff;
-  background-color: #f24236;
-  transform: scale(1.05);
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 20px 150px;
 }
 
-.login-button {
-  width: 150px;
-  color: #5863f8;
-  border-color: #5863f8;
-  background-color: #ffffff;
-}
-
-.login-button:hover {
-  background-color: #5863f8;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.nav-container:hover .register-btn {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.register-btn:hover {
-  color: #fff;
-  background-color: #f24236;
-  transform: scale(1.05);
-}
-
-.mail-button {
-  width: 150px;
-  color: #5863f8;
-  border-color: #5863f8;
-  background-color: #ffffff;
-}
-
-.mail-button:hover {
-  background-color: #5863f8;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-/* Fonts */
-@font-face {
-  font-family: "Druk Text Wide Cyr";
-  src: url("./fonts/drukwidecyr-bold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Wix Madefor Display";
-  src: url("./fonts/WixMadeforDisplay-Regular.woff2") format("woff2");
-}
-
-/* About Section */
+/* Секция обо мне */
 .about-section {
   display: flex;
   width: 90%;
@@ -248,27 +311,27 @@ body {
 }
 
 .about-title {
-  color: #5863f8;
+  color: var(--primary-color);
   font-family: "Druk Text Wide Cyr";
   font-size: 64px;
   margin: 0;
 }
 
 .about-description {
-  color: #000;
+  color: var(--text-color);
   font-family: "Wix Madefor Display";
   font-size: 32px;
   line-height: 1.5;
 }
 
-/* Features Section */
+/* Секция преимущества */
 .features-section {
   margin-top: 150px;
   text-align: center;
 }
 
 .section-title {
-  color: #5863f8;
+  color: var(--primary-color);
   font-size: 64px;
   font-family: "Druk Text Wide Cyr";
   font-weight: 700;
@@ -280,6 +343,7 @@ body {
   display: flex;
   max-width: 1049px;
   margin: 50px auto 0;
+  padding-bottom: 150px;
   justify-content: space-between;
   gap: 20px;
 }
@@ -298,7 +362,7 @@ body {
   font-size: 32px;
   font-weight: 500;
   margin-top: 35px;
-  color: #f24236;
+  color: var(--secondary-color);
 }
 
 .feature-image {
@@ -309,13 +373,13 @@ body {
 }
 
 .feature-highlight {
-  color: #5863f8;
+  color: var(--primary-color);
   font-size: 32px;
   font-weight: 500;
   margin-top: 35px;
 }
 
-/* Email Services Section */
+/* Секция почтовые сервисы */
 .email-services {
   display: flex;
   flex-direction: column;
@@ -323,7 +387,7 @@ body {
 }
 
 .title {
-  color: #5863f8;
+  color: var(--primary-color);
   font-size: 64px;
   font-family: "Druk Text Wide Cyr";
   font-weight: 700;
@@ -331,9 +395,9 @@ body {
 }
 
 .description {
-  color: #000;
-  font-size: 32px;
+  color: var(--text-color);
   font-family: "Wix Madefor Display";
+  font-size: 32px;
   font-weight: 400;
   margin: 5px 140px 0;
 }
@@ -367,16 +431,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: 150px;
   height: 150px;
 }
 
 .service-icon--red {
-  border-color: #f24236;
+  border-color: var(--secondary-color);
 }
 
 .service-icon--blue {
-  border-color: #5863f8;
+  border-color: var(--primary-color);
 }
 
 .icon-image {
@@ -393,14 +457,14 @@ body {
 }
 
 .service-name--red {
-  color: #f24236;
+  color: var(--secondary-color);
 }
 
 .service-name--blue {
-  color: #5863f8;
+  color: var(--primary-color);
 }
 
-/* Pricing Section */
+/* Секция тарифы */
 .pricing-section {
   margin-top: 150px;
   max-width: 1160px;
@@ -422,13 +486,13 @@ body {
 }
 
 .pricing-card--basic {
-  border-color: #5863f8;
-  color: #5863f8;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .pricing-card--premium {
-  border-color: #f24236;
-  color: #f24236;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .pricing-title {
@@ -466,28 +530,28 @@ body {
 }
 
 .pricing-button--basic {
-  border-color: #5863f8;
-  color: #5863f8;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .pricing-button--basic:hover {
-  background-color: #5863f8;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
   transform: scale(1.05);
 }
 
 .pricing-button--premium {
-  border-color: #f24236;
-  color: #f24236;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .pricing-button--premium:hover {
-  background-color: #f24236;
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
   transform: scale(1.05);
 }
 
-/* FAQ Section */
+/* Секция вопрос-ответ */
 .faq-section {
   margin-top: 150px;
   max-width: 1160px;
@@ -510,13 +574,13 @@ body {
 }
 
 .faq-item--blue {
-  border-color: #5863f8;
-  color: #5863f8;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .faq-item--red {
-  border-color: #f24236;
-  color: #f24236;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .faq-question {
@@ -532,14 +596,14 @@ body {
 }
 
 .faq-item--blue .faq-question:hover {
-  background-color: #5863f8;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
   border-radius: 20px;
 }
 
 .faq-item--red .faq-question:hover {
-  background-color: #f24236;
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
   border-radius: 20px;
 }
 
@@ -560,13 +624,13 @@ body {
 }
 
 .faq-item--blue .faq-answer {
-  border-color: #5863f8;
-  color: #5863f8;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .faq-item--red .faq-answer {
-  border-color: #f24236;
-  color: #f24236;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 /* Contact Section */
@@ -586,7 +650,7 @@ body {
 .social-link {
   flex: 1;
   text-decoration: none;
-  color: #000;
+  color: var(--text-color);
   text-align: center;
   transition: all 0.3s ease-in-out;
 }
@@ -605,9 +669,10 @@ body {
 .social-icon-wrapper {
   width: 150px;
   height: 150px;
-  border: 2px solid #000;
+  border: 2px solid var(--text-color);
   border-radius: 50%;
   display: flex;
+  primarily-color: var(--primary-color);
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -625,32 +690,25 @@ body {
   margin-top: 50px;
 }
 
-/* Footer */
+/* Footer (All Pages) */
 .main-footer {
   background-color: #fafbff;
-  margin-top: 150px;
   padding: 40px 70px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .copyright {
   font-size: 32px;
-  color: #5863f8;
+  color: var(--primary-color);
   font-weight: 500;
   margin: 0;
   text-align: center;
 }
 
-/* Auth and Register Forms */
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-  padding: 0 20px;
-}
-
+/* стили для страниц Авторизация и Регистрация */
 .auth-title {
-  color: #5863f8;
+  color: var(--primary-color);
   font-size: 64px;
   font-family: "Druk Text Wide Cyr";
   font-weight: 700;
@@ -659,7 +717,7 @@ body {
 
 .social-auth-primary {
   border-radius: 25px;
-  background-color: #5863f8;
+  background-color: var(--primary-color);
   display: flex;
   margin-top: 100px;
   width: 470px;
@@ -698,7 +756,7 @@ body {
 
 .social-auth-button {
   background-color: #fff;
-  border: 1px solid #5863f8;
+  border: 1px solid var(--primary-color);
   border-radius: 50%;
   width: 80px;
   height: 80px;
@@ -726,8 +784,8 @@ body {
   font-size: 22px;
   border: none;
   border-radius: 25px;
-  background-color: #5863f8;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
   outline: none;
 }
 
@@ -736,8 +794,8 @@ body {
 }
 
 .phone-input:focus {
-  background-color: #5863f8;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
 }
 
 .phone-input::-webkit-inner-spin-button,
@@ -746,17 +804,17 @@ body {
   margin: 0;
 }
 
-/* Verification Form */
+/* Страница Верификации */
 .verification-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 100px;
+  padding-bottom: 200px;
 }
 
 .verification-title {
-  color: #5863f8;
+  color: var(--primary-color);
   font-family: "Druk Text Wide Cyr";
   font-size: 64px;
   font-weight: 700;
@@ -773,21 +831,21 @@ body {
   width: 70px;
   height: 100px;
   border-radius: 20px;
-  border: 1px solid #5863f8;
+  border: 1px solid var(--primary-color);
   background-color: #fff;
   text-align: center;
   font-size: 32px;
 }
 
 .verification-message {
-  color: #000;
+  color: var(--text-color);
   font-family: "Wix Madefor Display";
   font-size: 20px;
   margin-bottom: 20px;
 }
 
 .resend-code {
-  color: #000;
+  color: var(--text-color);
   font-family: "Wix Madefor Display";
   font-size: 20px;
   cursor: pointer;
@@ -796,7 +854,7 @@ body {
   padding: 0;
 }
 
-/* Register Final Form */
+/* Страница Подтверждения регистрации */
 .registration {
   display: flex;
   flex-direction: column;
@@ -806,7 +864,7 @@ body {
 }
 
 .registration__title {
-  color: #5863f8;
+  color: var(--primary-color);
   font-family: "Druk Text Wide Cyr";
   font-weight: 700;
   font-size: 64px;
@@ -823,7 +881,7 @@ body {
 .social-login {
   display: flex;
   align-items: center;
-  background-color: #5863f8;
+  background-color: var(--primary-color);
   border-radius: 25px;
   height: 100px;
   padding: 0 20px;
@@ -841,7 +899,7 @@ body {
   background-color: transparent;
   border: none;
   outline: none;
-  color: #ffffff;
+  color: var(--button-hover-text);
   font-family: "Wix Madefor Display";
   font-size: 24px;
   padding: 0 15px;
@@ -859,59 +917,3030 @@ body {
 .registration__submit {
   width: 100%;
   height: 80px;
-  background-color: #f24236;
+  background-color: var(--secondary-color);
   border-radius: 20px;
   border: none;
-  color: #ffffff;
+  color: var(--button-hover-text);
   font-family: "Wix Madefor Display";
   font-size: 32px;
   cursor: pointer;
 }
 
-/* Media Queries */
+/* Стили для страницы: Темы, Почты, Отправки, Просмотра */
+.themes-body,
+.mail-body,
+.compose-body,
+.email-view-body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.themes-content,
+.mail-content,
+.compose-content,
+.email-view-content {
+  display: flex;
+  margin-top: 20px;
+  gap: 0;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+
+/* Навигация сайта */
+.themes-content .side-nav,
+.mail-content .side-nav,
+.compose-content .side-nav,
+.email-view-content .side-nav {
+  flex-shrink: 0;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.themes-content .image-layout,
+.mail-content .image-layout,
+.compose-content .image-layout,
+.email-view-content .image-layout {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.themes-content .image-stack,
+.mail-content .image-stack,
+.compose-content .image-stack,
+.email-view-content .image-stack {
+  background-color: rgba(250, 251, 255, 1);
+  display: flex;
+  width: 100%;
+  padding-top: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.themes-content .side-nav-button,
+.mail-content .side-nav-button,
+.compose-content .side-nav-button,
+.email-view-content .side-nav-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.themes-content .side-nav-button:hover,
+.mail-content .side-nav-button:hover,
+.compose-content .side-nav-button:hover,
+.email-view-content .side-nav-button:hover {
+  transform: scale(1.1);
+}
+
+.themes-content .product-image,
+.mail-content .product-image,
+.compose-content .product-image,
+.email-view-content .product-image {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 70px;
+}
+
+.themes-content .stack-spacing,
+.mail-content .stack-spacing,
+.compose-content .stack-spacing,
+.email-view-content .stack-spacing {
+  margin-top: 50px;
+}
+
+.themes-content .blue-divider,
+.mail-content .blue-divider,
+.compose-content .blue-divider,
+.email-view-content .blue-divider {
+  background-color: var(--primary-color);
+  align-self: stretch;
+  display: flex;
+  min-height: 5px;
+  margin-top: 39px;
+  width: 100%;
+}
+
+.themes-content .bottom-section,
+.mail-content .bottom-section,
+.compose-content .bottom-section,
+.email-view-content .bottom-section {
+  background-color: rgba(250, 251, 255, 1);
+  width: 100%;
+  padding: 40px 15px 20px;
+}
+
+/* Email Section */
+.themes-content .email-section,
+.mail-content .email-section,
+.compose-content .email-section {
+  flex-grow: 1;
+  width: calc(100% - 240px);
+  padding: 20px 20px 0 20px;
+  box-sizing: border-box;
+}
+
+.themes-content .email-controls,
+.mail-content .email-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.themes-content .control-icon,
+.mail-content .control-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Темы и Почта стилия для писем */
+.themes-content .email-item,
+.mail-content .email-item {
+  background-color: var(--email-bg);
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 40px;
+  padding: 10px 15px;
+  gap: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  height: 50px;
+}
+
+.themes-content .email-item:hover,
+.mail-content .email-item:hover {
+  background-color: var(--email-bg);
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.themes-content .email-item:active,
+.mail-content .email-item:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+@keyframes openEmail {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.themes-content .email-item.opening,
+.mail-content .email-item.opening {
+  animation: openEmail 0.5s ease forwards;
+}
+
+.themes-content .checkbox-group,
+.mail-content .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.themes-content .checkbox,
+.mail-content .checkbox {
+  background-color: #fff;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+}
+
+.themes-content .checkbox-checked,
+.mail-content .checkbox-checked {
+  background-color: var(--primary-color);
+  position: relative;
+}
+
+.themes-content .checkbox-checked::after,
+.mail-content .checkbox-checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--button-hover-text);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.themes-content .email-status,
+.mail-content .email-status {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.themes-content .avatar-group,
+.mail-content .avatar-group {
+  display: flex;
+  gap: 5px;
+}
+
+.themes-content .avatar,
+.mail-content .avatar {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.themes-content .email-text,
+.mail-content .email-text {
+  display: flex;
+  gap: 20px;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.themes-content .email-title,
+.mail-content .email-title {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.themes-content .email-item-unread .email-title,
+.mail-content .email-item-unread .email-title {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.themes-content .email-preview,
+.mail-content .email-preview {
+  font-size: 16px;
+  margin: 0;
+  color: #666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.themes-content .email-item-unread .email-preview,
+.mail-content .email-item-unread .email-preview {
+  color: var(--text-color);
+}
+
+.themes-content .email-date,
+.mail-content .email-date {
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.themes-content .email-item-unread .email-date,
+.mail-content .email-item-unread .email-date {
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+/* Панель боковая */
+.themes-content .side-panel,
+.mail-content .side-panel,
+.compose-content .side-panel,
+.email-view-content .side-panel {
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.themes-content .gallery-container,
+.mail-content .gallery-container,
+.compose-content .gallery-container,
+.email-view-content .gallery-container {
+  max-width: 100px;
+}
+
+.themes-content .gallery-content,
+.mail-content .gallery-content,
+.compose-content .gallery-content,
+.email-view-content .gallery-content {
+  background-color: rgba(250, 251, 255, 1);
+  width: 100%;
+  padding: 20px 15px;
+}
+
+.themes-content .panel-button,
+.mail-content .panel-button,
+.compose-content .panel-button,
+.email-view-content .panel-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.themes-content .panel-button:hover,
+.mail-content .panel-button:hover,
+.compose-content .panel-button:hover,
+.email-view-content .panel-button:hover {
+  transform: scale(1.1);
+}
+
+.themes-content .gallery-image,
+.mail-content .gallery-image,
+.compose-content .gallery-image,
+.email-view-content .gallery-image {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 70px;
+}
+
+.themes-content .gallery-image-bottom,
+.mail-content .gallery-image-bottom,
+.compose-content .gallery-image-bottom,
+.email-view-content .gallery-image-bottom {
+  margin-top: 50px;
+}
+
+/* Модальное окно Категории */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.categories-container {
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 760px;
+  height: 441px;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  background-color: var(--modal-bg);
+}
+
+.categories-title {
+  color: var(--button-hover-text);
+  font-family: "Druk Text Wide Cyr", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 35px;
+  padding: 0 50px;
+}
+
+.category-item {
+  display: flex;
+  justify-content: center;
+}
+
+.category-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  border: 2px solid #d6d8fe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.category-button:hover {
+  transform: scale(1.1);
+}
+
+.chat-border {
+  border-color: var(--secondary-color);
+}
+
+.category-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Стили для кнопки написать */
+.compose-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 61px;
+  border-radius: 15px;
+  border: 2px solid var(--secondary-color);
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.compose-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+/* Стили для кнопки назад */
+.back-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 61px;
+  border-radius: 15px;
+  border: 2px solid var(--secondary-color);
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+/* Стили для страницы Отправка */
+.compose-content .email-composer-section {
+  flex-grow: 1;
+  width: calc(100% - 240px);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.email-composer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.email-title {
+  border-radius: 10px;
+  background-color: var(--email-bg);
+  width: 100%;
+  padding: 6px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.email-title-input {
+  width: 70%;
+  border: none;
+  background: transparent;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 32px;
+  color: var(--text-color);
+  font-weight: 700;
+  outline: none;
+  padding: 0;
+}
+
+.email-title-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.email-date {
+  font-family: "Wix Madefor Display", -applesystem, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.recipient-label {
+  border-radius: 10px;
+  background-color: var(--email-bg);
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px 20px;
+  box-sizing: border-box;
+}
+
+.recipient-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  color: var(--text-color);
+  font-weight: 400;
+  outline: none;
+  padding: 0;
+}
+
+.recipient-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.editor-container {
+  border-radius: 15px;
+  background-color: var(--email-bg);
+  display: flex;
+  margin-top: 20px;
+  width: 100%;
+  padding: 20px 80px 20px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toolbar {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.toolbar-group {
+  border-radius: 10px;
+  background-color: #ffffff;
+  display: flex;
+  padding: 8px 20px;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.toolbar-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 25px;
+  flex-shrink: 0;
+}
+
+.toolbar-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.toolbar-button:hover {
+  transform: scale(1.1);
+}
+
+.text-styling {
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.format-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.format-btn:hover {
+  color: var(--primary-color);
+}
+
+.format-btn.bold {
+  font-weight: 700;
+}
+
+.format-btn.italic {
+  font-style: italic;
+}
+
+.format-btn.underline {
+  text-decoration: underline;
+}
+
+.format-btn.strikethrough {
+  text-decoration: line-through;
+}
+
+.editor-content {
+  color: var(--text-color);
+  font-size: 20px;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 400;
+  margin-top: 20px;
+  min-height: 200px;
+  width: 100%;
+  outline: none;
+}
+
+.action-buttons {
+  align-self: flex-start;
+  display: flex;
+  margin-top: 50px;
+  align-items: stretch;
+  gap: 40px;
+  font-family: "Didact Gothic", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.send-button {
+  width: 150px;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.send-button:hover {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+.schedule-button {
+  width: 190px;
+  color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.schedule-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+/* Стили для страницы Просмотра писем */
+.email-view-content .email-message {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 140px 140px;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+.email-view-content .email-header-container {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 40px);
+  margin: 0 20px 20px;
+  box-sizing: border-box;
+}
+
+.email-view-content .avatar {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.email-view-content .email-title {
+  color: var(--button-hover-text);
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.email-view-content .email-date {
+  color: var(--button-hover-text);
+  font-size: 24px;
+  margin: 0;
+}
+
+.email-view-content .email-status {
+  font-size: 16px;
+  color: var(--button-hover-text);
+  margin: 5px 0 0;
+}
+
+.email-view-content .email-sender {
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 9px;
+  margin-top: 0;
+}
+
+.email-view-content .email-recipient {
+  color: var(--text-color);
+  font-size: 20px;
+  margin-bottom: 50px;
+  margin-top: 0;
+}
+
+.email-view-content .email-content {
+  background-color: var(--email-bg);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 50px;
+  min-height: 404px;
+  position: relative;
+}
+
+.email-view-content .email-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.email-view-content .email-text {
+  color: var(--text-color);
+  font-size: 20px;
+  margin: 0;
+}
+
+.email-view-content .translation-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.email-view-content .email-actions {
+  display: flex;
+  gap: 40px;
+}
+
+.email-view-content .action-button {
+  color: var(--secondary-color);
+  font-size: 20px;
+  font-family: "Didact Gothic", sans-serif;
+  width: 160px;
+  height: 50px;
+  border-radius: 15px;
+  border: 1px solid var(--secondary-color);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.email-view-content .action-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+/* Стили для поисковой строки */
+.search-button-container {
+  width: 560px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 25px 25px;
+  border: none;
+  cursor: text;
+  padding: 0 45px 0 10px;
+  color: var(--button-hover-text);
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 16px;
+  outline: none;
+  transition: background-color 0.3s ease;
+  flex-grow: 1;
+}
+
+.search-button-container::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-button-container:focus {
+  background-color: var(--button-hover-bg);
+}
+
+/* Контейнер для навгационного меню */
+.navigation-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.navigation-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-icon {
+  width: 32px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.menu-icon:hover {
+  transform: scale(1.1);
+}
+
+.reload-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.reload-icon:hover {
+  transform: scale(1.1);
+}
+
+.calendar-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.calendar-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.calendar-button:hover .calendar-icon {
+  transform: scale(1.1);
+}
+
+/* Carousel Styles */
+.carousel-container {
+  max-width: 930px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.carousel-arrow {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.carousel-arrow:hover {
+  transform: scale(1.1);
+}
+
+.carousel-item {
+  width: 250px;
+  height: 130px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.carousel-item:hover {
+  transform: scale(1.05);
+}
+
+.carousel-item-active {
+  border: 2px solid #5863f8;
+  transform: scale(1.02);
+}
+
+.carousel-item-red {
+  background: linear-gradient(
+    108deg,
+    rgba(255, 0, 0, 0.8) 7.64%,
+    rgba(88, 99, 248, 0.8) 112.6%
+  );
+}
+
+.carousel-item-yellow {
+  background: linear-gradient(
+    108deg,
+    rgba(255, 204, 0, 0.8) 2.78%,
+    rgba(0, 255, 0, 0.8) 95.13%
+  );
+}
+
+.carousel-item-purple {
+  background: linear-gradient(
+    107deg,
+    rgba(217, 0, 255, 0.8) 7.88%,
+    rgba(0, 255, 255, 0.8) 95.44%
+  );
+}
+
+/* Стили для страницы Календарь */
+.email-list {
+  width: 100%;
+  flex-grow: 1;
+}
+
+.email-columns {
+  display: flex;
+  gap: 54px;
+  margin-bottom: 30px;
+  min-width: fit-content;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+}
+
+.column-first,
+.column-second,
+.column-third,
+.column-fourth {
+  margin-left: 0;
+}
+
+.column-content {
+  width: 280px;
+  height: 260px;
+  padding: 8px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: var(--email-bg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.column-content:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.email-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  margin: 10px;
+  padding: 6px 8px;
+  flex-grow: 1;
+  position: relative;
+}
+
+/* Эффект для страницы Календарь, при наведении на первую и последнюю карточку недели */
+.column-first:hover .email-container {
+  background-color: rgba(88, 99, 248, 0.2);
+  transform: scale(1.01);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.email-list-container {
+  max-height: 192px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.email-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.email-list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.email-list-container::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+.email-list-container::-webkit-scrollbar-thumb:hover {
+  background: var(--button-hover-bg);
+}
+
+.email-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  margin-left: 0;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.email-item:hover {
+  background-color: var(--email-bg);
+  transform: translateX(3px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.email-item:active {
+  transform: scale(0.98);
+}
+
+.email-item.opening {
+  animation: openEmail 0.5s ease forwards;
+}
+
+.email-item:first-child {
+  margin-top: 0;
+}
+
+.email-item-unread .email-header,
+.email-item-unread .email-text {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.checkbox {
+  background-color: #fff;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-checked {
+  background-color: var(--primary-color);
+  position: relative;
+}
+
+.checkbox-checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 3px;
+  height: 6px;
+  border: solid var(--button-hover-text);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.email-content {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 7px;
+  gap: 8px;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.email-header {
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 13px;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.email-text {
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 11px;
+  margin: 0;
+  color: #666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.date-label {
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 12px;
+  color: var(--primary-color);
+  margin: 8px 0 0;
+  text-align: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.column-first {
+  cursor: pointer;
+}
+
+.column-first:hover {
+  transform: scale(1.03);
+}
+
+/* Стили для страницы Профиль */
+.profile-body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding: 40px 20px;
+}
+
+.profile-content .menu {
+  border-radius: 0;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 400;
+  white-space: nowrap;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.profile-content .menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-content .menu-item {
+  border-radius: 20px;
+  background-color: var(--email-bg);
+  display: flex;
+  padding: 25px 20px;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-content .menu-item:hover {
+  background-color: var(--email-bg);
+  transform: scale(1.02);
+}
+
+.profile-content .menu-item.active {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+}
+
+.profile-content .menu-item.active .menu-text {
+  color: var(--button-hover-text);
+}
+
+.profile-content .menu-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 50px;
+  flex-shrink: 0;
+}
+
+.profile-content .menu-text {
+  margin: auto 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 1040px;
+  flex-basis: auto;
+}
+
+/* Стили для страницы Категории */
+.categories-body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.categories-body .container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.categories-body .folder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.categories-body .folder-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  height: 100px;
+  padding: 15px 20px;
+  background-color: var(--email-bg);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.categories-body .folder-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.categories-body .folder-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categories-body .folder-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.categories-body .inbox-icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 43px;
+  top: 45px;
+}
+
+.categories-body .folder-title {
+  color: var(--primary-color);
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 24px;
+  margin-left: 20px;
+  font-weight: normal;
+}
+
+.categories-body .lock-icon {
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+}
+
+.categories-body .action-buttons {
+  display: flex;
+  gap: 20px;
+  margin-left: auto;
+}
+
+.categories-body .edit-icon {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.categories-body .edit-icon:hover {
+  transform: scale(1.1);
+}
+
+.categories-body .delete-icon {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.categories-body .delete-icon:hover {
+  transform: scale(1.1);
+}
+
+.categories-body .add-folder {
+  justify-content: center;
+  cursor: pointer;
+}
+
+.categories-body .plus-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.categories-body .add-folder:hover .plus-icon {
+  transform: scale(1.1);
+}
+
+/* Стили для страницы Аккаунта */
+.profile-container {
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 40px 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.profile-section {
+  width: 100%;
+}
+
+.profile-layout {
+  gap: 20px;
+  display: flex;
+}
+
+.avatar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+  width: 23%;
+  margin-left: 0;
+}
+
+.avatar-circle {
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  border-color: var(--primary-color);
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  flex-shrink: 0;
+  height: 250px;
+  aspect-ratio: 1;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+  width: 77%;
+  margin-left: 20px;
+}
+
+.user-info {
+  width: 100%;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.info-item {
+  border-radius: 20px;
+  background-color: var(--email-bg);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 15px 20px;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.info-item:first-child {
+  margin-top: 0;
+}
+
+.info-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.info-text {
+  margin: auto 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 752px;
+  flex-basis: auto;
+}
+
+.action-buttons {
+  display: flex;
+  margin-top: 20px;
+  width: 100%;
+  align-items: stretch;
+  gap: 40px 50px;
+  flex-wrap: wrap;
+}
+
+.default-button {
+  border-radius: 20px;
+  background-color: var(--email-bg);
+  display: flex;
+  padding: 15px 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 400;
+  white-space: nowrap;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+.button-text {
+  margin: auto 0;
+  flex-basis: auto;
+  text-align: center;
+}
+
+.icon-button {
+  border-radius: 20px;
+  background-color: var(--email-bg);
+  display: flex;
+  padding: 15px 20px;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0;
+  width: fit-content;
+}
+
+.button-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 40px;
+}
+
+.history-header {
+  border-radius: 20px;
+  background-color: var(--email-bg);
+  margin-top: 20px;
+  width: 100%;
+  padding: 20px 70px;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.history-section {
+  align-self: center;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 1125px;
+}
+
+.history-table {
+  gap: 20px;
+  display: flex;
+}
+
+.ip-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+  width: 19%;
+  margin-left: 0;
+}
+
+.history-cell {
+  flex-grow: 1;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  color: var(--primary-color);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.history-item {
+  margin-top: 19px;
+}
+
+.action-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+  width: 18%;
+  margin-left: 20px;
+}
+
+.description-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+  width: 40%;
+  margin-left: 20px;
+}
+
+.date-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+  width: 24%;
+  margin-left: 20px;
+}
+
+.history-item.date:nth-child(2) {
+  margin-top: 19px;
+}
+
+.history-item.date:nth-child(3),
+.history-item.date:nth-child(4) {
+  margin-top: 19px;
+}
+
+/* Стили для страницы Безопасность */
+.security-body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.settings-container {
+  max-width: 1160px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+  border-radius: 20px;
+  padding: 0 20px;
+  background-color: var(--email-bg);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.settings-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon-container {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.icon-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.settings-label {
+  font-size: 24px;
+  color: var(--primary-color);
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 40px;
+  border-radius: 34px;
+  position: relative;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.toggle-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 34px;
+  position: absolute;
+  background-color: #fff;
+}
+
+.toggle-circle {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-container.active .toggle-circle {
+  transform: translateX(40px);
+}
+
+.edit-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.edit-icon:hover {
+  transform: scale(1.1);
+}
+
+.edit-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.calendar-content .email-section {
+  flex-grow: 1;
+  width: calc(100% - 240px);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px 20px 0 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1280px) {
+  .main-header {
+    padding: 0 50px;
+  }
+
+  .email-columns {
+    flex-wrap: wrap;
+    gap: 54px;
+  }
+
+  .column {
+    width: calc(50% - 20px);
+  }
+
+  .column-content {
+    width: 100%;
+    height: 260px;
+  }
+
+  .email-list-container {
+    max-height: 192px;
+  }
+
+  .themes-content,
+  .mail-content,
+  .compose-content,
+  .email-view-content,
+  .calendar-content {
+    padding: 0 10px;
+  }
+
+  .settings-container {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .themes-content,
+  .mail-content,
+  .compose-content,
+  .email-view-content,
+  .calendar-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .themes-content .side-nav,
+  .mail-content .side-nav,
+  .compose-content .side-nav,
+  .email-view-content .side-nav,
+  .calendar-content .side-nav {
+    width: 100%;
+    max-width: none;
+  }
+
+  .themes-content .image-layout,
+  .mail-content .image-layout,
+  .compose-content .image-layout,
+  .email-view-content .image-layout,
+  .calendar-content .image-layout {
+    width: 100%;
+    max-width: none;
+  }
+
+  .themes-content .image-stack,
+  .mail-content .image-stack,
+  .compose-content .image-stack,
+  .email-view-content .image-stack,
+  .calendar-content .image-stack {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .themes-content .stack-spacing,
+  .mail-content .stack-spacing,
+  .compose-content .stack-spacing,
+  .email-view-content .stack-spacing,
+  .calendar-content .stack-spacing {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+
+  .themes-content .blue-divider,
+  .mail-content .blue-divider,
+  .compose-content .blue-divider,
+  .email-view-content .blue-divider,
+  .calendar-content .blue-divider {
+    display: none;
+  }
+
+  .themes-content .bottom-section,
+  .mail-content .bottom-section,
+  .compose-content .bottom-section,
+  .email-view-content .bottom-section,
+  .calendar-content .bottom-section {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .themes-content .email-section,
+  .mail-content .email-section,
+  .compose-content .email-section,
+  .calendar-content .email-section {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px 20px 0 20px;
+  }
+
+  .themes-content .side-panel,
+  .mail-content .side-panel,
+  .compose-content .side-panel,
+  .email-view-content .side-panel,
+  .calendar-content .side-panel {
+    width: 100%;
+  }
+
+  .themes-content .gallery-container,
+  .mail-content .gallery-container,
+  .compose-content .gallery-container,
+  .email-view-content .gallery-container,
+  .calendar-content .gallery-container {
+    max-width: none;
+  }
+
+  .themes-content .gallery-content,
+  .mail-content .gallery-content,
+  .compose-content .gallery-content,
+  .email-view-content .gallery-content,
+  .calendar-content .gallery-content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .themes-content .gallery-image-bottom,
+  .mail-content .gallery-image-bottom,
+  .compose-content .gallery-image-bottom,
+  .email-view-content .gallery-image-bottom,
+  .calendar-content .gallery-image-bottom {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+
+  .search-button-container {
+    width: 100%;
+  }
+
+  .navigation-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .email-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 991px) {
   .main-header {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
+    height: 80px;
   }
 
-  .about-section,
-  .registration {
-    padding: 100px 20px;
+  .logo {
+    width: 150px;
+    height: 26px;
   }
 
-  .features-section,
-  .pricing-section,
-  .faq-section,
-  .contact-section {
+  .nav-container {
+    gap: 20px;
+  }
+
+  .nav-button {
+    font-size: 16px;
+    height: 40px;
+  }
+
+  .border-button {
+    width: 120px;
+  }
+
+  .login-button,
+  .mail-button {
+    width: 100px;
+  }
+
+  .language-selector {
+    width: 80px;
+    height: 40px;
+  }
+
+  .flag-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .language-text {
+    font-size: 16px;
+    margin: 0 5px;
+  }
+
+  .dropdown-content {
+    width: 80px;
+  }
+
+  .language-option {
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  .carousel-container {
+    max-width: 991px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-item {
+    width: 80%;
+    height: 100px;
+    margin: 10px 0;
+  }
+
+  .profile-content .menu {
+    white-space: initial;
+  }
+
+  .profile-content .menu-item {
+    white-space: initial;
+  }
+
+  .profile-content .menu-text {
+    max-width: 100%;
+  }
+
+  .categories-body .container {
+    max-width: 991px;
+    padding: 15px;
+  }
+
+  .categories-body .folder-title {
+    font-size: 20px;
+  }
+
+  .profile-section {
+    max-width: 100%;
+  }
+
+  .profile-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .avatar-column {
+    width: 100%;
+  }
+
+  .avatar-circle {
     margin-top: 40px;
+  }
+
+  .info-column {
+    width: 100%;
+  }
+
+  .user-info {
+    max-width: 100%;
+    margin-top: 40px;
+    white-space: initial;
+  }
+
+  .info-item {
+    white-space: initial;
+  }
+
+  .info-text {
+    max-width: 100%;
+  }
+
+  .action-buttons {
+    max-width: 100%;
+  }
+
+  .default-button {
+    white-space: initial;
+  }
+
+  .icon-button {
+    max-width: 100%;
+  }
+
+  .history-header {
+    max-width: 100%;
+    padding: 20px;
+    white-space: initial;
+  }
+
+  .history-section {
+    max-width: 100%;
+  }
+
+  .history-table {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .ip-column {
+    width: 100%;
+  }
+
+  .history-cell {
+    margin-top: 40px;
+    white-space: initial;
+  }
+
+  .action-column {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .description-column {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .date-column {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .settings-item {
+    height: auto;
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings-label {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  .toggle-container {
+    width: 60px;
+    height: 30px;
+  }
+
+  .toggle-circle {
+    left: 3px;
+    top: 3px;
+  }
+
+  .toggle-container.active .toggle-circle {
+    transform: translateX(30px);
+  }
+
+  .edit-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .about-section {
+    flex-direction: column;
+    padding: 50px 20px;
+    align-items: center;
+
+}
+
+  .about-image {
+    width: 300px;
+    height: 300px;
+  }
+
+  .about-content {
+    margin-left: 0;
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-title {
+    font-size: 48px;
+  }
+
+  .about-description {
+    font-size: 24px;
+  }
+
+  .features-section {
+    margin-top: 100px;
   }
 
   .section-title {
-    font-size: 40px;
+    font-size: 48px;
   }
 
-  .features-grid,
-  .pricing-grid,
+  .features-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .feature-icon,
+  .feature-image {
+    width: 200px;
+  }
+
+  .feature-title,
+  .feature-highlight {
+    font-size: 24px;
+  }
+
+  .email-services {
+    margin-top: 100px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+
+  .description {
+    font-size: 24px;
+    margin: 5px 20px 0;
+  }
+
   .services-grid {
     flex-direction: column;
-    margin-top: 40px;
+    margin: 20px;
+    gap: 20px;
+    align-items: center;
   }
 
   .service-card {
-    margin-top: 40px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .service-card--offset {
+    margin-top: 0;
+  }
+
+  .service-icon {
+    width: 80px;
+    height: 120px;
+  }
+
+  .icon-image {
+    width: 50px;
+  }
+
+  .service-name {
+    font-size: 24px;
+  }
+
+  .pricing-section {
+    margin-top: 100px;
+    padding: 0 20px;
+  }
+
+  .pricing-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pricing-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .pricing-title {
+    font-size: 32px;
+  }
+
+  .pricing-features {
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  .pricing-button {
+    font-size: 24px;
+    padding: 20px;
+  }
+
+  .faq-section {
+    margin-top: 100px;
+    padding: 0 20px;
+  }
+
+  .faq-question {
+    font-size: 24px;
+    padding: 20px;
+  }
+
+  .faq-answer {
+    font-size: 20px;
+    padding: 15px 20px;
+  }
+
+  .contact-section {
+    margin-top: 100px;
   }
 
   .social-links {
-    margin-bottom: 10px;
-    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+  }
+
+  .social-link {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .social-icon {
+    width: 100px;
+  }
+
+  .social-icon-wrapper {
+    width: 100px;
+    height: 100px;
   }
 
   .social-name {
-    margin-top: 40px;
+    font-size: 24px;
   }
 
   .main-footer {
-    padding: 40px 20px;
+    padding: 20px;
+  }
+
+  .copyright {
+    font-size: 20px;
+  }
+
+  .auth-title {
+    font-size: 48px;
+    margin: 50px 0 0;
+  }
+
+  .social-auth-primary {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+  }
+
+  .social-auth-row {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .social-auth-row.secondary {
+    width: 200px;
+  }
+
+  .social-auth-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .social-button-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .phone-input {
+    width: 150px;
+    font-size: 18px;
+  }
+
+  .verification-title {
+    font-size: 48px;
+    margin-bottom: 50px;
+  }
+
+  .code-input {
+    width: 50px;
+    height: 80px;
+    font-size: 24px;
+  }
+
+  .verification-message,
+  .resend-code {
+    font-size: 16px;
+  }
+
+  .registration {
+    padding: 50px 20px;
+  }
+
+  .registration__title {
+    font-size: 48px;
+    margin-bottom: 50px;
+  }
+
+  .registration__form {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .social-login {
+    height: 80px;
+  }
+
+  .social-login__icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .registration__field {
+    font-size: 20px;
+  }
+
+  .registration__submit {
+    font-size: 24px;
+    height: 60px;
+  }
+
+  .compose-button,
+  .back-button {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .email-title-input {
+    font-size: 24px;
+  }
+
+  .recipient-input {
+    font-size: 16px;
+  }
+
+  .editor-container {
+    padding: 15px;
+  }
+
+  .toolbar-group {
+    padding: 5px 10px;
+  }
+
+  .toolbar-icon {
+    width: 20px;
+  }
+
+  .text-styling,
+  .editor-content {
+    font-size: 16px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .send-button,
+  .schedule-button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .email-view-content .email-message {
+    padding: 0 20px 100px;
+  }
+
+  .email-view-content .email-header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    width: 100%;
+    margin: 0 0 20px;
+  }
+
+  .email-view-content .email-title {
+    font-size: 24px;
+  }
+
+  .email-view-content .email-date {
+    font-size: 16px;
+  }
+
+  .email-view-content .email-status {
+    font-size: 14px;
+  }
+
+  .email-view-content .email-sender {
+    font-size: 20px;
+  }
+
+  .email-view-content .email-recipient {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .email-view-content .email-content {
+    padding: 15px;
+    min-height: 300px;
+  }
+
+  .email-view-content .email-text {
+    font-size: 16px;
+  }
+
+  .email-view-content .email-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .email-view-content .action-button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .categories-container {
+    width: 90%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .category-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .category-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .column-content {
+    width: 100%;
+  }
+
+  .profile-content .menu,
+  .profile-content .menu-text,
+  .user-info,
+  .info-text,
+  .default-button,
+  .history-header {
+    font-size: 20px;
+  }
+
+  .history-cell {
+    font-size: 18px;
+  }
+
+  .settings-label {
+    font-size: 20px;
+  }
+
+  .categories-body .folder-title {
+    font-size: 20px;
+  }
+
+  .categories-body .folder-icon,
+  .categories-body .lock-icon,
+  .categories-body .edit-icon,
+  .categories-body .delete-icon,
+  .categories-body .plus-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .categories-body .inbox-icon {
+    width: 20px;
+    height: 20px;
+    left: 38px;
+    top: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-header {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  .logo-container {
+    margin-bottom: 20px;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .language-selector {
+    width: 100%;
+    max-width: 120px;
+  }
+
+  .language-text {
+    font-size: 14px;
+  }
+
+  .dropdown-content {
+    width: 120px;
+  }
+
+  .about-title,
+  .section-title,
+  .title,
+  .auth-title,
+  .verification-title,
+  .registration__title {
+    font-size: 36px;
+  }
+
+  .about-description,
+  .description,
+  .feature-title,
+  .feature-highlight,
+  .service-name,
+  .pricing-title,
+  .social-name {
+    font-size: 20px;
+  }
+
+  .pricing-features,
+  .faq-answer {
+    font-size: 18px;
+  }
+
+  .faq-question,
+  .pricing-button {
+    font-size: 20px;
+  }
+
+  .social-auth-primary,
+  .registration__form {
+    max-width: 300px;
+  }
+
+  .social-auth-row {
+    max-width: 200px;
+  }
+
+  .social-auth-row.secondary {
+    max-width: 150px;
+  }
+
+  .phone-input {
+    width: 120px;
+    font-size: 16px;
+  }
+
+  .code-input {
+    width: 40px;
+    height: 60px;
+    font-size: 20px;
+  }
+
+  .email-title-input {
+    font-size: 20px;
+  }
+
+  .recipient-input,
+  .text-styling,
+  .editor-content,
+  .email-view-content .email-text {
+    font-size: 14px;
+  }
+
+  .send-button,
+  .schedule-button,
+  .email-view-content .action-button {
+    font-size: 18px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-content .menu,
+  .profile-content .menu-text,
+  .user-info,
+  .info-text,
+  .default-button,
+  .history-header {
+    font-size: 18px;
+  }
+
+  .history-cell {
+    font-size: 16px;
+  }
+
+  .settings-label {
+    font-size: 18px;
+  }
+
+  .categories-body .folder-title {
+    font-size: 18px;
+  }
+
+  .categories-body .folder-icon,
+  .categories-body .lock-icon,
+  .categories-body .edit-icon,
+  .categories-body .delete-icon,
+  .categories-body .plus-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .categories-body .inbox-icon {
+    width: 18px;
+    height: 18px;
+    left: 36px;
+    top: 38px;
+  }
+
+  .avatar-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  .info-icon {
+    width: 30px;
+  }
+
+  .info-text {
+    width: 100%;
+  }
+
+  .history-table {
+    gap: 10px;
+  }
+
+  .carousel-container {
+    max-width: 767px;
+  }
+
+  .carousel-item {
+    width: 90%;
+    height: 80px;
+  }
+}
+
+@media (max-width: 479px) {
+  .logo {
+    width: 120px;
+    height: 20px;
+  }
+
+  .about-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about-title,
+  .section-title,
+  .title,
+  .auth-title,
+  .verification-title,
+  .registration__title {
+    font-size: 28px;
+  }
+
+  .about-description,
+  .description,
+  .feature-title,
+  .feature-highlight,
+  .service-name,
+  .pricing-title,
+  .social-name {
+    font-size: 16px;
+  }
+
+  .pricing-features,
+  .faq-answer,
+  .history-cell {
+    font-size: 14px;
+  }
+
+  .faq-question,
+  .pricing-button,
+  .profile-content .menu,
+  .profile-content .menu-text,
+  .user-info,
+  .info-text,
+  .default-button,
+  .history-header {
+    font-size: 16px;
+  }
+
+  .social-auth-primary,
+  .registration__form {
+    max-width: 250px;
+  }
+
+  .social-auth-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .social-button-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .phone-input {
+    width: 100px;
+    font-size: 14px;
+  }
+
+  .code-input {
+    width: 35px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .compose-button,
+  .back-button {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .category-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .settings-item {
+    padding: 10px;
+  }
+
+  .settings-label {
+    font-size: 16px;
+  }
+
+  .toggle-container {
+    width: 50px;
+    height: 25px;
+  }
+
+  .toggle-circle {
+    left: 2px;
+    top: 2px;
+  }
+
+  .toggle-container.active .toggle-circle {
+    transform: translateX(25px);
+  }
+
+  .edit-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .categories-body .folder-card {
+    height: 80px;
+  }
+
+  .categories-body .folder-icon,
+  .categories-body .lock-icon,
+  .categories-body .edit-icon,
+  .categories-body .delete-icon,
+  .categories-body .plus-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .categories-body .inbox-icon {
+    width: 15px;
+    height: 15px;
+    left: 33px;
+    top: 35px;
+  }
+
+  .avatar-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .column-content {
+    height: 200px;
+  }
+
+  .email-list-container {
+    max-height: 132px;
+  }
+
+  .email-header {
+    font-size: 12px;
+  }
+
+  .email-text {
+    font-size: 10px;
+  }
+
+  .date-label {
+    font-size: 10px;
+  }
+
+  .carousel-container {
+    max-width: 479px;
+  }
+
+  .carousel-item {
+    width: 100%;
+    height: 60px;
+  }
+
+  .carousel-arrow {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #0000ff;
+    --secondary-color: #ff0000;
+    --background-color: #ffffff;
+    --email-bg: #e0e0e0;
+    --modal-bg: rgba(0, 0, 255, 0.8);
+    --text-color: #000000;
+    --button-border: #0000ff;
+    --button-hover-bg: #0000ff;
+    --button-hover-text: #ffffff;
+  }
+
+  [data-theme="red"] {
+    --primary-color: #ff0000;
+    --secondary-color: #0000ff;
+    --background-color: #ffffff;
+    --email-bg: #ffcccc;
+    --modal-bg: rgba(255, 0, 0, 0.8);
+    --text-color: #000000;
+    --button-border: #ff0000;
+    --button-hover-bg: #ff0000;
+    --button-hover-text: #ffffff;
+  }
+
+  [data-theme="yellow"] {
+    --primary-color: #ffff00;
+    --secondary-color: #00ff00;
+    --background-color: #ffffff;
+    --email-bg: #ffffcc;
+    --modal-bg: rgba(255, 255, 0, 0.8);
+    --text-color: #000000;
+    --button-border: #ffff00;
+    --button-hover-bg: #ffff00;
+    --button-hover-text: #000000;
+  }
+
+  [data-theme="purple"] {
+    --primary-color: #800080;
+    --secondary-color: #00ffff;
+    --background-color: #ffffff;
+    --email-bg: #f0ccff;
+    --modal-bg: rgba(128, 0, 128, 0.8);
+    --text-color: #000000;
+    --button-border: #800080;
+    --button-hover-bg: #800080;
+    --button-hover-text: #ffffff;
+  }
+
+  .nav-button,
+  .pricing-button,
+  .faq-item,
+  .compose-button,
+  .back-button,
+  .send-button,
+  .schedule-button,
+  .action-button,
+  .social-auth-button,
+  .category-button,
+  .default-button,
+  .icon-button {
+    border-width: 3px;
+  }
+
+  .faq-question:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-button,
+  .language-selector,
+  .border-button,
+  .login-button,
+  .mail-button,
+  .language-option,
+  .social-link,
+  .social-auth-button,
+  .social-icon,
+  .category-button,
+  .panel-button,
+  .side-nav-button,
+  .compose-button,
+  .back-button,
+  .toolbar-button,
+  .send-button,
+  .schedule-button,
+  .action-button,
+  .carousel-arrow,
+  .carousel-item,
+  .column-content,
+  .email-item,
+  .profile-content .menu-item,
+  .categories-body .folder-card,
+  .edit-icon,
+  .delete-icon,
+  .plus-icon,
+  .settings-item,
+  .toggle-container,
+  .toggle-circle {
+    transition: none;
+  }
+
+  .dropdown-content {
+    transition: none;
+  }
+
+  .email-item.opening {
+    animation: none;
+  }
+
+  .column-first:hover,
+  .column-fourth:hover {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .main-header,
+  .main-footer,
+  .compose-button,
+  .back-button,
+  .modal-overlay,
+  .side-nav,
+  .side-panel,
+  .social-links,
+  .carousel-container,
+  .navigation-icons {
+    display: none;
+  }
+
+  body {
+    background-color: #ffffff;
+  }
+
+  .page-body {
+    padding: 0;
+  }
+
+  .email-content,
+  .email-header-container {
+    background-color: #ffffff;
+    border: none;
+  }
+
+  .email-title,
+  .email-sender,
+  .email-recipient,
+  .email-text {
+    color: #000000;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .email-view-content .email-message {
+    padding: 0;
+  }
+
+  .column-content {
+    box-shadow: none;
   }
 }
