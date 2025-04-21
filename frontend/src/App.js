@@ -16,6 +16,7 @@ import ThemesPage from './components/ThemesPage';
 import SecurityPage from './components/SecurityPage';
 import AccountPage from './components/AccountPage';
 import EmailViewPage from './components/EmailViewPage';
+import Callback from './components/Callback';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/otp" element={<VerificationForm />} />
         <Route path="/auth" element={<AuthForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/confirm-auth" element={<VerificationForm type="login" />} />

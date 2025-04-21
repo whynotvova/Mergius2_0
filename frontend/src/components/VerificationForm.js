@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/styles.css';
 
 const VerificationForm = ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
+  const [error, setError] = useState('');
+  const phoneNumber = location.state?.phoneNumber;
 
   useEffect(() => {
     const inputs = document.querySelectorAll('.code-input');
@@ -13,20 +16,97 @@ const VerificationForm = ({ type }) => {
         if (this.value.length === 1 && index < inputs.length - 1) {
           inputs[index + 1].focus();
         }
-        const allFilled = Array.from(inputs).every((input) => input.value.length === 1);
-        if (allFilled && type === 'register') {
-          navigate('/register-final');
-        } else if (allFilled && type === 'login') {
-          navigate('/mail');
+        const newOtp = [...otpCode];
+        newOtp[index] = this.value.slice(-1);
+        setOtpCode(newOtp);
+        const allFilled = newOtp.every((digit) => digit.length === 1);
+        if (allFilled) {
+          handleOTPSubmit(newOtp.join(''));
         }
       });
       input.addEventListener('keydown', function (e) {
         if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
           inputs[index - 1].focus();
+          const newOtp = [...otpCode];
+          newOtp[index - 1] = '';
+          setOtpCode(newOtp);
         }
       });
     });
-  }, [navigate, type]);
+
+    // Validate phoneNumber
+    if (!phoneNumber) {
+      setError('Номер телефона не передан');
+      setTimeout(() => navigate('/register'), 2000);
+    }
+
+    return () => {
+      inputs.forEach((input) => {
+        input.removeEventListener('input', () => {});
+        input.removeEventListener('keydown', () => {});
+      });
+    };
+  }, [navigate, otpCode, phoneNumber]);
+
+  const handleOTPSubmit = async (code) => {
+    setError('');
+    if (!phoneNumber) {
+      setError('Номер телефона не передан');
+      navigate('/register');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/api/auth/otp/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phoneNumber, otp_code: code }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || `HTTP error ${response.status}`);
+      }
+
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user_id', data.user_id);
+      console.info('OTP verification success:', data);
+      navigate(type === 'register' ? '/register-final' : '/mail');
+    } catch (err) {
+      console.error('OTP verification error:', err.message, err.stack);
+      setError('Неверный OTP код или ошибка сервера: ' + err.message);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setError('');
+    if (!phoneNumber) {
+      setError('Номер телефона не передан');
+      navigate('/register');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/api/auth/phone/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phoneNumber }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || `HTTP error ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.info('OTP resent success:', data);
+      setError('Код отправлен повторно');
+    } catch (err) {
+      console.error('Resend OTP error:', err.message, err.stack);
+      setError('Не удалось отправить код: ' + err.message);
+    }
+  };
 
   const isVerificationPage = ['/confirm-auth', '/confirm-reg'].includes(location.pathname);
 
@@ -34,20 +114,30 @@ const VerificationForm = ({ type }) => {
     <main className="verification-container">
       <h1 className="verification-title">{type === 'login' ? 'Авторизация' : 'Регистрация'}</h1>
       <div className="verification-code-container">
-        {[...Array(6)].map((_, index) => (
+        {otpCode.map((digit, index) => (
           <input
             key={index}
-            type="number"
+            type="text"
             className="code-input"
             maxLength="1"
+            value={digit}
+            onChange={(e) => {
+              const newOtp = [...otpCode];
+              newOtp[index] = e.target.value.slice(-1);
+              setOtpCode(newOtp);
+            }}
             aria-label={`Digit ${index + 1}`}
           />
         ))}
       </div>
       <p className="verification-message">Код пришел вам на номер телефона, проверьте смс</p>
-      <button className={`resend-code ${isVerificationPage ? 'active-login' : ''}`}>
+      <button
+        className={`resend-code ${isVerificationPage ? 'active-login' : ''}`}
+        onClick={handleResendCode}
+      >
         Прислать код еще раз
       </button>
+      {error && <p className="error-message">{error}</p>}
     </main>
   );
 };
