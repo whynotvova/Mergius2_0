@@ -2,16 +2,60 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
+// List of countries for the dropdown
+const countries = [
+  'Russia',
+  'United States',
+  'United Kingdom',
+  'Germany',
+  'France',
+  'Italy',
+  'Spain',
+  'Canada',
+  'Australia',
+  'Japan',
+  'China',
+  'India',
+  'Brazil',
+  'South Africa',
+  'Mexico',
+  'South Korea',
+  'Argentina',
+  'Netherlands',
+  'Sweden',
+  'Switzerland'
+];
+
 const RegisterFinal = () => {
   const [username, setUsername] = useState('');
   const [country, setCountry] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [accountType, setAccountType] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const checkUsernameAvailability = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/auth/check-username/?username=${encodeURIComponent(username)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || `HTTP error ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.available; // true if username is available, false if taken
+    } catch (err) {
+      console.error('Username check error:', err.message, err.stack);
+      throw new Error('Не удалось проверить имя пользователя');
+    }
+  };
+
+  const handleSubmit = async () => {
     setError('');
 
     if (!username.trim()) {
@@ -19,18 +63,13 @@ const RegisterFinal = () => {
       return;
     }
 
-    if (!country.trim()) {
-      setError('Введите страну');
+    if (!country) {
+      setError('Выберите страну');
       return;
     }
 
     if (!dateOfBirth) {
       setError('Введите дату рождения');
-      return;
-    }
-
-    if (!accountType) {
-      setError('Выберите тип аккаунта');
       return;
     }
 
@@ -42,7 +81,13 @@ const RegisterFinal = () => {
     }
 
     try {
-      console.log('Token:', token);
+      // Check username availability
+      const isUsernameAvailable = await checkUsernameAvailability(username);
+      if (!isUsernameAvailable) {
+        setError('Это имя пользователя уже занято');
+        return;
+      }
+
       const response = await fetch('http://localhost:8000/api/auth/profile/', {
         method: 'PATCH',
         headers: {
@@ -53,7 +98,6 @@ const RegisterFinal = () => {
           username,
           country,
           date_of_birth: dateOfBirth,
-          account_type_id: parseInt(accountType),
         }),
       });
 
@@ -77,58 +121,61 @@ const RegisterFinal = () => {
   };
 
   return (
-    <main className="main-content">
-      <h1 className="auth-title">Завершение регистрации</h1>
-      <div className="social-auth-primary">
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Введите имя пользователя"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="phone-input"
-          maxLength="150"
-          required
-        />
-        <input
-          type="text"
-          id="country"
-          name="country"
-          placeholder="Введите страну"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          className="phone-input"
-          maxLength="100"
-          required
-        />
-        <input
-          type="date"
-          id="dateOfBirth"
-          name="dateOfBirth"
-          value={dateOfBirth}
-          onChange={(e) => setDateOfBirth(e.target.value)}
-          className="phone-input"
-          required
-        />
-        <select
-          id="accountType"
-          name="accountType"
-          value={accountType}
-          onChange={(e) => setAccountType(e.target.value)}
-          className="phone-input"
-          required
-        >
-          <option value="">Выберите тип аккаунта</option>
-          <option value="2">Персональный</option>
-          <option value="3">Бизнес</option>
-        </select>
-        <button onClick={handleSubmit} className="social-icon-button">
+    <main className="registration">
+      <h1 className="registration__title">Регистрация</h1>
+      <div className="registration__form">
+        <div className="social-login">
           <img
-            src={`${process.env.PUBLIC_URL}/images/auth/next-white.png`}
-            alt="Submit"
-            className="social-icon"
+            src={`${process.env.PUBLIC_URL}/images/register/user-white.png`}
+            alt="Social Login Option 1"
+            className="social-login__icon"
           />
+          <input
+            type="text"
+            placeholder="Введите имя пользователя"
+            className="registration__field"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            maxLength="150"
+            required
+          />
+        </div>
+        <div className="social-login">
+          <img
+            src={`${process.env.PUBLIC_URL}/images/register/birthday-white.png`}
+            alt="Social Login Option 2"
+            className="social-login__icon"
+          />
+          <input
+            type="date"
+            className="registration__field"
+            value={dateOfBirth}
+            onChange={(e) => setDateOfBirth(e.target.value)}
+            required
+          />
+        </div>
+        <div className="social-login">
+          <img
+            src={`${process.env.PUBLIC_URL}/images/register/geo-white.png`}
+            alt="Social Login Option 3"
+            className="social-login__icon"
+          />
+          <select
+            className="registration__field"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            required
+          >
+            <option value="">Выберите страну</option>
+            {countries.map((countryName) => (
+              <option key={countryName} value={countryName}>
+                {countryName}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button className="registration__submit" onClick={handleSubmit}>
+          Завершить
         </button>
       </div>
       {error && <p className="error-message">{error}</p>}

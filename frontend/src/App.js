@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AuthForm from './components/AuthForm';
 import RegisterForm from './components/RegisterForm';
+import SocialPhoneForm from './components/SocialPhoneForm';
 import HomePage from './components/HomePage';
 import VerificationForm from './components/VerificationForm';
 import RegisterFinal from './components/RegisterFinal';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/otp" element={<VerificationForm />} />
         <Route path="/auth" element={<AuthForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/social-phone" element={<SocialPhoneForm />} />
         <Route path="/confirm-auth" element={<VerificationForm type="login" />} />
         <Route path="/confirm-reg" element={<VerificationForm type="register" />} />
         <Route path="/register-final" element={<RegisterFinal />} />

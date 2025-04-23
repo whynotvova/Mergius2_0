@@ -754,9 +754,35 @@ body {
   width: 340px;
 }
 
+.social-icon-button {
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-icon-button:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.1);
+  border-color: var(--primary-color);
+}
+
+.social-icon-button img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
 .social-auth-button {
   background-color: #fff;
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
   border-radius: 50%;
   width: 80px;
   height: 80px;
@@ -765,11 +791,14 @@ body {
   justify-content: center;
   padding: 16px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .social-auth-button:hover {
+  background-color: #fff;
   transform: scale(1.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .social-button-icon {
@@ -860,7 +889,8 @@ body {
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
-  padding: 100px 140px;
+  padding: 100px 180px;
+  background-color: var(--background-color);
 }
 
 .registration__title {
@@ -874,8 +904,8 @@ body {
 .registration__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   width: 470px;
+  max-width: 100%;
 }
 
 .social-login {
@@ -885,7 +915,16 @@ body {
   border-radius: 25px;
   height: 100px;
   padding: 0 20px;
-  gap: 15px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.social-login:last-child {
+  padding-bottom: 40px;
+}
+
+.registration__submit {
+  padding-bottom: 0;
 }
 
 .social-login__icon {
@@ -902,7 +941,7 @@ body {
   color: var(--button-hover-text);
   font-family: "Wix Madefor Display";
   font-size: 24px;
-  padding: 0 15px;
+  padding: 0 30px;
 }
 
 .registration__field::placeholder {
@@ -912,6 +951,30 @@ body {
 .registration__field[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(100%);
   cursor: pointer;
+}
+
+/* Style for select element to match input fields */
+.registration__field[type="select"], .registration__field option {
+  background-color: transparent;
+  color: var(--button-hover-text);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Style the dropdown arrow */
+.social-login select.registration__field {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 30px; /* Space for the arrow */
+}
+
+/* Ensure options have consistent styling */
+.registration__field option {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
 }
 
 .registration__submit {
@@ -924,6 +987,22 @@ body {
   font-family: "Wix Madefor Display";
   font-size: 32px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.registration__submit:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.error-message {
+  color: red;
+  font-family: "Wix Madefor Display";
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 /* Стили для страницы: Темы, Почты, Отправки, Просмотра */
@@ -3231,6 +3310,15 @@ body {
 
   .social-login {
     height: 80px;
+    padding-bottom: 40px;
+  }
+
+  .social-login:last-child {
+    padding-bottom: 40px;
+  }
+
+  .registration__submit {
+    padding-bottom: 0;
   }
 
   .social-login__icon {
@@ -3246,6 +3334,11 @@ body {
     font-size: 24px;
     height: 60px;
   }
+
+  .error-message {
+    font-size: 16px;
+  }
+}
 
   .compose-button,
   .back-button {
@@ -3409,7 +3502,6 @@ body {
     left: 38px;
     top: 40px;
   }
-}
 
 @media (max-width: 767px) {
   .main-header {
@@ -3587,6 +3679,37 @@ body {
   .carousel-item {
     width: 90%;
     height: 80px;
+  }
+  .registration__title {
+    font-size: 36px;
+  }
+
+  .registration__form {
+    max-width: 300px;
+  }
+
+  .social-login {
+    padding-bottom: 40px;
+  }
+
+  .social-login:last-child {
+    padding-bottom: 40px;
+  }
+
+  .registration__submit {
+    padding-bottom: 0;
+  }
+
+  .registration__field {
+    font-size: 18px;
+  }
+
+  .registration__submit {
+    font-size: 20px;
+  }
+
+  .error-message {
+    font-size: 14px;
   }
 }
 
@@ -3768,6 +3891,43 @@ body {
   .carousel-arrow {
     width: 30px;
     height: 30px;
+  }
+  .registration__title {
+    font-size: 28px;
+  }
+
+  .registration__form {
+    max-width: 250px;
+  }
+
+  .social-login {
+    padding-bottom: 40px;
+  }
+
+  .social-login:last-child {
+    padding-bottom: 40px;
+  }
+
+  .registration__submit {
+    padding-bottom: 0;
+  }
+
+  .social-login__icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .registration__field {
+    font-size: 16px;
+  }
+
+  .registration__submit {
+    font-size: 16px;
+    height: 50px;
+  }
+
+  .error-message {
+    font-size: 12px;
   }
 }
 

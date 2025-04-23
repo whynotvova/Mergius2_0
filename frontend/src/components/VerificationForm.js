@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/styles.css';
 
-const VerificationForm = ({ type }) => {
+const VerificationForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
-  const phoneNumber = location.state?.phoneNumber;
+  const { phoneNumber, type } = location.state || {};
 
   useEffect(() => {
     const inputs = document.querySelectorAll('.code-input');
@@ -34,7 +34,6 @@ const VerificationForm = ({ type }) => {
       });
     });
 
-    // Validate phoneNumber
     if (!phoneNumber) {
       setError('Номер телефона не передан');
       setTimeout(() => navigate('/register'), 2000);
@@ -72,7 +71,16 @@ const VerificationForm = ({ type }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user_id', data.user_id);
       console.info('OTP verification success:', data);
-      navigate(type === 'register' ? '/register-final' : '/mail');
+
+      // Check if user profile is complete
+      const isProfileComplete = data.is_phone_verified && data.username && data.country && data.date_of_birth;
+
+      // Redirect based on profile completeness
+      if (isProfileComplete) {
+        navigate('/mail');
+      } else {
+        navigate('/register-final');
+      }
     } catch (err) {
       console.error('OTP verification error:', err.message, err.stack);
       setError('Неверный OTP код или ошибка сервера: ' + err.message);

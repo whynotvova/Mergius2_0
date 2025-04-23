@@ -13,7 +13,6 @@ const RegisterForm = () => {
       setError(location.state.error);
     }
 
-    // Initialize Mail.ru SDK
     try {
       if (window.MR) {
         window.MR.init({
@@ -38,7 +37,6 @@ const RegisterForm = () => {
       setError('Не удалось загрузить Mail.ru SDK');
     }
 
-    // Initialize Yandex SDK
     try {
       if (window.YaAuthSuggest) {
         window.YaAuthSuggest.init(
@@ -92,10 +90,14 @@ const RegisterForm = () => {
 
       const data = await response.json();
       console.info('Phone auth success:', data);
-      navigate('/otp', { state: { phoneNumber } });
+      navigate('/otp', { state: { phoneNumber, type: 'register' } });
     } catch (err) {
       console.error('Phone auth error:', err.message, err.stack);
-      setError(`Не удалось подключиться к серверу: ${err.message}`);
+      if (err.message.includes('Failed to fetch')) {
+        setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
+      } else {
+        setError(`Не удалось подключиться к серверу: ${err.message}`);
+      }
     }
   };
 
@@ -154,10 +156,14 @@ const RegisterForm = () => {
       console.info('Social auth success:', data);
       localStorage.setItem('token', data.token);
       localStorage.setItem('user_id', data.user_id);
-      navigate('/mail');
+      navigate('/social-phone');
     } catch (err) {
       console.error('Social callback error:', err.message, err.stack);
-      setError(`Не удалось подключиться к серверу: ${err.message}`);
+      if (err.message.includes('Failed to fetch')) {
+        setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
+      } else {
+        setError(`Не удалось подключиться к серверу: ${err.message}`);
+      }
     }
   };
 
@@ -237,7 +243,7 @@ const RegisterForm = () => {
         </button>
         <button className="social-auth-button" onClick={() => handleSocialAuth('facebook')}>
           <img
-            src={`${process.env.PUBLIC_URL}/images/register/meta-logo.png`}
+            src={`${process.env.PUBLIC_URL}/images/register/facebook-logo.png`}
             alt="Meta Auth"
             className="social-button-icon"
           />

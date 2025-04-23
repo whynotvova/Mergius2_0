@@ -90,10 +90,14 @@ const AuthForm = () => {
 
       const data = await response.json();
       console.info('Phone auth success:', data);
-      navigate('/otp', { state: { phoneNumber } });
+      navigate('/otp', { state: { phoneNumber, type: 'login' } });
     } catch (err) {
       console.error('Phone auth error:', err.message, err.stack);
-      setError(`Не удалось подключиться к серверу: ${err.message}`);
+      if (err.message.includes('Failed to fetch')) {
+        setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
+      } else {
+        setError(`Не удалось отправить запрос: ${err.message}`);
+      }
     }
   };
 
@@ -152,10 +156,14 @@ const AuthForm = () => {
       console.info('Social auth success:', data);
       localStorage.setItem('token', data.token);
       localStorage.setItem('user_id', data.user_id);
-      navigate('/register-final');
+      navigate('/social-phone');
     } catch (err) {
       console.error('Social callback error:', err.message, err.stack);
-      setError(`Не удалось подключиться к серверу: ${err.message}`);
+      if (err.message.includes('Failed to fetch')) {
+        setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
+      } else {
+        setError(`Не удалось подключиться к серверу: ${err.message}`);
+      }
     }
   };
 
