@@ -25,16 +25,13 @@ const ProfilePage = () => {
         break;
       case 'Выход':
         console.log('Logging out...');
-        navigate('/logout');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user_id');
+        navigate('/');
         break;
       default:
         break;
     }
-  };
-
-  const handleNavButtonClick = (path) => {
-    console.log(`Navigating to ${path}`);
-    navigate(path);
   };
 
   return (

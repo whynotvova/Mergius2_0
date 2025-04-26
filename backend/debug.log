@@ -11535,3 +11535,831 @@ INFO 2025-04-23 13:26:08,002 views Username check: sscscsch exists=False
 DEBUG 2025-04-23 13:26:08,013 views ProfileView received data: {'username': 'sscscsch', 'country': 'Mexico', 'date_of_birth': '2025-04-04'}
 INFO 2025-04-23 13:26:08,026 serializers Profile updated for user 13
 INFO 2025-04-23 13:26:08,027 views Profile updated for user 13
+INFO 2025-04-24 10:17:18,322 autoreload Watching for file changes with StatReloader
+INFO 2025-04-24 10:17:54,587 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-24 10:49:01,557 views PhoneAuthView received data: {'phone_number': '+79508425379'}
+DEBUG 2025-04-24 10:49:01,557 serializers Processing phone number: +79508425379
+DEBUG 2025-04-24 10:49:01,634 serializers User does not exist, creating new user
+INFO 2025-04-24 10:49:01,652 serializers Created new user: 14
+INFO 2025-04-24 10:49:01,658 serializers OTP generated for user 14: 858846, expires at 2025-04-24 10:54:01.653805
+INFO 2025-04-24 10:49:01,811 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-24 10:49:01,812 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-24 10:49:01,812 __init__ Headers:
+INFO 2025-04-24 10:49:01,812 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-24 10:49:01,812 __init__ Accept : application/json
+INFO 2025-04-24 10:49:01,812 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-24 10:49:01,812 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-24 10:49:01,812 __init__ Accept-Charset : utf-8
+INFO 2025-04-24 10:49:01,812 __init__ -- END Twilio API Request --
+DEBUG 2025-04-24 10:49:01,814 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+ERROR 2025-04-24 10:49:02,131 serializers Twilio exception: HTTPSConnectionPool(host='api.twilio.com', port=443): Max retries exceeded with url: /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json (Caused by SSLError(SSLCertVerificationError(1, "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'api.twilio.com'. (_ssl.c:1006)")))
+INFO 2025-04-24 10:49:02,137 views User +79508425379 processed for OTP
+DEBUG 2025-04-24 10:49:18,868 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+DEBUG 2025-04-24 10:49:18,875 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+WARNING 2025-04-24 10:49:18,893 serializers Invalid OTP for +79508425379: code=858846, expiry=None
+ERROR 2025-04-24 10:49:18,893 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 10:49:18,894 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 10:49:18,897 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+WARNING 2025-04-24 10:49:18,900 serializers Invalid OTP for +79508425379: code=858846, expiry=None
+ERROR 2025-04-24 10:49:18,900 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 10:49:18,901 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 10:49:18,906 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+WARNING 2025-04-24 10:49:18,908 serializers Invalid OTP for +79508425379: code=858846, expiry=None
+ERROR 2025-04-24 10:49:18,909 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 10:49:18,909 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 10:49:18,913 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+INFO 2025-04-24 10:49:18,915 views User +79508425379 authenticated, token: 4c3875cdb831babe2e6be069350d7d0c73ef819f
+WARNING 2025-04-24 10:49:18,917 serializers Invalid OTP for +79508425379: code=858846, expiry=None
+ERROR 2025-04-24 10:49:18,918 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 10:49:18,918 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 10:49:18,922 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+DEBUG 2025-04-24 10:49:18,922 views OTPView received data: {'phone_number': '+79508425379', 'otp_code': '858846'}
+WARNING 2025-04-24 10:49:18,926 serializers Invalid OTP for +79508425379: code=858846, expiry=None
+WARNING 2025-04-24 10:49:18,927 serializers Invalid OTP for +79508425379: code=858846, expiry=None
+ERROR 2025-04-24 10:49:18,930 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-24 10:49:18,927 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 10:49:18,932 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 10:49:18,933 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 10:49:34,367 views CheckUsernameView received query: <QueryDict: {'username': ['Admin']}>
+INFO 2025-04-24 10:49:34,375 views Username check: Admin exists=True
+DEBUG 2025-04-24 10:49:38,796 views CheckUsernameView received query: <QueryDict: {'username': ['Admin2323']}>
+INFO 2025-04-24 10:49:38,804 views Username check: Admin2323 exists=False
+DEBUG 2025-04-24 10:49:38,820 views ProfileView received data: {'username': 'Admin2323', 'country': 'Russia', 'date_of_birth': '2016-02-10'}
+INFO 2025-04-24 10:49:38,841 serializers Profile updated for user 14
+INFO 2025-04-24 10:49:38,842 views Profile updated for user 14
+INFO 2025-04-24 11:40:24,994 autoreload Watching for file changes with StatReloader
+INFO 2025-04-24 11:40:53,378 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-24 11:40:59,910 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-24 11:40:59,911 serializers Processing phone number: +79508425370
+INFO 2025-04-24 11:40:59,929 serializers Found existing user: 9
+INFO 2025-04-24 11:40:59,932 serializers OTP generated for user 9: 666722, expires at 2025-04-24 11:45:59.930381
+INFO 2025-04-24 11:41:00,102 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-24 11:41:00,102 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-24 11:41:00,103 __init__ Headers:
+INFO 2025-04-24 11:41:00,103 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-24 11:41:00,103 __init__ Accept : application/json
+INFO 2025-04-24 11:41:00,103 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-24 11:41:00,104 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-24 11:41:00,104 __init__ Accept-Charset : utf-8
+INFO 2025-04-24 11:41:00,104 __init__ -- END Twilio API Request --
+DEBUG 2025-04-24 11:41:00,106 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-24 11:41:00,899 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-24 11:41:00,901 __init__ Response Status Code: 401
+INFO 2025-04-24 11:41:00,901 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Thu, 24 Apr 2025 08:41:00 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQa65e809b7edab058ac6af7ec40ee25bb', 'Twilio-Request-Duration': '0.018', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 e15d64214925ae012e1d711871cc6452.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': 'sOOQKadwb0r-E8r18VlcZqtfbioC6e5uElRaIc55giOatcevIuha2w=='}
+ERROR 2025-04-24 11:41:00,901 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-24 11:41:00,902 views User +79508425370 processed for OTP
+DEBUG 2025-04-24 11:41:12,119 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+DEBUG 2025-04-24 11:41:12,125 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+WARNING 2025-04-24 11:41:12,130 serializers Invalid OTP for +79508425370: code=666722, expiry=None
+ERROR 2025-04-24 11:41:12,132 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 11:41:12,134 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 11:41:12,141 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+INFO 2025-04-24 11:41:12,141 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-24 11:41:12,144 serializers Invalid OTP for +79508425370: code=666722, expiry=None
+ERROR 2025-04-24 11:41:12,144 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 11:41:12,148 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 11:41:12,157 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+WARNING 2025-04-24 11:41:12,164 serializers Invalid OTP for +79508425370: code=666722, expiry=None
+DEBUG 2025-04-24 11:41:12,165 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+ERROR 2025-04-24 11:41:12,166 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 11:41:12,169 serializers Invalid OTP for +79508425370: code=666722, expiry=None
+WARNING 2025-04-24 11:41:12,169 log Bad Request: /api/auth/otp/
+ERROR 2025-04-24 11:41:12,171 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-24 11:41:12,178 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+WARNING 2025-04-24 11:41:12,175 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 11:41:12,182 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666722'}
+WARNING 2025-04-24 11:41:12,183 serializers Invalid OTP for +79508425370: code=666722, expiry=None
+WARNING 2025-04-24 11:41:12,187 serializers Invalid OTP for +79508425370: code=666722, expiry=None
+ERROR 2025-04-24 11:41:12,187 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-24 11:41:12,187 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 11:41:12,188 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 11:41:12,188 log Bad Request: /api/auth/otp/
+INFO 2025-04-24 22:57:28,258 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-24 22:59:01,803 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-24 22:59:01,803 serializers Processing phone number: +79508425370
+INFO 2025-04-24 22:59:01,877 serializers Found existing user: 9
+INFO 2025-04-24 22:59:01,882 serializers OTP generated for user 9: 877715, expires at 2025-04-24 23:04:01.877157
+INFO 2025-04-24 22:59:02,055 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-24 22:59:02,055 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-24 22:59:02,056 __init__ Headers:
+INFO 2025-04-24 22:59:02,056 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-24 22:59:02,056 __init__ Accept : application/json
+INFO 2025-04-24 22:59:02,056 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-24 22:59:02,056 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-24 22:59:02,056 __init__ Accept-Charset : utf-8
+INFO 2025-04-24 22:59:02,057 __init__ -- END Twilio API Request --
+DEBUG 2025-04-24 22:59:02,058 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-24 22:59:02,482 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-24 22:59:02,484 __init__ Response Status Code: 401
+INFO 2025-04-24 22:59:02,485 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Thu, 24 Apr 2025 19:59:02 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ0094ec567202d27ddf620b8a68a6eabb', 'Twilio-Request-Duration': '0.018', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 1fb0b89a5ccfb45255b8e8539e256ee2.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': 'OYEdir9Tp975spwTKMBKwODFRVg4xzJ8Cp228AQTCkyEDka5zobgIw=='}
+ERROR 2025-04-24 22:59:02,487 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-24 22:59:02,487 views User +79508425370 processed for OTP
+DEBUG 2025-04-24 22:59:13,922 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+WARNING 2025-04-24 22:59:13,926 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+ERROR 2025-04-24 22:59:13,926 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-24 22:59:13,934 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+WARNING 2025-04-24 22:59:13,932 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 22:59:13,938 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+WARNING 2025-04-24 22:59:13,942 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+ERROR 2025-04-24 22:59:13,942 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:13,944 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+WARNING 2025-04-24 22:59:13,943 log Bad Request: /api/auth/otp/
+ERROR 2025-04-24 22:59:13,944 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:13,945 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 22:59:13,947 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+DEBUG 2025-04-24 22:59:13,951 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+WARNING 2025-04-24 22:59:13,954 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+ERROR 2025-04-24 22:59:13,955 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:13,956 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:13,957 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+DEBUG 2025-04-24 22:59:13,958 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+ERROR 2025-04-24 22:59:13,958 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:13,960 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 22:59:13,962 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '977715'}
+WARNING 2025-04-24 22:59:13,964 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+ERROR 2025-04-24 22:59:13,964 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:13,965 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:13,966 serializers Invalid OTP for +79508425370: code=977715, expiry=2025-04-24 23:04:02
+ERROR 2025-04-24 22:59:13,967 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:13,968 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 22:59:16,299 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+DEBUG 2025-04-24 22:59:16,310 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+WARNING 2025-04-24 22:59:16,314 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+ERROR 2025-04-24 22:59:16,315 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-24 22:59:16,317 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+WARNING 2025-04-24 22:59:16,316 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-24 22:59:16,320 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+DEBUG 2025-04-24 22:59:16,322 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+DEBUG 2025-04-24 22:59:16,324 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+DEBUG 2025-04-24 22:59:16,326 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+INFO 2025-04-24 22:59:16,332 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-24 22:59:16,332 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+WARNING 2025-04-24 22:59:16,333 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+ERROR 2025-04-24 22:59:16,334 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:16,335 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+ERROR 2025-04-24 22:59:16,335 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-24 22:59:16,337 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:16,336 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:16,338 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+WARNING 2025-04-24 22:59:16,337 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:16,338 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+DEBUG 2025-04-24 22:59:16,339 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+WARNING 2025-04-24 22:59:16,338 log Bad Request: /api/auth/otp/
+ERROR 2025-04-24 22:59:16,341 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-24 22:59:16,341 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-24 22:59:16,346 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+DEBUG 2025-04-24 22:59:16,346 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '877715'}
+WARNING 2025-04-24 22:59:16,344 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:16,346 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:16,349 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+ERROR 2025-04-24 22:59:16,351 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:16,351 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:16,352 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+WARNING 2025-04-24 22:59:16,353 serializers Invalid OTP for +79508425370: code=877715, expiry=None
+ERROR 2025-04-24 22:59:16,353 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-24 22:59:16,354 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-24 22:59:16,354 log Bad Request: /api/auth/otp/
+WARNING 2025-04-24 22:59:16,355 log Bad Request: /api/auth/otp/
+INFO 2025-04-25 11:47:51,239 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 11:48:22,179 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-25 11:48:43,358 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-25 11:48:43,359 serializers Processing phone number: +79508425370
+INFO 2025-04-25 11:48:43,397 serializers Found existing user: 9
+INFO 2025-04-25 11:48:43,402 serializers OTP generated for user 9: 994391, expires at 2025-04-25 11:53:43.398829
+INFO 2025-04-25 11:48:43,743 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-25 11:48:43,744 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-25 11:48:43,744 __init__ Headers:
+INFO 2025-04-25 11:48:43,745 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-25 11:48:43,745 __init__ Accept : application/json
+INFO 2025-04-25 11:48:43,745 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-25 11:48:43,746 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-25 11:48:43,746 __init__ Accept-Charset : utf-8
+INFO 2025-04-25 11:48:43,746 __init__ -- END Twilio API Request --
+DEBUG 2025-04-25 11:48:43,749 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-25 11:48:44,287 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-25 11:48:44,288 __init__ Response Status Code: 401
+INFO 2025-04-25 11:48:44,289 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Fri, 25 Apr 2025 08:48:44 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ653d5ba7099cf3e002cdbe506ed35465', 'Twilio-Request-Duration': '0.024', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 59202edf772149f3e7805f2a4994d252.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': '_4sp6DRwi5Sjr8tYFHaWxnJFmsnz76dh6Iu8UqrglXMdpQodiqCwOw=='}
+ERROR 2025-04-25 11:48:44,290 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-25 11:48:44,292 views User +79508425370 processed for OTP
+DEBUG 2025-04-25 11:48:52,576 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+DEBUG 2025-04-25 11:48:52,583 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+WARNING 2025-04-25 11:48:52,589 serializers Invalid OTP for +79508425370: code=994391, expiry=None
+ERROR 2025-04-25 11:48:52,589 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:48:52,603 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 11:48:52,608 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+WARNING 2025-04-25 11:48:52,618 serializers Invalid OTP for +79508425370: code=994391, expiry=None
+ERROR 2025-04-25 11:48:52,619 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+INFO 2025-04-25 11:48:52,622 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-25 11:48:52,620 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 11:48:52,627 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+DEBUG 2025-04-25 11:48:52,631 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+WARNING 2025-04-25 11:48:52,636 serializers Invalid OTP for +79508425370: code=994391, expiry=None
+ERROR 2025-04-25 11:48:52,637 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:48:52,638 serializers Invalid OTP for +79508425370: code=994391, expiry=None
+ERROR 2025-04-25 11:48:52,638 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:48:52,638 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 11:48:52,640 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 11:48:52,654 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+DEBUG 2025-04-25 11:48:52,656 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '994391'}
+WARNING 2025-04-25 11:48:52,660 serializers Invalid OTP for +79508425370: code=994391, expiry=None
+WARNING 2025-04-25 11:48:52,661 serializers Invalid OTP for +79508425370: code=994391, expiry=None
+ERROR 2025-04-25 11:48:52,661 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-25 11:48:52,661 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:48:52,662 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 11:48:52,662 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 11:50:32,540 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-25 11:50:32,542 serializers Processing phone number: +79508425370
+INFO 2025-04-25 11:50:32,553 serializers Found existing user: 9
+INFO 2025-04-25 11:50:32,558 serializers OTP generated for user 9: 665107, expires at 2025-04-25 11:55:32.554601
+INFO 2025-04-25 11:50:32,559 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-25 11:50:32,560 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-25 11:50:32,560 __init__ Headers:
+INFO 2025-04-25 11:50:32,562 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-25 11:50:32,563 __init__ Accept : application/json
+INFO 2025-04-25 11:50:32,563 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-25 11:50:32,564 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-25 11:50:32,564 __init__ Accept-Charset : utf-8
+INFO 2025-04-25 11:50:32,566 __init__ -- END Twilio API Request --
+DEBUG 2025-04-25 11:50:32,569 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-25 11:50:33,179 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-25 11:50:33,180 __init__ Response Status Code: 401
+INFO 2025-04-25 11:50:33,182 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Fri, 25 Apr 2025 08:50:33 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ1bbc56fddb53fe7ab2da10a54ce0298b', 'Twilio-Request-Duration': '0.012', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 3282be13995871d1c682f618f37df606.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': '_QhKrZ9JAUpJQq15QA49dYTIa0wCtF8vXh1DX2N-CjUa1eN879jtnA=='}
+ERROR 2025-04-25 11:50:33,182 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-25 11:50:33,185 views User +79508425370 processed for OTP
+DEBUG 2025-04-25 11:50:44,529 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+DEBUG 2025-04-25 11:50:44,539 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+WARNING 2025-04-25 11:50:44,544 serializers Invalid OTP for +79508425370: code=665107, expiry=None
+ERROR 2025-04-25 11:50:44,544 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:50:44,544 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 11:50:44,547 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+WARNING 2025-04-25 11:50:44,553 serializers Invalid OTP for +79508425370: code=665107, expiry=None
+ERROR 2025-04-25 11:50:44,553 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:50:44,554 log Bad Request: /api/auth/otp/
+INFO 2025-04-25 11:50:44,555 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-25 11:50:44,558 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+WARNING 2025-04-25 11:50:44,560 serializers Invalid OTP for +79508425370: code=665107, expiry=None
+DEBUG 2025-04-25 11:50:44,561 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+ERROR 2025-04-25 11:50:44,581 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:50:44,586 serializers Invalid OTP for +79508425370: code=665107, expiry=None
+WARNING 2025-04-25 11:50:44,582 log Bad Request: /api/auth/otp/
+ERROR 2025-04-25 11:50:44,587 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-25 11:50:44,590 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+WARNING 2025-04-25 11:50:44,589 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 11:50:44,594 serializers Invalid OTP for +79508425370: code=665107, expiry=None
+ERROR 2025-04-25 11:50:44,597 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-25 11:50:44,598 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '665107'}
+WARNING 2025-04-25 11:50:44,598 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 11:50:44,603 serializers Invalid OTP for +79508425370: code=665107, expiry=None
+ERROR 2025-04-25 11:50:44,606 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 11:50:44,606 log Bad Request: /api/auth/otp/
+INFO 2025-04-25 14:06:31,311 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\models.py changed, reloading.
+INFO 2025-04-25 14:06:32,642 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 14:07:45,727 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\apps.py changed, reloading.
+INFO 2025-04-25 14:07:46,517 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 14:07:58,906 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\__init__.py changed, reloading.
+INFO 2025-04-25 14:07:59,838 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 14:28:39,843 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-25 14:29:36,695 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-25 14:29:36,695 serializers Processing phone number: +79508425370
+INFO 2025-04-25 14:29:36,705 serializers Found existing user: 9
+INFO 2025-04-25 14:29:36,708 serializers OTP generated for user 9: 834950, expires at 2025-04-25 14:34:36.705942
+INFO 2025-04-25 14:29:36,857 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-25 14:29:36,858 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-25 14:29:36,858 __init__ Headers:
+INFO 2025-04-25 14:29:36,858 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-25 14:29:36,858 __init__ Accept : application/json
+INFO 2025-04-25 14:29:36,858 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-25 14:29:36,858 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-25 14:29:36,858 __init__ Accept-Charset : utf-8
+INFO 2025-04-25 14:29:36,858 __init__ -- END Twilio API Request --
+DEBUG 2025-04-25 14:29:36,859 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-25 14:29:37,361 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-25 14:29:37,362 __init__ Response Status Code: 401
+INFO 2025-04-25 14:29:37,363 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Fri, 25 Apr 2025 11:29:37 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ25af67b26f2e43d8f01c18b277611541', 'Twilio-Request-Duration': '0.018', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 b34d5d8e5954d0b7b46d5f0eb534c166.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': 'iVlhgzjlPKsm0M4PQY5FAYXEUS0Plr4ojCXvjafhDU9mAWKdb4dxfw=='}
+ERROR 2025-04-25 14:29:37,364 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-25 14:29:37,365 views User +79508425370 processed for OTP
+DEBUG 2025-04-25 14:29:45,114 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+DEBUG 2025-04-25 14:29:45,120 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+WARNING 2025-04-25 14:29:45,124 serializers Invalid OTP for +79508425370: code=834950, expiry=None
+ERROR 2025-04-25 14:29:45,124 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-25 14:29:45,125 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+WARNING 2025-04-25 14:29:45,125 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 14:29:45,131 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+WARNING 2025-04-25 14:29:45,135 serializers Invalid OTP for +79508425370: code=834950, expiry=None
+INFO 2025-04-25 14:29:45,135 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+ERROR 2025-04-25 14:29:45,135 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:29:45,135 serializers Invalid OTP for +79508425370: code=834950, expiry=None
+WARNING 2025-04-25 14:29:45,136 log Bad Request: /api/auth/otp/
+ERROR 2025-04-25 14:29:45,136 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:29:45,138 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 14:29:45,140 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+DEBUG 2025-04-25 14:29:45,141 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+WARNING 2025-04-25 14:29:45,144 serializers Invalid OTP for +79508425370: code=834950, expiry=None
+ERROR 2025-04-25 14:29:45,144 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:29:45,144 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 14:29:45,146 serializers Invalid OTP for +79508425370: code=834950, expiry=None
+ERROR 2025-04-25 14:29:45,146 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-25 14:29:45,147 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '834950'}
+WARNING 2025-04-25 14:29:45,148 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 14:29:45,152 serializers Invalid OTP for +79508425370: code=834950, expiry=None
+ERROR 2025-04-25 14:29:45,152 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:29:45,153 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 14:47:42,726 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-25 14:47:42,726 serializers Processing phone number: +79508425370
+INFO 2025-04-25 14:47:42,732 serializers Found existing user: 9
+INFO 2025-04-25 14:47:42,740 serializers OTP generated for user 9: 666672, expires at 2025-04-25 14:52:42.732400
+INFO 2025-04-25 14:47:42,741 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-25 14:47:42,741 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-25 14:47:42,741 __init__ Headers:
+INFO 2025-04-25 14:47:42,742 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-25 14:47:42,742 __init__ Accept : application/json
+INFO 2025-04-25 14:47:42,742 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-25 14:47:42,742 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-25 14:47:42,742 __init__ Accept-Charset : utf-8
+INFO 2025-04-25 14:47:42,743 __init__ -- END Twilio API Request --
+DEBUG 2025-04-25 14:47:42,746 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-25 14:47:43,292 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-25 14:47:43,296 __init__ Response Status Code: 401
+INFO 2025-04-25 14:47:43,297 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Fri, 25 Apr 2025 11:47:43 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQe16eba9b514f423c8725afce225f1bec', 'Twilio-Request-Duration': '0.018', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 b8e900270aa30d899882e71796feca9c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'FRA6-C1', 'X-Amz-Cf-Id': 'DXWtQ7A2hOqDijVxsW_ZnDZ1yIDgLbCdZ-dVrGd9v8lKUUIFJc6vmQ=='}
+ERROR 2025-04-25 14:47:43,301 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-25 14:47:43,303 views User +79508425370 processed for OTP
+DEBUG 2025-04-25 14:47:52,433 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+DEBUG 2025-04-25 14:47:52,449 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+WARNING 2025-04-25 14:47:52,452 serializers Invalid OTP for +79508425370: code=666672, expiry=None
+ERROR 2025-04-25 14:47:52,453 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:47:52,453 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 14:47:52,457 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+WARNING 2025-04-25 14:47:52,461 serializers Invalid OTP for +79508425370: code=666672, expiry=None
+ERROR 2025-04-25 14:47:52,461 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:47:52,461 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 14:47:52,464 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+WARNING 2025-04-25 14:47:52,468 serializers Invalid OTP for +79508425370: code=666672, expiry=None
+ERROR 2025-04-25 14:47:52,469 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:47:52,469 log Bad Request: /api/auth/otp/
+INFO 2025-04-25 14:47:52,470 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-25 14:47:52,472 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+DEBUG 2025-04-25 14:47:52,476 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+WARNING 2025-04-25 14:47:52,476 serializers Invalid OTP for +79508425370: code=666672, expiry=None
+ERROR 2025-04-25 14:47:52,478 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:47:52,478 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 14:47:52,480 serializers Invalid OTP for +79508425370: code=666672, expiry=None
+ERROR 2025-04-25 14:47:52,480 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:47:52,480 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 14:47:52,484 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '666672'}
+WARNING 2025-04-25 14:47:52,487 serializers Invalid OTP for +79508425370: code=666672, expiry=None
+ERROR 2025-04-25 14:47:52,487 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 14:47:52,487 log Bad Request: /api/auth/otp/
+INFO 2025-04-25 23:15:00,124 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 23:15:47,505 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 23:21:01,709 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-25 23:21:03,907 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-25 23:21:03,908 serializers Processing phone number: +79508425370
+INFO 2025-04-25 23:21:03,951 serializers Found existing user: 9
+INFO 2025-04-25 23:21:03,954 serializers OTP generated for user 9: 930531, expires at 2025-04-25 23:26:03.951375
+INFO 2025-04-25 23:21:04,069 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-25 23:21:04,069 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-25 23:21:04,069 __init__ Headers:
+INFO 2025-04-25 23:21:04,069 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-25 23:21:04,069 __init__ Accept : application/json
+INFO 2025-04-25 23:21:04,069 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-25 23:21:04,071 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-25 23:21:04,071 __init__ Accept-Charset : utf-8
+INFO 2025-04-25 23:21:04,071 __init__ -- END Twilio API Request --
+DEBUG 2025-04-25 23:21:04,072 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-25 23:21:04,428 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-25 23:21:04,429 __init__ Response Status Code: 401
+INFO 2025-04-25 23:21:04,430 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Fri, 25 Apr 2025 20:21:04 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ8c53f419af56d0827287dc2b86c3103e', 'Twilio-Request-Duration': '0.019', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 2e0b0e777d576ee595b61a5d3b296990.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': '7wNgTBATu1OdWBxLNoDyQmVnmkwIngzaS45JG4Q-9WQNwvx1LbhKjQ=='}
+ERROR 2025-04-25 23:21:04,431 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-25 23:21:04,433 views User +79508425370 processed for OTP
+DEBUG 2025-04-25 23:21:10,448 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+DEBUG 2025-04-25 23:21:10,453 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+WARNING 2025-04-25 23:21:10,458 serializers Invalid OTP for +79508425370: code=930531, expiry=None
+ERROR 2025-04-25 23:21:10,460 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:21:10,460 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 23:21:10,462 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+WARNING 2025-04-25 23:21:10,467 serializers Invalid OTP for +79508425370: code=930531, expiry=None
+ERROR 2025-04-25 23:21:10,471 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+INFO 2025-04-25 23:21:10,472 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-25 23:21:10,472 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 23:21:10,477 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+DEBUG 2025-04-25 23:21:10,479 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+WARNING 2025-04-25 23:21:10,481 serializers Invalid OTP for +79508425370: code=930531, expiry=None
+ERROR 2025-04-25 23:21:10,482 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:21:10,482 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 23:21:10,484 serializers Invalid OTP for +79508425370: code=930531, expiry=None
+ERROR 2025-04-25 23:21:10,484 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:21:10,485 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 23:21:10,489 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+DEBUG 2025-04-25 23:21:10,490 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '930531'}
+WARNING 2025-04-25 23:21:10,494 serializers Invalid OTP for +79508425370: code=930531, expiry=None
+ERROR 2025-04-25 23:21:10,494 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:21:10,495 serializers Invalid OTP for +79508425370: code=930531, expiry=None
+WARNING 2025-04-25 23:21:10,495 log Bad Request: /api/auth/otp/
+ERROR 2025-04-25 23:21:10,495 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:21:10,497 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 23:21:13,018 log Not Found: /api/profile/
+WARNING 2025-04-25 23:21:13,023 log Not Found: /api/profile/
+WARNING 2025-04-25 23:33:50,550 log Not Found: /api/profile/
+WARNING 2025-04-25 23:42:28,527 log Not Found: /api/profile/
+INFO 2025-04-25 23:45:01,266 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-25 23:45:02,612 autoreload Watching for file changes with StatReloader
+INFO 2025-04-25 23:47:40,752 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-25 23:47:41,603 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-25 23:47:44,586 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-25 23:47:44,586 serializers Processing phone number: +79508425370
+INFO 2025-04-25 23:47:44,594 serializers Found existing user: 9
+INFO 2025-04-25 23:47:44,604 serializers OTP generated for user 9: 842184, expires at 2025-04-25 23:52:44.594999
+INFO 2025-04-25 23:47:44,709 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-25 23:47:44,709 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-25 23:47:44,710 __init__ Headers:
+INFO 2025-04-25 23:47:44,710 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-25 23:47:44,710 __init__ Accept : application/json
+INFO 2025-04-25 23:47:44,710 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-25 23:47:44,711 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-25 23:47:44,711 __init__ Accept-Charset : utf-8
+INFO 2025-04-25 23:47:44,711 __init__ -- END Twilio API Request --
+DEBUG 2025-04-25 23:47:44,712 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-25 23:47:45,058 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-25 23:47:45,058 __init__ Response Status Code: 401
+INFO 2025-04-25 23:47:45,058 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Fri, 25 Apr 2025 20:47:44 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ8c6a0b33afb97afa6b2ace654549bc60', 'Twilio-Request-Duration': '0.016', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 7599c9263666c70e7c78c161a02a07f8.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'CwcUMlS4UYclT1MTRa8sXNcrxmHomzYs0JY8zTAae_eYHo56QFGs5g=='}
+ERROR 2025-04-25 23:47:45,059 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-25 23:47:45,059 views User +79508425370 processed for OTP
+DEBUG 2025-04-25 23:47:55,322 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+DEBUG 2025-04-25 23:47:55,330 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+INFO 2025-04-25 23:47:55,333 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-25 23:47:55,335 serializers Invalid OTP for +79508425370: code=842184, expiry=None
+ERROR 2025-04-25 23:47:55,335 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:47:55,335 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 23:47:55,337 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+DEBUG 2025-04-25 23:47:55,338 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+WARNING 2025-04-25 23:47:55,341 serializers Invalid OTP for +79508425370: code=842184, expiry=None
+WARNING 2025-04-25 23:47:55,342 serializers Invalid OTP for +79508425370: code=842184, expiry=None
+ERROR 2025-04-25 23:47:55,342 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-25 23:47:55,342 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:47:55,342 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 23:47:55,343 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 23:47:55,345 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+DEBUG 2025-04-25 23:47:55,349 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+WARNING 2025-04-25 23:47:55,351 serializers Invalid OTP for +79508425370: code=842184, expiry=None
+ERROR 2025-04-25 23:47:55,352 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:47:55,352 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 23:47:55,356 serializers Invalid OTP for +79508425370: code=842184, expiry=None
+ERROR 2025-04-25 23:47:55,357 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:47:55,357 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-25 23:47:55,360 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '842184'}
+WARNING 2025-04-25 23:47:55,365 serializers Invalid OTP for +79508425370: code=842184, expiry=None
+ERROR 2025-04-25 23:47:55,365 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-25 23:47:55,366 log Bad Request: /api/auth/otp/
+WARNING 2025-04-25 23:47:57,506 log Not Found: /api/profile/
+WARNING 2025-04-25 23:47:57,512 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:08,412 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:08,423 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:10,874 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:10,887 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:11,438 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:11,450 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:11,805 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:11,816 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:12,242 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:12,254 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:12,552 log Not Found: /api/profile/
+WARNING 2025-04-25 23:48:12,567 log Not Found: /api/profile/
+INFO 2025-04-26 09:06:33,912 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-26 09:06:50,622 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-26 09:06:50,623 serializers Processing phone number: +79508425370
+INFO 2025-04-26 09:06:50,720 serializers Found existing user: 9
+INFO 2025-04-26 09:06:50,728 serializers OTP generated for user 9: 062299, expires at 2025-04-26 09:11:50.721676
+INFO 2025-04-26 09:06:50,942 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-26 09:06:50,943 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-26 09:06:50,944 __init__ Headers:
+INFO 2025-04-26 09:06:50,944 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-26 09:06:50,945 __init__ Accept : application/json
+INFO 2025-04-26 09:06:50,947 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-26 09:06:50,948 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-26 09:06:50,948 __init__ Accept-Charset : utf-8
+INFO 2025-04-26 09:06:50,948 __init__ -- END Twilio API Request --
+DEBUG 2025-04-26 09:06:50,949 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-26 09:06:51,424 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-26 09:06:51,425 __init__ Response Status Code: 401
+INFO 2025-04-26 09:06:51,426 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Sat, 26 Apr 2025 06:06:51 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ92b3090a4d5e9ec6cb4944870dd2b625', 'Twilio-Request-Duration': '0.017', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 bfeae0ecbffe44ad98e5cd0ae83bdb4a.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': 'YHztseYcNYpGrp-ar77qm4ge-WN_jrJDSd-TjR7O4GFAMApZZtqm0A=='}
+ERROR 2025-04-26 09:06:51,429 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-26 09:06:51,429 views User +79508425370 processed for OTP
+DEBUG 2025-04-26 09:07:06,305 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+DEBUG 2025-04-26 09:07:06,331 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+INFO 2025-04-26 09:07:06,333 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-26 09:07:06,340 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,341 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-26 09:07:06,344 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,342 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:07:06,349 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,353 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-26 09:07:06,355 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '052299'}
+WARNING 2025-04-26 09:07:06,354 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,359 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '052299'}
+WARNING 2025-04-26 09:07:06,361 serializers Invalid OTP for +79508425370: code=052299, expiry=None
+ERROR 2025-04-26 09:07:06,362 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,362 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:07:06,363 serializers Invalid OTP for +79508425370: code=052299, expiry=None
+ERROR 2025-04-26 09:07:06,364 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,364 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,368 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '052299'}
+DEBUG 2025-04-26 09:07:06,368 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '052299'}
+WARNING 2025-04-26 09:07:06,372 serializers Invalid OTP for +79508425370: code=052299, expiry=None
+ERROR 2025-04-26 09:07:06,373 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,373 serializers Invalid OTP for +79508425370: code=052299, expiry=None
+ERROR 2025-04-26 09:07:06,374 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,374 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:07:06,375 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,380 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+DEBUG 2025-04-26 09:07:06,381 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,385 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,385 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,386 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:07:06,387 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+DEBUG 2025-04-26 09:07:06,388 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+ERROR 2025-04-26 09:07:06,388 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,391 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,393 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,395 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,396 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,396 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,398 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,399 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,400 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,400 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,404 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,404 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,405 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,406 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,408 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,410 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,410 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,411 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,413 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,413 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,416 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,416 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,418 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,418 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,419 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,419 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,421 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,423 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,423 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,424 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,425 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,426 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,427 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,427 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,430 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,431 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,431 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,432 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,433 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,434 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,435 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,435 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:07:06,437 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+WARNING 2025-04-26 09:07:06,439 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,439 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,440 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:07:06,441 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+DEBUG 2025-04-26 09:07:06,441 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '062299'}
+ERROR 2025-04-26 09:07:06,442 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,443 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:07:06,445 serializers Invalid OTP for +79508425370: code=062299, expiry=None
+ERROR 2025-04-26 09:07:06,445 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:07:06,446 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:16:42,690 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-26 09:16:42,691 serializers Processing phone number: +79508425370
+INFO 2025-04-26 09:16:42,698 serializers Found existing user: 9
+INFO 2025-04-26 09:16:42,708 serializers OTP generated for user 9: 781356, expires at 2025-04-26 09:21:42.698892
+INFO 2025-04-26 09:16:42,710 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-26 09:16:42,711 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-26 09:16:42,711 __init__ Headers:
+INFO 2025-04-26 09:16:42,711 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-26 09:16:42,712 __init__ Accept : application/json
+INFO 2025-04-26 09:16:42,712 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-26 09:16:42,713 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-26 09:16:42,713 __init__ Accept-Charset : utf-8
+INFO 2025-04-26 09:16:42,714 __init__ -- END Twilio API Request --
+DEBUG 2025-04-26 09:16:42,715 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-26 09:16:43,387 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-26 09:16:43,392 __init__ Response Status Code: 401
+INFO 2025-04-26 09:16:43,395 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Sat, 26 Apr 2025 06:16:43 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ00141c8f30e30678da0ad42a1f396277', 'Twilio-Request-Duration': '0.016', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 a8de383ae0e22ed372880220fd20b198.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': 'uQ0MHqwDTx5vvUB4cDMePeUcBkcaKwXvrOVyFt3_AVpS9srGzQElIg=='}
+ERROR 2025-04-26 09:16:43,398 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-26 09:16:43,401 views User +79508425370 processed for OTP
+DEBUG 2025-04-26 09:16:49,562 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+INFO 2025-04-26 09:16:49,584 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-26 09:16:49,618 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+WARNING 2025-04-26 09:16:49,626 serializers Invalid OTP for +79508425370: code=781356, expiry=None
+ERROR 2025-04-26 09:16:49,626 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:16:49,627 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:16:49,636 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+WARNING 2025-04-26 09:16:49,641 serializers Invalid OTP for +79508425370: code=781356, expiry=None
+ERROR 2025-04-26 09:16:49,642 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:16:49,642 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:16:49,647 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+DEBUG 2025-04-26 09:16:49,651 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+DEBUG 2025-04-26 09:16:49,651 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+WARNING 2025-04-26 09:16:49,653 serializers Invalid OTP for +79508425370: code=781356, expiry=None
+ERROR 2025-04-26 09:16:49,653 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:16:49,654 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:16:49,654 serializers Invalid OTP for +79508425370: code=781356, expiry=None
+ERROR 2025-04-26 09:16:49,655 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-26 09:16:49,655 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '781356'}
+WARNING 2025-04-26 09:16:49,656 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:16:49,658 serializers Invalid OTP for +79508425370: code=781356, expiry=None
+ERROR 2025-04-26 09:16:49,659 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:16:49,659 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:16:49,661 serializers Invalid OTP for +79508425370: code=781356, expiry=None
+ERROR 2025-04-26 09:16:49,662 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:16:49,662 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:17:25,867 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-26 09:17:25,868 serializers Processing phone number: +79508425370
+INFO 2025-04-26 09:17:25,872 serializers Found existing user: 9
+INFO 2025-04-26 09:17:25,882 serializers OTP generated for user 9: 350612, expires at 2025-04-26 09:22:25.873713
+INFO 2025-04-26 09:17:25,882 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-26 09:17:25,883 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-26 09:17:25,883 __init__ Headers:
+INFO 2025-04-26 09:17:25,883 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-26 09:17:25,883 __init__ Accept : application/json
+INFO 2025-04-26 09:17:25,883 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-26 09:17:25,884 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-26 09:17:25,884 __init__ Accept-Charset : utf-8
+INFO 2025-04-26 09:17:25,884 __init__ -- END Twilio API Request --
+DEBUG 2025-04-26 09:17:25,885 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-26 09:17:26,353 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-26 09:17:26,357 __init__ Response Status Code: 401
+INFO 2025-04-26 09:17:26,358 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Sat, 26 Apr 2025 06:17:26 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQe1cd661be9c8e26b5f5a08cf8a3e2b39', 'Twilio-Request-Duration': '0.007', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 301faf3f65621d2ccd9fad88788c128a.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'ARN56-P1', 'X-Amz-Cf-Id': '4TyR6_fSvAymKt1o7APvbfgDW3B3RTftRkpAPPH_mFZS-P8zYgGWPQ=='}
+ERROR 2025-04-26 09:17:26,361 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-26 09:17:26,365 views User +79508425370 processed for OTP
+DEBUG 2025-04-26 09:17:32,627 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+DEBUG 2025-04-26 09:17:32,633 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+INFO 2025-04-26 09:17:32,637 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-26 09:17:32,637 serializers Invalid OTP for +79508425370: code=350612, expiry=None
+ERROR 2025-04-26 09:17:32,639 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:17:32,639 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-26 09:17:32,640 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+WARNING 2025-04-26 09:17:32,642 serializers Invalid OTP for +79508425370: code=350612, expiry=None
+DEBUG 2025-04-26 09:17:32,644 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+ERROR 2025-04-26 09:17:32,644 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-26 09:17:32,645 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+DEBUG 2025-04-26 09:17:32,646 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+WARNING 2025-04-26 09:17:32,645 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:17:32,648 serializers Invalid OTP for +79508425370: code=350612, expiry=None
+DEBUG 2025-04-26 09:17:32,650 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '350612'}
+WARNING 2025-04-26 09:17:32,650 serializers Invalid OTP for +79508425370: code=350612, expiry=None
+ERROR 2025-04-26 09:17:32,650 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-26 09:17:32,652 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:17:32,653 serializers Invalid OTP for +79508425370: code=350612, expiry=None
+WARNING 2025-04-26 09:17:32,653 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:17:32,653 log Bad Request: /api/auth/otp/
+ERROR 2025-04-26 09:17:32,654 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:17:32,654 serializers Invalid OTP for +79508425370: code=350612, expiry=None
+ERROR 2025-04-26 09:17:32,659 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-26 09:17:32,655 log Bad Request: /api/auth/otp/
+WARNING 2025-04-26 09:17:32,660 log Bad Request: /api/auth/otp/

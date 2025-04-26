@@ -755,30 +755,31 @@ body {
 }
 
 .social-icon-button {
-  background-color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
+   background-color: var(--primary-color);
+   border: 2px solid var(--primary-color);
+   border-radius: 50%;
+   width: 60px;
+   height: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 12px;
+   cursor: pointer;
+   transition: all 0.3s ease-in-out;
+ }
 
-.social-icon-button:hover {
-  background-color: var(--primary-color);
-  transform: scale(1.1);
-  border-color: var(--primary-color);
-}
+ .social-icon-button:hover {
+   background-color: var(--primary-color);
+   transform: scale(1.1);
+   border-color: var(--primary-color);
+ }
 
-.social-icon-button img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
+ .social-icon-button img {
+   width: 24px;
+   height: 24px;
+   object-fit: contain;
+ }
+
 
 .social-auth-button {
   background-color: #fff;
@@ -963,15 +964,13 @@ body {
   cursor: pointer;
 }
 
-/* Style the dropdown arrow */
 .social-login select.registration__field {
   background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 15px center;
-  padding-right: 30px; /* Space for the arrow */
+  padding-right: 30px;
 }
 
-/* Ensure options have consistent styling */
 .registration__field option {
   background-color: var(--primary-color);
   color: var(--button-hover-text);
@@ -2259,6 +2258,7 @@ body {
   align-items: center;
   border-radius: 20px;
   height: 100px;
+  width: 1100px;
   padding: 15px 20px;
   background-color: var(--email-bg);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
@@ -2443,10 +2443,8 @@ body {
 .action-buttons {
   display: flex;
   margin-top: 20px;
-  width: 100%;
   align-items: stretch;
   gap: 40px 50px;
-  flex-wrap: wrap;
 }
 
 .default-button {
@@ -2456,7 +2454,7 @@ body {
   padding: 15px 20px;
   align-items: center;
   justify-content: center;
-  gap: 80px;
+  gap: 100px;
   font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 24px;
   color: var(--primary-color);
@@ -2484,7 +2482,7 @@ body {
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 0;
-  width: fit-content;
+  width: 845px;
 }
 
 .button-icon {
@@ -2540,6 +2538,10 @@ body {
 
 .history-item {
   margin-top: 19px;
+}
+
+.no-logs-message {
+    color: var(--primary-color);
 }
 
 .action-column {
@@ -3372,12 +3374,6 @@ body {
     font-size: 16px;
   }
 
-  .action-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
   .send-button,
   .schedule-button {
     width: 100%;
@@ -3427,7 +3423,6 @@ body {
   }
 
   .email-view-content .email-actions {
-    flex-direction: column;
     align-items: center;
   }
 
@@ -3443,7 +3438,7 @@ body {
   }
 
   .categories-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     padding: 0 20px;
   }
@@ -3458,16 +3453,12 @@ body {
     height: 40px;
   }
 
-  .column {
-    width: 100%;
-  }
-
   .column-content {
     width: 100%;
   }
 
   .profile-content .menu,
-  .profile-content .menu-text,
+  .profile-content .menu-text,folder-card
   .user-info,
   .info-text,
   .default-button,
@@ -3609,7 +3600,7 @@ body {
   }
 
   .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   .profile-content .menu,

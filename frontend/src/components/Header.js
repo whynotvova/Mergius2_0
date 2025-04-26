@@ -19,10 +19,18 @@ const Header = () => {
   const isMailPage = ['/mail', '/email-view', '/calendar', '/compose'].includes(location.pathname);
   const isProfilePage = ['/profile', '/account', '/themes', '/security', '/categories'].includes(location.pathname);
 
+  const handleLogoClick = () => {
+    if (isInternalPage) {
+      navigate('/mail');
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <header className="main-header">
       <div className="logo-container">
-        <Link to="/">
+        <Link to="#" onClick={handleLogoClick}>
           <img
             src={`${process.env.PUBLIC_URL}/images/header/Logo.png`}
             alt="Mergius Logo"
