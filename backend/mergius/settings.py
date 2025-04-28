@@ -28,14 +28,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'social_django',
     'corsheaders',
-    'Auth',
-    'mail',
-    'landing',
-    'profile_user',
+    'Auth.apps.AuthConfig',
+    'profile_user.apps.ProfileUserConfig',
+    'mail.apps.MailConfig',
+    'landing.apps.LandingConfig',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

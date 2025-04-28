@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
@@ -40,6 +40,33 @@ const ThemesPage = () => {
   const [openingEmailId, setOpeningEmailId] = useState(null);
   const [theme, setTheme] = useState('default');
   const navigate = useNavigate();
+
+  // Fetch saved theme on component mount
+  useEffect(() => {
+    const fetchTheme = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        const response = await fetch('http://localhost:8000/api/profile/settings/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const savedTheme = data.theme || 'default';
+          setTheme(savedTheme);
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+          console.error('Failed to fetch theme:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching theme:', error);
+      }
+    };
+    fetchTheme();
+  }, []);
 
   const handleSideNavClick = (itemNumber) => {
     console.log(`Side-nav item ${itemNumber} clicked`);
@@ -100,9 +127,25 @@ const ThemesPage = () => {
     navigate('/calendar');
   };
 
-  const handleThemeChange = (newTheme) => {
+  const handleThemeChange = async (newTheme) => {
     setTheme(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch('http://localhost:8000/api/profile/settings/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify({ theme: newTheme }),
+      });
+      if (!response.ok) {
+        console.error('Failed to save theme:', response.status);
+      }
+    } catch (error) {
+      console.error('Error saving theme:', error);
+    }
   };
 
   return (
@@ -170,7 +213,8 @@ const ThemesPage = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="menu-icon"
-                onClick={handleSelectAll} >
+                onClick={handleSelectAll}
+              >
                 <rect width="20" height="20" fill="#D9D9D9" />
                 <path d="M28.5 14L31.5311 8.75H25.4689L28.5 14Z" fill="#D9D9D9" />
               </svg>
@@ -277,6 +321,10 @@ const ThemesPage = () => {
           className="carousel-item carousel-item-purple"
           onClick={() => handleThemeChange('purple')}
         ></div>
+        <div
+          className="carousel-item carousel-item-default"
+          onClick={() => handleThemeChange('default')}
+        ><h1>Default</h1></div>
         <img
           src={`${process.env.PUBLIC_URL}/images/mail/arrow-right-blue.png`}
           alt="Right Arrow"

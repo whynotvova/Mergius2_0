@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 UserModel = get_user_model()
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class PhoneAuthView(APIView):
     permission_classes = [AllowAny]
@@ -29,6 +30,7 @@ class PhoneAuthView(APIView):
             return Response({'phone_number': user.phone_number}, status=status.HTTP_200_OK)
         logger.error(f"PhoneAuthView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PhoneUpdateView(APIView):
@@ -49,6 +51,7 @@ class PhoneUpdateView(APIView):
         logger.error(f"PhoneUpdateView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class OTPView(APIView):
     permission_classes = [AllowAny]
@@ -62,7 +65,8 @@ class OTPView(APIView):
             try:
                 user = UserModel.objects.get(phone_number=phone_number)
                 if user.otp_code != otp_code:
-                    logger.warning(f"Invalid OTP code for {phone_number}: provided={otp_code}, expected={user.otp_code}")
+                    logger.warning(
+                        f"Invalid OTP code for {phone_number}: provided={otp_code}, expected={user.otp_code}")
                     return Response({'detail': 'Неверный OTP код'}, status=status.HTTP_400_BAD_REQUEST)
                 if user.otp_expiry < timezone.now():
                     logger.warning(f"OTP expired for {phone_number}: expiry={user.otp_expiry}")
@@ -88,6 +92,7 @@ class OTPView(APIView):
         logger.error(f"OTPView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class SocialAuthView(APIView):
     permission_classes = [AllowAny]
 
@@ -110,6 +115,7 @@ class SocialAuthView(APIView):
             logger.error(f"Social auth error for {backend}: {str(e)}")
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -123,6 +129,7 @@ class ProfileView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         logger.error(f"ProfileView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CheckUsernameView(APIView):

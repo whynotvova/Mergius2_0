@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
-from profile_user.models import AccountTypes
+from .models import AccountTypes
 import logging
 
 logger = logging.getLogger(__name__)
 
 UserModel = get_user_model()
+
 
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     if user:
@@ -21,7 +22,6 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         'is_phone_verified': 1,
         'is_active': 1,
     }
-    # Set default account_type to "Персональный"
     try:
         personal_account = AccountTypes.objects.get(type_name="Персональный")
         fields['account_type'] = personal_account
@@ -31,6 +31,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     user = UserModel.objects.create_user(**fields)
     logger.info(f"Created new user: {user}")
     return {'is_new': True, 'user': user}
+
 
 def save_token(backend, user, *args, **kwargs):
     logger.debug(f"Saving token for user: {user}")

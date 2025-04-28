@@ -24,6 +24,14 @@
   --button-hover-text: #ffffff;
 }
 
+/* Базовая тема */
+[data-theme="default"] {
+  --primary-color: #5863f8;
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+
 /* Желтая тема */
 [data-theme="yellow"] {
   --primary-color: #ffcc00;
@@ -1934,12 +1942,25 @@ body {
   transform: scale(1.02);
 }
 
+.carousel-item-default {
+  background: #ffffff;
+  text-align: center;
+  justify-content: center;
+  border: 2px solid #5863f8;
+  cursor: pointer;
+  margin: 0 10px;
+  padding:45px;
+}
+
+
 .carousel-item-red {
   background: linear-gradient(
     108deg,
     rgba(255, 0, 0, 0.8) 7.64%,
     rgba(88, 99, 248, 0.8) 112.6%
   );
+  cursor: pointer;
+  margin: 0 10px;
 }
 
 .carousel-item-yellow {
@@ -1948,6 +1969,8 @@ body {
     rgba(255, 204, 0, 0.8) 2.78%,
     rgba(0, 255, 0, 0.8) 95.13%
   );
+  cursor: pointer;
+  margin: 0 10px;
 }
 
 .carousel-item-purple {
@@ -1957,6 +1980,8 @@ body {
     rgba(0, 255, 255, 0.8) 95.44%
   );
 }
+
+
 
 /* Стили для страницы Календарь */
 .email-list {
@@ -2444,7 +2469,6 @@ body {
   display: flex;
   margin-top: 20px;
   align-items: stretch;
-  gap: 40px 50px;
 }
 
 .default-button {
@@ -2454,7 +2478,7 @@ body {
   padding: 15px 20px;
   align-items: center;
   justify-content: center;
-  gap: 100px;
+  gap: 25px;
   font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 24px;
   color: var(--primary-color);
@@ -2482,7 +2506,7 @@ body {
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 0;
-  width: 845px;
+  width: 850px;
 }
 
 .button-icon {

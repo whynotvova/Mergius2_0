@@ -6,6 +6,7 @@ import random
 import string
 from twilio.rest import Client
 from django.conf import settings
+from .models import AccountTypes
 import logging
 
 logger = logging.getLogger(__name__)
@@ -108,7 +109,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     def validate_account_type_id(self, value):
         if value is None:
             return value
-        from profile_user.models import AccountTypes
         try:
             AccountTypes.objects.get(account_type_id=value)
         except AccountTypes.DoesNotExist:
@@ -126,9 +126,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.country = validated_data.get('country', instance.country)
         instance.date_of_birth = validated_data.get('date_of_birth', instance.date_of_birth)
         account_type_id = validated_data.get('account_type_id')
-        if account_type_id:
-            from profile_user.models import AccountTypes
-            instance.account_type = AccountTypes.objects.get(account_type_id=account_type_id)
+        if account_type_id is not None:
+            instance.account_type = AccountTypes.objects.get(account_type_id=account_type_id) if account_type_id else None
         instance.save()
         logger.info(f"Profile updated for user {instance.user_id}")
         return instance

@@ -8,6 +8,7 @@ const Account = () => {
     date_of_birth: 'Birthday',
     country: 'Country',
     audit_logs: [],
+    account_type: 'Не указан',
   });
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const Account = () => {
             date_of_birth: data.date_of_birth || 'Birthday',
             country: data.country || 'Country',
             audit_logs: data.audit_logs || [],
+            account_type: data.account_type || 'Не указан',
           });
         } else if (response.status === 401) {
           console.error('Unauthorized, redirecting to login');
@@ -89,8 +91,8 @@ const Account = () => {
       </section>
       <section className="action-buttons">
         <div className="default-button">
-          <img src={`${process.env.PUBLIC_URL}/images/profile/free.png`} className="info-icon" alt="Default action icon" />
-          <p className="button-text">Default</p>
+          <img src={`${process.env.PUBLIC_URL}/images/profile/free.png`} className="info-icon" alt="Account type icon" />
+          <p className="button-text">{userData.account_type}</p>
         </div>
         <div className="icon-button">
           <img src={`${process.env.PUBLIC_URL}/images/profile/mail-logo.png`} className="button-icon" alt="Icon button" />

@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import UserProfileView
+from . import views
 
 urlpatterns = [
-    path('', UserProfileView.as_view(), name='user_profile'),
+    path('', views.UserProfileView.as_view(), name='user_profile'),
+    path('folders/', views.MailFolderView.as_view(), name='mail_folders'),
+    path('folders/<int:folder_id>/', views.MailFolderView.as_view(), name='mail_folder_detail'),
 ]

@@ -1,7 +1,17 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
-from profile_user.models import AccountTypes
 from .managers import CustomUserManager
+
+class AccountTypes(models.Model):
+    account_type_id = models.AutoField(primary_key=True)
+    type_name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.type_name
+
+    class Meta:
+        db_table = 'AccountTypes'
+        managed = True
 
 class CustomUser(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)

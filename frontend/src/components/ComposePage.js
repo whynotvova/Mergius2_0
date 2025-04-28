@@ -1,13 +1,54 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
 const ComposePage = () => {
   const navigate = useNavigate();
   const editorRef = useRef(null);
+  const [folders, setFolders] = useState([]);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchFolders = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/auth');
+          return;
+        }
+        const response = await fetch('http://localhost:8000/api/profile/folders/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setFolders(data.map(folder => ({
+            id: folder.folder_id,
+            name: folder.folder_name,
+            icon: folder.folder_icon || '/images/mail/folder-active.png',
+            locked: ['Входящие', 'Отмеченное', 'Черновики', 'Отправленное'].includes(folder.folder_name),
+          })));
+        } else if (response.status === 401) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user_id');
+          navigate('/auth');
+        } else {
+          setError('Не удалось загрузить папки');
+        }
+      } catch (error) {
+        console.error('Error fetching folders:', error);
+        setError('Ошибка подключения к серверу');
+      }
+    };
+    fetchFolders();
+  }, [navigate]);
 
-  const handleSideNavClick = (itemNumber) => {
+  const handleSideNavClick = (itemNumber, folder = null) => {
     console.log(`Side-nav item ${itemNumber} clicked`);
+    if (folder) {
+      navigate(`/mail/${folder.name.toLowerCase()}`);
+    }
   };
 
   const handlePanelIconClick = (iconNumber) => {
@@ -70,6 +111,19 @@ const ComposePage = () => {
                   className="product-image stack-spacing"
                 />
               </button>
+              {folders.map(folder => (
+                <button
+                  key={folder.id}
+                  className="side-nav-button"
+                  onClick={() => handleSideNavClick(folder.id, folder)}
+                >
+                  <img
+                    src={`${process.env.PUBLIC_URL}${folder.icon}`}
+                    alt={folder.name}
+                    className="product-image stack-spacing"
+                  />
+                </button>
+              ))}
               <button className="side-nav-button" onClick={() => handleSideNavClick(5)}>
                 <img
                   src={`${process.env.PUBLIC_URL}/images/mail/folder-add.png`}
@@ -92,6 +146,7 @@ const ComposePage = () => {
         </nav>
 
         <section className="email-composer-section">
+          {error && <div className="error-message">{error}</div>}
           <form className="email-composer">
             <header className="email-title">
               <input

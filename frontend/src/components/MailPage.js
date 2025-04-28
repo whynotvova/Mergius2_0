@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
@@ -36,33 +36,73 @@ const MailPage = () => {
     },
   ]);
 
+  const [folders, setFolders] = useState([]);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [openingEmailId, setOpeningEmailId] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const categoryImages = [
-    `${process.env.PUBLIC_URL}/images/mail/bubble-chat.png`,
-    `${process.env.PUBLIC_URL}/images/mail/social-media-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/delete-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/shopping-cart-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/anonymous-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/news-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/console-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/ticket-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/briefcase-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/sex-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/google-logo.png`,
-    `${process.env.PUBLIC_URL}/images/mail/mail-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/yandex-red.png`,
-    `${process.env.PUBLIC_URL}/images/mail/email-blue.png`,
-    `${process.env.PUBLIC_URL}/images/mail/yahoo-logo.png`,
+  const predefinedCategories = [
+    { name: 'Чаты', icon: '/images/mail/bubble-chat.png' },
+    { name: 'Социальные сети', icon: '/images/mail/social-media-blue.png' },
+    { name: 'Удаленные', icon: '/images/mail/delete-blue.png' },
+    { name: 'Покупки', icon: '/images/mail/shopping-cart-blue.png' },
+    { name: 'Анонимные', icon: '/images/mail/anonymous-blue.png' },
+    { name: 'Новости', icon: '/images/mail/news-blue.png' },
+    { name: 'Консоль', icon: '/images/mail/console-blue.png' },
+    { name: 'Билеты', icon: '/images/mail/ticket-blue.png' },
+    { name: 'Работа', icon: '/images/mail/briefcase-blue.png' },
+    { name: 'Личное', icon: '/images/mail/sex-blue.png' },
+    { name: 'Google', icon: '/images/mail/google-logo.png' },
+    { name: 'Mail.ru', icon: '/images/mail/mail-blue.png' },
+    { name: 'Yandex', icon: '/images/mail/yandex-red.png' },
+    { name: 'Email', icon: '/images/mail/email-blue.png' },
+    { name: 'Yahoo', icon: '/images/mail/yahoo-logo.png' },
   ];
 
-  const handleSideNavClick = (itemNumber) => {
+  useEffect(() => {
+    const fetchFolders = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/auth');
+          return;
+        }
+        const response = await fetch('http://localhost:8000/api/profile/folders/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setFolders(data.map(folder => ({
+            id: folder.folder_id,
+            name: folder.folder_name,
+            icon: folder.folder_icon || '/images/mail/folder-active.png',
+            locked: ['Входящие', 'Отмеченное', 'Черновики', 'Отправленное'].includes(folder.folder_name),
+          })));
+        } else if (response.status === 401) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user_id');
+          navigate('/auth');
+        } else {
+          setError('Не удалось загрузить папки');
+        }
+      } catch (error) {
+        console.error('Error fetching folders:', error);
+        setError('Ошибка подключения к серверу');
+      }
+    };
+    fetchFolders();
+  }, [navigate]);
+
+  const handleSideNavClick = (itemNumber, folder = null) => {
     console.log(`Side-nav item ${itemNumber} clicked`);
     if (itemNumber === 5) {
       setIsCategoriesOpen(true);
+    } else if (folder) {
+      navigate(`/mail/${folder.name.toLowerCase()}`);
     }
   };
 
@@ -95,7 +135,7 @@ const MailPage = () => {
 
   const closeCategories = () => {
     setIsCategoriesOpen(false);
-    setSelectedCategory(null);
+    setError(null);
   };
 
   const handleComposeClick = () => {
@@ -119,9 +159,39 @@ const MailPage = () => {
     navigate('/calendar');
   };
 
-  const handleCategoryClick = (index) => {
-    setSelectedCategory(index);
-    console.log(`Category ${index + 1} clicked`);
+  const handleAddCategory = async (category) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:8000/api/profile/folders/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          folder_name: category.name,
+          folder_icon: category.icon, // Changed from category_icon to folder_icon
+          sort_order: 1000,
+        }),
+      });
+      if (response.ok) {
+        const newFolder = await response.json();
+        setFolders([...folders, {
+          id: newFolder.folder_id,
+          name: newFolder.folder_name,
+          icon: newFolder.folder_icon,
+          locked: false,
+        }]);
+        setIsCategoriesOpen(false);
+        setError(null);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Не удалось добавить папку');
+      }
+    } catch (error) {
+      console.error('Error adding folder:', error);
+      setError('Ошибка подключения к серверу');
+    }
   };
 
   return (
@@ -155,6 +225,19 @@ const MailPage = () => {
                   className="product-image stack-spacing"
                 />
               </button>
+              {folders.map(folder => (
+                <button
+                  key={folder.id}
+                  className="side-nav-button"
+                  onClick={() => handleSideNavClick(folder.id, folder)}
+                >
+                  <img
+                    src={`${process.env.PUBLIC_URL}${folder.icon}`}
+                    alt={folder.name}
+                    className="product-image stack-spacing"
+                  />
+                </button>
+              ))}
               <button className="side-nav-button" onClick={() => handleSideNavClick(5)}>
                 <img
                   src={`${process.env.PUBLIC_URL}/images/mail/folder-add.png`}
@@ -176,6 +259,7 @@ const MailPage = () => {
         </nav>
 
         <section className="email-section">
+          {error && <div className="error-message">{error}</div>}
           <div className="navigation-container">
             <div className="navigation-icons">
               <svg
@@ -185,7 +269,8 @@ const MailPage = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="menu-icon"
-                onClick={handleSelectAll}>
+                onClick={handleSelectAll}
+              >
                 <rect width="20" height="20" fill="#D9D9D9" />
                 <path d="M28.5 14L31.5311 8.75H25.4689L28.5 14Z" fill="#D9D9D9" />
               </svg>
@@ -277,17 +362,17 @@ const MailPage = () => {
       {isCategoriesOpen && (
         <div className="modal-overlay" onClick={closeCategories}>
           <section className="categories-container" onClick={(e) => e.stopPropagation()}>
-            <h2 className="categories-title">Категории</h2>
+            <h2 className="categories-title">Выберите категорию</h2>
             <div className="categories-grid">
-              {categoryImages.map((image, index) => (
+              {predefinedCategories.map((category, index) => (
                 <div className="category-item" key={index}>
                   <button
-                    className={`category-button ${selectedCategory === index ? 'chat-border' : ''}`}
-                    onClick={() => handleCategoryClick(index)}
+                    className="category-button"
+                    onClick={() => handleAddCategory(category)}
                   >
                     <img
-                      src={image}
-                      alt={`Category ${index + 1}`}
+                      src={`${process.env.PUBLIC_URL}${category.icon}`}
+                      alt={category.name}
                       className="category-icon"
                     />
                   </button>
