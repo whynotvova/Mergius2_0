@@ -18351,3 +18351,1597 @@ DEBUG 2025-04-28 16:52:33,907 views GET /api/profile/folders/ by user 9
 DEBUG 2025-04-28 16:52:33,915 views GET /api/profile/folders/ by user 9
 DEBUG 2025-04-28 16:52:36,113 views GET /api/profile/folders/ by user 9
 DEBUG 2025-04-28 16:52:36,123 views GET /api/profile/folders/ by user 9
+INFO 2025-04-28 23:17:01,867 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:17:12,688 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-28 23:17:13,554 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:18:33,664 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-28 23:18:34,504 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:18:51,383 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\mergius\settings.py changed, reloading.
+INFO 2025-04-28 23:18:52,263 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-28 23:19:32,179 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:19:32,185 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:19:33,162 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:19:36,573 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:19:36,581 log Unauthorized: /api/profile/settings/
+INFO 2025-04-28 23:24:35,007 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-28 23:24:39,800 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-28 23:24:40,885 log Not Found: /api/profile/settings/
+WARNING 2025-04-28 23:24:40,891 log Not Found: /api/profile/settings/
+INFO 2025-04-28 23:24:52,968 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-28 23:24:53,864 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-28 23:24:56,040 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:24:57,533 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:24:57,543 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-28 23:25:03,371 log Unauthorized: /api/profile/settings/
+INFO 2025-04-28 23:34:47,402 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\models.py changed, reloading.
+INFO 2025-04-28 23:34:48,332 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:35:28,391 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-28 23:35:29,350 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-28 23:36:06,773 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+INFO 2025-04-28 23:39:31,242 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-28 23:39:41,094 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-28 23:39:41,108 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-28 23:39:49,617 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-28 23:39:49,629 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-28 23:39:50,547 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-28 23:39:50,556 views GET /api/profile/folders/ by user 9
+INFO 2025-04-28 23:42:21,443 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-28 23:42:22,396 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:42:45,818 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-28 23:42:46,714 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:43:11,028 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-28 23:43:11,957 autoreload Watching for file changes with StatReloader
+INFO 2025-04-28 23:47:20,068 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\mergius\settings.py changed, reloading.
+INFO 2025-04-29 00:15:02,642 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:15:08,179 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 00:15:09,174 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:15:12,492 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-29 00:15:13,393 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:15:15,794 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 00:15:16,676 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:15:24,328 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\models.py changed, reloading.
+INFO 2025-04-29 00:15:25,217 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:15:39,007 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 00:15:39,926 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-29 00:15:48,729 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 00:15:56,953 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-29 00:15:57,579 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-29 00:15:58,147 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-29 00:15:58,611 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 00:15:59,443 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:15:59,450 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 00:16:02,268 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 00:16:02,275 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 00:16:03,109 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 00:16:04,191 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:16:04,201 views GET /api/profile/folders/ by user 9
+INFO 2025-04-29 00:24:49,506 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 00:24:50,527 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:25:03,288 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 00:25:04,196 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 00:25:22,224 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:25:22,226 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:25:22,238 serializers Found existing user: 9
+INFO 2025-04-29 00:25:22,251 serializers OTP generated for user 9: 810515, expires at 2025-04-29 00:30:22.239490
+INFO 2025-04-29 00:25:22,852 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:25:22,853 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:25:22,854 __init__ Headers:
+INFO 2025-04-29 00:25:22,856 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:25:22,856 __init__ Accept : application/json
+INFO 2025-04-29 00:25:22,857 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:25:22,857 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:25:22,858 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:25:22,858 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:25:22,865 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:25:23,244 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:25:23,247 __init__ Response Status Code: 401
+INFO 2025-04-29 00:25:23,249 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:25:22 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQbe305659343bc8917e71867505a8d4f7', 'Twilio-Request-Duration': '0.017', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 da638d87f8ab43a61f74ca34a51fd8b8.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'NjZPlPA8Fbu2PtTqip5rKtXahXGGmp0f-pGNl5BOw8q2cehw8to6hQ=='}
+ERROR 2025-04-29 00:25:23,251 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:25:23,256 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:25:29,027 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+DEBUG 2025-04-29 00:25:29,039 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+WARNING 2025-04-29 00:25:29,048 serializers Invalid OTP for +79508425370: code=810515, expiry=None
+ERROR 2025-04-29 00:25:29,048 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:25:29,050 log Bad Request: /api/auth/otp/
+INFO 2025-04-29 00:25:29,052 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:25:29,058 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+DEBUG 2025-04-29 00:25:29,064 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+WARNING 2025-04-29 00:25:29,066 serializers Invalid OTP for +79508425370: code=810515, expiry=None
+ERROR 2025-04-29 00:25:29,066 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:25:29,067 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:25:29,068 serializers Invalid OTP for +79508425370: code=810515, expiry=None
+ERROR 2025-04-29 00:25:29,069 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-29 00:25:29,073 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+WARNING 2025-04-29 00:25:29,070 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:25:29,080 serializers Invalid OTP for +79508425370: code=810515, expiry=None
+ERROR 2025-04-29 00:25:29,081 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-29 00:25:29,085 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+WARNING 2025-04-29 00:25:29,082 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:25:29,090 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '810515'}
+WARNING 2025-04-29 00:25:29,094 serializers Invalid OTP for +79508425370: code=810515, expiry=None
+ERROR 2025-04-29 00:25:29,095 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:25:29,096 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:25:29,097 serializers Invalid OTP for +79508425370: code=810515, expiry=None
+ERROR 2025-04-29 00:25:29,099 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:25:29,100 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:25:29,102 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:25:29,111 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 00:25:31,527 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 00:25:31,533 log Not Found: /api/profile/settings/
+INFO 2025-04-29 00:27:19,023 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-29 00:27:19,985 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:27:35,628 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\models.py changed, reloading.
+INFO 2025-04-29 00:27:36,566 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:27:48,424 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 00:27:49,406 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:28:01,956 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 00:28:02,848 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 00:28:08,763 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:28:08,764 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:28:08,769 serializers Found existing user: 9
+INFO 2025-04-29 00:28:08,772 serializers OTP generated for user 9: 821132, expires at 2025-04-29 00:33:08.769335
+INFO 2025-04-29 00:28:08,864 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:28:08,865 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:28:08,865 __init__ Headers:
+INFO 2025-04-29 00:28:08,865 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:28:08,865 __init__ Accept : application/json
+INFO 2025-04-29 00:28:08,865 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:28:08,865 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:28:08,865 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:28:08,865 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:28:08,867 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:28:09,237 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:28:09,240 __init__ Response Status Code: 401
+INFO 2025-04-29 00:28:09,241 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:28:08 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ112492fd809baf03bc24221070974991', 'Twilio-Request-Duration': '0.006', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 7599c9263666c70e7c78c161a02a07f8.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'ZdLA7jHPHb7pokXnAP3naASG0FrLpoYXHql25Ftt4-_0a1_xPqPJGg=='}
+ERROR 2025-04-29 00:28:09,243 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:28:09,245 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:28:16,488 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+DEBUG 2025-04-29 00:28:16,505 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+INFO 2025-04-29 00:28:16,520 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-29 00:28:16,520 serializers Invalid OTP for +79508425370: code=821132, expiry=None
+ERROR 2025-04-29 00:28:16,522 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:16,525 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:16,529 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+DEBUG 2025-04-29 00:28:16,534 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+WARNING 2025-04-29 00:28:16,538 serializers Invalid OTP for +79508425370: code=821132, expiry=None
+ERROR 2025-04-29 00:28:16,538 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:16,540 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:28:16,541 serializers Invalid OTP for +79508425370: code=821132, expiry=None
+ERROR 2025-04-29 00:28:16,542 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:16,544 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:16,550 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+DEBUG 2025-04-29 00:28:16,554 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+WARNING 2025-04-29 00:28:16,559 serializers Invalid OTP for +79508425370: code=821132, expiry=None
+ERROR 2025-04-29 00:28:16,559 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:16,561 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:28:16,563 serializers Invalid OTP for +79508425370: code=821132, expiry=None
+ERROR 2025-04-29 00:28:16,564 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:16,564 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:16,567 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '821132'}
+DEBUG 2025-04-29 00:28:16,573 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 00:28:16,575 serializers Invalid OTP for +79508425370: code=821132, expiry=None
+ERROR 2025-04-29 00:28:16,578 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:16,578 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:16,584 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 00:28:20,547 log Unauthorized: /api/profile/settings/
+WARNING 2025-04-29 00:28:20,560 log Unauthorized: /api/profile/settings/
+INFO 2025-04-29 00:28:37,832 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-29 00:28:38,784 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 00:28:43,729 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:28:43,730 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:28:43,737 serializers Found existing user: 9
+INFO 2025-04-29 00:28:43,748 serializers OTP generated for user 9: 511692, expires at 2025-04-29 00:33:43.737542
+INFO 2025-04-29 00:28:43,828 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:28:43,829 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:28:43,829 __init__ Headers:
+INFO 2025-04-29 00:28:43,829 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:28:43,829 __init__ Accept : application/json
+INFO 2025-04-29 00:28:43,829 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:28:43,830 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:28:43,830 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:28:43,830 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:28:43,831 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:28:44,241 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:28:44,242 __init__ Response Status Code: 401
+INFO 2025-04-29 00:28:44,242 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:28:43 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQf833da75598cccc1f277e3f97e62832e', 'Twilio-Request-Duration': '0.007', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 209a6308b66314a59016528ef1c72bd4.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'LoCv4lF3YizV_LwQhxnt6qRCSLXuf3w09v-sSCbv3jr1ABqo-f5Q-w=='}
+ERROR 2025-04-29 00:28:44,244 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:28:44,244 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:28:51,377 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+WARNING 2025-04-29 00:28:51,380 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+ERROR 2025-04-29 00:28:51,380 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,381 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:51,385 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+WARNING 2025-04-29 00:28:51,388 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+ERROR 2025-04-29 00:28:51,388 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,389 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:51,390 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+DEBUG 2025-04-29 00:28:51,393 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+WARNING 2025-04-29 00:28:51,394 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+ERROR 2025-04-29 00:28:51,394 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,396 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+WARNING 2025-04-29 00:28:51,396 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:28:51,396 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,397 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:51,398 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+DEBUG 2025-04-29 00:28:51,401 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+WARNING 2025-04-29 00:28:51,402 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+ERROR 2025-04-29 00:28:51,402 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,403 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+WARNING 2025-04-29 00:28:51,403 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:28:51,404 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,405 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:51,406 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '611692'}
+WARNING 2025-04-29 00:28:51,409 serializers Invalid OTP for +79508425370: code=611692, expiry=2025-04-29 00:33:44
+ERROR 2025-04-29 00:28:51,409 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:51,409 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:54,148 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+DEBUG 2025-04-29 00:28:54,158 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+DEBUG 2025-04-29 00:28:54,163 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+WARNING 2025-04-29 00:28:54,164 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+ERROR 2025-04-29 00:28:54,165 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,165 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:54,167 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+INFO 2025-04-29 00:28:54,169 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:28:54,171 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+DEBUG 2025-04-29 00:28:54,172 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+WARNING 2025-04-29 00:28:54,172 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+ERROR 2025-04-29 00:28:54,176 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,176 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:28:54,177 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+ERROR 2025-04-29 00:28:54,177 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,178 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:28:54,178 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+DEBUG 2025-04-29 00:28:54,179 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+WARNING 2025-04-29 00:28:54,179 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+DEBUG 2025-04-29 00:28:54,180 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+ERROR 2025-04-29 00:28:54,180 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-29 00:28:54,182 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,184 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:54,186 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+WARNING 2025-04-29 00:28:54,186 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+WARNING 2025-04-29 00:28:54,185 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:28:54,188 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+ERROR 2025-04-29 00:28:54,188 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-29 00:28:54,190 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,190 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:28:54,191 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+WARNING 2025-04-29 00:28:54,191 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:28:54,192 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,192 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:54,196 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '511692'}
+WARNING 2025-04-29 00:28:54,201 serializers Invalid OTP for +79508425370: code=511692, expiry=None
+ERROR 2025-04-29 00:28:54,202 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:28:54,202 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:28:54,203 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:28:54,211 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:29:27,917 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:29:27,919 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:29:27,923 serializers Found existing user: 9
+INFO 2025-04-29 00:29:27,933 serializers OTP generated for user 9: 731036, expires at 2025-04-29 00:34:27.924810
+INFO 2025-04-29 00:29:27,933 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:29:27,933 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:29:27,934 __init__ Headers:
+INFO 2025-04-29 00:29:27,934 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:29:27,934 __init__ Accept : application/json
+INFO 2025-04-29 00:29:27,934 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:29:27,934 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:29:27,934 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:29:27,935 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:29:27,936 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:29:28,271 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:29:28,274 __init__ Response Status Code: 401
+INFO 2025-04-29 00:29:28,274 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'close', 'Date': 'Mon, 28 Apr 2025 21:29:27 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ2dfda6d33a6550adfc32c5578651c4f3', 'Twilio-Request-Duration': '0.006', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 16beacaf8cf9058094c22f0750f306ee.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'hR2cY1G6ifVifTJbbbrDzZcajcXKP7M0hOcZZrf0P87jeeYKLz0AFQ=='}
+ERROR 2025-04-29 00:29:28,275 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:29:28,275 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:29:33,881 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+DEBUG 2025-04-29 00:29:33,888 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+WARNING 2025-04-29 00:29:33,891 serializers Invalid OTP for +79508425370: code=731036, expiry=None
+INFO 2025-04-29 00:29:33,893 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:29:33,893 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+ERROR 2025-04-29 00:29:33,894 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-29 00:29:33,896 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+DEBUG 2025-04-29 00:29:33,897 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+DEBUG 2025-04-29 00:29:33,897 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+WARNING 2025-04-29 00:29:33,896 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:29:33,902 serializers Invalid OTP for +79508425370: code=731036, expiry=None
+WARNING 2025-04-29 00:29:33,904 serializers Invalid OTP for +79508425370: code=731036, expiry=None
+DEBUG 2025-04-29 00:29:33,906 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '731036'}
+ERROR 2025-04-29 00:29:33,906 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-29 00:29:33,906 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:29:33,908 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:29:33,909 serializers Invalid OTP for +79508425370: code=731036, expiry=None
+WARNING 2025-04-29 00:29:33,909 serializers Invalid OTP for +79508425370: code=731036, expiry=None
+WARNING 2025-04-29 00:29:33,909 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:29:33,910 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:29:33,910 serializers Invalid OTP for +79508425370: code=731036, expiry=None
+ERROR 2025-04-29 00:29:33,911 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-29 00:29:33,911 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:29:33,911 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:29:33,913 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:29:33,913 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:29:33,928 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:29:33,935 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:32:54,381 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:32:54,382 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:32:54,386 serializers Found existing user: 9
+INFO 2025-04-29 00:32:54,388 serializers OTP generated for user 9: 019170, expires at 2025-04-29 00:37:54.386835
+INFO 2025-04-29 00:32:54,390 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:32:54,390 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:32:54,390 __init__ Headers:
+INFO 2025-04-29 00:32:54,390 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:32:54,390 __init__ Accept : application/json
+INFO 2025-04-29 00:32:54,391 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:32:54,391 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:32:54,391 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:32:54,391 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:32:54,392 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:32:54,833 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:32:54,836 __init__ Response Status Code: 401
+INFO 2025-04-29 00:32:54,838 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:32:54 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ7f3a2abdec43b27c62d97661b90da7e1', 'Twilio-Request-Duration': '0.022', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 128cb7a8cd56aa3f514b398965b3b96c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'UVgZNaIIOjesf4X3wg4KHEsbYJD6hX2GTckTZIK6ZSjHVdTIIrGmCw=='}
+ERROR 2025-04-29 00:32:54,839 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:32:54,840 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:33:05,149 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+DEBUG 2025-04-29 00:33:05,162 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+DEBUG 2025-04-29 00:33:05,163 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+DEBUG 2025-04-29 00:33:05,164 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+DEBUG 2025-04-29 00:33:05,168 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+DEBUG 2025-04-29 00:33:05,171 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+WARNING 2025-04-29 00:33:05,180 views Invalid OTP code for +79508425370: provided=019170, expected=None
+WARNING 2025-04-29 00:33:05,182 views Invalid OTP code for +79508425370: provided=019170, expected=None
+WARNING 2025-04-29 00:33:05,183 views Invalid OTP code for +79508425370: provided=019170, expected=None
+WARNING 2025-04-29 00:33:05,183 views Invalid OTP code for +79508425370: provided=019170, expected=None
+WARNING 2025-04-29 00:33:05,185 views Invalid OTP code for +79508425370: provided=019170, expected=None
+WARNING 2025-04-29 00:33:05,183 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:33:05,184 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:33:05,186 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:33:05,188 log Bad Request: /api/auth/otp/
+INFO 2025-04-29 00:33:05,191 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-29 00:33:05,190 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:33:05,194 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '019170'}
+WARNING 2025-04-29 00:33:05,205 serializers Invalid OTP for +79508425370: code=019170, expiry=None
+ERROR 2025-04-29 00:33:05,205 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:33:05,205 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:33:05,231 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:33:05,240 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:34:02,221 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:34:02,222 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:34:02,229 serializers Found existing user: 9
+INFO 2025-04-29 00:34:02,233 serializers OTP generated for user 9: 363146, expires at 2025-04-29 00:39:02.229919
+INFO 2025-04-29 00:34:02,236 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:34:02,236 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:34:02,236 __init__ Headers:
+INFO 2025-04-29 00:34:02,237 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:34:02,237 __init__ Accept : application/json
+INFO 2025-04-29 00:34:02,237 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:34:02,237 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:34:02,238 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:34:02,238 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:34:02,240 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:34:02,632 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:34:02,639 __init__ Response Status Code: 401
+INFO 2025-04-29 00:34:02,641 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:34:02 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ3732ad0cdb6fd526747b776d8d34137f', 'Twilio-Request-Duration': '0.008', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 da638d87f8ab43a61f74ca34a51fd8b8.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'Rcjk5yVVKENDgYXt0RFrTUevFu95hC56zrcP_WtahflUOYJ239l1kA=='}
+ERROR 2025-04-29 00:34:02,642 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:34:02,644 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:34:11,260 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+DEBUG 2025-04-29 00:34:11,272 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+WARNING 2025-04-29 00:34:11,274 serializers Invalid OTP for +79508425370: code=363146, expiry=None
+ERROR 2025-04-29 00:34:11,275 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-29 00:34:11,276 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+WARNING 2025-04-29 00:34:11,277 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:34:11,280 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+DEBUG 2025-04-29 00:34:11,285 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+INFO 2025-04-29 00:34:11,285 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:34:11,286 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+WARNING 2025-04-29 00:34:11,287 serializers Invalid OTP for +79508425370: code=363146, expiry=None
+DEBUG 2025-04-29 00:34:11,288 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '363146'}
+WARNING 2025-04-29 00:34:11,291 serializers Invalid OTP for +79508425370: code=363146, expiry=None
+ERROR 2025-04-29 00:34:11,291 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:34:11,291 serializers Invalid OTP for +79508425370: code=363146, expiry=None
+ERROR 2025-04-29 00:34:11,292 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:34:11,292 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:34:11,293 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:34:11,293 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:34:11,294 serializers Invalid OTP for +79508425370: code=363146, expiry=None
+WARNING 2025-04-29 00:34:11,295 serializers Invalid OTP for +79508425370: code=363146, expiry=None
+WARNING 2025-04-29 00:34:11,295 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:34:11,295 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-29 00:34:11,295 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:34:11,296 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:34:11,298 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:34:11,316 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:34:11,324 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:34:12,560 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:34:12,578 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:36:42,670 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:36:42,671 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:36:42,678 serializers Found existing user: 9
+INFO 2025-04-29 00:36:42,684 serializers OTP generated for user 9: 645349, expires at 2025-04-29 00:41:42.678771
+INFO 2025-04-29 00:36:42,685 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:36:42,685 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:36:42,685 __init__ Headers:
+INFO 2025-04-29 00:36:42,685 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:36:42,686 __init__ Accept : application/json
+INFO 2025-04-29 00:36:42,686 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:36:42,686 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:36:42,688 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:36:42,688 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:36:42,690 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:36:43,053 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:36:43,054 __init__ Response Status Code: 401
+INFO 2025-04-29 00:36:43,055 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:36:42 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ50549d9abce044e4c9731d2dcf893ac7', 'Twilio-Request-Duration': '0.011', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9e7d825887069100f188900375c625e6.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'ROpalF95n7s6rkQHnkPG_ylqRjySvjZyW-hI8Aj5l-nmhbuvAOgKpg=='}
+ERROR 2025-04-29 00:36:43,055 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:36:43,055 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:36:53,235 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+INFO 2025-04-29 00:36:53,250 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:36:53,261 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+WARNING 2025-04-29 00:36:53,265 serializers Invalid OTP for +79508425370: code=645349, expiry=None
+ERROR 2025-04-29 00:36:53,265 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:36:53,265 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:36:53,274 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+WARNING 2025-04-29 00:36:53,279 serializers Invalid OTP for +79508425370: code=645349, expiry=None
+ERROR 2025-04-29 00:36:53,279 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:36:53,279 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:36:53,281 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+WARNING 2025-04-29 00:36:53,285 serializers Invalid OTP for +79508425370: code=645349, expiry=None
+DEBUG 2025-04-29 00:36:53,286 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+ERROR 2025-04-29 00:36:53,286 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+DEBUG 2025-04-29 00:36:53,287 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+WARNING 2025-04-29 00:36:53,288 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:36:53,290 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '645349'}
+WARNING 2025-04-29 00:36:53,290 serializers Invalid OTP for +79508425370: code=645349, expiry=None
+ERROR 2025-04-29 00:36:53,293 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:36:53,293 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:36:53,294 serializers Invalid OTP for +79508425370: code=645349, expiry=None
+ERROR 2025-04-29 00:36:53,294 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:36:53,295 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:36:53,295 serializers Invalid OTP for +79508425370: code=645349, expiry=None
+ERROR 2025-04-29 00:36:53,296 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:36:53,297 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:36:53,334 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:36:53,342 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:38:01,337 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:38:01,339 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:38:01,342 serializers Found existing user: 9
+INFO 2025-04-29 00:38:01,345 serializers OTP generated for user 9: 845244, expires at 2025-04-29 00:43:01.342471
+INFO 2025-04-29 00:38:01,345 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:38:01,346 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:38:01,346 __init__ Headers:
+INFO 2025-04-29 00:38:01,347 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:38:01,347 __init__ Accept : application/json
+INFO 2025-04-29 00:38:01,347 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:38:01,347 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:38:01,347 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:38:01,347 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:38:01,348 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:38:01,721 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:38:01,723 __init__ Response Status Code: 401
+INFO 2025-04-29 00:38:01,723 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:38:01 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ8aaa14f0bae235e0b98afd672f8381da', 'Twilio-Request-Duration': '0.010', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 95ad0c949c0fe7e97075c6690b8574aa.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'Kj1socATAB-ITze9mJVkjrIh8k4HihOGGTNTK7qm2zfcu9-McdXDJQ=='}
+ERROR 2025-04-29 00:38:01,724 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:38:01,724 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:38:08,779 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+INFO 2025-04-29 00:38:08,790 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:38:08,802 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+WARNING 2025-04-29 00:38:08,806 serializers Invalid OTP for +79508425370: code=845244, expiry=None
+ERROR 2025-04-29 00:38:08,806 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:38:08,807 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:38:08,813 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+WARNING 2025-04-29 00:38:08,815 serializers Invalid OTP for +79508425370: code=845244, expiry=None
+ERROR 2025-04-29 00:38:08,815 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:38:08,816 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:38:08,818 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+DEBUG 2025-04-29 00:38:08,822 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+WARNING 2025-04-29 00:38:08,823 serializers Invalid OTP for +79508425370: code=845244, expiry=None
+DEBUG 2025-04-29 00:38:08,823 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+DEBUG 2025-04-29 00:38:08,824 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '845244'}
+ERROR 2025-04-29 00:38:08,824 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:38:08,827 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:38:08,829 serializers Invalid OTP for +79508425370: code=845244, expiry=None
+ERROR 2025-04-29 00:38:08,829 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:38:08,831 serializers Invalid OTP for +79508425370: code=845244, expiry=None
+WARNING 2025-04-29 00:38:08,831 serializers Invalid OTP for +79508425370: code=845244, expiry=None
+WARNING 2025-04-29 00:38:08,831 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:38:08,831 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+ERROR 2025-04-29 00:38:08,833 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:38:08,834 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:38:08,835 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:38:08,862 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:38:08,870 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:38:10,926 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:38:10,951 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:38:27,021 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:38:27,043 views GET /api/profile/ by user 9
+WARNING 2025-04-29 00:38:34,676 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 00:38:34,684 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 00:38:37,702 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 00:38:51,314 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:38:51,325 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:39:41,080 views PhoneAuthView received data: {'phone_number': '+79508425375'}
+DEBUG 2025-04-29 00:39:41,081 serializers Processing phone number: +79508425375
+INFO 2025-04-29 00:39:41,087 serializers Found existing user: 11
+INFO 2025-04-29 00:39:41,091 serializers OTP generated for user 11: 080840, expires at 2025-04-29 00:44:41.087684
+INFO 2025-04-29 00:39:41,092 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:39:41,092 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:39:41,094 __init__ Headers:
+INFO 2025-04-29 00:39:41,094 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:39:41,094 __init__ Accept : application/json
+INFO 2025-04-29 00:39:41,095 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:39:41,095 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:39:41,095 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:39:41,095 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:39:41,098 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:39:41,462 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:39:41,463 __init__ Response Status Code: 401
+INFO 2025-04-29 00:39:41,464 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:39:41 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQbdab8d7ff5dbfd195066dea2730ea25b', 'Twilio-Request-Duration': '0.008', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 7599c9263666c70e7c78c161a02a07f8.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'SZn6fawBMpCxRtiGbGKOJ4U0DczqZufiEuib_0trjAI0lnmqxoXqIA=='}
+ERROR 2025-04-29 00:39:41,467 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:39:41,470 views User +79508425375 processed for OTP
+DEBUG 2025-04-29 00:39:47,958 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+INFO 2025-04-29 00:39:47,978 views User +79508425375 authenticated, token: 9cb0a54ba491725736c80ee55507537ae0ee5753
+DEBUG 2025-04-29 00:39:47,979 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+WARNING 2025-04-29 00:39:47,985 serializers Invalid OTP for +79508425375: code=080840, expiry=None
+ERROR 2025-04-29 00:39:47,986 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:39:47,987 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:39:47,991 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+WARNING 2025-04-29 00:39:47,995 serializers Invalid OTP for +79508425375: code=080840, expiry=None
+DEBUG 2025-04-29 00:39:47,995 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+ERROR 2025-04-29 00:39:47,996 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:39:47,998 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:39:48,002 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+DEBUG 2025-04-29 00:39:48,006 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+WARNING 2025-04-29 00:39:48,007 serializers Invalid OTP for +79508425375: code=080840, expiry=None
+DEBUG 2025-04-29 00:39:48,012 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '080840'}
+ERROR 2025-04-29 00:39:48,014 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:39:48,015 serializers Invalid OTP for +79508425375: code=080840, expiry=None
+ERROR 2025-04-29 00:39:48,016 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:39:48,016 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:39:48,017 serializers Invalid OTP for +79508425375: code=080840, expiry=None
+WARNING 2025-04-29 00:39:48,017 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:39:48,018 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:39:48,020 serializers Invalid OTP for +79508425375: code=080840, expiry=None
+WARNING 2025-04-29 00:39:48,021 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 00:39:48,021 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:39:48,022 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:39:57,997 log Not Found: /api/auth/check-username/
+WARNING 2025-04-29 00:40:07,681 log Not Found: /api/auth/check-username/
+DEBUG 2025-04-29 00:41:05,334 views CheckUsernameView received query: <QueryDict: {'username': ['tesdtsd']}>
+INFO 2025-04-29 00:41:05,340 views Username check: tesdtsd exists=False
+DEBUG 2025-04-29 00:41:05,351 views ProfileView received data: {'username': 'tesdtsd', 'country': 'Canada', 'date_of_birth': '2025-04-09'}
+INFO 2025-04-29 00:41:05,354 serializers Profile updated for user 11
+INFO 2025-04-29 00:41:05,354 views Profile updated for user 11
+DEBUG 2025-04-29 00:41:05,402 views GET /api/profile/folders/ by user 11
+DEBUG 2025-04-29 00:41:05,411 views GET /api/profile/folders/ by user 11
+DEBUG 2025-04-29 00:41:13,113 views GET /api/profile/ by user 11
+DEBUG 2025-04-29 00:41:13,124 views GET /api/profile/ by user 11
+DEBUG 2025-04-29 00:41:16,129 views DELETE /api/profile/ by user 11
+INFO 2025-04-29 00:41:16,148 views User account None deleted
+INFO 2025-04-29 00:44:29,800 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 00:44:30,666 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:44:50,502 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 00:44:51,375 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:44:59,839 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 00:45:00,726 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:45:05,037 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-29 00:45:05,892 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 00:45:11,303 views PhoneAuthView received data: {'phone_number': '+79508425375'}
+DEBUG 2025-04-29 00:45:11,303 serializers Processing phone number: +79508425375
+DEBUG 2025-04-29 00:45:11,308 serializers User does not exist, creating new user
+INFO 2025-04-29 00:45:11,311 serializers Created new user: 15
+INFO 2025-04-29 00:45:11,312 serializers OTP generated for user 15: 001256, expires at 2025-04-29 00:50:11.311067
+INFO 2025-04-29 00:45:11,417 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:45:11,418 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:45:11,418 __init__ Headers:
+INFO 2025-04-29 00:45:11,418 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:45:11,418 __init__ Accept : application/json
+INFO 2025-04-29 00:45:11,420 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:45:11,420 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:45:11,420 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:45:11,420 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:45:11,421 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:45:11,807 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:45:11,809 __init__ Response Status Code: 401
+INFO 2025-04-29 00:45:11,810 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:45:11 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ2edaefeb541fdbc8f33d1a55965f164d', 'Twilio-Request-Duration': '0.019', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 14b5d848e0a4cab1de054891ea1e787c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'GC_4k08hg_79AzHoN6-yeaF6-cP2OCl7XK1Lq_f0bFEsEKVhO4WYRQ=='}
+ERROR 2025-04-29 00:45:11,810 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:45:11,811 views User +79508425375 processed for OTP
+DEBUG 2025-04-29 00:45:16,058 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:45:16,059 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:45:16,064 serializers Found existing user: 9
+INFO 2025-04-29 00:45:16,069 serializers OTP generated for user 9: 277653, expires at 2025-04-29 00:50:16.064928
+INFO 2025-04-29 00:45:16,070 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:45:16,070 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:45:16,072 __init__ Headers:
+INFO 2025-04-29 00:45:16,072 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:45:16,073 __init__ Accept : application/json
+INFO 2025-04-29 00:45:16,073 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:45:16,074 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:45:16,074 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:45:16,074 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:45:16,076 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:45:16,386 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:45:16,387 __init__ Response Status Code: 401
+INFO 2025-04-29 00:45:16,387 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:45:15 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQca6ebbe203bfa7522779b2d2638b491f', 'Twilio-Request-Duration': '0.015', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 14b5d848e0a4cab1de054891ea1e787c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'p4g5DjmCo0HjafxHxo-eOD6o6MeFfhqnBLlD-b0Kp46dd4VU7hICPQ=='}
+ERROR 2025-04-29 00:45:16,389 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:45:16,390 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:45:26,237 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+INFO 2025-04-29 00:45:26,256 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:45:26,260 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+WARNING 2025-04-29 00:45:26,263 serializers Invalid OTP for +79508425370: code=277653, expiry=None
+ERROR 2025-04-29 00:45:26,264 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:45:26,264 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:45:26,272 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+WARNING 2025-04-29 00:45:26,276 serializers Invalid OTP for +79508425370: code=277653, expiry=None
+ERROR 2025-04-29 00:45:26,276 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:45:26,276 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:45:26,279 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+WARNING 2025-04-29 00:45:26,281 serializers Invalid OTP for +79508425370: code=277653, expiry=None
+DEBUG 2025-04-29 00:45:26,282 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+ERROR 2025-04-29 00:45:26,282 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:45:26,284 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:45:26,286 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+WARNING 2025-04-29 00:45:26,290 serializers Invalid OTP for +79508425370: code=277653, expiry=None
+ERROR 2025-04-29 00:45:26,290 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:45:26,291 serializers Invalid OTP for +79508425370: code=277653, expiry=None
+ERROR 2025-04-29 00:45:26,293 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:45:26,291 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:45:26,294 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:45:26,302 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '277653'}
+WARNING 2025-04-29 00:45:26,306 serializers Invalid OTP for +79508425370: code=277653, expiry=None
+ERROR 2025-04-29 00:45:26,307 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:45:26,307 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:45:26,325 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:45:26,332 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:45:29,365 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:45:29,382 views GET /api/profile/ by user 9
+INFO 2025-04-29 00:45:43,708 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\urls.py changed, reloading.
+INFO 2025-04-29 00:45:44,661 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 00:46:01,356 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 00:46:02,329 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 00:46:16,446 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 00:46:16,447 serializers Processing phone number: +79508425370
+INFO 2025-04-29 00:46:16,456 serializers Found existing user: 9
+INFO 2025-04-29 00:46:16,467 serializers OTP generated for user 9: 985164, expires at 2025-04-29 00:51:16.457771
+INFO 2025-04-29 00:46:16,579 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 00:46:16,579 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 00:46:16,579 __init__ Headers:
+INFO 2025-04-29 00:46:16,579 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 00:46:16,579 __init__ Accept : application/json
+INFO 2025-04-29 00:46:16,579 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 00:46:16,580 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 00:46:16,580 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 00:46:16,580 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 00:46:16,581 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 00:46:16,941 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 00:46:16,942 __init__ Response Status Code: 401
+INFO 2025-04-29 00:46:16,942 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Mon, 28 Apr 2025 21:46:16 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ4b5f23879f2c6830d1542a10f6631fcd', 'Twilio-Request-Duration': '0.009', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 d3e98d8cca4d16199794e4f4191b942c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'HEL51-P1', 'X-Amz-Cf-Id': 'bNgHgBOxYTD6_FCpc-CAu72PDSkYEL4zjmYvvd9sqlzugC2eoudkhg=='}
+ERROR 2025-04-29 00:46:16,943 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 00:46:16,943 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 00:46:22,284 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+INFO 2025-04-29 00:46:22,304 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 00:46:22,309 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+WARNING 2025-04-29 00:46:22,313 serializers Invalid OTP for +79508425370: code=985164, expiry=None
+ERROR 2025-04-29 00:46:22,314 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:46:22,314 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:46:22,320 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+WARNING 2025-04-29 00:46:22,324 serializers Invalid OTP for +79508425370: code=985164, expiry=None
+ERROR 2025-04-29 00:46:22,324 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:46:22,326 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:46:22,327 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+DEBUG 2025-04-29 00:46:22,331 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+WARNING 2025-04-29 00:46:22,332 serializers Invalid OTP for +79508425370: code=985164, expiry=None
+ERROR 2025-04-29 00:46:22,332 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:46:22,333 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:46:22,334 serializers Invalid OTP for +79508425370: code=985164, expiry=None
+DEBUG 2025-04-29 00:46:22,337 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+ERROR 2025-04-29 00:46:22,339 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:46:22,341 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:46:22,346 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '985164'}
+WARNING 2025-04-29 00:46:22,347 serializers Invalid OTP for +79508425370: code=985164, expiry=None
+ERROR 2025-04-29 00:46:22,349 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:46:22,350 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 00:46:22,354 serializers Invalid OTP for +79508425370: code=985164, expiry=None
+ERROR 2025-04-29 00:46:22,354 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 00:46:22,356 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 00:46:22,384 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:46:22,398 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 00:46:24,432 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 00:46:24,453 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:06:47,456 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:06:47,473 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:06:48,790 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 01:06:50,147 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:06:50,156 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:10:27,753 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:10:27,768 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:10:36,252 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:10:36,264 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:10:37,436 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:10:37,445 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:11:20,835 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:11:20,850 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:11:20,860 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:11:20,872 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:12:24,045 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:24,059 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:24,072 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:24,170 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:31,936 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:31,953 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:32,036 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:12:32,054 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:18,827 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:18,842 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:17:18,911 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:17:18,920 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:17:29,279 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:29,295 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:46,738 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:46,752 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:46,766 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:17:46,778 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:04,646 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:04,663 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:04,760 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:04,781 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:22,112 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:22,124 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:22,218 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:22,230 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:25,696 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:25,711 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:25,716 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:25,735 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:57,950 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:57,963 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:57,972 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:18:58,081 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:19:02,155 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:19:02,171 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:19:02,176 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:19:02,191 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:19:28,964 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:19:28,977 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:19:29,000 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:19:29,006 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:19:56,378 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:19:56,382 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:20:13,444 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:20:13,450 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:21:32,192 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:21:32,205 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:21:32,300 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:21:32,305 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:21:52,779 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:21:52,785 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:22:12,831 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:22:12,838 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:22:15,966 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:22:15,976 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:22:19,027 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:22:19,045 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:22:54,594 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:22:54,607 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:22:57,827 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:22:57,835 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:24:01,917 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:24:01,925 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:24:26,861 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:26,874 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:26,977 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:26,987 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:31,356 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:31,373 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:31,378 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:24:31,401 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:32:43,370 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:32:43,398 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:32:43,432 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:32:43,439 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:33:14,796 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:33:14,813 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:33:14,887 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:33:14,903 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:34:06,801 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:06,815 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:06,824 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:06,837 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:13,780 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:13,799 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:13,871 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:13,887 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:36,579 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:36,593 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:34:36,694 log Not Found: /api/profile
+WARNING 2025-04-29 01:34:36,709 log Not Found: /api/profile
+DEBUG 2025-04-29 01:34:47,018 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:47,028 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:47,126 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:47,138 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:51,926 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:51,942 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:52,002 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:34:52,016 views GET /api/profile/ by user 9
+WARNING 2025-04-29 01:35:15,556 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:35:15,560 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:35:46,533 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 01:35:46,539 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 01:35:51,290 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:35:51,298 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:35:56,934 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:35:56,950 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:35:59,650 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:35:59,659 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:35,850 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:35,857 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:37,336 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:37,343 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:37,819 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:37,826 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:36:51,766 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:36:51,781 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 01:37:12,980 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:37:12,990 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:37:56,814 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:37:56,828 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:38:00,840 views POST /api/profile/folders/ by user 9 with data: {'folder_name': 'Личное', 'folder_icon': '/images/mail/sex-blue.png', 'sort_order': 1000}
+INFO 2025-04-29 01:38:00,855 views Folder 'Личное' created for user 9
+DEBUG 2025-04-29 01:38:02,963 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:38:02,972 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:38:10,427 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:38:10,434 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:38:13,985 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:38:13,992 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:48:50,458 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 01:48:50,468 views GET /api/profile/folders/ by user 9
+INFO 2025-04-29 12:20:25,454 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 12:20:47,586 views PhoneAuthView received data: {'phone_number': '+79508425375'}
+DEBUG 2025-04-29 12:20:47,586 serializers Processing phone number: +79508425375
+INFO 2025-04-29 12:20:47,648 serializers Found existing user: 15
+INFO 2025-04-29 12:20:47,655 serializers OTP generated for user 15: 435418, expires at 2025-04-29 12:25:47.648863
+INFO 2025-04-29 12:20:47,825 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 12:20:47,825 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 12:20:47,826 __init__ Headers:
+INFO 2025-04-29 12:20:47,826 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 12:20:47,826 __init__ Accept : application/json
+INFO 2025-04-29 12:20:47,826 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 12:20:47,826 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 12:20:47,826 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 12:20:47,826 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 12:20:47,827 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 12:20:48,248 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 12:20:48,251 __init__ Response Status Code: 401
+INFO 2025-04-29 12:20:48,254 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Tue, 29 Apr 2025 09:20:47 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ88a8be341829a3f8b30a47873d97c5f0', 'Twilio-Request-Duration': '0.022', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 8b9cf1f620ecec0019275b2dae339946.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'WAW51-P1', 'X-Amz-Cf-Id': 'pLeCi1iAI7ROc1QGsqrn-kRTHcLZdYR_fwdlPI53D7dCVC8vWtmgqg=='}
+ERROR 2025-04-29 12:20:48,256 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 12:20:48,260 views User +79508425375 processed for OTP
+DEBUG 2025-04-29 12:20:56,631 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+DEBUG 2025-04-29 12:20:56,639 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+WARNING 2025-04-29 12:20:56,645 serializers Invalid OTP for +79508425375: code=435418, expiry=None
+ERROR 2025-04-29 12:20:56,645 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:20:56,646 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:20:56,648 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+WARNING 2025-04-29 12:20:56,654 serializers Invalid OTP for +79508425375: code=435418, expiry=None
+INFO 2025-04-29 12:20:56,655 views User +79508425375 authenticated, token: 7b44f4762a4d71002459b624751b7bbf635ffe5b
+ERROR 2025-04-29 12:20:56,655 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:20:56,656 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:20:56,659 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+DEBUG 2025-04-29 12:20:56,661 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+WARNING 2025-04-29 12:20:56,662 serializers Invalid OTP for +79508425375: code=435418, expiry=None
+ERROR 2025-04-29 12:20:56,664 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:20:56,664 serializers Invalid OTP for +79508425375: code=435418, expiry=None
+WARNING 2025-04-29 12:20:56,664 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 12:20:56,665 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:20:56,665 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:20:56,669 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+DEBUG 2025-04-29 12:20:56,670 views OTPView received data: {'phone_number': '+79508425375', 'otp_code': '435418'}
+WARNING 2025-04-29 12:20:56,674 serializers Invalid OTP for +79508425375: code=435418, expiry=None
+ERROR 2025-04-29 12:20:56,675 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:20:56,675 serializers Invalid OTP for +79508425375: code=435418, expiry=None
+WARNING 2025-04-29 12:20:56,675 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 12:20:56,676 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:20:56,676 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:21:15,622 views CheckUsernameView received query: <QueryDict: {'username': ['Addddd']}>
+INFO 2025-04-29 12:21:15,630 views Username check: Addddd exists=False
+DEBUG 2025-04-29 12:21:15,642 views ProfileView received data: {'username': 'Addddd', 'country': 'Australia', 'date_of_birth': '2015-06-10'}
+INFO 2025-04-29 12:21:15,646 serializers Profile updated for user 15
+INFO 2025-04-29 12:21:15,647 views Profile updated for user 15
+DEBUG 2025-04-29 12:21:15,689 views GET /api/profile/folders/ by user 15
+DEBUG 2025-04-29 12:21:15,706 views GET /api/profile/folders/ by user 15
+WARNING 2025-04-29 12:21:18,117 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:21:18,124 log Not Found: /api/profile/settings/
+INFO 2025-04-29 12:21:57,822 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 12:27:32,346 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:27:32,360 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:27:32,368 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:27:32,376 log Not Found: /api/profile/settings/
+INFO 2025-04-29 12:30:10,202 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 12:30:11,225 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 12:33:17,617 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:33:17,629 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:33:17,646 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:33:17,651 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:33:18,938 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:33:34,349 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:33:34,358 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:33:34,364 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:33:34,373 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:35:17,534 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+INFO 2025-04-29 12:38:46,511 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 12:38:47,415 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-29 12:38:48,745 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:38:59,659 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:38:59,679 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:38:59,679 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:38:59,696 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:39:00,375 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:43:01,161 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:43:01,178 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:43:04,100 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:43:07,594 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:43:07,609 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:43:07,609 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:43:07,622 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:45:33,393 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:45:34,987 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:45:34,996 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:45:35,005 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:45:35,012 log Not Found: /api/profile/settings/
+INFO 2025-04-29 12:48:53,770 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\mergius\settings.py changed, reloading.
+INFO 2025-04-29 12:48:54,745 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 12:48:57,886 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:48:57,902 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:48:57,914 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:48:57,920 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:48:58,471 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+INFO 2025-04-29 12:52:29,514 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\mergius\settings.py changed, reloading.
+INFO 2025-04-29 12:52:30,470 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 12:52:33,468 views GET /api/profile/ by user 15
+DEBUG 2025-04-29 12:52:33,477 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:52:33,488 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:52:33,493 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:52:34,464 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:53:27,133 views GET /api/profile/ by user 15
+WARNING 2025-04-29 12:53:27,147 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 12:54:26,552 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 12:54:26,553 serializers Processing phone number: +79508425370
+INFO 2025-04-29 12:54:26,559 serializers Found existing user: 9
+INFO 2025-04-29 12:54:26,568 serializers OTP generated for user 9: 760607, expires at 2025-04-29 12:59:26.559609
+INFO 2025-04-29 12:54:26,714 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 12:54:26,715 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 12:54:26,716 __init__ Headers:
+INFO 2025-04-29 12:54:26,716 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 12:54:26,716 __init__ Accept : application/json
+INFO 2025-04-29 12:54:26,717 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 12:54:26,717 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 12:54:26,717 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 12:54:26,717 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 12:54:26,719 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 12:54:27,204 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 12:54:27,205 __init__ Response Status Code: 401
+INFO 2025-04-29 12:54:27,206 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Tue, 29 Apr 2025 09:54:26 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ9a2dc5037001273db3bd65f2fa8a6cf5', 'Twilio-Request-Duration': '0.018', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 c47f2ac3504d76b47bea1a99ab6b08fc.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'WAW51-P1', 'X-Amz-Cf-Id': '3sSv1ovAJkL3DmWBjjNA-VsYSyhFFAaf3VBoD0khtdMAYB05_h90wA=='}
+ERROR 2025-04-29 12:54:27,206 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 12:54:27,207 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 12:54:32,639 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+INFO 2025-04-29 12:54:32,649 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 12:54:32,663 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+WARNING 2025-04-29 12:54:32,666 serializers Invalid OTP for +79508425370: code=760607, expiry=None
+ERROR 2025-04-29 12:54:32,666 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:54:32,667 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:54:32,675 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+WARNING 2025-04-29 12:54:32,677 serializers Invalid OTP for +79508425370: code=760607, expiry=None
+ERROR 2025-04-29 12:54:32,677 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:54:32,679 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:54:32,681 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+WARNING 2025-04-29 12:54:32,685 serializers Invalid OTP for +79508425370: code=760607, expiry=None
+ERROR 2025-04-29 12:54:32,685 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:54:32,686 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:54:32,687 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+WARNING 2025-04-29 12:54:32,692 serializers Invalid OTP for +79508425370: code=760607, expiry=None
+ERROR 2025-04-29 12:54:32,693 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:54:32,693 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:54:32,696 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+WARNING 2025-04-29 12:54:32,700 serializers Invalid OTP for +79508425370: code=760607, expiry=None
+ERROR 2025-04-29 12:54:32,700 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:54:32,702 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:54:32,708 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '760607'}
+WARNING 2025-04-29 12:54:32,713 serializers Invalid OTP for +79508425370: code=760607, expiry=None
+ERROR 2025-04-29 12:54:32,714 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 12:54:32,714 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 12:54:32,726 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 12:54:32,738 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 12:54:35,289 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 12:54:35,314 views GET /api/profile/ by user 9
+WARNING 2025-04-29 12:54:35,322 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:54:35,333 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 12:54:37,034 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 12:54:37,048 views GET /api/profile/ by user 9
+WARNING 2025-04-29 12:54:37,061 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:54:37,069 log Not Found: /api/profile/settings/
+INFO 2025-04-29 12:55:02,947 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 12:55:03,928 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 12:56:51,844 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 12:56:52,715 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-29 12:56:56,296 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:56:59,825 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 12:56:59,841 views GET /api/profile/ by user 9
+WARNING 2025-04-29 12:56:59,848 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:56:59,862 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:57:00,708 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 12:57:56,015 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 12:57:56,034 views GET /api/profile/ by user 9
+WARNING 2025-04-29 12:57:56,043 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 12:57:56,059 log Not Found: /api/profile/settings/
+INFO 2025-04-29 13:03:51,150 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 13:03:52,023 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 13:03:53,315 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:03:53,330 views GET /api/profile/ by user 9
+WARNING 2025-04-29 13:03:53,345 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:03:53,351 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:03:53,672 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 13:05:04,891 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:05:04,907 views GET /api/profile/ by user 9
+WARNING 2025-04-29 13:05:04,924 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:05:04,929 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:05:14,144 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+INFO 2025-04-29 13:14:27,591 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 13:14:28,515 autoreload Watching for file changes with StatReloader
+ERROR 2025-04-29 13:14:41,203 log Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 24, in get
+    'user_id': user.id,
+               ^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 30, in get
+    logger.error(f"Error fetching profile for user {user.id}: {str(e)}")
+                                                    ^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+DEBUG 2025-04-29 13:15:37,107 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 13:15:37,107 serializers Processing phone number: +79508425370
+INFO 2025-04-29 13:15:37,113 serializers Found existing user: 9
+INFO 2025-04-29 13:15:37,123 serializers OTP generated for user 9: 484100, expires at 2025-04-29 13:20:37.114123
+INFO 2025-04-29 13:15:37,258 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 13:15:37,259 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 13:15:37,259 __init__ Headers:
+INFO 2025-04-29 13:15:37,259 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 13:15:37,259 __init__ Accept : application/json
+INFO 2025-04-29 13:15:37,259 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 13:15:37,259 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 13:15:37,259 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 13:15:37,259 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 13:15:37,260 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 13:15:37,609 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 13:15:37,611 __init__ Response Status Code: 401
+INFO 2025-04-29 13:15:37,613 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Tue, 29 Apr 2025 10:15:36 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQ084db13b8b554ee6be41672c6a983102', 'Twilio-Request-Duration': '0.021', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9ce5a2f082cd268feb50cb923d761742.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'WAW51-P1', 'X-Amz-Cf-Id': 'T_edDSmekXOZw6O0wrQdC6sVk5KKkyKZLI2UWIX63_c_bet6K3huQA=='}
+ERROR 2025-04-29 13:15:37,614 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 13:15:37,617 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 13:15:49,064 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+INFO 2025-04-29 13:15:49,076 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+DEBUG 2025-04-29 13:15:49,080 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+WARNING 2025-04-29 13:15:49,082 serializers Invalid OTP for +79508425370: code=484100, expiry=None
+ERROR 2025-04-29 13:15:49,083 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:15:49,083 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:15:49,090 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+WARNING 2025-04-29 13:15:49,093 serializers Invalid OTP for +79508425370: code=484100, expiry=None
+ERROR 2025-04-29 13:15:49,095 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:15:49,095 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:15:49,100 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+WARNING 2025-04-29 13:15:49,103 serializers Invalid OTP for +79508425370: code=484100, expiry=None
+ERROR 2025-04-29 13:15:49,104 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:15:49,104 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:15:49,106 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+WARNING 2025-04-29 13:15:49,109 serializers Invalid OTP for +79508425370: code=484100, expiry=None
+ERROR 2025-04-29 13:15:49,110 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:15:49,110 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:15:49,111 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+WARNING 2025-04-29 13:15:49,114 serializers Invalid OTP for +79508425370: code=484100, expiry=None
+ERROR 2025-04-29 13:15:49,115 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:15:49,115 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:15:49,117 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '484100'}
+WARNING 2025-04-29 13:15:49,121 serializers Invalid OTP for +79508425370: code=484100, expiry=None
+ERROR 2025-04-29 13:15:49,121 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:15:49,121 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 13:15:49,203 log Internal Server Error: /api/profile/folders/
+Traceback (most recent call last):
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 43, in get
+    folders = MailFolder.objects.filter(user=request.user)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1481, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1499, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1643, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1675, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1523, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1330, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1802, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'user' into field. Choices are: email_account, email_account_id, folder_icon, folder_id, folder_name, sort_order
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 49, in get
+    logger.error(f"Error fetching folders for user {request.user.id}: {str(e)}")
+                                                    ^^^^^^^^^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+ERROR 2025-04-29 13:15:49,244 log Internal Server Error: /api/profile/folders/
+Traceback (most recent call last):
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 43, in get
+    folders = MailFolder.objects.filter(user=request.user)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1481, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1499, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1643, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1675, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1523, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1330, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\query.py", line 1802, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'user' into field. Choices are: email_account, email_account_id, folder_icon, folder_id, folder_name, sort_order
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 49, in get
+    logger.error(f"Error fetching folders for user {request.user.id}: {str(e)}")
+                                                    ^^^^^^^^^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+ERROR 2025-04-29 13:15:53,118 log Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 24, in get
+    'user_id': user.id,
+               ^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 30, in get
+    logger.error(f"Error fetching profile for user {user.id}: {str(e)}")
+                                                    ^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+ERROR 2025-04-29 13:15:53,140 log Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 24, in get
+    'user_id': user.id,
+               ^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 30, in get
+    logger.error(f"Error fetching profile for user {user.id}: {str(e)}")
+                                                    ^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'id'
+INFO 2025-04-29 13:16:16,794 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 13:16:17,638 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 13:16:47,008 views PhoneAuthView received data: {'phone_number': '+79508425370'}
+DEBUG 2025-04-29 13:16:47,009 serializers Processing phone number: +79508425370
+INFO 2025-04-29 13:16:47,019 serializers Found existing user: 9
+INFO 2025-04-29 13:16:47,024 serializers OTP generated for user 9: 732953, expires at 2025-04-29 13:21:47.020483
+INFO 2025-04-29 13:16:47,116 __init__ -- BEGIN Twilio API Request --
+INFO 2025-04-29 13:16:47,117 __init__ POST Request: https://api.twilio.com/2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json
+INFO 2025-04-29 13:16:47,117 __init__ Headers:
+INFO 2025-04-29 13:16:47,117 __init__ Content-Type : application/x-www-form-urlencoded
+INFO 2025-04-29 13:16:47,118 __init__ Accept : application/json
+INFO 2025-04-29 13:16:47,118 __init__ User-Agent : twilio-python/9.5.2 (Windows AMD64) Python/3.11.9
+INFO 2025-04-29 13:16:47,118 __init__ X-Twilio-Client : python-9.5.2
+INFO 2025-04-29 13:16:47,118 __init__ Accept-Charset : utf-8
+INFO 2025-04-29 13:16:47,118 __init__ -- END Twilio API Request --
+DEBUG 2025-04-29 13:16:47,119 connectionpool Starting new HTTPS connection (1): api.twilio.com:443
+DEBUG 2025-04-29 13:16:47,473 connectionpool https://api.twilio.com:443 "POST /2010-04-01/Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json HTTP/1.1" 401 107
+INFO 2025-04-29 13:16:47,475 __init__ Response Status Code: 401
+INFO 2025-04-29 13:16:47,476 __init__ Response Headers: {'Content-Type': 'application/json', 'Content-Length': '107', 'Connection': 'keep-alive', 'Date': 'Tue, 29 Apr 2025 10:16:46 GMT', 'X-Powered-By': 'AT-5000', 'X-Twilio-Error-Code': '20003', 'Twilio-Request-Id': 'RQdb9836702d9b522917191948de735fca', 'Twilio-Request-Duration': '0.014', 'X-Home-Region': 'us1', 'X-Api-Domain': 'api.twilio.com', 'Strict-Transport-Security': 'max-age=31536000', 'Www-Authenticate': 'Basic realm="Twilio API"', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key, X-Pre-Auth-Context, X-Target-Region', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag, Twilio-Request-Id', 'Access-Control-Allow-Credentials': 'true', 'X-Shenanigans': 'none', 'X-Cache': 'Error from cloudfront', 'Via': '1.1 9a5a7a128fa33b5594ad1cc4824deb8c.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'WAW51-P1', 'X-Amz-Cf-Id': 'sZ1GS4XtQvGE6j39OnO5yJQFPSosVgM2USHukGCIhnyx3tjYy3rYNQ=='}
+ERROR 2025-04-29 13:16:47,477 serializers Twilio exception: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACf4a6f0e46efabcb6f55405d95835e32e/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+INFO 2025-04-29 13:16:47,477 views User +79508425370 processed for OTP
+DEBUG 2025-04-29 13:16:55,194 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+DEBUG 2025-04-29 13:16:55,202 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+WARNING 2025-04-29 13:16:55,207 serializers Invalid OTP for +79508425370: code=732953, expiry=None
+ERROR 2025-04-29 13:16:55,208 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+INFO 2025-04-29 13:16:55,208 views User +79508425370 authenticated, token: a27b483501c13576b386a447aad96aaf177f3935
+WARNING 2025-04-29 13:16:55,208 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:16:55,211 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+DEBUG 2025-04-29 13:16:55,214 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+WARNING 2025-04-29 13:16:55,216 serializers Invalid OTP for +79508425370: code=732953, expiry=None
+ERROR 2025-04-29 13:16:55,216 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:16:55,218 log Bad Request: /api/auth/otp/
+WARNING 2025-04-29 13:16:55,219 serializers Invalid OTP for +79508425370: code=732953, expiry=None
+ERROR 2025-04-29 13:16:55,219 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:16:55,220 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:16:55,222 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+DEBUG 2025-04-29 13:16:55,223 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+WARNING 2025-04-29 13:16:55,226 serializers Invalid OTP for +79508425370: code=732953, expiry=None
+ERROR 2025-04-29 13:16:55,227 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:16:55,227 serializers Invalid OTP for +79508425370: code=732953, expiry=None
+WARNING 2025-04-29 13:16:55,227 log Bad Request: /api/auth/otp/
+ERROR 2025-04-29 13:16:55,228 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:16:55,228 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:16:55,233 views OTPView received data: {'phone_number': '+79508425370', 'otp_code': '732953'}
+DEBUG 2025-04-29 13:16:55,236 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 13:16:55,236 serializers Invalid OTP for +79508425370: code=732953, expiry=None
+ERROR 2025-04-29 13:16:55,237 views OTPView errors: {'non_field_errors': [ErrorDetail(string='Неверный OTP код или срок действия истек', code='invalid')]}
+WARNING 2025-04-29 13:16:55,238 log Bad Request: /api/auth/otp/
+DEBUG 2025-04-29 13:16:55,243 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:16:57,148 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:16:57,166 views GET /api/profile/ by user 9
+WARNING 2025-04-29 13:16:57,166 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:16:57,179 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:16:58,192 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 13:17:00,335 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:17:00,349 views GET /api/profile/ by user 9
+WARNING 2025-04-29 13:17:00,359 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:17:00,367 log Not Found: /api/profile/settings/
+INFO 2025-04-29 13:17:44,712 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 13:17:45,548 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-29 13:17:47,573 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-29 13:18:13,808 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-29 13:18:14,270 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+WARNING 2025-04-29 13:18:15,624 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 13:18:15,632 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 13:18:18,526 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:18,533 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:31,594 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:31,603 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:34,721 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:18:34,735 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:18:36,970 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:36,977 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:39,130 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:18:39,138 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:23:16,876 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:23:16,887 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:23:18,851 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:23:18,863 views GET /api/profile/ by user 9
+INFO 2025-04-29 13:23:35,134 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\mergius\settings.py changed, reloading.
+INFO 2025-04-29 13:23:36,102 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 13:23:39,807 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:23:39,818 views GET /api/profile/ by user 9

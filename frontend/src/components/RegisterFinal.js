@@ -35,7 +35,7 @@ const RegisterFinal = () => {
 
   const checkUsernameAvailability = async (username) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/auth/check-username/?username=${encodeURIComponent(username)}`, {
+      const response = await fetch(`http://localhost:8000/api/auth/username/check/?username=${encodeURIComponent(username)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

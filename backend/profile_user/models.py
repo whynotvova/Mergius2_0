@@ -57,3 +57,16 @@ class AuditLog(models.Model):
     class Meta:
         db_table = 'Audit_Logs'
         managed = True
+
+class User_Settings(models.Model):
+    setting_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField('Auth.CustomUser', on_delete=models.CASCADE, related_name='settings', to_field='user_id')
+    language = models.CharField(max_length=10, default='ru')
+    theme = models.CharField(max_length=50, default='default')
+
+    def __str__(self):
+        return f"Settings for {self.user}"
+
+    class Meta:
+        db_table = 'User_Settings'
+        managed = True
