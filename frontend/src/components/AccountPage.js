@@ -106,7 +106,7 @@ const Account = () => {
               <div className="history-cell">
                 <p>IP</p>
                 {userData.audit_logs.map((log, index) => (
-                  <p key={index} className="history-item">{log.ip_address}</p>
+                  <p key={index} className="history-item">{log.ip_address || 'Unknown'}</p>
                 ))}
               </div>
             </div>

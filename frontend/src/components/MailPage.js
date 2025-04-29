@@ -40,6 +40,7 @@ const MailPage = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [openingEmailId, setOpeningEmailId] = useState(null);
   const [error, setError] = useState(null);
+  const [showActionIcons, setShowActionIcons] = useState(false);
   const navigate = useNavigate();
 
   const predefinedCategories = [
@@ -111,9 +112,13 @@ const MailPage = () => {
   };
 
   const handleCheckboxChange = (id) => {
-    setEmails(emails.map(email =>
+    const updatedEmails = emails.map(email =>
       email.id === id ? { ...email, isChecked: !email.isChecked } : email
-    ));
+    );
+    setEmails(updatedEmails);
+    // Show action icons if at least one email is checked
+    const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
+    setShowActionIcons(hasCheckedEmails);
   };
 
   const handleStarClick = (id) => {
@@ -147,7 +152,11 @@ const MailPage = () => {
   };
 
   const handleSelectAll = () => {
-    setEmails(emails.map(email => ({ ...email, isChecked: !emails.every(e => e.isChecked) })));
+    const allChecked = emails.every(e => e.isChecked);
+    const updatedEmails = emails.map(email => ({ ...email, isChecked: !allChecked }));
+    setEmails(updatedEmails);
+    // Show action icons if emails are selected, hide if all are deselected
+    setShowActionIcons(!allChecked);
   };
 
   const handleReload = () => {
@@ -170,7 +179,7 @@ const MailPage = () => {
         },
         body: JSON.stringify({
           folder_name: category.name,
-          folder_icon: category.icon, // Changed from category_icon to folder_icon
+          folder_icon: category.icon,
           sort_order: 1000,
         }),
       });
@@ -192,6 +201,30 @@ const MailPage = () => {
       console.error('Error adding folder:', error);
       setError('Ошибка подключения к серверу');
     }
+  };
+
+  const handleMarkAsRead = () => {
+    console.log('Marking selected emails as read...');
+    const updatedEmails = emails.map(email =>
+      email.isChecked ? { ...email, unread: false } : email
+    );
+    setEmails(updatedEmails);
+    // Check if any emails are still checked after the action
+    const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
+    setShowActionIcons(hasCheckedEmails);
+  };
+
+  const handleFilterEmails = () => {
+    console.log('Filtering emails...');
+    // Add filtering logic here (e.g., show only unread emails)
+  };
+
+  const handleDeleteEmails = () => {
+    console.log('Deleting selected emails...');
+    const updatedEmails = emails.filter(email => !email.isChecked);
+    setEmails(updatedEmails);
+    // After deletion, no emails should be checked, so hide action icons
+    setShowActionIcons(false);
   };
 
   return (
@@ -280,6 +313,28 @@ const MailPage = () => {
                 className="reload-icon"
                 onClick={handleReload}
               />
+              {showActionIcons && (
+                <>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/view.png`}
+                    alt="Mark as read icon"
+                    className="action-icon"
+                    onClick={handleMarkAsRead}
+                  />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/filter.png`}
+                    alt="Filter icon"
+                    className="action-icon"
+                    onClick={handleFilterEmails}
+                  />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/delete.png`}
+                    alt="Delete icon"
+                    className="action-icon"
+                    onClick={handleDeleteEmails}
+                  />
+                </>
+              )}
             </div>
             <div className="email-controls">
               <button className="calendar-button">

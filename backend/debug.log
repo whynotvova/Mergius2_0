@@ -19945,3 +19945,462 @@ INFO 2025-04-29 13:23:35,134 autoreload C:\Users\evova\OneDrive\Рабочий стол\Pro
 INFO 2025-04-29 13:23:36,102 autoreload Watching for file changes with StatReloader
 DEBUG 2025-04-29 13:23:39,807 views GET /api/profile/ by user 9
 DEBUG 2025-04-29 13:23:39,818 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:32:04,950 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:32:04,962 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 13:32:08,494 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:32:08,510 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:32:13,577 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:32:13,585 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:32:14,355 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:32:14,361 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:46:48,695 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:54:45,060 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:54:45,070 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:54:56,044 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:54:56,055 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:56:21,368 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:56:58,018 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:57:49,360 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:57:53,637 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:57:53,647 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:58:15,723 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:58:16,570 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:58:16,578 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:58:54,378 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:03,766 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:03,776 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:09,862 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:09,869 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:21,020 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:21,029 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:28,419 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:28,427 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:31,824 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:31,831 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:34,373 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:34,380 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:35,432 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:35,442 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:36,829 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:36,837 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:37,264 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 13:59:37,273 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:41,362 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:42,875 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:42,889 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:52,803 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:52,812 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:53,774 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:00:53,781 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:01:55,781 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:01:55,791 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:02:09,630 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:02:09,638 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:03,339 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:04,427 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:04,436 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:08,579 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:08,588 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:09,255 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:09,263 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:11,596 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:11,605 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:11,999 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:12,008 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:14,080 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:14,090 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:14,489 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:14,496 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:16,747 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:16,753 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:17,349 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:17,357 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:19,234 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:19,242 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:19,778 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:19,786 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:24,409 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:24,419 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:25,032 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:03:25,040 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:12:18,249 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:12:18,262 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:12:21,593 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:12:21,611 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:12:22,512 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:12:22,522 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:02,964 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:02,977 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:05,683 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:05,693 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:07,345 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:07,354 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:08,675 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:08,683 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:11,381 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:11,390 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:11,971 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:11,979 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:12,297 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:12,304 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:24,828 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:24,837 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:27,059 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:27,067 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:34,643 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:34,651 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 14:13:47,299 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:13:47,305 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:13:48,492 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 14:13:50,441 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:50,450 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:13:55,443 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:13:55,457 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:14:00,971 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:14:00,986 views GET /api/profile/ by user 9
+WARNING 2025-04-29 14:14:03,025 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:14:03,031 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:14:04,196 log Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/profile/settings/
+DEBUG 2025-04-29 14:14:05,397 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:14:05,405 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:14:06,329 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:14:06,337 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:26,675 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:30,924 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:30,936 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:31,459 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:31,468 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:42,091 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:42,101 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:42,674 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:42,685 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:56,770 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:23:56,781 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:04,935 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:04,945 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:14,962 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:14,971 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:16,492 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:16,501 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:18,283 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:18,289 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:20,047 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:20,057 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:20,996 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:21,010 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:21,733 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:21,745 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:22,107 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:22,118 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 14:24:24,244 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:24:24,256 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 14:24:28,132 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:28,144 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:29,014 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:29,025 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:33,767 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:33,780 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:38,458 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:38,470 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:39,677 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:24:39,690 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:34:29,232 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:34:29,241 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:34:49,545 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:34:49,553 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 14:35:38,645 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:35:38,653 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 14:35:40,268 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:40,276 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:41,355 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:41,362 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:42,220 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:42,228 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:42,556 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:42,565 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:45,808 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:35:45,817 views GET /api/profile/folders/ by user 9
+WARNING 2025-04-29 14:38:06,948 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:38:06,954 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:45:06,168 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 14:45:06,173 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 14:45:13,320 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:13,330 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:31,793 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:31,802 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:32,792 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:32,804 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:33,171 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:33,182 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:49,745 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:49,754 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:45:52,748 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:45:52,763 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:46:00,122 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:46:00,135 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:03,652 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:05,554 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:05,563 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:10,525 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:48:10,537 views GET /api/profile/folders/ by user 9
+INFO 2025-04-29 14:48:12,862 views Folder 'Личное' deleted for user 9
+DEBUG 2025-04-29 14:48:14,379 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:14,396 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:41,456 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:46,101 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 14:48:46,117 views GET /api/profile/ by user 9
+INFO 2025-04-29 14:56:53,409 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\models.py changed, reloading.
+INFO 2025-04-29 14:56:55,015 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 14:57:03,874 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 14:57:04,923 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 14:57:09,416 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 14:57:10,461 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 14:57:16,757 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:57:16,765 views GET /api/profile/folders/ by user 9
+ERROR 2025-04-29 14:57:19,307 log Internal Server Error: /api/profile/folders/16/
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'ip_address' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 135, in delete
+    AuditLog.objects.create(
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 663, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\base.py", line 1210, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 1854, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\sql\compiler.py", line 1881, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'ip_address' in 'field list'")
+INFO 2025-04-29 14:58:17,858 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\models.py changed, reloading.
+INFO 2025-04-29 14:58:18,806 autoreload Watching for file changes with StatReloader
+ERROR 2025-04-29 14:58:22,682 views Folder 16 not found for user 9
+WARNING 2025-04-29 14:58:22,683 log Not Found: /api/profile/folders/16/
+DEBUG 2025-04-29 14:58:28,827 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:58:28,834 views GET /api/profile/folders/ by user 9
+ERROR 2025-04-29 14:58:31,579 log Internal Server Error: /api/profile/folders/15/
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 135, in delete
+    AuditLog.objects.create(
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 661, in create
+    obj = self.model(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\base.py", line 569, in __init__
+    raise TypeError(
+TypeError: AuditLog() got unexpected keyword arguments: 'ip_address'
+INFO 2025-04-29 14:59:03,804 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 14:59:04,804 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 14:59:05,659 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:59:05,667 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 14:59:06,600 views POST /api/profile/folders/ by user 9 with data: {'folder_name': 'Билеты', 'folder_icon': '/images/mail/ticket-blue.png', 'sort_order': 5}
+ERROR 2025-04-29 14:59:06,646 log Internal Server Error: /api/profile/folders/
+Traceback (most recent call last):
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py", line 90, in post
+    AuditLog.objects.create(
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\query.py", line 661, in create
+    obj = self.model(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\evova\.virtualenvs\Mergius2_0-N1wYzAdf\Lib\site-packages\django\db\models\base.py", line 569, in __init__
+    raise TypeError(
+TypeError: AuditLog() got unexpected keyword arguments: 'ip_address'
+INFO 2025-04-29 14:59:44,637 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\serializers.py changed, reloading.
+INFO 2025-04-29 14:59:45,697 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 15:00:19,456 views POST /api/profile/folders/ by user 9 with data: {'folder_name': 'Чаты', 'folder_icon': '/images/mail/bubble-chat.png', 'sort_order': 5}
+INFO 2025-04-29 15:00:19,464 views Folder 'Чаты' created for user 9
+DEBUG 2025-04-29 15:00:41,851 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:00:41,865 views GET /api/profile/folders/ by user 9
+INFO 2025-04-29 15:00:45,167 views Folder 'Чаты' deleted for user 9
+DEBUG 2025-04-29 15:01:09,525 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:01:09,538 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:01:17,237 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:01:17,249 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:01:42,392 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:01:42,415 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:02:33,369 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:02:36,689 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:02:36,701 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:02:49,506 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:02:49,516 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:02:51,778 views POST /api/profile/folders/ by user 9 with data: {'folder_name': 'Удаленные', 'folder_icon': '/images/mail/delete-blue.png', 'sort_order': 6}
+INFO 2025-04-29 15:02:51,788 views Folder 'Удаленные' created for user 9
+DEBUG 2025-04-29 15:02:53,710 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:02:53,731 views GET /api/profile/ by user 9
+INFO 2025-04-29 15:03:55,806 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 15:03:56,792 autoreload Watching for file changes with StatReloader
+DEBUG 2025-04-29 15:03:57,734 views GET /api/profile/ by user 9
+INFO 2025-04-29 15:07:42,736 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 15:07:44,121 autoreload Watching for file changes with StatReloader
+INFO 2025-04-29 15:07:57,740 autoreload C:\Users\evova\OneDrive\Рабочий стол\Programming\Mergius2_0\backend\profile_user\views.py changed, reloading.
+INFO 2025-04-29 15:07:58,707 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-29 15:08:03,036 log Not Found: /api/profile/settings/
+WARNING 2025-04-29 15:08:03,043 log Not Found: /api/profile/settings/
+DEBUG 2025-04-29 15:08:04,398 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:08:04,408 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:08:06,874 connectionpool Starting new HTTPS connection (1): api.ipify.org:443
+DEBUG 2025-04-29 15:08:07,285 connectionpool https://api.ipify.org:443 "GET /?format=json HTTP/1.1" 200 21
+INFO 2025-04-29 15:08:07,290 views Folder 'Удаленные' deleted for user 9
+DEBUG 2025-04-29 15:08:09,233 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:08:09,253 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:08:58,485 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:08:58,492 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:08:59,482 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:08:59,494 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:01,811 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:01,817 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:04,002 connectionpool Starting new HTTPS connection (1): api.ipify.org:443
+DEBUG 2025-04-29 15:09:04,340 connectionpool https://api.ipify.org:443 "GET /?format=json HTTP/1.1" 200 21
+INFO 2025-04-29 15:09:04,343 views Folder 'Билеты' deleted for user 9
+DEBUG 2025-04-29 15:09:05,389 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:05,397 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:16,825 views POST /api/profile/folders/ by user 9 with data: {'folder_name': 'Чаты', 'folder_icon': '/images/mail/bubble-chat.png', 'sort_order': 5}
+DEBUG 2025-04-29 15:09:16,838 connectionpool Starting new HTTPS connection (1): api.ipify.org:443
+DEBUG 2025-04-29 15:09:17,189 connectionpool https://api.ipify.org:443 "GET /?format=json HTTP/1.1" 200 21
+INFO 2025-04-29 15:09:17,192 views Folder 'Чаты' created for user 9
+DEBUG 2025-04-29 15:09:24,197 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:24,205 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:26,931 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:09:26,946 views GET /api/profile/ by user 9
+DEBUG 2025-04-29 15:09:33,014 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:33,024 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:36,624 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:36,633 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:50,299 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:50,306 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:51,567 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:09:51,574 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:10:08,281 views POST /api/profile/folders/ by user 9 with data: {'folder_name': 'Удаленные', 'folder_icon': '/images/mail/delete-blue.png', 'sort_order': 1000}
+DEBUG 2025-04-29 15:10:08,298 connectionpool Starting new HTTPS connection (1): api.ipify.org:443
+DEBUG 2025-04-29 15:10:08,691 connectionpool https://api.ipify.org:443 "GET /?format=json HTTP/1.1" 200 21
+INFO 2025-04-29 15:10:08,696 views Folder 'Удаленные' created for user 9
+DEBUG 2025-04-29 15:10:10,856 views GET /api/profile/folders/ by user 9
+DEBUG 2025-04-29 15:10:10,865 views GET /api/profile/folders/ by user 9

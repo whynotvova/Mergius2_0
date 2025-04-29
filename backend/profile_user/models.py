@@ -50,6 +50,7 @@ class AuditLog(models.Model):
     action = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
     details = models.TextField(null=True, blank=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)  # Added IP address field
 
     def __str__(self):
         return f"{self.action} by {self.user} at {self.timestamp}"

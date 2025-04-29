@@ -39,6 +39,7 @@ const ThemesPage = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [openingEmailId, setOpeningEmailId] = useState(null);
   const [theme, setTheme] = useState('default');
+  const [showActionIcons, setShowActionIcons] = useState(false); // New state for action icons
   const navigate = useNavigate();
 
   // Fetch saved theme on component mount
@@ -80,9 +81,13 @@ const ThemesPage = () => {
   };
 
   const handleCheckboxChange = (id) => {
-    setEmails(emails.map(email =>
+    const updatedEmails = emails.map(email =>
       email.id === id ? { ...email, isChecked: !email.isChecked } : email
-    ));
+    );
+    setEmails(updatedEmails);
+    // Show action icons if at least one email is checked
+    const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
+    setShowActionIcons(hasCheckedEmails);
   };
 
   const handleStarClick = (id) => {
@@ -115,12 +120,18 @@ const ThemesPage = () => {
   };
 
   const handleSelectAll = () => {
-    setEmails(emails.map(email => ({ ...email, isChecked: !emails.every(e => e.isChecked) })));
+    const allChecked = emails.every(e => e.isChecked);
+    const updatedEmails = emails.map(email => ({ ...email, isChecked: !allChecked }));
+    setEmails(updatedEmails);
+    // Show action icons if emails are selected, hide if all are deselected
+    setShowActionIcons(!allChecked);
   };
 
   const handleReload = () => {
     console.log('Reloading emails...');
     setEmails([...emails]);
+    // Reset selections on reload
+    setShowActionIcons(false);
   };
 
   const handleCalendarClick = () => {
@@ -146,6 +157,30 @@ const ThemesPage = () => {
     } catch (error) {
       console.error('Error saving theme:', error);
     }
+  };
+
+  const handleMarkAsRead = () => {
+    console.log('Marking selected emails as read...');
+    const updatedEmails = emails.map(email =>
+      email.isChecked ? { ...email, unread: false } : email
+    );
+    setEmails(updatedEmails);
+    // Check if any emails are still checked
+    const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
+    setShowActionIcons(hasCheckedEmails);
+  };
+
+  const handleFilterEmails = () => {
+    console.log('Filtering emails...');
+    // Add filtering logic here (e.g., show only unread emails)
+  };
+
+  const handleDeleteEmails = () => {
+    console.log('Deleting selected emails...');
+    const updatedEmails = emails.filter(email => !email.isChecked);
+    setEmails(updatedEmails);
+    // After deletion, no emails should be checked, so hide action icons
+    setShowActionIcons(false);
   };
 
   return (
@@ -224,6 +259,28 @@ const ThemesPage = () => {
                 className="reload-icon"
                 onClick={handleReload}
               />
+              {showActionIcons && (
+                <>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/view.png`}
+                    alt="Mark as read icon"
+                    className="action-icon"
+                    onClick={handleMarkAsRead}
+                  />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/filter.png`}
+                    alt="Filter icon"
+                    className="action-icon"
+                    onClick={handleFilterEmails}
+                  />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/delete.png`}
+                    alt="Delete icon"
+                    className="action-icon"
+                    onClick={handleDeleteEmails}
+                  />
+                </>
+              )}
             </div>
             <div className="email-controls">
               <button className="calendar-button">

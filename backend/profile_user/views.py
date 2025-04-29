@@ -7,10 +7,31 @@ from .models import MailFolder, AuditLog, UserEmailAccount, EmailService, User_S
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 import logging
+import requests  # Added for IP lookup
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
+# Helper function to get the client's real IP address
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR', 'Unknown')
+
+    # In local development, REMOTE_ADDR might be 127.0.0.1; fetch public IP instead
+    if ip in ('127.0.0.1', '::1', 'Unknown'):
+        try:
+            response = requests.get('https://api.ipify.org?format=json', timeout=5)
+            response.raise_for_status()
+            ip_data = response.json()
+            ip = ip_data.get('ip', 'Unknown')
+        except requests.RequestException as e:
+            logger.error(f"Error fetching public IP: {str(e)}")
+            ip = 'Unknown'
+
+    return ip
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -25,10 +46,12 @@ class UserProfileView(APIView):
         user = request.user
         logger.debug(f"DELETE /api/profile/ by user {user.user_id}")
         try:
+            client_ip = get_client_ip(request)
             AuditLog.objects.create(
                 user=user,
                 action='Удаление аккаунта',
-                details=f'Аккаунт пользователя удалён с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                details='Аккаунт пользователя удалён',
+                ip_address=client_ip,
                 timestamp=timezone.now()
             )
             user.delete()
@@ -37,7 +60,6 @@ class UserProfileView(APIView):
         except Exception as e:
             logger.error(f"Error deleting account for user {user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class MailFolderView(APIView):
     permission_classes = [IsAuthenticated]
@@ -77,10 +99,12 @@ class MailFolderView(APIView):
         serializer = MailFolderSerializer(data=data)
         if serializer.is_valid():
             folder = serializer.save()
+            client_ip = get_client_ip(request)
             AuditLog.objects.create(
                 user=user,
                 action='Создание папки',
-                details=f'Создана папка "{folder.folder_name}" с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                details=f'Создана папка "{folder.folder_name}"',
+                ip_address=client_ip,
                 timestamp=timezone.now()
             )
             logger.info(f"Folder '{folder.folder_name}' created for user {user.user_id}")
@@ -98,10 +122,12 @@ class MailFolderView(APIView):
         serializer = MailFolderSerializer(folder, data=request.data, partial=True)
         if serializer.is_valid():
             folder = serializer.save()
+            client_ip = get_client_ip(request)
             AuditLog.objects.create(
                 user=request.user,
                 action='Обновление папки',
-                details=f'Обновлена папка "{folder.folder_name}" с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                details=f'Обновлена папка "{folder.folder_name}"',
+                ip_address=client_ip,
                 timestamp=timezone.now()
             )
             logger.info(f"Folder '{folder.folder_name}' updated for user {request.user.user_id}")
@@ -118,15 +144,16 @@ class MailFolderView(APIView):
 
         folder_name = folder.folder_name
         folder.delete()
+        client_ip = get_client_ip(request)
         AuditLog.objects.create(
             user=request.user,
             action='Удаление папки',
-            details=f'Удалена папка "{folder_name}" с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+            details=f'Удалена папка "{folder_name}"',
+            ip_address=client_ip,
             timestamp=timezone.now()
         )
         logger.info(f"Folder '{folder_name}' deleted for user {request.user.user_id}")
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 class UserSettingsView(APIView):
     def get(self, request):
@@ -141,6 +168,7 @@ class UserSettingsView(APIView):
             settings = User_Settings.objects.filter(user=user).first()
             if not settings:
                 logger.info(f"Creating new settings for user {user.user_id}")
+                client_ip = get_client_ip(request)
                 settings = User_Settings.objects.create(
                     user=user,
                     language='ru',
@@ -149,7 +177,8 @@ class UserSettingsView(APIView):
                 AuditLog.objects.create(
                     user=user,
                     action='Создание настроек',
-                    details=f'Созданы настройки по умолчанию для пользователя с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                    details='Созданы настройки по умолчанию для пользователя',
+                    ip_address=client_ip,
                     timestamp=timezone.now()
                 )
                 logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=default")
@@ -174,6 +203,7 @@ class UserSettingsView(APIView):
             settings = User_Settings.objects.filter(user=user).first()
             if not settings:
                 logger.info(f"Creating new settings for user {user.user_id}")
+                client_ip = get_client_ip(request)
                 settings = User_Settings.objects.create(
                     user=user,
                     language='ru',
@@ -182,7 +212,8 @@ class UserSettingsView(APIView):
                 AuditLog.objects.create(
                     user=user,
                     action='Создание настроек',
-                    details=f'Созданы настройки по умолчанию для пользователя с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                    details='Созданы настройки по умолчанию для пользователя',
+                    ip_address=client_ip,
                     timestamp=timezone.now()
                 )
                 logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=default")
@@ -190,10 +221,12 @@ class UserSettingsView(APIView):
             serializer = UserSettingsSerializer(settings, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
+                client_ip = get_client_ip(request)
                 AuditLog.objects.create(
                     user=user,
                     action='Обновление настроек',
-                    details=f'Обновлены настройки (тема: {request.data.get("theme", "не указана")}) с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                    details=f'Обновлены настройки (тема: {request.data.get("theme", "не указана")})',
+                    ip_address=client_ip,
                     timestamp=timezone.now()
                 )
                 logger.info(f"Settings updated for user {user.user_id}: {request.data}")
@@ -223,10 +256,12 @@ class UserSettingsView(APIView):
             serializer = UserSettingsSerializer(data=request.data)
             if serializer.is_valid():
                 settings = serializer.save(user=user)
+                client_ip = get_client_ip(request)
                 AuditLog.objects.create(
                     user=user,
                     action='Создание настроек',
-                    details=f'Созданы настройки (тема: {request.data.get("theme", "не указана")}) с IP {request.META.get("REMOTE_ADDR", "Unknown")}',
+                    details=f'Созданы настройки (тема: {request.data.get("theme", "не указана")})',
+                    ip_address=client_ip,
                     timestamp=timezone.now()
                 )
                 logger.info(f"Settings created for user {user.user_id}: {request.data}")

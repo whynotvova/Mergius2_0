@@ -3,18 +3,11 @@ from .models import AuditLog, MailFolder, UserEmailAccount, EmailService, User_S
 from django.apps import apps
 
 class AuditLogSerializer(serializers.ModelSerializer):
-    ip_address = serializers.SerializerMethodField()
     timestamp = serializers.DateTimeField(format='%d.%m.%Y')
 
     class Meta:
         model = AuditLog
         fields = ['action', 'details', 'timestamp', 'ip_address']
-
-    def get_ip_address(self, obj):
-        details = obj.details or ''
-        if 'с IP' in details:
-            return details.split('с IP ')[-1]
-        return 'Unknown'
 
 class EmailServiceSerializer(serializers.ModelSerializer):
     class Meta:

@@ -38,6 +38,7 @@ const CalendarPage = () => {
   const [openingEmailId, setOpeningEmailId] = useState(null);
   const [emailStates, setEmailStates] = useState({});
   const [error, setError] = useState(null);
+  const [showActionIcons, setShowActionIcons] = useState(false); // New state for action icons
   const navigate = useNavigate();
 
   const predefinedCategories = [
@@ -154,14 +155,23 @@ const CalendarPage = () => {
   };
 
   const handleCheckboxChange = (id) => {
-    setEmailStates((prev) => ({
-      ...prev,
+    const updatedEmailStates = {
+      ...emailStates,
       [id]: {
-        ...prev[id],
-        isChecked: !prev[id]?.isChecked,
-        isStarred: prev[id]?.isStarred || Math.random() > 0.5,
+        ...emailStates[id],
+        isChecked: !emailStates[id]?.isChecked,
+        isStarred: emailStates[id]?.isStarred || Math.random() > 0.5,
       },
+    };
+    setEmailStates(updatedEmailStates);
+    // Show action icons if at least one email is checked
+    const allEmails = dates.flatMap((date) => getEmailsForDate(date));
+    const updatedEmails = allEmails.map(email => ({
+      ...email,
+      isChecked: updatedEmailStates[email.id]?.isChecked || false,
     }));
+    const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
+    setShowActionIcons(hasCheckedEmails);
     console.log(`Checkbox toggled for email ${id}`);
   };
 
@@ -209,11 +219,16 @@ const CalendarPage = () => {
       };
     });
     setEmailStates(newEmailStates);
+    // Show action icons if emails are selected, hide if all are deselected
+    setShowActionIcons(!allChecked);
     console.log('Select all toggled');
   };
 
   const handleReload = () => {
     console.log('Reloading emails...');
+    // Since emails are generated, we'll reset emailStates to simulate a reload
+    setEmailStates({});
+    setShowActionIcons(false);
   };
 
   const handleCalendarClick = () => {
@@ -254,6 +269,49 @@ const CalendarPage = () => {
       console.error('Error adding folder:', error);
       setError('Ошибка подключения к серверу');
     }
+  };
+
+  const handleMarkAsRead = () => {
+    console.log('Marking selected emails as read...');
+    const updatedEmailStates = { ...emailStates };
+    const allEmails = dates.flatMap((date) => getEmailsForDate(date));
+    allEmails.forEach((email) => {
+      if (email.isChecked) {
+        updatedEmailStates[email.id] = {
+          ...updatedEmailStates[email.id],
+          isUnread: false,
+        };
+      }
+    });
+    setEmailStates(updatedEmailStates);
+    // Check if any emails are still checked
+    const updatedEmails = allEmails.map(email => ({
+      ...email,
+      isChecked: updatedEmailStates[email.id]?.isChecked || false,
+    }));
+    const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
+    setShowActionIcons(hasCheckedEmails);
+  };
+
+  const handleFilterEmails = () => {
+    console.log('Filtering emails...');
+    // Add filtering logic here (e.g., show only unread emails)
+  };
+
+  const handleDeleteEmails = () => {
+    console.log('Deleting selected emails...');
+    const updatedEmailStates = { ...emailStates };
+    const allEmails = dates.flatMap((date) => getEmailsForDate(date));
+    allEmails.forEach((email) => {
+      if (email.isChecked) {
+        delete updatedEmailStates[email.id];
+      }
+    });
+    setEmailStates(updatedEmailStates);
+    // After deletion, check if any emails are still checked
+    const remainingEmails = allEmails.filter(email => !email.isChecked);
+    const hasCheckedEmails = remainingEmails.some(email => updatedEmailStates[email.id]?.isChecked);
+    setShowActionIcons(hasCheckedEmails);
   };
 
   return (
@@ -338,6 +396,28 @@ const CalendarPage = () => {
                 className="reload-icon"
                 onClick={handleReload}
               />
+              {showActionIcons && (
+                <>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/view.png`}
+                    alt="Mark as read icon"
+                    className="action-icon"
+                    onClick={handleMarkAsRead}
+                  />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/filter.png`}
+                    alt="Filter icon"
+                    className="action-icon"
+                    onClick={handleFilterEmails}
+                  />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/mail/delete.png`}
+                    alt="Delete icon"
+                    className="action-icon"
+                    onClick={handleDeleteEmails}
+                  />
+                </>
+              )}
             </div>
             <div className="email-controls">
               <button className="calendar-button" onClick={handleCalendarClick} aria-label="Go to Mail Page">
