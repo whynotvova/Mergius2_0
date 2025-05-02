@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('Auth.urls')),
     path('api/profile/', include('profile_user.urls')),
+    path('api/mail/', include('mail.urls')),
     path('api/', include('landing.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
     re_path(r'^.*$', serve, {'document_root': settings.STATICFILES_DIRS[0], 'path': 'index.html'}),

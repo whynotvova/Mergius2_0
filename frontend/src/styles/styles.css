@@ -698,7 +698,7 @@ body {
   margin-top: 50px;
 }
 
-/* Footer (All Pages) */
+/* Футер */
 .main-footer {
   background-color: #fafbff;
   padding: 40px 70px;
@@ -1037,6 +1037,39 @@ body {
   padding: 0;
   box-sizing: border-box;
   flex-grow: 1;
+}
+
+.avatar-circle-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  border-color: var(--primary-color);
+  border-style: solid;
+  border-width: 1px;
+  object-fit: cover;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  transform: translateX(-95%);
+  gap: 20px;
+  padding-top: 55px;
+  padding-right: 45px;
+  display: none;
+}
+
+.panel-button-wrapper {
+  position: relative;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.panel-button-wrapper:hover .avatar-container {
+  display: flex;
 }
 
 /* Навигация сайта */
@@ -1385,15 +1418,13 @@ body {
 }
 
 .categories-container {
-  max-width: none;
-  margin-left: auto;
-  margin-right: auto;
-  width: 760px;
-  height: 441px;
+  max-width: 60%;
+  min-width: 400px;
+  width: 100%;
+  background: var(--modal-bg);
   border-radius: 20px;
-  padding: 20px;
-  position: relative;
-  background-color: var(--modal-bg);
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .categories-title {
@@ -1433,6 +1464,103 @@ body {
 
 .category-button:hover {
   transform: scale(1.1);
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--email-bg);
+  border: none;
+  outline: none;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  color: var(--text-color);
+  font-weight: 400;
+  padding: 13px 20px;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.form-input:focus {
+  background-color: var(--email-bg);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  color: var(--button-hover-text);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-action-button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 50px;
+  font-family: "Wix Madefor Display", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 12px 30px;
+  width: 100%;
+  max-width: 150px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-action-button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+.form-action-button:disabled {
+  background-color: var(--disabled-bg);
+  cursor: not-allowed;
+}
+
+.mail-add-button {
+  width: 150px;
+  height: 61px;
+  border-radius: 15px;
+  border: 2px solid var(--primary-color);
+  background-color: #ffffff;
+  color: var(--primary-color);
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 24px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mail-add-button:hover {
+  background-color: var(--primary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
+}
+
+.mail-cancel-button {
+  width: 150px;
+  height: 61px;
+  border-radius: 15px;
+  border: 2px solid var(--secondary-color);
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mail-cancel-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-hover-text);
+  transform: scale(1.05);
 }
 
 .chat-border {
@@ -3463,7 +3591,7 @@ body {
   }
 
   .categories-container {
-    width: 90%;
+    width: 60%;
     height: auto;
     padding: 15px;
   }

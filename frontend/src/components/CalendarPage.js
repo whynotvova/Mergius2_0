@@ -35,10 +35,18 @@ const CalendarPage = () => {
 
   const [folders, setFolders] = useState([]);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const [isMailServicesOpen, setIsMailServicesOpen] = useState(false);
+  const [isAddAccountOpen, setIsAddAccountOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+  const [emailAddress, setEmailAddress] = useState('');
+  const [password, setPassword] = useState('');
+  const [mailServices, setMailServices] = useState([]);
+  const [userEmailAccounts, setUserEmailAccounts] = useState([]);
   const [openingEmailId, setOpeningEmailId] = useState(null);
   const [emailStates, setEmailStates] = useState({});
   const [error, setError] = useState(null);
-  const [showActionIcons, setShowActionIcons] = useState(false); // New state for action icons
+  const [showActionIcons, setShowActionIcons] = useState(false);
+  const [hoveredService, setHoveredService] = useState(null);
   const navigate = useNavigate();
 
   const predefinedCategories = [
@@ -52,14 +60,14 @@ const CalendarPage = () => {
     { name: 'Билеты', icon: '/images/mail/ticket-blue.png' },
     { name: 'Работа', icon: '/images/mail/briefcase-blue.png' },
     { name: 'Личное', icon: '/images/mail/sex-blue.png' },
-    { name: 'Google', icon: '/images/mail/google-logo.png' },
-    { name: 'Mail.ru', icon: '/images/mail/mail-blue.png' },
-    { name: 'Yandex', icon: '/images/mail/yandex-red.png' },
-    { name: 'Email', icon: '/images/mail/email-blue.png' },
-    { name: 'Yahoo', icon: '/images/mail/yahoo-logo.png' },
+    { name: 'Google', icon: '/images/mail/account-google.png' },
+    { name: 'Mail.ru', icon: '/images/mail/account-mail-ru.png' },
+    { name: 'Yandex', icon: '/images/mail/account-yandex.png' },
+    { name: 'Outlook', icon: '/images/mail/account-outlook.png' },
+    { name: 'Yahoo', icon: '/images/mail/account-yahoo.png' },
+    { name: 'AOL', icon: '/images/mail/account-aol.png' },
   ];
 
-  // Fetch folders on component mount
   useEffect(() => {
     const fetchFolders = async () => {
       try {
@@ -94,7 +102,63 @@ const CalendarPage = () => {
         setError('Ошибка подключения к серверу');
       }
     };
+
+    const fetchMailServices = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/auth');
+          return;
+        }
+        const response = await fetch('http://localhost:8000/api/mail/email-services/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setMailServices(data.map(service => ({
+            name: service.service_name,
+            icon: service.service_icon,
+          })));
+        } else {
+          setError('Не удалось загрузить почтовые сервисы');
+        }
+      } catch (error) {
+        console.error('Error fetching mail services:', error);
+        setError('Ошибка подключения к серверу');
+      }
+    };
+
+    const fetchUserEmailAccounts = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/auth');
+          return;
+        }
+        const response = await fetch('http://localhost:8000/api/profile/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUserEmailAccounts(data.email_accounts || []);
+        } else {
+          setError('Не удалось загрузить почтовые аккаунты пользователя');
+        }
+      } catch (error) {
+        console.error('Error fetching user email accounts:', error);
+        setError('Ошибка подключения к серверу');
+      }
+    };
+
     fetchFolders();
+    fetchMailServices();
+    fetchUserEmailAccounts();
   }, [navigate]);
 
   const handleNextWeek = () => {
@@ -152,6 +216,9 @@ const CalendarPage = () => {
 
   const handlePanelIconClick = (iconNumber) => {
     console.log(`Panel icon ${iconNumber} clicked`);
+    if (iconNumber === 2) {
+      setIsMailServicesOpen(true);
+    }
   };
 
   const handleCheckboxChange = (id) => {
@@ -164,7 +231,6 @@ const CalendarPage = () => {
       },
     };
     setEmailStates(updatedEmailStates);
-    // Show action icons if at least one email is checked
     const allEmails = dates.flatMap((date) => getEmailsForDate(date));
     const updatedEmails = allEmails.map(email => ({
       ...email,
@@ -198,6 +264,20 @@ const CalendarPage = () => {
 
   const closeCategories = () => {
     setIsCategoriesOpen(false);
+    setError(null);
+  };
+
+  const closeMailServices = () => {
+    setIsMailServicesOpen(false);
+    setError(null);
+  };
+
+  const closeAddAccount = () => {
+    setIsAddAccountOpen(false);
+    setSelectedService(null);
+    setEmailAddress('');
+    setPassword('');
+    setError(null);
   };
 
   const handleComposeClick = () => {
@@ -219,14 +299,12 @@ const CalendarPage = () => {
       };
     });
     setEmailStates(newEmailStates);
-    // Show action icons if emails are selected, hide if all are deselected
     setShowActionIcons(!allChecked);
     console.log('Select all toggled');
   };
 
   const handleReload = () => {
     console.log('Reloading emails...');
-    // Since emails are generated, we'll reset emailStates to simulate a reload
     setEmailStates({});
     setShowActionIcons(false);
   };
@@ -271,6 +349,62 @@ const CalendarPage = () => {
     }
   };
 
+  const handleSelectMailService = (service) => {
+    setSelectedService(service);
+    setIsMailServicesOpen(false);
+    setIsAddAccountOpen(true);
+  };
+
+  const handleAddMailService = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/auth');
+        return;
+      }
+      const response = await fetch('http://localhost:8000/api/mail/email-accounts/add/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_name: selectedService.name,
+          email_address: emailAddress,
+          password: password || null,
+        }),
+      });
+      if (response.ok) {
+        setIsAddAccountOpen(false);
+        setEmailAddress('');
+        setPassword('');
+        setSelectedService(null);
+        setError(null);
+        console.log(`Added mail service: ${selectedService.name}`);
+        const updatedResponse = await fetch('http://localhost:8000/api/profile/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (updatedResponse.ok) {
+          const data = await updatedResponse.json();
+          setUserEmailAccounts(data.email_accounts || []);
+        }
+      } else {
+        const errorData = await response.json();
+        let errorMessage = errorData.error || 'Не удалось добавить почтовый аккаунт';
+        if (errorMessage.includes('You cannot add more than 2 email accounts for')) {
+          errorMessage = `Нельзя добавить больше 2 почтовых аккаунтов для ${selectedService.name}`;
+        }
+        setError(errorMessage);
+      }
+    } catch (error) {
+      console.error('Error adding mail service:', error);
+      setError('Ошибка подключения к серверу');
+    }
+  };
+
   const handleMarkAsRead = () => {
     console.log('Marking selected emails as read...');
     const updatedEmailStates = { ...emailStates };
@@ -284,7 +418,6 @@ const CalendarPage = () => {
       }
     });
     setEmailStates(updatedEmailStates);
-    // Check if any emails are still checked
     const updatedEmails = allEmails.map(email => ({
       ...email,
       isChecked: updatedEmailStates[email.id]?.isChecked || false,
@@ -295,7 +428,6 @@ const CalendarPage = () => {
 
   const handleFilterEmails = () => {
     console.log('Filtering emails...');
-    // Add filtering logic here (e.g., show only unread emails)
   };
 
   const handleDeleteEmails = () => {
@@ -308,11 +440,32 @@ const CalendarPage = () => {
       }
     });
     setEmailStates(updatedEmailStates);
-    // After deletion, check if any emails are still checked
     const remainingEmails = allEmails.filter(email => !email.isChecked);
     const hasCheckedEmails = remainingEmails.some(email => updatedEmailStates[email.id]?.isChecked);
     setShowActionIcons(hasCheckedEmails);
   };
+
+  const isServiceAdded = (serviceName) => {
+    return userEmailAccounts.some(account => account.service.service_name === serviceName);
+  };
+
+  const isServiceLimitReached = (serviceName) => {
+    const accountCount = userEmailAccounts.filter(
+      account => account.service.service_name === serviceName
+    ).length;
+    return accountCount >= 2;
+  };
+
+  const addedServices = Array.from(new Set(userEmailAccounts.map(account => account.service.service_name)))
+    .map(serviceName => {
+      const category = predefinedCategories.find(cat => cat.name === serviceName);
+      return {
+        name: serviceName,
+        icon: category ? category.icon : '/images/mail/default-service.png',
+      };
+    });
+
+  const servicesWithAvatars = ['Mail.ru', 'Gmail', 'Proton', 'AOL', 'Yahoo', 'Outlook', 'Yandex'];
 
   return (
     <div className="mail-body">
@@ -386,7 +539,15 @@ const CalendarPage = () => {
           {error && <div className="error-message">{error}</div>}
           <div className="navigation-container">
             <div className="navigation-icons">
-              <svg width="32" height="20" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="menu-icon" onClick={handleSelectAll}>
+              <svg
+                width="32"
+                height="20"
+                viewBox="0 0 32 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="menu-icon"
+                onClick={handleSelectAll}
+              >
                 <rect width="20" height="20" fill="#D9D9D9" />
                 <path d="M28.5 14L31.5311 8.75H25.4689L28.5 14Z" fill="#D9D9D9" />
               </svg>
@@ -587,14 +748,44 @@ const CalendarPage = () => {
                 <img
                   src={`${process.env.PUBLIC_URL}/images/mail/account-all.png`}
                   className="gallery-image"
-                  alt=""
+                  alt="All Accounts"
                 />
               </button>
+              {addedServices.map((service, index) => (
+                <div key={index} className="panel-button-wrapper">
+                  {servicesWithAvatars.includes(service.name) && hoveredService === service.name && (
+                    <div className="avatar-container">
+                      {userEmailAccounts
+                        .filter(account => account.service.service_name === service.name)
+                        .map((account, idx) => (
+                          <img
+                            key={idx}
+                            src={`${process.env.PUBLIC_URL}${account.avatar}`}
+                            className="avatar-circle-button"
+                            alt={`Avatar for ${account.email_address}`}
+                          />
+                        ))}
+                    </div>
+                  )}
+                  <button
+                    className="panel-button"
+                    onClick={() => console.log(`Clicked on ${service.name} service`)}
+                    onMouseEnter={() => setHoveredService(service.name)}
+                    onMouseLeave={() => setHoveredService(null)}
+                  >
+                    <img
+                      src={`${process.env.PUBLIC_URL}${service.icon}`}
+                      className="gallery-image gallery-image-bottom"
+                      alt={`${service.name} icon`}
+                    />
+                  </button>
+                </div>
+              ))}
               <button className="panel-button" onClick={() => handlePanelIconClick(2)}>
                 <img
                   src={`${process.env.PUBLIC_URL}/images/mail/account-add.png`}
                   className="gallery-image gallery-image-bottom"
-                  alt=""
+                  alt="Add Account"
                 />
               </button>
             </section>
@@ -621,6 +812,76 @@ const CalendarPage = () => {
                   </button>
                 </div>
               ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {isMailServicesOpen && (
+        <div className="modal-overlay" onClick={closeMailServices}>
+          <section className="categories-container" onClick={(e) => e.stopPropagation()}>
+            <h2 className="categories-title">Выберите почтовый сервис</h2>
+            <div className="categories-grid">
+              {mailServices.map((service, index) => (
+                <div className="category-item" key={index}>
+                  <button
+                    className="category-button"
+                    onClick={() => handleSelectMailService(service)}
+                    disabled={isServiceLimitReached(service.name)}
+                    style={{ opacity: isServiceLimitReached(service.name) ? 0.5 : 1 }}
+                    title={isServiceLimitReached(service.name) ? `Достигнут лимит в 2 аккаунта для ${service.name}` : ''}
+                  >
+                    <img
+                      src={`${process.env.PUBLIC_URL}${service.icon}`}
+                      alt={service.name}
+                      className="category-icon"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {isAddAccountOpen && (
+        <div className="modal-overlay" onClick={closeAddAccount}>
+          <section className="categories-container" onClick={(e) => e.stopPropagation()}>
+            <h2 className="categories-title">Добавить аккаунт {selectedService?.name}</h2>
+            {error && <div className="error-message">{error}</div>}
+            <div className="form-group">
+              <label htmlFor="emailAddress">Email</label>
+              <input
+                type="email"
+                id="emailAddress"
+                value={emailAddress}
+                onChange={(e) => setEmailAddress(e.target.value)}
+                placeholder="Введите ваш email"
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Пароль</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Введите ваш пароль (опционально)"
+                className="form-input"
+              />
+            </div>
+            <div className="form-actions">
+              <button
+                className="mail-add-button"
+                onClick={handleAddMailService}
+                disabled={!emailAddress}
+              >
+                Добавить
+              </button>
+              <button className="mail-cancel-button" onClick={closeAddAccount}>
+                Отмена
+              </button>
             </div>
           </section>
         </div>

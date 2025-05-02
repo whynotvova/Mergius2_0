@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import AuditLog, MailFolder, UserEmailAccount, EmailService, User_Settings
-from django.apps import apps
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class AuditLogSerializer(serializers.ModelSerializer):
     timestamp = serializers.DateTimeField(format='%d.%m.%Y')
@@ -12,14 +14,14 @@ class AuditLogSerializer(serializers.ModelSerializer):
 class EmailServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailService
-        fields = ['service_id', 'service_name', 'imap_server', 'smtp_server', 'imap_port', 'smtp_port']
+        fields = ['service_id', 'service_name', 'imap_server', 'smtp_server', 'imap_port', 'smtp_port', 'service_icon']
 
 class UserEmailAccountSerializer(serializers.ModelSerializer):
     service = EmailServiceSerializer()
 
     class Meta:
         model = UserEmailAccount
-        fields = ['email_account_id', 'user', 'service', 'email_address', 'created_at']
+        fields = ['email_account_id', 'user', 'service', 'email_address', 'avatar', 'created_at']  # Добавлено поле avatar
 
 class MailFolderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,11 +36,11 @@ class MailFolderSerializer(serializers.ModelSerializer):
         return data
 
 class UserSettingsSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=apps.get_model('Auth', 'CustomUser').objects.all())
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = User_Settings
-        fields = ['setting_id', 'user', 'language', 'theme']
+        fields = ['settings_id', 'user', 'language', 'theme']
 
     def create(self, validated_data):
         user = validated_data.pop('user')
@@ -51,10 +53,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
     email_accounts = UserEmailAccountSerializer(many=True)
     folders = serializers.SerializerMethodField()
     phone_number = serializers.CharField(allow_null=True, default='Не указан')
-    user_id = serializers.IntegerField()  # Added user_id field
+    user_id = serializers.IntegerField()
 
     class Meta:
-        model = apps.get_model('Auth', 'CustomUser')
+        model = User
         fields = ['user_id', 'username', 'date_of_birth', 'country', 'phone_number', 'audit_logs', 'account_type', 'email_accounts', 'folders']
 
     def get_folders(self, obj):

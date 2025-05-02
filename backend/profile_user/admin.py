@@ -1,37 +1,37 @@
 from django.contrib import admin
-from Auth.models import AccountTypes
-from .models import AuditLog, EmailService, UserEmailAccount, MailFolder
-
-
-@admin.register(AccountTypes)
-class AccountTypesAdmin(admin.ModelAdmin):
-    list_display = ('account_type_id', 'type_name')
-    search_fields = ('type_name',)
-
+from .models import AuditLog, EmailService, UserEmailAccount, UserFolder, MailFolder, User_Settings
 
 @admin.register(AuditLog)
 class AuditLogAdmin(admin.ModelAdmin):
-    list_display = ('log_id', 'user', 'action', 'timestamp', 'details')
+    list_display = ('user', 'action', 'timestamp', 'ip_address')
     list_filter = ('action', 'timestamp')
     search_fields = ('action', 'details')
-    raw_id_fields = ('user',)
-
 
 @admin.register(EmailService)
 class EmailServiceAdmin(admin.ModelAdmin):
-    list_display = ('service_id', 'service_name', 'imap_server', 'smtp_server')
+    list_display = ('service_name', 'imap_server', 'smtp_server')
     search_fields = ('service_name',)
-
 
 @admin.register(UserEmailAccount)
 class UserEmailAccountAdmin(admin.ModelAdmin):
-    list_display = ('email_account_id', 'user', 'email_address', 'service', 'created_at')
+    list_display = ('email_address', 'user', 'service', 'created_at')
+    list_filter = ('service',)
     search_fields = ('email_address',)
-    raw_id_fields = ('user', 'service')
 
+@admin.register(UserFolder)
+class UserFolderAdmin(admin.ModelAdmin):
+    list_display = ('folder_name', 'user', 'sort_order')
+    list_filter = ('user',)
+    search_fields = ('folder_name',)
 
 @admin.register(MailFolder)
 class MailFolderAdmin(admin.ModelAdmin):
-    list_display = ('folder_id', 'email_account', 'folder_name', 'sort_order')
+    list_display = ('folder_name', 'email_account', 'sort_order')
+    list_filter = ('email_account',)
     search_fields = ('folder_name',)
-    raw_id_fields = ('email_account',)
+
+@admin.register(User_Settings)
+class UserSettingsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'language', 'theme')
+    list_filter = ('language', 'theme')
+    search_fields = ('user__username',)

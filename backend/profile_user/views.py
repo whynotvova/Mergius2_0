@@ -2,35 +2,34 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserProfileSerializer, MailFolderSerializer, UserSettingsSerializer
+from .serializers import UserProfileSerializer, MailFolderSerializer, UserSettingsSerializer, UserEmailAccountSerializer, EmailServiceSerializer
 from .models import MailFolder, AuditLog, UserEmailAccount, EmailService, User_Settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 import logging
-import requests  # Added for IP lookup
+import requests
+import imaplib
+from django.db import transaction
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
-# Helper function to get the client's real IP address
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0].strip()
     else:
-        ip = request.META.get('REMOTE_ADDR', 'Unknown')
+        ip = request.META.get('REMOTE_ADDR', 'unknown')
 
-    # In local development, REMOTE_ADDR might be 127.0.0.1; fetch public IP instead
-    if ip in ('127.0.0.1', '::1', 'Unknown'):
+    if ip in ('127.0.0.1', '::1', 'unknown'):
         try:
             response = requests.get('https://api.ipify.org?format=json', timeout=5)
             response.raise_for_status()
             ip_data = response.json()
-            ip = ip_data.get('ip', 'Unknown')
+            ip = ip_data.get('ip', 'unknown')
         except requests.RequestException as e:
             logger.error(f"Error fetching public IP: {str(e)}")
-            ip = 'Unknown'
-
+            ip = 'unknown'
     return ip
 
 class UserProfileView(APIView):
@@ -83,7 +82,8 @@ class MailFolderView(APIView):
                     'imap_server': 'imap.gmail.com',
                     'smtp_server': 'smtp.gmail.com',
                     'imap_port': 993,
-                    'smtp_port': 587
+                    'smtp_port': 587,
+                    'service_icon': '/images/mail/google-logo.png'
                 }
             )
             email_account = UserEmailAccount.objects.create(
@@ -164,7 +164,7 @@ class UserSettingsView(APIView):
         try:
             user = User.objects.get(user_id=user_id)
             logger.debug(
-                f"GET /api/profile/settings/ for user {user.user_id}, Origin: {request.META.get('HTTP_ORIGIN', 'Unknown')}")
+                f"GET /api/profile/settings/ for user {user.user_id}, Origin: {request.META.get('HTTP_ORIGIN', 'unknown')}")
             settings = User_Settings.objects.filter(user=user).first()
             if not settings:
                 logger.info(f"Creating new settings for user {user.user_id}")
@@ -172,7 +172,7 @@ class UserSettingsView(APIView):
                 settings = User_Settings.objects.create(
                     user=user,
                     language='ru',
-                    theme='default'
+                    theme='light'
                 )
                 AuditLog.objects.create(
                     user=user,
@@ -181,7 +181,7 @@ class UserSettingsView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=default")
+                logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=light")
             serializer = UserSettingsSerializer(settings)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
@@ -199,7 +199,7 @@ class UserSettingsView(APIView):
         try:
             user = User.objects.get(user_id=user_id)
             logger.debug(
-                f"PUT /api/profile/settings/ for user {user.user_id} with data: {request.data}, Origin: {request.META.get('HTTP_ORIGIN', 'Unknown')}")
+                f"PUT /api/profile/settings/ for user {user.user_id} with data: {request.data}, Origin: {request.META.get('HTTP_ORIGIN', 'unknown')}")
             settings = User_Settings.objects.filter(user=user).first()
             if not settings:
                 logger.info(f"Creating new settings for user {user.user_id}")
@@ -207,7 +207,7 @@ class UserSettingsView(APIView):
                 settings = User_Settings.objects.create(
                     user=user,
                     language='ru',
-                    theme='default'
+                    theme='light'
                 )
                 AuditLog.objects.create(
                     user=user,
@@ -216,7 +216,7 @@ class UserSettingsView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=default")
+                logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=light")
 
             serializer = UserSettingsSerializer(settings, data=request.data, partial=True)
             if serializer.is_valid():
@@ -248,7 +248,7 @@ class UserSettingsView(APIView):
         try:
             user = User.objects.get(user_id=user_id)
             logger.debug(
-                f"POST /api/profile/settings/ for user {user.user_id} with data: {request.data}, Origin: {request.META.get('HTTP_ORIGIN', 'Unknown')}")
+                f"POST /api/profile/settings/ for user {user.user_id} with data: {request.data}, Origin: {request.META.get('HTTP_ORIGIN', 'unknown')}")
             if User_Settings.objects.filter(user=user).exists():
                 logger.warning(f"Settings already exist for user {user.user_id}")
                 return Response({'error': 'Settings already exist for this user'}, status=status.HTTP_400_BAD_REQUEST)
@@ -259,7 +259,7 @@ class UserSettingsView(APIView):
                 client_ip = get_client_ip(request)
                 AuditLog.objects.create(
                     user=user,
-                    action='Создание настроек',
+                    action='Создание настроек',  # Исправлено 'Создание настро_CXX'
                     details=f'Созданы настройки (тема: {request.data.get("theme", "не указана")})',
                     ip_address=client_ip,
                     timestamp=timezone.now()
@@ -273,3 +273,102 @@ class UserSettingsView(APIView):
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             logger.error(f"Error creating settings for user_id {user_id}: {str(e)}")
+            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class EmailServiceView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            services = EmailService.objects.all()
+            serializer = EmailServiceSerializer(services, many=True)
+            logger.debug(f"GET /api/mail/email-services/ by user {request.user.user_id}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(f"Error fetching email services: {str(e)}")
+            return Response(
+                {'error': 'Internal server error'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class AddEmailAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            user = request.user
+            service_name = request.data.get('service_name')
+            email_address = request.data.get('email_address')
+            password = request.data.get('password')
+
+            logger.debug(f"POST /api/mail/email-accounts/add/ by user {user.user_id} with data: {{service_name: {service_name}, email_address: {email_address}}}")
+
+            if not all([service_name, email_address]):
+                logger.error("Missing required fields: service_name or email_address")
+                return Response(
+                    {'error': 'Service name and email address are required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            try:
+                email_service = EmailService.objects.get(service_name=service_name)
+            except EmailService.DoesNotExist:
+                logger.error(f"Email service '{service_name}' not found")
+                return Response(
+                    {'error': f"Email service '{service_name}' not found"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            if UserEmailAccount.objects.filter(user=user, email_address=email_address).exists():
+                logger.error(f"Email address {email_address} already associated with user {user.user_id}")
+                return Response(
+                    {'error': 'This email address is already associated with your account'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            if password:
+                try:
+                    imap_server = email_service.imap_server
+                    imap_port = email_service.imap_port
+                    imap = imaplib.IMAP4_SSL(imap_server, imap_port)
+                    imap.login(email_address, password)
+                    imap.logout()
+                except Exception as e:
+                    logger.error(f"IMAP login failed for {email_address}: {str(e)}")
+                    return Response(
+                        {'error': 'Invalid email or password'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+            with transaction.atomic():
+                email_account = UserEmailAccount.objects.create(
+                    user=user,
+                    service=email_service,
+                    email_address=email_address,
+                    oauth_token=None
+                )
+                if password:
+                    email_account.set_password(password)  # Хэшируем пароль
+                email_account.save()
+
+                client_ip = get_client_ip(request)
+                AuditLog.objects.create(
+                    user=user,
+                    action='Добавление почтового ящика',
+                    details=f"Добавлен почтовый ящик {email_address} (сервис: {service_name})",
+                    ip_address=client_ip,
+                    timestamp=timezone.now()
+                )
+                logger.info(f"Email account {email_address} added for user {user.user_id}")
+
+            return Response(
+                {'message': f"Email account {email_address} added successfully"},
+                status=status.HTTP_201_CREATED
+            )
+
+        except Exception as e:
+            logger.error(f"Error adding email account for user {user.user_id}: {str(e)}")
+            return Response(
+                {'error': 'Internal server error'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

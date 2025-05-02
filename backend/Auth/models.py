@@ -42,5 +42,6 @@ class CustomUser(AbstractBaseUser):
     def __str__(self):
         return self.phone_number or self.email or self.username
 
+
     class Meta:
         db_table = 'Users'

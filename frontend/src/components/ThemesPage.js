@@ -42,7 +42,6 @@ const ThemesPage = () => {
   const [showActionIcons, setShowActionIcons] = useState(false); // New state for action icons
   const navigate = useNavigate();
 
-  // Fetch saved theme on component mount
   useEffect(() => {
     const fetchTheme = async () => {
       try {
@@ -85,7 +84,6 @@ const ThemesPage = () => {
       email.id === id ? { ...email, isChecked: !email.isChecked } : email
     );
     setEmails(updatedEmails);
-    // Show action icons if at least one email is checked
     const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
     setShowActionIcons(hasCheckedEmails);
   };
@@ -123,14 +121,12 @@ const ThemesPage = () => {
     const allChecked = emails.every(e => e.isChecked);
     const updatedEmails = emails.map(email => ({ ...email, isChecked: !allChecked }));
     setEmails(updatedEmails);
-    // Show action icons if emails are selected, hide if all are deselected
     setShowActionIcons(!allChecked);
   };
 
   const handleReload = () => {
     console.log('Reloading emails...');
     setEmails([...emails]);
-    // Reset selections on reload
     setShowActionIcons(false);
   };
 
@@ -165,21 +161,18 @@ const ThemesPage = () => {
       email.isChecked ? { ...email, unread: false } : email
     );
     setEmails(updatedEmails);
-    // Check if any emails are still checked
     const hasCheckedEmails = updatedEmails.some(email => email.isChecked);
     setShowActionIcons(hasCheckedEmails);
   };
 
   const handleFilterEmails = () => {
     console.log('Filtering emails...');
-    // Add filtering logic here (e.g., show only unread emails)
   };
 
   const handleDeleteEmails = () => {
     console.log('Deleting selected emails...');
     const updatedEmails = emails.filter(email => !email.isChecked);
     setEmails(updatedEmails);
-    // After deletion, no emails should be checked, so hide action icons
     setShowActionIcons(false);
   };
 
