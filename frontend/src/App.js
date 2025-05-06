@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AuthForm from './components/AuthForm';
@@ -34,9 +34,11 @@ function App() {
         <Route path="/confirm-reg" element={<VerificationForm type="register" />} />
         <Route path="/register-final" element={<RegisterFinal />} />
         <Route path="/mail" element={<MailPage />} />
+        <Route path="/mail/:folderName" element={<MailPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/compose" element={<ComposePage />} />
         <Route path="/email-view" element={<EmailViewPage />} />
+        <Route path="/email" element={<Navigate to="/mail" replace />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/themes" element={<ThemesPage />} />

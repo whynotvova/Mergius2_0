@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Modal, Box, TextField, Button } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import '../styles/styles.css';
 
 const CategoriesPage = () => {
@@ -11,8 +11,8 @@ const CategoriesPage = () => {
     { id: 3, name: 'Черновики', locked: true },
     { id: 4, name: 'Отправленное', locked: true },
   ]);
-  const [openModal, setOpenModal] = useState(false);
-  const [newFolderName, setNewFolderName] = useState('');
+  const [emailAccounts, setEmailAccounts] = useState([]);
+  const [selectedEmailAccount, setSelectedEmailAccount] = useState('');
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [error, setError] = useState(null);
   const predefinedCategories = [
@@ -26,30 +26,27 @@ const CategoriesPage = () => {
     { name: 'Билеты', icon: '/images/mail/ticket-blue.png' },
     { name: 'Работа', icon: '/images/mail/briefcase-blue.png' },
     { name: 'Личное', icon: '/images/mail/sex-blue.png' },
-    { name: 'Google', icon: '/images/mail/google-logo.png' },
-    { name: 'Mail.ru', icon: '/images/mail/mail-blue.png' },
-    { name: 'Yandex', icon: '/images/mail/yandex-red.png' },
-    { name: 'Email', icon: '/images/mail/email-blue.png' },
-    { name: 'Yahoo', icon: '/images/mail/yahoo-logo.png' },
   ];
+
   useEffect(() => {
-    const fetchFolders = async () => {
+    const fetchFoldersAndAccounts = async () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
           navigate('/auth');
           return;
         }
-        const response = await fetch('http://localhost:8000/api/profile/folders/', {
+
+        const folderResponse = await fetch('http://localhost:8000/api/profile/folders/', {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
           },
         });
-        if (response.ok) {
-          const data = await response.json();
+        if (folderResponse.ok) {
+          const data = await folderResponse.json();
           const fetchedFolders = data.map(folder => ({
-            id: folder.folder_id,
+            id: folder.id,
             name: folder.folder_name,
             locked: ['Входящие', 'Отмеченное', 'Черновики', 'Отправленное'].includes(folder.folder_name),
           }));
@@ -64,7 +61,7 @@ const CategoriesPage = () => {
             ...fetchedFolders.filter(f => !defaultFolders.some(df => df.name === f.name)),
           ];
           setFolders(combinedFolders);
-        } else if (response.status === 401) {
+        } else if (folderResponse.status === 401) {
           localStorage.removeItem('token');
           localStorage.removeItem('user_id');
           navigate('/auth');
@@ -77,8 +74,24 @@ const CategoriesPage = () => {
             { id: 4, name: 'Отправленное', locked: true },
           ]);
         }
+
+        const accountResponse = await fetch('http://localhost:8000/api/mail/email-accounts/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (accountResponse.ok) {
+          const accounts = await accountResponse.json();
+          setEmailAccounts(accounts);
+          if (accounts.length > 0) {
+            setSelectedEmailAccount(accounts[0].email_account_id);
+          }
+        } else {
+          setError('Не удалось загрузить почтовые аккаунты');
+        }
       } catch (error) {
-        console.error('Error fetching folders:', error);
+        console.error('Error fetching data:', error);
         setError('Ошибка подключения к серверу');
         setFolders([
           { id: 1, name: 'Входящие', locked: true },
@@ -88,12 +101,16 @@ const CategoriesPage = () => {
         ]);
       }
     };
-    fetchFolders();
+    fetchFoldersAndAccounts();
   }, [navigate]);
 
   const handleAddCategory = async (category) => {
     if (folders.some(f => f.name === category.name)) {
       setError('Эта категория уже существует');
+      return;
+    }
+    if (!selectedEmailAccount) {
+      setError('Выберите почтовый аккаунт');
       return;
     }
     try {
@@ -108,12 +125,13 @@ const CategoriesPage = () => {
           folder_name: category.name,
           folder_icon: category.icon,
           sort_order: folders.length + 1,
+          email_account: selectedEmailAccount,
         }),
       });
       if (response.ok) {
         const newFolder = await response.json();
         setFolders([...folders, {
-          id: newFolder.folder_id,
+          id: newFolder.id,
           name: newFolder.folder_name,
           locked: false,
         }]);
@@ -129,88 +147,11 @@ const CategoriesPage = () => {
     }
   };
 
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setNewFolderName('');
-  };
-
-  const handleAddFolder = async () => {
-    if (!newFolderName.trim()) {
-      setError('Название папки не может быть пустым');
-      return;
-    }
-    if (folders.some(f => f.name === newFolderName)) {
-      setError('Папка с таким именем уже существует');
-      return;
-    }
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8000/api/profile/folders/', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Token ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          folder_name: newFolderName,
-          folder_icon: '/images/mail/folder-active.png',
-          sort_order: folders.length + 1,
-        }),
-      });
-      if (response.ok) {
-        const newFolder = await response.json();
-        setFolders([...folders, {
-          id: newFolder.folder_id,
-          name: newFolder.folder_name,
-          locked: false,
-        }]);
-        handleCloseModal();
-        setError(null);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Не удалось добавить папку');
-      }
-    } catch (error) {
-      console.error('Error adding folder:', error);
-      setError('Ошибка подключения к серверу');
-    }
-  };
-
-  const handleEditFolder = async (id) => {
-    const newName = prompt('Введите новое название папки:');
-    if (newName && newName.trim()) {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8000/api/profile/folders/${id}/`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Token ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            folder_name: newName,
-          }),
-        });
-        if (response.ok) {
-          setFolders(
-            folders.map((folder) =>
-              folder.id === id ? { ...folder, name: newName } : folder
-            )
-          );
-          setError(null);
-        } else {
-          const errorData = await response.json();
-          setError(errorData.error || 'Не удалось обновить папку');
-        }
-      } catch (error) {
-        console.error('Error updating folder:', error);
-        setError('Ошибка подключения к серверу');
-      }
-    }
-  };
-
   const handleDeleteFolder = async (id) => {
+    if (!id || id === 'undefined') {
+      setError('Недопустимый идентификатор папки');
+      return;
+    }
     if (window.confirm('Вы уверены, что хотите удалить эту папку?')) {
       try {
         const token = localStorage.getItem('token');
@@ -272,15 +213,6 @@ const CategoriesPage = () => {
               ) : (
                 <div className="action-buttons">
                   <img
-                    src={`${process.env.PUBLIC_URL}/images/profile/edit.png`}
-                    alt="Edit icon"
-                    className="edit-icon"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEditFolder(folder.id);
-                    }}
-                  />
-                  <img
                     src={`${process.env.PUBLIC_URL}/images/profile/delete.png`}
                     alt="Delete icon"
                     className="delete-icon"
@@ -302,39 +234,6 @@ const CategoriesPage = () => {
           </article>
         </section>
       </main>
-
-      <Modal open={openModal} onClose={handleCloseModal}>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: '#fff',
-            borderRadius: '20px',
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <h2>Добавить новую папку</h2>
-          <TextField
-            fullWidth
-            label="Название папки"
-            value={newFolderName}
-            onChange={(e) => setNewFolderName(e.target.value)}
-            margin="normal"
-          />
-          <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-            <Button variant="contained" onClick={handleAddFolder}>
-              Добавить
-            </Button>
-            <Button variant="outlined" onClick={handleCloseModal}>
-              Отмена
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
 
       {isCategoriesOpen && (
         <div className="modal-overlay" onClick={() => setIsCategoriesOpen(false)}>

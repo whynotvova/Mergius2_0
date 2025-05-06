@@ -85,7 +85,7 @@ DATABASES = {
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_TZ = False
+USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -171,6 +171,12 @@ SOCIAL_AUTH_PIPELINE = (
 TWILIO_ACCOUNT_SID = 'ACf4a6f0e46efabcb6f55405d95835e32e'
 TWILIO_AUTH_TOKEN = 'ca138f067d3536189653b11a40149c97'
 TWILIO_PHONE_NUMBER = '+79508425370'
+
+GOOGLE_OAUTH_CREDENTIALS = {
+    'client_id': '305891857057-edl6smf463r24s9c1ec358nsvf2i0k79.apps.googleusercontent.com',
+    'client_secret': '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',
+    'redirect_uri': 'http://localhost:8000/oauth2callback'
+}
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False

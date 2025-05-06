@@ -1,8 +1,10 @@
 from rest_framework import serializers
-from .models import AuditLog, MailFolder, UserEmailAccount, EmailService, User_Settings
+from .models import AuditLog, MailFolder, UserEmailAccount, EmailService, User_Settings, Emails, Email_Recipients, \
+    EmailFolderAssignment
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
 
 class AuditLogSerializer(serializers.ModelSerializer):
     timestamp = serializers.DateTimeField(format='%d.%m.%Y')
@@ -11,22 +13,43 @@ class AuditLogSerializer(serializers.ModelSerializer):
         model = AuditLog
         fields = ['action', 'details', 'timestamp', 'ip_address']
 
+
 class EmailServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailService
         fields = ['service_id', 'service_name', 'imap_server', 'smtp_server', 'imap_port', 'smtp_port', 'service_icon']
 
+
 class UserEmailAccountSerializer(serializers.ModelSerializer):
-    service = EmailServiceSerializer()
+    service = EmailServiceSerializer(read_only=True)
+    service_name = serializers.CharField(write_only=True)
 
     class Meta:
         model = UserEmailAccount
-        fields = ['email_account_id', 'user', 'service', 'email_address', 'avatar', 'created_at']  # Добавлено поле avatar
+        fields = [
+            'email_account_id', 'user', 'service', 'service_name', 'email_address',
+            'avatar', 'created_at', 'last_fetched'
+        ]
+
+    def create(self, validated_data):
+        service_name = validated_data.pop('service_name')
+        try:
+            service = EmailService.objects.get(service_name=service_name)
+        except EmailService.DoesNotExist:
+            raise serializers.ValidationError({'service_name': f"Email service '{service_name}' not found"})
+        validated_data['service'] = service
+        return super().create(validated_data)
+
 
 class MailFolderSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='folder_id', read_only=True)  # Alias folder_id as id for frontend
+
     class Meta:
         model = MailFolder
-        fields = ['folder_id', 'email_account', 'folder_name', 'sort_order', 'folder_icon']
+        fields = ['id', 'email_account', 'folder_name', 'sort_order', 'folder_icon']
+        extra_kwargs = {
+            'id': {'read_only': True},
+        }
 
     def validate(self, data):
         email_account = data.get('email_account')
@@ -34,6 +57,44 @@ class MailFolderSerializer(serializers.ModelSerializer):
         if MailFolder.objects.filter(email_account=email_account, folder_name=folder_name).exists():
             raise serializers.ValidationError({'folder_name': 'Папка с таким именем уже существует'})
         return data
+
+
+class EmailRecipientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Email_Recipients
+        fields = ['recipient_address', 'recipient_type']
+
+
+class EmailFolderAssignmentSerializer(serializers.ModelSerializer):
+    folder_id = serializers.IntegerField(source='folder.folder_id')
+    folder_name = serializers.CharField(source='folder.folder_name')
+
+    class Meta:
+        model = EmailFolderAssignment
+        fields = ['folder_id', 'folder_name']
+
+
+class EmailSerializer(serializers.ModelSerializer):
+    recipients = EmailRecipientSerializer(many=True, read_only=True)
+    email_account = UserEmailAccountSerializer(read_only=True)
+    folder_assignments = EmailFolderAssignmentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Emails
+        fields = [
+            'email_id', 'email_account', 'message_id', 'imap_id', 'sender', 'subject',
+            'body', 'sent_date', 'received_date', 'status', 'recipients', 'folder_assignments'
+        ]
+
+
+class AssignCategoriesSerializer(serializers.Serializer):
+    email_id = serializers.IntegerField(required=True, error_messages={
+        'required': 'Поле email_id обязательно для назначения категории.'
+    })
+    folder_id = serializers.IntegerField(required=True, error_messages={
+        'required': 'Поле folder_id обязательно для назначения категории.'
+    })
+
 
 class UserSettingsSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
@@ -46,6 +107,7 @@ class UserSettingsSerializer(serializers.ModelSerializer):
         user = validated_data.pop('user')
         return User_Settings.objects.create(user=user, **validated_data)
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     audit_logs = AuditLogSerializer(many=True)
     date_of_birth = serializers.DateField(format='%d.%m.%Y', allow_null=True)
@@ -57,7 +119,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['user_id', 'username', 'date_of_birth', 'country', 'phone_number', 'audit_logs', 'account_type', 'email_accounts', 'folders']
+        fields = ['user_id', 'username', 'date_of_birth', 'country', 'phone_number', 'audit_logs', 'account_type',
+                  'email_accounts', 'folders']
 
     def get_folders(self, obj):
         email_accounts = UserEmailAccount.objects.filter(user=obj)
