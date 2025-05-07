@@ -3,37 +3,41 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from profile_user.models import UserEmailAccount, EmailService, AuditLog, MailFolder, Emails, Email_Recipients, \
-    EmailFolderAssignment
-from profile_user.serializers import UserEmailAccountSerializer, EmailServiceSerializer, MailFolderSerializer, \
-    EmailSerializer, EmailFolderAssignmentSerializer, AssignCategoriesSerializer
+from profile_user.models import UserEmailAccount, EmailService, AuditLog, MailFolder, Emails, Email_Recipients, EmailFolderAssignment, EmailAttachment
+from profile_user.serializers import UserEmailAccountSerializer, EmailServiceSerializer, MailFolderSerializer, EmailSerializer, EmailFolderAssignmentSerializer, EmailAttachmentSerializer, AssignCategoriesSerializer, TranslateEmailSerializer, SendEmailSerializer
 from django.db import transaction
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 import logging
 import imaplib
+import smtplib
 import requests
 import email
 from email.header import decode_header
 from email.utils import parsedate_to_datetime
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+import base64
 
 try:
     from google_auth_oauthlib.flow import InstalledAppFlow
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
-
     GOOGLE_AUTH_AVAILABLE = True
 except ImportError:
     GOOGLE_AUTH_AVAILABLE = False
+
 import os
 from django.conf import settings
 from datetime import timedelta
 import schedule
 import time
 import threading
+import uuid
 
 logger = logging.getLogger(__name__)
-
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -52,7 +56,6 @@ def get_client_ip(request):
             logger.error(f"Error fetching public IP: {str(e)}")
             ip = 'unknown'
     return ip
-
 
 def fetch_email_avatar(email_account):
     try:
@@ -96,7 +99,6 @@ def fetch_email_avatar(email_account):
         logger.error(f"Unexpected error fetching avatar for {email_account.email_address}: {str(e)}")
         email_account.avatar = '/images/mail/default-avatar.png'
         email_account.save()
-
 
 def fetch_emails(email_account, force_refresh=False):
     try:
@@ -349,7 +351,6 @@ def fetch_emails(email_account, force_refresh=False):
     except Exception as e:
         logger.error(f"Unexpected error fetching emails for {email_account.email_address}: {str(e)}")
 
-
 def fetch_emails_periodically():
     logger.info("Starting periodic email fetch for all users")
     email_accounts = UserEmailAccount.objects.all()
@@ -358,19 +359,15 @@ def fetch_emails_periodically():
         fetch_emails(email_account, force_refresh=True)
     logger.info("Completed periodic email fetch")
 
-
 schedule.every(1).minutes.do(fetch_emails_periodically)
-
 
 def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(60)
 
-
 scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
 scheduler_thread.start()
-
 
 class AddEmailAccountView(APIView):
     permission_classes = [IsAuthenticated]
@@ -477,7 +474,7 @@ class AddEmailAccountView(APIView):
                     email_address=email_address,
                     avatar='/images/mail/default-avatar.png',
                     oauth_token=oauth_token,
-                    last_fetched_uid=None
+                    last_fetched=None
                 )
                 if password and not oauth_token:
                     email_account.set_password(password)
@@ -525,7 +522,6 @@ class AddEmailAccountView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-
 class EmailServiceView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -541,7 +537,6 @@ class EmailServiceView(APIView):
                 {'error': 'Internal server error'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 
 class FetchEmailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -581,8 +576,6 @@ class FetchEmailView(APIView):
                     Q(body__icontains=search_query)
                 )
                 logger.debug(f"Applying search query: {search_query}")
-
-            # Apply sorting
             if filter_param == 'sort-az':
                 emails = emails.order_by('subject')
                 logger.debug("Sorting emails A-Z")
@@ -592,12 +585,8 @@ class FetchEmailView(APIView):
             else:
                 emails = emails.order_by('-received_date')
                 logger.debug("Sorting emails by received date (default)")
-
-            # Calculate total and unread counts
             total_emails = emails.count()
             unread_count = emails.filter(status='unread').count()
-
-            # Calculate unread counts by service
             unread_counts_by_service = Emails.objects.filter(
                 email_account__user=request.user,
                 status='unread'
@@ -665,7 +654,6 @@ class FetchEmailView(APIView):
             logger.error(f"Error fetching emails for user {request.user.user_id}: {str(e)}", exc_info=True)
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class EmailAccountListView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -678,7 +666,6 @@ class EmailAccountListView(APIView):
         except Exception as e:
             logger.error(f"Error fetching email accounts for user {request.user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class EmailDetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -702,6 +689,7 @@ class EmailDetailView(APIView):
                 'recipient_addresses': recipient_addresses,
                 'body': email_obj.body,
                 'sent_date': email_obj.sent_date,
+                'attachments': EmailAttachmentSerializer(email_obj.attachments.all(), many=True).data
             }
             return Response(data, status=status.HTTP_200_OK)
         except Emails.DoesNotExist:
@@ -749,6 +737,7 @@ class EmailDetailView(APIView):
             with transaction.atomic():
                 Email_Recipients.objects.filter(email=email_obj).delete()
                 EmailFolderAssignment.objects.filter(email=email_obj).delete()
+                EmailAttachment.objects.filter(email=email_obj).delete()
                 email_obj.delete()
 
                 client_ip = get_client_ip(request)
@@ -767,7 +756,6 @@ class EmailDetailView(APIView):
         except Exception as e:
             logger.error(f"Error deleting email {email_id} for user {request.user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class EmailFolderAssignmentView(APIView):
     permission_classes = [IsAuthenticated]
@@ -824,7 +812,6 @@ class EmailFolderAssignmentView(APIView):
             logger.error(f"Error assigning emails to folder for user {request.user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class AssignCategoriesView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -850,8 +837,6 @@ class AssignCategoriesView(APIView):
 
             email_ids = [assignment['email_id'] for assignment in assignments]
             folder_ids = [assignment['folder_id'] for assignment in assignments]
-
-            # Validate emails and folders
             emails = Emails.objects.filter(
                 email_id__in=email_ids,
                 email_account__user=request.user
@@ -860,8 +845,6 @@ class AssignCategoriesView(APIView):
                 folder_id__in=folder_ids,
                 email_account__user=request.user
             )
-
-            # Check for invalid email_ids or folder_ids
             email_id_set = set(email.email_id for email in emails)
             folder_id_set = set(folder.folder_id for folder in folders)
             invalid_assignments = [
@@ -879,7 +862,6 @@ class AssignCategoriesView(APIView):
                 for assignment in assignments:
                     email_obj = emails.get(email_id=assignment['email_id'])
                     folder = folders.get(folder_id=assignment['folder_id'])
-                    # Check if assignment already exists
                     if not EmailFolderAssignment.objects.filter(
                             email=email_obj,
                             folder=folder
@@ -909,7 +891,6 @@ class AssignCategoriesView(APIView):
             logger.error(f"Error assigning categories for user {request.user.user_id}: {str(e)}", exc_info=True)
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class DeleteEmailAccountView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -938,7 +919,6 @@ class DeleteEmailAccountView(APIView):
             logger.error(f"Error deleting email account {email_account_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class FolderCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -952,8 +932,6 @@ class FolderCreateView(APIView):
                     {'error': 'Invalid data', 'details': serializer.errors},
                     status=status.HTTP_400_BAD_REQUEST
                 )
-
-            # Verify the email_account belongs to the user
             email_account_id = serializer.validated_data['email_account'].email_account_id
             if not UserEmailAccount.objects.filter(
                     email_account_id=email_account_id,
@@ -982,7 +960,6 @@ class FolderCreateView(APIView):
             logger.error(f"Error creating folder for user {request.user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class FolderDeleteView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -994,9 +971,7 @@ class FolderDeleteView(APIView):
                 email_account__user=request.user
             )
             with transaction.atomic():
-                # Delete all EmailFolderAssignment records for this folder
                 EmailFolderAssignment.objects.filter(folder=folder).delete()
-                # Delete the folder
                 folder_name = folder.folder_name
                 folder.delete()
 
@@ -1016,3 +991,298 @@ class FolderDeleteView(APIView):
         except Exception as e:
             logger.error(f"Error deleting folder {folder_id} for user {request.user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class TranslateEmailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            logger.debug(f"POST /api/translate/ by user {request.user.user_id} with data: {request.data}")
+            serializer = TranslateEmailSerializer(data=request.data)
+            if not serializer.is_valid():
+                logger.error(f"Invalid data for translation: {serializer.errors}")
+                return Response(
+                    {'error': 'Invalid data', 'details': serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            text = serializer.validated_data['text']
+            target_language = serializer.validated_data['target_language']
+            try:
+                translation_response = requests.post(
+                    'https://translate.api.cloud.yandex.net/translate/v2/translate',
+                    headers={
+                        'Authorization': f'Api-Key {settings.YANDEX_TRANSLATE_API_KEY}',
+                        'Content-Type': 'application/json'
+                    },
+                    json={
+                        'folderId': settings.YANDEX_CLOUD_FOLDER_ID,
+                        'texts': [text],
+                        'targetLanguageCode': target_language,
+                        'sourceLanguageCode': 'auto'
+                    },
+                    timeout=10
+                )
+                translation_response.raise_for_status()
+                response_data = translation_response.json()
+                translated_text = response_data.get('translations', [{}])[0].get('text')
+                if not translated_text:
+                    logger.error("Yandex Translate API returned empty response")
+                    return Response(
+                        {'error': 'Translation service returned empty response'},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                    )
+            except requests.HTTPError as e:
+                if e.response.status_code == 401:
+                    logger.error(f"Yandex Translate API unauthorized: {e.response.text}")
+                    return Response(
+                        {
+                            'error': 'Translation service authentication failed. Check API key and permissions.',
+                            'details': e.response.text
+                        },
+                        status=status.HTTP_401_UNAUTHORIZED
+                    )
+                elif e.response.status_code == 403:
+                    logger.error(f"Yandex Translate API forbidden: {e.response.text}")
+                    return Response(
+                        {
+                            'error': 'Translation service access denied. Check service subscription or folder ID.',
+                            'details': e.response.text
+                        },
+                        status=status.HTTP_403_FORBIDDEN
+                    )
+                else:
+                    logger.error(f"Yandex Translate API error: {e.response.status_code} - {e.response.text}")
+                    return Response(
+                        {
+                            'error': 'Translation service error.',
+                            'details': e.response.text
+                        },
+                        status=status.HTTP_503_SERVICE_UNAVAILABLE
+                    )
+            except requests.RequestException as e:
+                logger.error(f"Error connecting to Yandex Translate API: {str(e)}")
+                return Response(
+                    {'error': 'Failed to connect to translation service'},
+                    status=status.HTTP_503_SERVICE_UNAVAILABLE
+                )
+            client_ip = get_client_ip(request)
+            AuditLog.objects.create(
+                user=request.user,
+                action='Перевод письма',
+                details=f"Переведен текст на язык {target_language} (длина текста: {len(text)} символов)",
+                ip_address=client_ip,
+                timestamp=timezone.now()
+            )
+            logger.info(f"Text translated to {target_language} for user {request.user.user_id}")
+
+            return Response(
+                {'translated_text': translated_text},
+                status=status.HTTP_200_OK
+            )
+
+        except Exception as e:
+            logger.error(f"Error translating text for user {request.user.user_id}: {str(e)}", exc_info=True)
+            return Response(
+                {'error': 'Internal server error'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class SendEmailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            logger.debug(f"POST /api/mail/send/ by user {request.user.user_id} with data: {request.data}")
+            serializer = SendEmailSerializer(data=request.data)
+            if not serializer.is_valid():
+                logger.error(f"Invalid data for sending email: {serializer.errors}")
+                return Response(
+                    {'error': 'Invalid data', 'details': serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            recipient = serializer.validated_data['recipient']
+            subject = serializer.validated_data['subject'] or 'No Subject'
+            body = serializer.validated_data['body'] or ''
+            email_account_id = serializer.validated_data.get('email_account_id')
+            attachments = serializer.validated_data.get('attachments', [])
+            if email_account_id:
+                try:
+                    email_account = UserEmailAccount.objects.get(
+                        email_account_id=email_account_id,
+                        user=request.user
+                    )
+                except UserEmailAccount.DoesNotExist:
+                    logger.error(f"Email account {email_account_id} not found for user {request.user.user_id}")
+                    return Response(
+                        {'error': 'Email account not found or not authorized'},
+                        status=status.HTTP_404_NOT_FOUND
+                    )
+            else:
+                email_account = UserEmailAccount.objects.filter(user=request.user).first()
+                if not email_account:
+                    logger.error(f"No email accounts found for user {request.user.user_id}")
+                    return Response(
+                        {'error': 'No email accounts configured for sending'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                logger.debug(f"No email_account_id provided; using default account: {email_account.email_address}")
+            msg = MIMEMultipart()
+            msg['From'] = email_account.email_address
+            msg['To'] = recipient
+            msg['Subject'] = subject
+            msg.attach(MIMEText(body, 'html'))
+            message_id = str(uuid.uuid4())
+            attachment_details = []
+            for file in attachments:
+                try:
+                    part = MIMEBase('application', 'octet-stream')
+                    part.set_payload(file.read())
+                    encoders.encode_base64(part)
+                    part.add_header(
+                        'Content-Disposition',
+                        f'attachment; filename="{file.name}"'
+                    )
+                    msg.attach(part)
+                    attachment_details.append({
+                        'file_name': file.name,
+                        'file_size': file.size
+                    })
+                except Exception as e:
+                    logger.error(f"Error processing attachment {file.name}: {str(e)}")
+                    return Response(
+                        {'error': f'Failed to process attachment: {file.name}'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            smtp_server = email_account.service.smtp_server
+            smtp_port = email_account.service.smtp_port
+            service_name = email_account.service.service_name.lower()
+
+            try:
+                if service_name == 'gmail' and email_account.oauth_token and GOOGLE_AUTH_AVAILABLE:
+                    logger.debug(f"Using OAuth2 for SMTP authentication for {email_account.email_address}")
+                    smtp = smtplib.SMTP(smtp_server, smtp_port)
+                    smtp.ehlo()
+                    smtp.starttls()
+                    smtp.ehlo()
+                    oauth2_string = f"user={email_account.email_address}\1auth=Bearer {email_account.oauth_token}\1\1"
+                    smtp.docmd("AUTH", "XOAUTH2 " + base64.b64encode(oauth2_string.encode()).decode())
+                    smtp.sendmail(email_account.email_address, recipient, msg.as_string())
+                    smtp.quit()
+                else:
+                    logger.debug(f"Using password authentication for SMTP for {email_account.email_address}")
+                    if not email_account.password:
+                        logger.error(f"No password available for {email_account.email_address}")
+                        return Response(
+                            {'error': 'Password required for SMTP authentication'},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    if smtp_port == 587:
+                        smtp = smtplib.SMTP(smtp_server, smtp_port, timeout=30)
+                        smtp.ehlo()
+                        smtp.starttls()
+                        smtp.ehlo()
+                    else:
+                        smtp = smtplib.SMTP_SSL(smtp_server, smtp_port, timeout=30)
+                    smtp.login(email_account.email_address, email_account.password)
+                    smtp.sendmail(email_account.email_address, recipient, msg.as_string())
+                    smtp.quit()
+                with transaction.atomic():
+                    sent_date = timezone.now()
+                    if not settings.USE_TZ:
+                        sent_date = timezone.make_naive(sent_date)
+
+                    email_obj = Emails.objects.create(
+                        email_account=email_account,
+                        message_id=message_id,
+                        sender=email_account.email_address,
+                        subject=subject,
+                        body=body,
+                        sent_date=sent_date,
+                        received_date=sent_date,
+                        status='read'
+                    )
+
+                    Email_Recipients.objects.create(
+                        email=email_obj,
+                        recipient_address=recipient,
+                        recipient_type='TO'
+                    )
+                    for attachment in attachment_details:
+                        EmailAttachment.objects.create(
+                            email=email_obj,
+                            file_name=attachment['file_name'],
+                            file_size=attachment['file_size']
+                        )
+
+                    sent_folder = MailFolder.objects.filter(
+                        email_account=email_account,
+                        folder_name='Отправленное'
+                    ).first()
+                    if sent_folder:
+                        EmailFolderAssignment.objects.create(
+                            email=email_obj,
+                            folder=sent_folder
+                        )
+                client_ip = get_client_ip(request)
+                attachment_log = f", {len(attachment_details)} attachments (total size: {(sum(a['file_size'] for a in attachment_details) / 1024 / 1024):.2f} MB)" if attachment_details else ""
+                AuditLog.objects.create(
+                    user=request.user,
+                    action='Отправка письма',
+                    details=f"Отправлено письмо с {email_account.email_address} на {recipient} (тема: {subject}{attachment_log})",
+                    ip_address=client_ip,
+                    timestamp=timezone.now()
+                )
+                logger.info(f"Email sent from {email_account.email_address} to {recipient} by user {request.user.user_id} with {len(attachment_details)} attachments")
+
+                return Response(
+                    {'status': 'Email sent successfully'},
+                    status=status.HTTP_200_OK
+                )
+
+            except smtplib.SMTPAuthenticationError as e:
+                logger.error(f"SMTP authentication failed for {email_account.email_address}: {str(e)}")
+                error_str = str(e).lower()
+                if "application-specific password required" in error_str or "neobhodim parol prilozheniya" in error_str:
+                    provider_instructions = {
+                        'mail.ru': 'Go to Mail.ru account settings > Security > App passwords to generate an app-specific password.',
+                        'gmail': 'Go to Google Account > Security > 2-Step Verification > App passwords to generate an app-specific password, or use OAuth 2.0.'
+                    }
+                    return Response(
+                        {
+                            'error': f'An application-specific password is required for {service_name}. {provider_instructions.get(service_name, "Check your provider’s security settings.")}'
+                        },
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                elif "invalid credentials" in error_str or "authentication failed" in error_str:
+                    return Response(
+                        {
+                            'error': f'Invalid credentials for {email_account.email_address}. If 2FA is enabled, use an application-specific password or OAuth token.'
+                        },
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                else:
+                    return Response(
+                        {'error': 'SMTP authentication failed. Please check your credentials.'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            except smtplib.SMTPException as e:
+                logger.error(f"SMTP error sending email from {email_account.email_address}: {str(e)}")
+                return Response(
+                    {'error': 'Failed to send email due to SMTP error.'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+            except Exception as e:
+                logger.error(f"Unexpected error sending email from {email_account.email_address}: {str(e)}")
+                return Response(
+                    {'error': 'Internal server error'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+
+        except Exception as e:
+            logger.error(f"Error processing send email request for user {request.user.user_id}: {str(e)}")
+            return Response(
+                {'error': 'Internal server error'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

@@ -29,6 +29,7 @@ const MailPage = () => {
   const [selectedServiceFilter, setSelectedServiceFilter] = useState(null);
   const [selectedFolderFilter, setSelectedFolderFilter] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
+  const [userAccountType, setUserAccountType] = useState('Персональный');
   const emailsPerPage = 20;
   const navigate = useNavigate();
   const location = useLocation();
@@ -409,6 +410,47 @@ const MailPage = () => {
     }
   };
 
+  const handleDeleteAccount = async (emailAccountId) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/auth');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:8000/api/mail/email-accounts/${emailAccountId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Token ${token}`,
+        },
+      });
+
+      if (response.ok || response.status === 204) {
+        const deletedAccount = userEmailAccounts.find(account => account.email_account_id === emailAccountId);
+        const updatedAccounts = userEmailAccounts.filter(account => account.email_account_id !== emailAccountId);
+        setUserEmailAccounts(updatedAccounts);
+
+        if (deletedAccount && selectedServiceFilter === deletedAccount.service.service_name) {
+          const remainingAccounts = updatedAccounts.filter(account => account.service.service_name === deletedAccount.service.service_name);
+          setSelectedServiceFilter(remainingAccounts.length > 0 ? deletedAccount.service.service_name : null);
+        }
+
+        setIsLoading(true);
+        await fetchEmailsForAccounts(currentPage, true, searchQuery, selectedServiceFilter, selectedFilter, selectedFolderFilter);
+        setError(null);
+      } else {
+        const errorData = await response.json().catch(() => ({
+          error: `Server error: ${response.statusText}`
+        }));
+        console.error('Failed to delete email account:', errorData);
+        setError(errorData.error || 'Не удалось удалить почтовый аккаунт');
+      }
+    } catch (error) {
+      console.error('Error deleting email account:', error);
+      setError('Ошибка подключения к серверу');
+    }
+  };
+
   useEffect(() => {
     const fetchInitialData = async () => {
       setIsLoading(true);
@@ -448,6 +490,7 @@ const MailPage = () => {
         if (accountsResponse.ok) {
           const accountsData = await accountsResponse.json();
           setUserEmailAccounts(accountsData.email_accounts || []);
+          setUserAccountType(accountsData.account_type || 'Персональный');
           await fetchEmailsForAccounts(currentPage, true, searchQuery, selectedServiceFilter, selectedFilter, selectedFolderFilter);
         } else {
           const errorData = await accountsResponse.json().catch(() => ({
@@ -883,6 +926,7 @@ const MailPage = () => {
         if (updatedResponse.ok) {
           const accountsData = await updatedResponse.json();
           setUserEmailAccounts(accountsData.email_accounts || []);
+          setUserAccountType(accountsData.account_type || 'Персональный');
           setIsLoading(true);
           await fetchEmailsForAccounts(currentPage, true, searchQuery, selectedServiceFilter, selectedFilter, selectedFolderFilter);
         } else {
@@ -898,8 +942,8 @@ const MailPage = () => {
         }));
         console.error('Failed to add email account:', errorData);
         let errorMessage = errorData.error || 'Не удалось добавить почтовый аккаунт';
-        if (errorMessage.includes('You cannot add more than 2 email accounts for')) {
-          errorMessage = `Нельзя добавить больше 2 почтовых аккаунтов для ${selectedService.name}`;
+        if (errorMessage.includes('You cannot add more than 2 email accounts for') && userAccountType !== 'Премиум') {
+          errorMessage = `Нельзя добавить больше 2 почтовых аккаунтов для ${selectedService.name}. Обновите до премиум-аккаунта для снятия ограничений.`;
         }
         setError(errorMessage);
       }
@@ -1164,6 +1208,9 @@ const MailPage = () => {
   };
 
   const isServiceLimitReached = (serviceName) => {
+    if (userAccountType === 'Премиум') {
+      return false;
+    }
     const accountCount = userEmailAccounts.filter(
       account => account.service.service_name === serviceName
     ).length;
@@ -1505,12 +1552,23 @@ const MailPage = () => {
                       {userEmailAccounts
                         .filter(account => account.service.service_name === service.name)
                         .map((account, idx) => (
-                          <img
-                            key={idx}
-                            src={`${process.env.PUBLIC_URL}${account.avatar}`}
-                            className="avatar-circle-button"
-                            alt={`Avatar for ${account.email_address}`}
-                          />
+                          <div key={idx} className="avatar-circle-wrapper">
+                            <img
+                              src={`${process.env.PUBLIC_URL}${account.avatar}`}
+                              className="avatar-circle-button"
+                              alt={`Avatar for ${account.email_address}`}
+                            />
+                            <span
+                              className="close-button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteAccount(account.email_account_id);
+                              }}
+                              title={`Удалить ${account.email_address}`}
+                            >
+                              ✕
+                            </span>
+                          </div>
                         ))}
                     </div>
                   )}
@@ -1583,7 +1641,7 @@ const MailPage = () => {
                     onClick={() => handleSelectMailService(service)}
                     disabled={isServiceLimitReached(service.name)}
                     style={{ opacity: isServiceLimitReached(service.name) ? 0.5 : 1 }}
-                    title={isServiceLimitReached(service.name) ? `Достигнут лимит в 2 аккаунта для ${service.name}` : ''}
+                    title={isServiceLimitReached(service.name) ? `Достигнут лимит в 2 аккаунта для ${service.name}. Обновите до премиум-аккаунта.` : ''}
                   >
                     <img
                       src={`${process.env.PUBLIC_URL}${service.icon}`}

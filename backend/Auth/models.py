@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
+from django.core.exceptions import ValidationError
 from .managers import CustomUserManager
 
 class AccountTypes(models.Model):
@@ -16,7 +17,7 @@ class AccountTypes(models.Model):
 class CustomUser(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100, null=True, unique=True)
-    email = models.EmailField(max_length=255, null=True, unique=True)
+    email = models.CharField(max_length=255, null=True, unique=True)
     phone_number = models.CharField(max_length=15, null=True, unique=True)
     nickname = models.CharField(max_length=50, null=True)
     date_of_birth = models.DateField(null=True)
@@ -39,9 +40,22 @@ class CustomUser(AbstractBaseUser):
 
     objects = CustomUserManager()
 
+    def clean(self):
+        # Prevent empty string in email; convert to None if empty
+        if self.email == '':
+            self.email = None
+        # Validate email uniqueness for non-null values
+        if self.email is not None:
+            if CustomUser.objects.exclude(pk=self.pk).filter(email=self.email).exists():
+                raise ValidationError({'email': 'Этот email уже используется'})
+
+    def save(self, *args, **kwargs):
+        # Run clean method before saving to enforce validation
+        self.clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.phone_number or self.email or self.username
-
 
     class Meta:
         db_table = 'Users'

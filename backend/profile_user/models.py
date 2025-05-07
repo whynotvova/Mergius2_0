@@ -34,10 +34,7 @@ class UserEmailAccount(models.Model):
     last_fetched = models.DateTimeField(null=True, blank=True)
 
     def set_password(self, raw_password):
-        self.password = make_password(raw_password)
-
-    def check_password(self, raw_password):
-        return check_password(raw_password, self.password)
+        self.password = raw_password
 
     def __str__(self):
         return self.email_address
@@ -156,3 +153,18 @@ class EmailFolderAssignment(models.Model):
 
     def __str__(self):
         return f"Email {self.email.subject} in folder {self.folder.folder_name}"
+
+
+class EmailAttachment(models.Model):
+    attachment_id = models.AutoField(primary_key=True)
+    email = models.ForeignKey(Emails, on_delete=models.CASCADE, related_name='attachments')
+    file_name = models.CharField(max_length=255)
+    file_size = models.BigIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.file_name} ({self.file_size} bytes) for {self.email.subject}"
+
+    class Meta:
+        db_table = 'Email_Attachments'
+        managed = True

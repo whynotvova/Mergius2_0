@@ -162,7 +162,7 @@ const RegisterForm = () => {
       if (err.message.includes('Failed to fetch')) {
         setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
       } else {
-        setError(`Не удалось подключиться к серверу: ${err.message}`);
+        setError(err.message.includes('email') ? err.message : `Ошибка авторизации: ${err.message}`);
       }
     }
   };

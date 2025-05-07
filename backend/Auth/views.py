@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 UserModel = get_user_model()
 
-
 @method_decorator(csrf_exempt, name='dispatch')
 class PhoneAuthView(APIView):
     permission_classes = [AllowAny]
@@ -30,7 +29,6 @@ class PhoneAuthView(APIView):
             return Response({'phone_number': user.phone_number}, status=status.HTTP_200_OK)
         logger.error(f"PhoneAuthView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PhoneUpdateView(APIView):
@@ -50,7 +48,6 @@ class PhoneUpdateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         logger.error(f"PhoneUpdateView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @method_decorator(csrf_exempt, name='dispatch')
 class OTPView(APIView):
@@ -92,7 +89,6 @@ class OTPView(APIView):
         logger.error(f"OTPView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 class SocialAuthView(APIView):
     permission_classes = [AllowAny]
 
@@ -102,6 +98,10 @@ class SocialAuthView(APIView):
         try:
             user = request.backend.auth_complete(**request.data)
             if user and user.is_active:
+                # Ensure email is not empty string
+                if hasattr(user, 'email') and user.email == '':
+                    user.email = None
+                    user.save()
                 login(request, user)
                 token, created = Token.objects.get_or_create(user=user)
                 logger.info(f"Social auth success for user {user.user_id}, token: {token.key}")
@@ -110,11 +110,12 @@ class SocialAuthView(APIView):
                     'user_id': user.user_id,
                 }, status=status.HTTP_200_OK)
             logger.warning(f"Invalid social auth data for {backend}")
-            return Response({'detail': 'Invalid social auth data'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'Неверные данные социальной авторизации'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"Social auth error for {backend}: {str(e)}")
-            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
+            if 'email' in str(e).lower() and 'unique' in str(e).lower():
+                return Response({'detail': 'Этот email уже используется другим пользователем'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': f'Ошибка авторизации: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -129,7 +130,6 @@ class ProfileView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         logger.error(f"ProfileView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CheckUsernameView(APIView):

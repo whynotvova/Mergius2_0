@@ -1,9 +1,6 @@
 from django.urls import path
-from .views import (
-    AddEmailAccountView, EmailServiceView, FetchEmailView,
-    EmailAccountListView, EmailDetailView, EmailFolderAssignmentView,
-    DeleteEmailAccountView, AssignCategoriesView, FolderCreateView, FolderDeleteView
-)
+from .views import AddEmailAccountView, EmailServiceView, FetchEmailView, EmailAccountListView, EmailDetailView, EmailFolderAssignmentView, \
+    DeleteEmailAccountView, AssignCategoriesView, FolderCreateView, FolderDeleteView, TranslateEmailView, SendEmailView
 
 urlpatterns = [
     path('email-accounts/add/', AddEmailAccountView.as_view(), name='add-email-account'),
@@ -16,4 +13,6 @@ urlpatterns = [
     path('email-accounts/<int:email_account_id>/', DeleteEmailAccountView.as_view(), name='delete-email-account'),
     path('folders/', FolderCreateView.as_view(), name='create-folder'),
     path('folders/<int:folder_id>/', FolderDeleteView.as_view(), name='delete-folder'),
+    path('translate/', TranslateEmailView.as_view(), name='translate-email'),
+    path('send/', SendEmailView.as_view(), name='send-email'),
 ]

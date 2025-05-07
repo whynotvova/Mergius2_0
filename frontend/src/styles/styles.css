@@ -126,12 +126,14 @@ body {
   border-radius: 15px;
   border: 2px solid;
   cursor: pointer;
+  font-family: "Didact Gothic", sans-serif !important;
   transition: all 0.3s ease-in-out;
   background: none;
 }
 
 .border-button {
   width: 190px;
+  font-family: "Didact Gothic", sans-serif !important;
   color: var(--secondary-color);
   border-color: var(--secondary-color);
   background-color: #ffffff;
@@ -496,6 +498,14 @@ body {
   margin-right: auto;
 }
 
+.pricing-section-page {
+  margin-top: 100px;
+  max-width: 1160px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+}
+
 .pricing-grid {
   display: flex;
   gap: 20px;
@@ -581,6 +591,14 @@ body {
   max-width: 1160px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.faq-section-page {
+  margin-top: 100px;
+  max-width: 1160px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
 }
 
 .faq-list {
@@ -1019,6 +1037,31 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.registration__checkbox {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.registration__policy-link {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.registration__policy-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+
+.registration__checkbox-label {
+  font-size: 14px;
+  color: #333;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+
 .error-message {
   color: red;
   font-family: "Wix Madefor Display";
@@ -1076,6 +1119,52 @@ body {
   display: none;
 }
 
+.avatar-container:hover {
+  opacity: 1;
+}
+
+.avatar-circle-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.avatar-circle-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.close-button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  background-color: #ff4d4f;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: #d9363e;
+}
+
+.panel-button-wrapper {
+  position: relative;
+}
+
+.panel-button-wrapper:hover .avatar-container {
+  display: flex;
+}
+
 .panel-button-wrapper {
   position: relative;
   border-radius: 100%;
@@ -1127,6 +1216,7 @@ body {
   border: none;
   padding: 0;
   cursor: pointer;
+  font-family: "Didact Gothic", sans-serif !important;
   transition: transform 0.3s ease;
 }
 
@@ -1711,6 +1801,136 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
+.from-select {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.from-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.from-select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.emoji-picker {
+  position: absolute;
+  top: 120px;
+  left: 400px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 5px;
+  z-index: 1000;
+}
+
+.emoji-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji-button:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.color-picker {
+  position: absolute;
+  top: 130px;
+  left: 400px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 5px;
+  z-index: 1000;
+}
+
+.color-button {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.color-button:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+.attached-files {
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.attached-files h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.attached-files ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.attached-file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.attached-file-item span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-file-button {
+  background: none;
+  border: none;
+  color: #dc3545;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.remove-file-button:hover {
+  color: #a71d2a;
+}
+
 .editor-container {
   border-radius: 15px;
   background-color: var(--email-bg);
@@ -1878,7 +2098,7 @@ body {
 }
 
 .email-view-content .email-title {
-  color: var(--button-hover-text);
+  color: var(--primary-color);
   font-size: 32px;
   font-weight: 700;
   margin: 0;
@@ -2070,6 +2290,8 @@ body {
   color: #fff;
   border-color: #007bff;
 }
+
+
 
 .loading-container {
   display: flex;
@@ -2760,6 +2982,7 @@ body {
   color: var(--primary-color);
   font-weight: 400;
   white-space: nowrap;
+  width: 253px;
   flex-grow: 0;
   flex-shrink: 1;
   flex-basis: auto;
@@ -2776,9 +2999,9 @@ body {
   background-color: var(--email-bg);
   display: flex;
   padding: 15px 20px;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
-  justify-content: center;
+  gap: 20px;
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 0;
@@ -2818,13 +3041,54 @@ body {
   display: flex;
 }
 
-.ip-column {
+.pagination-account {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  line-height: normal;
-  width: 19%;
-  margin-left: 0;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pagination-account-button {
+  padding: 8px 16px;
+  background-color: #fff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.pagination-account-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.pagination-account-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.history-item {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-table {
+  display: flex;
+  width: 100%;
+}
+
+.ip-column, .action-column, .description-column, .date-column {
+  flex: 1;
+  min-width: 150px;
+}
+
+.history-cell p {
+  margin: 0;
+  padding: 8px;
 }
 
 .history-cell {
@@ -2871,14 +3135,6 @@ body {
   margin-left: 20px;
 }
 
-.history-item.date:nth-child(2) {
-  margin-top: 19px;
-}
-
-.history-item.date:nth-child(3),
-.history-item.date:nth-child(4) {
-  margin-top: 19px;
-}
 
 /* Стили для страницы Безопасность */
 .security-body {
@@ -3171,6 +3427,7 @@ body {
   }
 
   .nav-button {
+    font-family: "Didact Gothic", sans-serif !important;
     font-size: 16px;
     height: 40px;
   }
@@ -3715,7 +3972,8 @@ body {
 
   .email-view-content .email-content {
     padding: 15px;
-    min-height: 300px;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .email-view-content .email-text {
@@ -3796,223 +4054,77 @@ body {
 
 @media (max-width: 767px) {
   .main-header {
-    flex-direction: column;
-    height: auto;
-    padding: 20px;
+    padding: 0 20px;
+    height: 100px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f5f7ff;
   }
 
   .logo-container {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .nav-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .nav-button {
-    width: 100%;
-    max-width: 200px;
+    font-size: 20px;
+    height: 50px;
+    width: 120px;
+    border-radius: 10px;
+  }
+
+  .border-button,
+  .login-button,
+  .mail-button {
+    width: 120px;
   }
 
   .language-selector {
-    width: 100%;
-    max-width: 120px;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .flag-icon {
+    width: 25px;
+    height: 25px;
   }
 
   .language-text {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .dropdown-content {
-    width: 120px;
+    width: 100px;
+    border-radius: 10px;
   }
 
-  .about-title,
-  .section-title,
-  .title,
-  .auth-title,
-  .verification-title,
-  .registration__title {
-    font-size: 36px;
-  }
-
-  .about-description,
-  .description,
-  .feature-title,
-  .feature-highlight,
-  .service-name,
-  .pricing-title,
-  .social-name {
-    font-size: 20px;
-  }
-
-  .pricing-features,
-  .faq-answer {
-    font-size: 18px;
-  }
-
-  .faq-question,
-  .pricing-button {
-    font-size: 20px;
-  }
-
-  .social-auth-primary,
-  .registration__form {
-    max-width: 300px;
-  }
-
-  .social-auth-row {
-    max-width: 200px;
-  }
-
-  .social-auth-row.secondary {
-    max-width: 150px;
-  }
-
-  .phone-input {
-    width: 120px;
+  .language-option {
     font-size: 16px;
+    padding: 8px;
   }
 
-  .code-input {
-    width: 40px;
-    height: 60px;
-    font-size: 20px;
-  }
-
-  .email-title-input {
-    font-size: 20px;
-  }
-
-  .recipient-input,
-  .text-styling,
-  .editor-content,
-  .email-view-content .email-text {
-    font-size: 14px;
-  }
-
-  .send-button,
-  .schedule-button,
-  .email-view-content .action-button {
-    font-size: 18px;
-  }
-
-  .categories-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .profile-content .menu,
-  .profile-content .menu-text,
-  .user-info,
-  .info-text,
-  .default-button,
-  .history-header {
-    font-size: 18px;
-  }
-
-  .history-cell {
-    font-size: 16px;
-  }
-
-  .settings-label {
-    font-size: 18px;
-  }
-
-  .categories-body .folder-title {
-    font-size: 18px;
-  }
-
-  .categories-body .folder-icon,
-  .categories-body .lock-icon,
-  .categories-body .edit-icon,
-  .categories-body .delete-icon,
-  .categories-body .plus-icon {
-    width: 35px;
-    height: 35px;
-  }
-
-  .categories-body .inbox-icon {
-    width: 18px;
-    height: 18px;
-    left: 36px;
-    top: 38px;
-  }
-
-  .avatar-circle {
-    width: 200px;
-    height: 200px;
-  }
-
-  .info-item {
+  .about-section {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 15px;
-  }
-
-  .info-icon {
-    width: 30px;
-  }
-
-  .info-text {
-    width: 100%;
-  }
-
-  .history-table {
-    gap: 10px;
-  }
-
-  .carousel-container {
-    max-width: 767px;
-  }
-
-  .carousel-item {
-    width: 90%;
-    height: 80px;
-  }
-  .registration__title {
-    font-size: 36px;
-  }
-
-  .registration__form {
-    max-width: 300px;
-  }
-
-  .social-login {
-    padding-bottom: 40px;
-  }
-
-  .social-login:last-child {
-    padding-bottom: 40px;
-  }
-
-  .registration__submit {
-    padding-bottom: 0;
-  }
-
-  .registration__field {
-    font-size: 18px;
-  }
-
-  .registration__submit {
-    font-size: 20px;
-  }
-
-  .error-message {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 479px) {
-  .logo {
-    width: 120px;
-    height: 20px;
+    padding: 40px 20px;
+    align-items: center;
+    border-radius: 12px;
   }
 
   .about-image {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+  }
+
+  .about-content {
+    margin-left: 0;
+    margin-top: 20px;
+    text-align: center;
   }
 
   .about-title,
@@ -4034,99 +4146,1107 @@ body {
     font-size: 16px;
   }
 
-  .pricing-features,
-  .faq-answer,
-  .history-cell {
-    font-size: 14px;
+  .features-section {
+    margin-top: 80px;
   }
 
-  .faq-question,
-  .pricing-button,
-  .profile-content .menu,
-  .profile-content .menu-text,
-  .user-info,
-  .info-text,
-  .default-button,
-  .history-header {
+  .features-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .feature-icon,
+  .feature-image {
+    width: 180px;
+  }
+
+  .email-services {
+    margin-top: 80px;
+  }
+
+  .services-grid {
+    flex-direction: column;
+    margin: 20px;
+    gap: 25px;
+    align-items: center;
+  }
+
+  .service-card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .service-card--offset {
+    margin-top: 0;
+  }
+
+  .service-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .icon-image {
+    width: 50px;
+  }
+
+  .pricing-section {
+    margin-top: 80px;
+    padding: 0 20px;
+  }
+
+  .pricing-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pricing-card {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 12px;
+  }
+
+  .pricing-features {
+    font-size: 14px;
+    line-height: 36px;
+  }
+
+  .pricing-button {
     font-size: 16px;
+    padding: 15px;
+  }
+
+  .faq-section {
+    margin-top: 80px;
+    padding: 0 20px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+    padding: 15px 20px;
+    border-radius: 12px;
+  }
+
+  .faq-answer {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .contact-section {
+    margin-top: 80px;
+  }
+
+  .social-links {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    gap: 20px;
+  }
+
+  .social-link {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .social-icon {
+    width: 80px;
+  }
+
+  .social-icon-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .main-footer {
+    padding: 20px;
+  }
+
+  .copyright {
+    font-size: 18px;
   }
 
   .social-auth-primary,
   .registration__form {
-    max-width: 250px;
+    max-width: 280px;
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .social-auth-row {
+    width: 100%;
+    max-width: 180px;
+    gap: 15px;
+  }
+
+  .social-auth-row.secondary {
+    max-width: 140px;
   }
 
   .social-auth-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .social-button-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .phone-input {
+    width: 110px;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .verification-title {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .code-input {
+    width: 38px;
+    height: 55px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+
+  .verification-message,
+  .resend-code {
+    font-size: 13px;
+  }
+
+  .registration {
+    padding: 40px 20px;
+  }
+
+  .registration__form {
+    max-width: 280px;
+  }
+
+  .social-login {
+    height: 70px;
+    padding: 0 15px;
+    border-radius: 15px;
+  }
+
+  .social-login__icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .registration__field {
+    font-size: 16px;
+    padding: 0 20px;
+  }
+
+  .registration__submit {
+    font-size: 16px;
+    height: 48px;
+    border-radius: 15px;
+  }
+
+  .error-message {
+    font-size: 12px;
+  }
+
+  .themes-content,
+  .mail-content,
+  .compose-content,
+  .email-view-content,
+  .calendar-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .themes-content .side-nav,
+  .mail-content .side-nav,
+  .compose-content .side-nav,
+  .email-view-content .side-nav,
+  .calendar-content .side-nav {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  .themes-content .image-layout,
+  .mail-content .image-layout,
+  .compose-content .image-layout,
+  .email-view-content .image-layout,
+  .calendar-content .image-layout {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  .themes-content .image-stack,
+  .mail-content .image-stack,
+  .compose-content .image-stack,
+  .email-view-content .image-stack,
+  .calendar-content .image-stack {
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+    justify-content: flex-start;
+  }
+
+  .themes-content .side-nav-button,
+  .mail-content .side-nav-button,
+  .compose-content .side-nav-button,
+  .email-view-content .side-nav-button,
+  .calendar-content .side-nav-button {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  .themes-content .product-image,
+  .mail-content .product-image,
+  .compose-content .product-image,
+  .email-view-content .product-image,
+  .calendar-content .product-image {
+    width: 50px;
+  }
+
+  .themes-content .stack-spacing,
+  .mail-content .stack-spacing,
+  .compose-content .stack-spacing,
+  .email-view-content .stack-spacing,
+  .calendar-content .stack-spacing {
+    margin-top: 0;
+    margin-right: 20px;
+  }
+
+  .themes-content .blue-divider,
+  .mail-content .blue-divider,
+  .compose-content .blue-divider,
+  .email-view-content .blue-divider,
+  .calendar-content .blue-divider {
+    display: none;
+  }
+
+  .themes-content .email-section,
+  .mail-content .email-section,
+  .compose-content .email-section,
+  .calendar-content .email-section {
+    width: calc(100% - 180px);
+    padding: 15px;
+  }
+
+  .compose-content .email-composer-section {
+    width: calc(100% - 180px);
+  }
+
+  .themes-content .side-panel,
+  .mail-content .side-panel,
+  .compose-content .side-panel,
+  .email-view-content .side-panel,
+  .calendar-content .side-panel {
+    width: 100%;
+  }
+
+  .themes-content .gallery-container,
+  .mail-content .gallery-container,
+  .compose-content .gallery-container,
+  .email-view-content .gallery-container,
+  .calendar-content .gallery-container {
+    max-width: none;
+  }
+
+  .themes-content .gallery-content,
+  .mail-content .gallery-content,
+  .compose-content .gallery-content,
+  .email-view-content .gallery-content,
+  .calendar-content .gallery-content {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .compose-button,
+  .back-button {
+    width: 130px;
+    height: 50px;
+    font-size: 18px;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 10px;
+  }
+
+  .email-title-input {
+    font-size: 18px;
+  }
+
+  .recipient-input {
+    font-size: 14px;
+  }
+
+  .editor-container {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .toolbar-group {
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+
+  .toolbar-icon {
+    width: 20px;
+  }
+
+  .text-styling,
+  .editor-content {
+    font-size: 14px;
+  }
+
+  .send-button,
+  .schedule-button {
+    max-width: 140px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  .email-view-content .email-message {
+    padding: 0 15px 80px;
+  }
+
+  .email-view-content .email-header-container {
+    padding: 10px 15px;
+    width: 100%;
+    margin: 0 0 15px;
+    border-radius: 10px;
+  }
+
+  .email-view-content .email-title {
+    font-size: 18px;
+  }
+
+  .email-view-content .email-date {
+    font-size: 12px;
+  }
+
+  .email-view-content .email-sender {
+    font-size: 16px;
+  }
+
+  .email-view-content .email-recipient {
+    font-size: 12px;
+  }
+
+  .email-view-content .email-content {
+    padding: 10px;
+    min-height: 400px;
+  }
+
+  .email-view-content .email-text {
+    font-size: 12px;
+  }
+
+  .categories-container {
+    min-width: 95%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .category-button {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+  }
+
+  .category-icon {
     width: 50px;
     height: 50px;
   }
 
-  .social-button-icon {
-    width: 20px;
-    height: 20px;
+  .carousel-container {
+    max-width: 100%;
+    padding: 0 10px;
   }
 
-  .phone-input {
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-item {
+    width: 160px;
+    height: 80px;
+    border-radius: 10px;
+  }
+
+  .email-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .column-content {
+    width: 100%;
+    height: 220px;
+    border-radius: 10px;
+  }
+
+  .email-list-container {
+    max-height: 160px;
+  }
+
+  .email-header {
+    font-size: 10px;
+  }
+
+  .email-text {
+    font-size: 9px;
+  }
+
+  .date-label {
+    font-size: 9px;
+  }
+
+  .profile-content .menu,
+  .user-info,
+  .info-text,
+  .default-button,
+  .history-header {
+    font-size: 15px;
+  }
+
+  .history-cell {
+    font-size: 13px;
+  }
+
+  .settings-label {
+    font-size: 16px;
+  }
+
+  .categories-body .folder-card {
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+  }
+
+  .categories-body .folder-title {
+    font-size: 16px;
+  }
+
+  .categories-body .folder-icon,
+  .categories-body .lock-icon,
+  .categories-body .edit-icon,
+  .categories-body .delete-icon,
+  .categories-body .plus-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .categories-body .inbox-icon {
+    width: 16px;
+    height: 16px;
+    left: 34px;
+    top: 36px;
+  }
+
+  .avatar-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 25px;
+  }
+
+  .info-item {
+    padding: 12px 15px;
+    border-radius: 12px;
+  }
+
+  .info-icon {
+    width: 28px;
+  }
+
+  .history-table {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 479px) {
+  .main-header {
+    padding: 0 10px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background-color: #f5f7ff;
+  }
+
+  .logo {
+    width: 200px;
+    height: 34px;
+  }
+
+  .nav-container {
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-button {
+    font-size: 18px;
+    height: 40px;
     width: 100px;
+    border-radius: 8px;
+  }
+
+  .border-button,
+  .login-button,
+  .mail-button {
+    width: 100px;
+  }
+
+  .language-selector {
+    width: 80px;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .flag-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .language-text {
+    font-size: 14px;
+    margin: 0 4px;
+  }
+
+  .dropdown-content {
+    width: 80px;
+    border-radius: 8px;
+  }
+
+  .language-option {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .about-section {
+    padding: 20px 10px;
+    border-radius: 12px;
+  }
+
+  .about-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .about-title {
+    font-size: 24px;
+  }
+
+  .about-description {
     font-size: 14px;
   }
 
-  .code-input {
+  .features-section {
+    margin-top: 40px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .features-grid {
+    gap: 15px;
+  }
+
+  .feature-icon,
+  .feature-image {
+    width: 120px;
+  }
+
+  .feature-title,
+  .feature-highlight {
+    font-size: 16px;
+  }
+
+  .email-services {
+    margin-top: 40px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .description {
+    font-size: 14px;
+    margin: 6px 10px;
+  }
+
+  .services-grid {
+    margin: 10px;
+    gap: 15px;
+  }
+
+  .service-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .icon-image {
     width: 35px;
+  }
+
+  .service-name {
+    font-size: 16px;
+  }
+
+  .pricing-section {
+    margin-top: 40px;
+    padding: 0 10px;
+  }
+
+  .pricing-card {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .pricing-title {
+    font-size: 22px;
+  }
+
+  .pricing-features {
+    font-size: 14px;
+    line-height: 28px;
+  }
+
+  .pricing-button {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  .faq-section {
+    margin-top: 40px;
+    padding: 0 10px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .faq-answer {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .contact-section {
+    margin-top: 40px;
+  }
+
+  .social-links {
+    margin: 10px auto;
+    gap: 10px;
+  }
+
+  .social-icon {
+    width: 60px;
+  }
+
+  .social-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .social-name {
+    font-size: 16px;
+  }
+
+  .main-footer {
+    padding: 10px;
+  }
+
+  .copyright {
+    font-size: 14px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+    margin: 20px 0 0;
+  }
+
+  .social-auth-primary {
+    max-width: 260px;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  .social-auth-row {
+    max-width: 180px;
+    gap: 8px;
+  }
+
+  .social-auth-row.secondary {
+    max-width: 140px;
+  }
+
+  .social-auth-button {
+    width: 45px;
+    height: 45px;
+  }
+
+  .social-button-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .phone-input {
+    width: 120px;
+    font-size: 13px;
+    padding: 5px;
+  }
+
+  .verification-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .code-input {
+    width: 40px;
     height: 50px;
-    font-size: 18px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  .verification-message,
+  .resend-code {
+    font-size: 13px;
+  }
+
+  .registration {
+    padding: 20px 10px;
+  }
+
+  .registration__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .registration__form {
+    max-width: 260px;
+  }
+
+  .social-login {
+    height: 55px;
+    padding: 0 10px;
+    border-radius: 15px;
+    padding-bottom: 30px;
+  }
+
+  .social-login:last-child {
+    padding-bottom: 30px;
+  }
+
+  .social-login__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .registration__field {
+    font-size: 14px;
+    padding: 0 12px;
+  }
+
+  .registration__submit {
+    font-size: 16px;
+    height: 45px;
+    border-radius: 15px;
+  }
+
+  .error-message {
+    font-size: 11px;
+  }
+
+  .themes-content,
+  .mail-content,
+  .compose-content,
+  .email-view-content,
+  .calendar-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .themes-content .side-nav,
+  .mail-content .side-nav,
+  .compose-content .side-nav,
+  .email-view-content .side-nav,
+  .calendar-content .side-nav {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+  }
+
+  .themes-content .image-layout,
+  .mail-content .image-layout,
+  .compose-content .image-layout,
+  .email-view-content .image-layout,
+  .calendar-content .image-layout {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+  }
+
+  .themes-content .image-stack,
+  .mail-content .image-stack,
+  .compose-content .image-stack,
+  .email-view-content .image-stack,
+  .calendar-content .image-stack {
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 5px 0;
+    justify-content: flex-start;
+  }
+
+  .themes-content .side-nav-button,
+  .mail-content .side-nav-button,
+  .compose-content .side-nav-button,
+  .email-view-content .side-nav-button,
+  .calendar-content .side-nav-button {
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  .themes-content .product-image,
+  .mail-content .product-image,
+  .compose-content .product-image,
+  .email-view-content .product-image,
+  .calendar-content .product-image {
+    width: 40px;
+  }
+
+  .themes-content .stack-spacing,
+  .mail-content .stack-spacing,
+  .compose-content .stack-spacing,
+  .email-view-content .stack-spacing,
+  .calendar-content .stack-spacing {
+    margin-top: 0;
+    margin-right: 10px;
+  }
+
+  .themes-content .blue-divider,
+  .mail-content .blue-divider,
+  .compose-content .blue-divider,
+  .email-view-content .blue-divider,
+  .calendar-content .blue-divider {
+    display: none;
+  }
+
+  .themes-content .email-section,
+  .mail-content .email-section,
+  .compose-content .email-section,
+  .calendar-content .email-section {
+    width: calc(100% - 140px);
+    padding: 15px;
+  }
+
+  .compose-content .email-composer-section {
+    width: calc(100% - 140px);
+  }
+
+  .themes-content .side-panel,
+  .mail-content .side-panel,
+  .compose-content .side-panel,
+  .email-view-content .side-panel,
+  .calendar-content .side-panel {
+    width: 100%;
+  }
+
+  .themes-content .gallery-container,
+  .mail-content .gallery-container,
+  .compose-content .gallery-container,
+  .email-view-content .gallery-container,
+  .calendar-content .gallery-container {
+    max-width: none;
+  }
+
+  .themes-content .gallery-content,
+  .mail-content .gallery-content,
+  .compose-content .gallery-content,
+  .email-view-content .gallery-content,
+  .calendar-content .gallery-content {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
   }
 
   .compose-button,
   .back-button {
     width: 100px;
     height: 40px;
+    font-size: 14px;
+    bottom: 8px;
+    right: 8px;
+    border-radius: 10px;
+  }
+
+  .email-title-input {
     font-size: 16px;
+  }
+
+  .recipient-input {
+    font-size: 12px;
+  }
+
+  .editor-container {
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  .toolbar-group {
+    padding: 3px 6px;
+    border-radius: 6px;
+  }
+
+  .toolbar-icon {
+    width: 16px;
+  }
+
+  .text-styling,
+  .editor-content {
+    font-size: 12px;
+  }
+
+  .send-button,
+  .schedule-button {
+    max-width: 140px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .email-view-content .email-message {
+    padding: 0 8px 50px;
+  }
+
+  .email-view-content .email-header-container {
+    padding: 6px 8px;
+    border-radius: 10px;
+  }
+
+  .email-view-content .email-title {
+    font-size: 14px;
+  }
+
+  .email-view-content .email-date {
+    font-size: 10px;
+  }
+
+  .email-view-content .email-sender {
+    font-size: 12px;
+  }
+
+  .email-view-content .email-recipient {
+    font-size: 10px;
+  }
+
+  .email-view-content .email-content {
+    padding: 6px;
+    min-height: 250px;
+  }
+
+  .email-view-content .email-text {
+    font-size: 10px;
+  }
+
+  .categories-container {
+    min-width: 95%;
+    padding: 10px;
+    border-radius: 12px;
   }
 
   .categories-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
   .category-button {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
   }
 
   .category-icon {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
   }
 
-  .settings-item {
-    padding: 10px;
+  .carousel-container {
+    max-width: 100%;
+    padding: 0 5px;
   }
 
-  .settings-label {
-    font-size: 16px;
-  }
-
-  .toggle-container {
-    width: 50px;
+  .carousel-arrow {
+    width: 25px;
     height: 25px;
   }
 
-  .toggle-circle {
-    left: 2px;
-    top: 2px;
+  .carousel-item {
+    width: 140px;
+    height: 70px;
+    border-radius: 8px;
   }
 
-  .toggle-container.active .toggle-circle {
-    transform: translateX(25px);
+  .column-content {
+    height: 180px;
+    border-radius: 10px;
   }
 
-  .edit-icon {
-    width: 30px;
-    height: 30px;
+  .email-list-container {
+    max-height: 120px;
+  }
+
+  .email-header {
+    font-size: 8px;
+  }
+
+  .email-text {
+    font-size: 8px;
+  }
+
+  .date-label {
+    font-size: 8px;
+  }
+
+  .profile-content .menu,
+  .user-info,
+  .info-text,
+  .default-button,
+  .history-header {
+    font-size: 14px;
+  }
+
+  .history-cell {
+    font-size: 12px;
   }
 
   .categories-body .folder-card {
-    height: 80px;
+    height: 70px;
+    border-radius: 10px;
   }
 
   .categories-body .folder-icon,
@@ -4134,91 +5254,34 @@ body {
   .categories-body .edit-icon,
   .categories-body .delete-icon,
   .categories-body .plus-icon {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
   }
 
   .categories-body .inbox-icon {
-    width: 15px;
-    height: 15px;
-    left: 33px;
-    top: 35px;
+    width: 14px;
+    height: 14px;
+    left: 32px;
+    top: 34px;
   }
 
   .avatar-circle {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
   }
 
-  .column-content {
-    height: 200px;
+  .info-item {
+    padding: 12px 15px;
+    border-radius: 12px;
   }
 
-  .email-list-container {
-    max-height: 132px;
+  .info-icon {
+    width: 28px;
   }
 
-  .email-header {
-    font-size: 12px;
-  }
-
-  .email-text {
-    font-size: 10px;
-  }
-
-  .date-label {
-    font-size: 10px;
-  }
-
-  .carousel-container {
-    max-width: 479px;
-  }
-
-  .carousel-item {
-    width: 100%;
-    height: 60px;
-  }
-
-  .carousel-arrow {
-    width: 30px;
-    height: 30px;
-  }
-  .registration__title {
-    font-size: 28px;
-  }
-
-  .registration__form {
-    max-width: 250px;
-  }
-
-  .social-login {
-    padding-bottom: 40px;
-  }
-
-  .social-login:last-child {
-    padding-bottom: 40px;
-  }
-
-  .registration__submit {
-    padding-bottom: 0;
-  }
-
-  .social-login__icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .registration__field {
-    font-size: 16px;
-  }
-
-  .registration__submit {
-    font-size: 16px;
-    height: 50px;
-  }
-
-  .error-message {
-    font-size: 12px;
+  .history-table {
+    gap: 8px;
   }
 }
 

@@ -34,6 +34,7 @@ const CalendarPage = () => {
   const [selectedServiceFilter, setSelectedServiceFilter] = useState(null);
   const [selectedFolderFilter, setSelectedFolderFilter] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
+  const [userAccountType, setUserAccountType] = useState('Персональный');
   const emailsPerPage = 20;
   const navigate = useNavigate();
   const location = useLocation();
@@ -456,6 +457,7 @@ const CalendarPage = () => {
         if (accountsResponse.ok) {
           const accountsData = await accountsResponse.json();
           setUserEmailAccounts(accountsData.email_accounts || []);
+          setUserAccountType(accountsData.account_type || 'Персональный');
           await fetchEmailsForAccounts(currentPage, true, searchQuery, selectedServiceFilter, selectedFilter, selectedFolderFilter);
         } else {
           const errorData = await accountsResponse.json().catch(() => ({
@@ -641,6 +643,16 @@ const CalendarPage = () => {
         e.id === id ? { ...e, isStarred: email.isStarred } : e
       ));
     }
+  };
+
+  const isServiceLimitReached = (serviceName) => {
+    if (userAccountType === 'Премиум') {
+      return false;
+    }
+    const accountCount = userEmailAccounts.filter(
+      account => account.service.service_name === serviceName
+    ).length;
+    return accountCount >= 2;
   };
 
   const handleRemoveFromFolder = async (folder, emailIds) => {
@@ -859,7 +871,7 @@ const CalendarPage = () => {
     setIsAddAccountOpen(true);
   };
 
-  const handleAddMailService = async () => {
+    const handleAddMailService = async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -883,11 +895,11 @@ const CalendarPage = () => {
         const emailAccountId = newAccount.email_account_id;
 
         const defaultFolderConfigs = [
-          { name: 'Входящие', icon: folderIcons['Входящие'].active, sort_order: 1, locked: true },
-          { name: 'Отмеченное', icon: folderIcons['Отмеченное'].inactive, sort_order: 2, locked: true },
-          { name: 'Черновики', icon: folderIcons['Черновики'].inactive, sort_order: 3, locked: true },
-          { name: 'Отправленное', icon: folderIcons['Отправленное'].inactive, sort_order: 4, locked: true },
-          { name: 'Спам', icon: folderIcons['Спам'].inactive, sort_order: 5, locked: true },
+          { name: 'Входящие', icon: '/images/mail/folder-inbox-active.png', sort_order: 1, locked: true },
+          { name: 'Отмеченное', icon: '/images/mail/folder-marked.png', sort_order: 2, locked: true },
+          { name: 'Черновики', icon: '/images/mail/folder-drafts.png', sort_order: 3, locked: true },
+          { name: 'Отправленное', icon: '/images/mail/folder-sender.png', sort_order: 4, locked: true },
+          { name: 'Спам', icon: '/images/mail/folder-spam.png', sort_order: 5, locked: true },
         ];
 
         for (const folderConfig of defaultFolderConfigs) {
@@ -932,6 +944,7 @@ const CalendarPage = () => {
         if (updatedResponse.ok) {
           const accountsData = await updatedResponse.json();
           setUserEmailAccounts(accountsData.email_accounts || []);
+          setUserAccountType(accountsData.account_type || 'Персональный');
           setIsLoading(true);
           await fetchEmailsForAccounts(currentPage, true, searchQuery, selectedServiceFilter, selectedFilter, selectedFolderFilter);
         } else {
@@ -947,8 +960,8 @@ const CalendarPage = () => {
         }));
         console.error('Failed to add email account:', errorData);
         let errorMessage = errorData.error || 'Не удалось добавить почтовый аккаунт';
-        if (errorMessage.includes('You cannot add more than 2 email accounts for')) {
-          errorMessage = `Нельзя добавить больше 2 почтовых аккаунтов для ${selectedService.name}`;
+        if (errorMessage.includes('You cannot add more than 2 email accounts for') && userAccountType !== 'Премиум') {
+          errorMessage = `Нельзя добавить больше 2 почтовых аккаунтов для ${selectedService.name}. Обновите до премиум-аккаунта для снятия ограничений.`;
         }
         setError(errorMessage);
       }
@@ -1046,7 +1059,6 @@ const CalendarPage = () => {
     let spamFolder = folders.find(folder => folder.name.toLowerCase() === 'спам');
 
     if (!spamFolder) {
-      // Use the first email account to create the Spam folder if it doesn't exist
       const emailAccountId = checkedEmails[0].email_account;
       spamFolder = await ensureSpamFolder(emailAccountId, token);
       if (!spamFolder) {
@@ -1139,6 +1151,47 @@ const CalendarPage = () => {
     }
   };
 
+  const handleDeleteAccount = async (emailAccountId) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/auth');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:8000/api/mail/email-accounts/${emailAccountId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Token ${token}`,
+        },
+      });
+
+      if (response.ok || response.status === 204) {
+        const deletedAccount = userEmailAccounts.find(account => account.email_account_id === emailAccountId);
+        const updatedAccounts = userEmailAccounts.filter(account => account.email_account_id !== emailAccountId);
+        setUserEmailAccounts(updatedAccounts);
+
+        if (deletedAccount && selectedServiceFilter === deletedAccount.service.service_name) {
+          const remainingAccounts = updatedAccounts.filter(account => account.service.service_name === deletedAccount.service.service_name);
+          setSelectedServiceFilter(remainingAccounts.length > 0 ? deletedAccount.service.service_name : null);
+        }
+
+        setIsLoading(true);
+        await fetchEmailsForAccounts(currentPage, true, searchQuery, selectedServiceFilter, selectedFilter, selectedFolderFilter);
+        setError(null);
+      } else {
+        const errorData = await response.json().catch(() => ({
+          error: `Server error: ${response.statusText}`
+        }));
+        console.error('Failed to delete email account:', errorData);
+        setError(errorData.error || 'Не удалось удалить почтовый аккаунт');
+      }
+    } catch (error) {
+      console.error('Error deleting email account:', error);
+      setError('Ошибка подключения к серверу');
+    }
+  };
+
   const handleDeleteEmails = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -1211,13 +1264,6 @@ const CalendarPage = () => {
 
   const isServiceAdded = (serviceName) => {
     return userEmailAccounts.some(account => account.service.service_name === serviceName);
-  };
-
-  const isServiceLimitReached = (serviceName) => {
-    const accountCount = userEmailAccounts.filter(
-      account => account.service.service_name === serviceName
-    ).length;
-    return accountCount >= 2;
   };
 
   const addedServices = Array.from(new Set(userEmailAccounts.map(account => account.service.service_name)))
@@ -1518,7 +1564,6 @@ const CalendarPage = () => {
                                         </p>
                                       )}
                                     </div>
-                                    <p className="email-date">{email.date}</p>
                                   </article>
                                 ))
                               ) : (
@@ -1604,35 +1649,6 @@ const CalendarPage = () => {
                   })}
                 </div>
               </div>
-
-              {totalEmails > 0 && (
-                <div className="pagination">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="pagination-button"
-                  >
-                    Назад
-                  </button>
-                  {getPaginationNumbers().map((item, index) => (
-                    <button
-                      key={index}
-                      onClick={() => typeof item === 'number' && handlePageChange(item)}
-                      className={`pagination-button ${currentPage === item ? 'active' : ''} ${typeof item === 'string' ? 'ellipsis' : ''}`}
-                      disabled={typeof item === 'string'}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="pagination-button"
-                  >
-                    Вперед
-                  </button>
-                </div>
-              )}
             </>
           )}
         </section>
@@ -1657,12 +1673,23 @@ const CalendarPage = () => {
                       {userEmailAccounts
                         .filter(account => account.service.service_name === service.name)
                         .map((account, idx) => (
-                          <img
-                            key={idx}
-                            src={`${process.env.PUBLIC_URL}${account.avatar}`}
-                            className="avatar-circle-button"
-                            alt={`Avatar for ${account.email_address}`}
-                          />
+                          <div key={idx} className="avatar-circle-wrapper">
+                            <img
+                              src={`${process.env.PUBLIC_URL}${account.avatar}`}
+                              className="avatar-circle-button"
+                              alt={`Avatar for ${account.email_address}`}
+                            />
+                            <span
+                              className="close-button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteAccount(account.email_account_id);
+                              }}
+                              title={`Удалить ${account.email_address}`}
+                            >
+                              ✕
+                            </span>
+                          </div>
                         ))}
                     </div>
                   )}
@@ -1735,7 +1762,7 @@ const CalendarPage = () => {
                     onClick={() => handleSelectMailService(service)}
                     disabled={isServiceLimitReached(service.name)}
                     style={{ opacity: isServiceLimitReached(service.name) ? 0.5 : 1 }}
-                    title={isServiceLimitReached(service.name) ? `Достигнут лимит в 2 аккаунта для ${service.name}` : ''}
+                    title={isServiceLimitReached(service.name) ? `Достигнут лимит в 2 аккаунта для ${service.name}. Обновите до премиум-аккаунта.` : ''}
                   >
                     <img
                       src={`${process.env.PUBLIC_URL}${service.icon}`}

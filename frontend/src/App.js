@@ -17,6 +17,8 @@ import ThemesPage from './components/ThemesPage';
 import SecurityPage from './components/SecurityPage';
 import AccountPage from './components/AccountPage';
 import EmailViewPage from './components/EmailViewPage';
+import FaqPage from './components/FaqPage';
+import TarifPage from './components/TarifPage';
 import Callback from './components/Callback';
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <Route path="/confirm-auth" element={<VerificationForm type="login" />} />
         <Route path="/confirm-reg" element={<VerificationForm type="register" />} />
         <Route path="/register-final" element={<RegisterFinal />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/tarifs" element={<TarifPage />} />
         <Route path="/mail" element={<MailPage />} />
         <Route path="/mail/:folderName" element={<MailPage />} />
         <Route path="/calendar" element={<CalendarPage />} />

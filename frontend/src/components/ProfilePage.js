@@ -1,12 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const [userAccountType, setUserAccountType] = useState('Персональный');
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUserAccountType = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/auth');
+          return;
+        }
+
+        const response = await fetch('http://localhost:8000/api/profile/', {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserAccountType(data.account_type || 'Персональный');
+        } else {
+          const errorData = await response.json().catch(() => ({
+            error: `Server error: ${response.statusText}`,
+          }));
+          console.error('Failed to fetch profile:', errorData);
+          setError(errorData.error || 'Не удалось загрузить данные профиля');
+          if (response.status === 401) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_id');
+            navigate('/auth');
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        setError('Ошибка подключения к серверу');
+      }
+    };
+
+    fetchUserAccountType();
+  }, [navigate]);
 
   const handleMenuItemClick = (item) => {
     console.log(`${item} clicked`);
+    if (item === 'Темы' && userAccountType !== 'Премиум') {
+      setError('Доступ к темам возможен только для премиум-аккаунтов');
+      return;
+    }
     switch (item) {
       case 'Аккаунт':
         navigate('/account');
@@ -37,6 +83,7 @@ const ProfilePage = () => {
   return (
     <div className="profile-body">
       <main className="profile-content">
+        {error && <div className="error-message">{error}</div>}
         <nav className="menu">
           <ul className="menu-list">
             <li className="menu-item" onClick={() => handleMenuItemClick('Аккаунт')}>
@@ -55,7 +102,12 @@ const ProfilePage = () => {
               />
               <span className="menu-text">Категории</span>
             </li>
-            <li className="menu-item" onClick={() => handleMenuItemClick('Темы')}>
+            <li
+              className={`menu-item ${userAccountType !== 'Премиум' ? 'disabled' : ''}`}
+              onClick={() => handleMenuItemClick('Темы')}
+              style={{ opacity: userAccountType !== 'Премиум' ? 0.5 : 1 }}
+              title={userAccountType !== 'Премиум' ? 'Требуется премиум-аккаунт' : ''}
+            >
               <img
                 src={`${process.env.PUBLIC_URL}/images/profile/themes.png`}
                 alt="Themes icon"

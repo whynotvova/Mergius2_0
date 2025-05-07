@@ -130,22 +130,20 @@ const HomePage = () => {
             <article className="pricing-card pricing-card--basic">
               <h3 className="pricing-title">Базовый</h3>
               <ul className="pricing-features">
-                <li>Добавление почтовых сервисов(До 3-х)</li>
+                <li>Добавление почтовых сервисов(До 2-х)</li>
                 <li>Календарный вид</li>
-                <li>Перевод писем</li>
                 <li>Папки по категориям</li>
-                <li>Редактирование письма</li>
-                <li>Общий доступ к письму</li>
+                <li>Отправлять/удалять письма</li>
                 <li>Изменение темы</li>
-                <li>Диалоговая система</li>
               </ul>
             </article>
             <article className="pricing-card pricing-card--premium">
               <h3 className="pricing-title">Премиум</h3>
               <ul className="pricing-features">
                 <li>Все что включено в тариф "Базовый"</li>
-                <li>Кастомизация темы, папок</li>
+                <li>Кастомизация темы</li>
                 <li>Создание временной почты</li>
+                <li>Перевод писем</li>
                 <li>Убираются ограничения</li>
               </ul>
             </article>

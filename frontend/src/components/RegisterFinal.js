@@ -30,6 +30,7 @@ const RegisterFinal = () => {
   const [username, setUsername] = useState('');
   const [country, setCountry] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [isPrivacyAgreed, setIsPrivacyAgreed] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -57,6 +58,11 @@ const RegisterFinal = () => {
 
   const handleSubmit = async () => {
     setError('');
+
+    if (!isPrivacyAgreed) {
+      setError('Вы должны согласиться с политикой конфиденциальности и условиями использования');
+      return;
+    }
 
     if (!username.trim()) {
       setError('Введите имя пользователя');
@@ -174,7 +180,32 @@ const RegisterFinal = () => {
             ))}
           </select>
         </div>
-        <button className="registration__submit" onClick={handleSubmit}>
+        <div className="social-login">
+          <input
+            type="checkbox"
+            id="privacy-agreement"
+            checked={isPrivacyAgreed}
+            onChange={(e) => setIsPrivacyAgreed(e.target.checked)}
+            className="registration__checkbox"
+          />
+          <label htmlFor="privacy-agreement" className="registration__checkbox-label">
+            Я подтверждаю и согласен с{' '}
+            <a
+              href={`${process.env.PUBLIC_URL}/documents/privacy-policy.pdf`}
+              download="privacy-policy.pdf"
+              className="registration__policy-link"
+              onClick={(e) => e.stopPropagation()}
+            >
+              политикой конфиденциальности
+            </a>{' '}
+            и условиями использования
+          </label>
+        </div>
+        <button
+          className="registration__submit"
+          onClick={handleSubmit}
+          disabled={!isPrivacyAgreed}
+        >
           Завершить
         </button>
       </div>

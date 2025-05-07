@@ -5,19 +5,34 @@ import '../styles/styles.css';
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const isAuthenticated = !!localStorage.getItem('token');
 
   const handleLoginClick = () => navigate('/auth');
   const handleRegisterClick = () => navigate('/register');
   const handleProfileClick = () => navigate('/profile');
   const handleMailClick = () => navigate('/mail');
+  const handleTariffsClick = () => navigate('/tarifs');
 
-  const internalPages = ['/mail', '/email-view', '/calendar', '/compose', '/categories', '/profile', '/account', '/themes', '/security'];
+  const internalPages = [
+    '/mail',
+    '/email-view',
+    '/calendar',
+    '/compose',
+    '/categories',
+    '/profile',
+    '/account',
+    '/themes',
+    '/security',
+    '/faq',
+    '/tarifs',
+  ];
   const isInternalPage = internalPages.includes(location.pathname);
 
   const isAuthPage = ['/auth', '/confirm-auth'].includes(location.pathname);
   const isRegisterPage = ['/register', '/confirm-reg', '/register-final'].includes(location.pathname);
   const isMailPage = ['/mail', '/email-view', '/calendar', '/compose'].includes(location.pathname);
-  const isProfilePage = ['/profile', '/account', '/themes', '/security', '/categories'].includes(location.pathname);
+  const isProfilePage = ['/profile', '/account', '/themes', '/security', '/categories', '/faq'].includes(location.pathname);
+  const isTariffsPage = location.pathname === '/tarifs';
 
   const handleLogoClick = () => {
     if (isInternalPage) {
@@ -39,9 +54,14 @@ const Header = () => {
         </Link>
       </div>
       <nav className="nav-container">
-        {isInternalPage ? (
+        {isAuthenticated ? (
           <>
-            <button className="nav-button border-button tariffs-btn">Тарифы</button>
+            <button
+              className={`nav-button border-button tariffs-btn ${isTariffsPage ? 'active-tariffs' : ''}`}
+              onClick={handleTariffsClick}
+            >
+              Тарифы
+            </button>
             <button
               className={`nav-button border-button ${isProfilePage ? 'active-register' : ''}`}
               onClick={handleProfileClick}
@@ -57,7 +77,12 @@ const Header = () => {
           </>
         ) : (
           <>
-            <button className="nav-button border-button tariffs-btn">Тарифы</button>
+            <button
+              className={`nav-button border-button tariffs-btn ${isTariffsPage ? 'active-tariffs' : ''}`}
+              onClick={handleTariffsClick}
+            >
+              Тарифы
+            </button>
             <button
               className={`nav-button border-button ${isRegisterPage ? 'active-register' : ''}`}
               onClick={handleRegisterClick}

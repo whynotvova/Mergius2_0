@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserProfileSerializer, MailFolderSerializer, UserSettingsSerializer, UserEmailAccountSerializer, EmailServiceSerializer
+from .serializers import UserProfileSerializer, MailFolderSerializer, UserSettingsSerializer, EmailServiceSerializer
 from .models import MailFolder, AuditLog, UserEmailAccount, EmailService, User_Settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -13,6 +13,7 @@ from django.db import transaction
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -31,6 +32,7 @@ def get_client_ip(request):
             logger.error(f"Error fetching public IP: {str(e)}")
             ip = 'unknown'
     return ip
+
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -59,6 +61,7 @@ class UserProfileView(APIView):
         except Exception as e:
             logger.error(f"Error deleting account for user {user.user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class MailFolderView(APIView):
     permission_classes = [IsAuthenticated]
@@ -154,6 +157,7 @@ class MailFolderView(APIView):
         )
         logger.info(f"Folder '{folder_name}' deleted for user {request.user.user_id}")
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class UserSettingsView(APIView):
     def get(self, request):
@@ -259,7 +263,7 @@ class UserSettingsView(APIView):
                 client_ip = get_client_ip(request)
                 AuditLog.objects.create(
                     user=user,
-                    action='Создание настроек',  # Исправлено 'Создание настро_CXX'
+                    action='Создание настроек',
                     details=f'Созданы настройки (тема: {request.data.get("theme", "не указана")})',
                     ip_address=client_ip,
                     timestamp=timezone.now()
@@ -274,6 +278,7 @@ class UserSettingsView(APIView):
         except Exception as e:
             logger.error(f"Error creating settings for user_id {user_id}: {str(e)}")
             return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class EmailServiceView(APIView):
     permission_classes = [IsAuthenticated]
@@ -291,6 +296,7 @@ class EmailServiceView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
+
 class AddEmailAccountView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -301,7 +307,8 @@ class AddEmailAccountView(APIView):
             email_address = request.data.get('email_address')
             password = request.data.get('password')
 
-            logger.debug(f"POST /api/mail/email-accounts/add/ by user {user.user_id} with data: {{service_name: {service_name}, email_address: {email_address}}}")
+            logger.debug(
+                f"POST /api/mail/email-accounts/add/ by user {user.user_id} with data: {{service_name: {service_name}, email_address: {email_address}}}")
 
             if not all([service_name, email_address]):
                 logger.error("Missing required fields: service_name or email_address")
@@ -348,7 +355,7 @@ class AddEmailAccountView(APIView):
                     oauth_token=None
                 )
                 if password:
-                    email_account.set_password(password)  # Хэшируем пароль
+                    email_account.set_password(password)
                 email_account.save()
 
                 client_ip = get_client_ip(request)
