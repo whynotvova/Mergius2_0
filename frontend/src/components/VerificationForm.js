@@ -71,11 +71,7 @@ const VerificationForm = () => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user_id', data.user_id);
       console.info('OTP verification success:', data);
-
-      // Check if user profile is complete
       const isProfileComplete = data.is_phone_verified && data.username && data.country && data.date_of_birth;
-
-      // Redirect based on profile completeness
       if (isProfileComplete) {
         navigate('/mail');
       } else {
@@ -146,6 +142,13 @@ const VerificationForm = () => {
         Прислать код еще раз
       </button>
       {error && <p className="error-message">{error}</p>}
+      <a href="https://t.me/mergius_support_bot" target="_blank" rel="noopener noreferrer" className="support-button">
+        <img
+          src={`${process.env.PUBLIC_URL}/images/mail/customer-support.png`}
+          alt="Customer Support"
+          className="support-icon"
+        />
+      </a>
     </main>
   );
 };

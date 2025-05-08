@@ -1703,6 +1703,34 @@ body {
   transform: scale(1.05);
 }
 
+.support-button {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  width: 70px;
+  height: 70px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.support-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
 /* Стили для кнопки назад */
 .back-button {
   position: fixed;
@@ -4191,6 +4219,18 @@ body {
     height: 100px;
   }
 
+  .support-button {
+    width: 100px;
+    height: 100px;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .support-icon {
+    width: 60px;
+    height: 60px;
+  }
+
   .icon-image {
     width: 50px;
   }
@@ -4806,6 +4846,18 @@ body {
 
   .icon-image {
     width: 35px;
+  }
+
+  .support-button {
+    width: 80px;
+    height: 80px;
+    bottom: 8px;
+    left: 8px;
+  }
+
+  .support-icon {
+    width: 50px;
+    height: 50px;
   }
 
   .service-name {

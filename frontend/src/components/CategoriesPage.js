@@ -258,6 +258,13 @@ const CategoriesPage = () => {
           </section>
         </div>
       )}
+      <a href="https://t.me/mergius_support_bot" target="_blank" rel="noopener noreferrer" className="support-button">
+        <img
+          src={`${process.env.PUBLIC_URL}/images/mail/customer-support.png`}
+          alt="Customer Support"
+          className="support-icon"
+        />
+      </a>
     </div>
   );
 };
