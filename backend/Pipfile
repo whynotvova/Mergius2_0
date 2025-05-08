@@ -16,6 +16,7 @@ celery = "*"
 django-celery-beat = "*"
 redis = "*"
 schedule = "*"
+gunicorn = "*"
 
 [dev-packages]
 

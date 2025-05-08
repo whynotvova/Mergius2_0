@@ -7,6 +7,8 @@ const AuthForm = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
 
   useEffect(() => {
     if (location.state?.error) {
@@ -43,9 +45,9 @@ const AuthForm = () => {
           {
             client_id: '44396cc4dfe94deabbb7f0292b8f156d',
             response_type: 'token',
-            redirect_uri: 'http://localhost:8000/complete/yandex-oauth2/',
+            redirect_uri: `${BASE_URL}/complete/yandex-oauth2/`,
           },
-          'http://localhost:3000',
+          FRONTEND_URL,
           { view: 'button' }
         )
           .then(({ handler }) => handler())
@@ -75,8 +77,9 @@ const AuthForm = () => {
       return;
     }
 
+    console.log('Sending request to:', `${BASE_URL}/api/auth/phone/`);
     try {
-      const response = await fetch('http://localhost:8000/api/auth/phone/', {
+      const response = await fetch(`${BASE_URL}/api/auth/phone/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone_number: phoneNumber }),
@@ -116,9 +119,9 @@ const AuthForm = () => {
             {
               client_id: '44396cc4dfe94deabbb7f0292b8f156d',
               response_type: 'token',
-              redirect_uri: 'http://localhost:8000/complete/yandex-oauth2/',
+              redirect_uri: `${BASE_URL}/complete/yandex-oauth2/`,
             },
-            'http://localhost:3000',
+            FRONTEND_URL,
             { view: 'button' }
           )
             .then(({ handler }) => handler())
@@ -130,7 +133,8 @@ const AuthForm = () => {
           setError('Yandex SDK не загружен');
         }
       } else {
-        window.location.href = `http://localhost:8000/auth/login/${provider}/`;
+        console.log('Redirecting to:', `${BASE_URL}/auth/login/${provider}/`);
+        window.location.href = `${BASE_URL}/auth/login/${provider}/`;
       }
     } catch (err) {
       console.error('Social auth error:', err);
@@ -139,8 +143,9 @@ const AuthForm = () => {
   };
 
   const handleSocialCallback = async (provider, state) => {
+    console.log('Sending social auth to:', `${BASE_URL}/api/auth/social/${provider}/`);
     try {
-      const response = await fetch(`http://localhost:8000/api/auth/social/${provider}/`, {
+      const response = await fetch(`${BASE_URL}/api/auth/social/${provider}/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(state),

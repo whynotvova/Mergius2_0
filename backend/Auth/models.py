@@ -41,16 +41,13 @@ class CustomUser(AbstractBaseUser):
     objects = CustomUserManager()
 
     def clean(self):
-        # Prevent empty string in email; convert to None if empty
         if self.email == '':
             self.email = None
-        # Validate email uniqueness for non-null values
         if self.email is not None:
             if CustomUser.objects.exclude(pk=self.pk).filter(email=self.email).exists():
                 raise ValidationError({'email': 'Этот email уже используется'})
 
     def save(self, *args, **kwargs):
-        # Run clean method before saving to enforce validation
         self.clean()
         super().save(*args, **kwargs)
 

@@ -98,7 +98,6 @@ class SocialAuthView(APIView):
         try:
             user = request.backend.auth_complete(**request.data)
             if user and user.is_active:
-                # Ensure email is not empty string
                 if hasattr(user, 'email') and user.email == '':
                     user.email = None
                     user.save()

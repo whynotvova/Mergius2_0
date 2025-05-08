@@ -5,18 +5,23 @@ Django settings for mergius project.
 from pathlib import Path
 import os
 
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Static and media files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-SECRET_KEY = 'django-insecure-k%l(hgmy_w%ti5-qdoqk@c%7w@0d&9)ch0xja)v-be!wb@mj*^'
-DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# Security settings
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k%l(hgmy_w%ti5-qdoqk@c%7w@0d&9)ch0xja)v-be!wb@mj*^')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost,http://localhost:3000,http://frontend').split(',')
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,14 +72,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mergius.wsgi.application'
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mergius',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQL_HOST'),
+        'PORT': os.getenv('MYSQL_PORT'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
@@ -82,15 +88,19 @@ DATABASES = {
     }
 }
 
+# Internationalization
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Custom user model
 AUTH_USER_MODEL = 'Auth.CustomUser'
 
+# REST Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -101,6 +111,7 @@ REST_FRAMEWORK = {
     ],
 }
 
+# Authentication backends
 AUTHENTICATION_BACKENDS = (
     'Auth.backends.CustomAuthBackend',
     'social_core.backends.google.GoogleOAuth2',
@@ -112,10 +123,8 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
 )
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-]
-
+# CORS settings
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -137,23 +146,24 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '305891857057-edl6smf463r24s9c1ec358nsvf2i0k79.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-SOCIAL_AUTH_YANDEX_OAUTH2_KEY = '44396cc4dfe94deabbb7f0292b8f156d'
-SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = '2b5342870386496fa71106dd1f9b9226'
-SOCIAL_AUTH_MAILRU_OAUTH2_KEY = 'e42f6a45b608469a8baa432e4b96f803'
-SOCIAL_AUTH_MAILRU_OAUTH2_SECRET = '4c9a0aceb1e84c0a99320a897b5d02fb'
-SOCIAL_AUTH_APPLE_ID_CLIENT = 'your-apple-client-id'
-SOCIAL_AUTH_APPLE_ID_KEY = 'your-apple-key'
-SOCIAL_AUTH_YAHOO_OAUTH2_KEY = 'dj0yJmk9WkVoZ0JBa0V1UXVvJmQ9WVdrOWEzUkRXWE5EUlZVbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTI1'
-SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = '308c60ddb789fdb87f57c4aefd7409333c2580e4'
-SOCIAL_AUTH_VK_OAUTH2_KEY = 'your-vk-client-id'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'your-vk-client-secret'
-SOCIAL_AUTH_FACEBOOK_KEY = 'your-facebook-client-id'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'your-facebook-client-secret'
+# Social auth settings
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_YANDEX_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_YANDEX_OAUTH2_KEY')
+SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_YANDEX_OAUTH2_SECRET')
+SOCIAL_AUTH_MAILRU_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_MAILRU_OAUTH2_KEY')
+SOCIAL_AUTH_MAILRU_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_MAILRU_OAUTH2_SECRET')
+SOCIAL_AUTH_APPLE_ID_CLIENT = os.getenv('SOCIAL_AUTH_APPLE_ID_CLIENT')
+SOCIAL_AUTH_APPLE_ID_KEY = os.getenv('SOCIAL_AUTH_APPLE_ID_KEY')
+SOCIAL_AUTH_YAHOO_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_YAHOO_OAUTH2_KEY')
+SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_YAHOO_OAUTH2_SECRET')
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:3000/auth/callback'
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = os.getenv('SOCIAL_AUTH_LOGIN_REDIRECT_URL', 'http://localhost:3000/auth/callback')
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False') == 'True'
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -168,23 +178,28 @@ SOCIAL_AUTH_PIPELINE = (
     'Auth.pipeline.save_token',
 )
 
-TWILIO_ACCOUNT_SID = 'ACf4a6f0e46efabcb6f55405d95835e32e'
-TWILIO_AUTH_TOKEN = 'ca138f067d3536189653b11a40149c97'
-TWILIO_PHONE_NUMBER = '+79508425370'
+# Twilio settings
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
 
-YANDEX_TRANSLATE_API_KEY = 'ajegn8lu4899gljjj2ql'
-YANDEX_CLOUD_FOLDER_ID = 'b1gqrbmdflf6k8mve4uu'
+# Yandex settings
+YANDEX_TRANSLATE_API_KEY = os.getenv('YANDEX_TRANSLATE_API_KEY')
+YANDEX_CLOUD_FOLDER_ID = os.getenv('YANDEX_CLOUD_FOLDER_ID')
 
+# Google OAuth credentials
 GOOGLE_OAUTH_CREDENTIALS = {
-    'client_id': '305891857057-edl6smf463r24s9c1ec358nsvf2i0k79.apps.googleusercontent.com',
-    'client_secret': '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',
-    'redirect_uri': 'http://localhost:8000/oauth2callback'
+    'client_id': os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
+    'client_secret': os.getenv('GOOGLE_OAUTH_CLIENT_SECRET'),
+    'redirect_uri': os.getenv('GOOGLE_OAUTH_REDIRECT_URI', 'http://localhost:8000/oauth2callback'),
 }
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
+# Security settings for production
+CSRF_COOKIE_SECURE = os.getenv('CSRF_COOKIE_SECURE', 'False') == 'True'
+SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'False') == 'True'
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'False') == 'True'
 
+# Logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
