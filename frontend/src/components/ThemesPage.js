@@ -39,14 +39,15 @@ const ThemesPage = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [openingEmailId, setOpeningEmailId] = useState(null);
   const [theme, setTheme] = useState('default');
-  const [showActionIcons, setShowActionIcons] = useState(false); // New state for action icons
+  const [showActionIcons, setShowActionIcons] = useState(false);
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
 
   useEffect(() => {
     const fetchTheme = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        const response = await fetch('http://localhost:8000/api/profile/settings/', {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${BASE_URL}/api/profile/settings/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -138,8 +139,8 @@ const ThemesPage = () => {
     setTheme(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
     try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch('http://localhost:8000/api/profile/settings/', {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${BASE_URL}/api/profile/settings/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -17,11 +17,12 @@ const SecurityPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('Не указан');
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/profile/', {
+        const response = await fetch(`${BASE_URL}/api/profile/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ const SecurityPage = () => {
       return;
     }
     try {
-      const response = await fetch('http://localhost:8000/api/profile/', {
+      const response = await fetch(`${BASE_URL}/api/profile/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ const SocialPhoneForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
 
   const handlePhoneAuth = async (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const SocialPhoneForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/phone-update/', {
+      const response = await fetch(`${BASE_URL}/api/auth/phone-update/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

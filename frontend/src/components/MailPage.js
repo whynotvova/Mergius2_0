@@ -33,6 +33,8 @@ const MailPage = () => {
   const emailsPerPage = 20;
   const navigate = useNavigate();
   const location = useLocation();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
 
   const contentCategories = [
     { name: 'Чаты', icon: '/images/mail/bubble-chat.png' },
@@ -175,7 +177,7 @@ const MailPage = () => {
 
   const createFolder = async (emailAccountId, folderConfig, token) => {
     try {
-      const response = await fetch('http://localhost:8000/api/mail/folders/', {
+      const response = await fetch(`${BASE_URL}/api/mail/folders/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -286,7 +288,7 @@ const MailPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8000/api/mail/emails/assign-categories/', {
+      const response = await fetch(`${BASE_URL}/api/mail/emails/assign-categories/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -325,7 +327,7 @@ const MailPage = () => {
       const serviceParam = serviceName ? `&service_name=${encodeURIComponent(serviceName)}` : '';
       const filterParam = filter ? `&filter=${encodeURIComponent(filter)}` : '';
       const folderParam = folderName ? `&folder_name=${encodeURIComponent(folderName)}` : '';
-      const url = `http://localhost:8000/api/mail/fetch/?page=${page}&page_size=${emailsPerPage}${forceRefresh ? '&force_refresh=true' : ''}${searchParam}${serviceParam}${filterParam}${folderParam}`;
+      const url = `${BASE_URL}/api/mail/fetch/?page=${page}&page_size=${emailsPerPage}${forceRefresh ? '&force_refresh=true' : ''}${searchParam}${serviceParam}${filterParam}${folderParam}`;
       const response = await fetch(url, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -418,7 +420,7 @@ const MailPage = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:8000/api/mail/email-accounts/${emailAccountId}/`, {
+      const response = await fetch(`${BASE_URL}/api/mail/email-accounts/${emailAccountId}/`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Token ${token}`,
@@ -461,7 +463,7 @@ const MailPage = () => {
           return;
         }
 
-        const servicesResponse = await fetch('http://localhost:8000/api/mail/email-services/', {
+        const servicesResponse = await fetch(`${BASE_URL}/api/mail/email-services/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -481,7 +483,7 @@ const MailPage = () => {
           setError(errorData.error || 'Не удалось загрузить почтовые сервисы');
         }
 
-        const accountsResponse = await fetch('http://localhost:8000/api/profile/', {
+        const accountsResponse = await fetch(`${BASE_URL}/api/profile/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -650,7 +652,7 @@ const MailPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/mail/emails/remove-folder/', {
+      const response = await fetch(`${BASE_URL}/api/mail/emails/remove-folder/`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Token ${token}`,
@@ -694,7 +696,7 @@ const MailPage = () => {
         navigate('/auth');
         return;
       }
-      const response = await fetch(`http://localhost:8000/api/mail/emails/${email.id}/`, {
+      const response = await fetch(`${BASE_URL}/api/mail/emails/${email.id}/`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Token ${token}`,
@@ -808,7 +810,7 @@ const MailPage = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/api/mail/folders/', {
+      const response = await fetch(`${BASE_URL}/api/mail/folders/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -860,7 +862,7 @@ const MailPage = () => {
         navigate('/auth');
         return;
       }
-      const response = await fetch('http://localhost:8000/api/mail/email-accounts/add/', {
+      const response = await fetch(`${BASE_URL}/api/mail/email-accounts/add/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -917,7 +919,7 @@ const MailPage = () => {
         setSelectedService(null);
         setError(null);
 
-        const updatedResponse = await fetch('http://localhost:8000/api/profile/', {
+        const updatedResponse = await fetch(`${BASE_URL}/api/profile/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -967,7 +969,7 @@ const MailPage = () => {
 
     try {
       const updatePromises = checkedEmails.map(email =>
-        fetch(`http://localhost:8000/api/mail/emails/${email.id}/`, {
+        fetch(`${BASE_URL}/api/mail/emails/${email.id}/`, {
           method: 'PATCH',
           headers: {
             'Authorization': `Token ${token}`,
@@ -1089,7 +1091,7 @@ const MailPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/mail/emails/assign-folder/', {
+      const response = await fetch(`${BASE_URL}/api/mail/emails/assign-folder/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -1147,7 +1149,7 @@ const MailPage = () => {
 
     try {
       const deletePromises = checkedEmails.map(email =>
-        fetch(`http://localhost:8000/api/mail/emails/${email.id}/`, {
+        fetch(`${BASE_URL}/api/mail/emails/${email.id}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,

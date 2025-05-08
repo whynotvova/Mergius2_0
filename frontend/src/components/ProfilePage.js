@@ -6,6 +6,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [userAccountType, setUserAccountType] = useState('Персональный');
   const [error, setError] = useState(null);
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
 
   useEffect(() => {
     const fetchUserAccountType = async () => {
@@ -16,7 +17,7 @@ const ProfilePage = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:8000/api/profile/', {
+        const response = await fetch(`${BASE_URL}/api/profile/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',

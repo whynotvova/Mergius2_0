@@ -2,28 +2,35 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
-// List of countries for the dropdown
 const countries = [
-  'Russia',
-  'United States',
-  'United Kingdom',
-  'Germany',
-  'France',
-  'Italy',
-  'Spain',
-  'Canada',
-  'Australia',
-  'Japan',
-  'China',
-  'India',
-  'Brazil',
-  'South Africa',
-  'Mexico',
-  'South Korea',
-  'Argentina',
-  'Netherlands',
-  'Sweden',
-  'Switzerland'
+  'Россия',
+  'Украина',
+  'Беларусь',
+  'Сербия',
+  'Казахстан',
+  'Узбекистан',
+  'США',
+  'Латвия',
+  'Литва',
+  'Эстония',
+  'Великая Британия',
+  'Германия',
+  'Франция',
+  'Италия',
+  'Испания',
+  'Канада',
+  'Австралия',
+  'Япония',
+  'Китай',
+  'Индия',
+  'Бразилия',
+  'ЮАР',
+  'Мексика',
+  'Южная Корея',
+  'Аргентина',
+  'Нидерланды',
+  'Швеция',
+  'Швейцария'
 ];
 
 const RegisterFinal = () => {
@@ -33,10 +40,11 @@ const RegisterFinal = () => {
   const [isPrivacyAgreed, setIsPrivacyAgreed] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
 
   const checkUsernameAvailability = async (username) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/auth/username/check/?username=${encodeURIComponent(username)}`, {
+      const response = await fetch(`${BASE_URL}/api/auth/username/check/?username=${encodeURIComponent(username)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +57,7 @@ const RegisterFinal = () => {
       }
 
       const data = await response.json();
-      return data.available; // true if username is available, false if taken
+      return data.available;
     } catch (err) {
       console.error('Username check error:', err.message, err.stack);
       throw new Error('Не удалось проверить имя пользователя');
@@ -87,14 +95,13 @@ const RegisterFinal = () => {
     }
 
     try {
-      // Check username availability
       const isUsernameAvailable = await checkUsernameAvailability(username);
       if (!isUsernameAvailable) {
         setError('Это имя пользователя уже занято');
         return;
       }
 
-      const response = await fetch('http://localhost:8000/api/auth/profile/', {
+      const response = await fetch(`${BASE_URL}/api/auth/profile/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

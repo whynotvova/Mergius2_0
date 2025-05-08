@@ -7,6 +7,8 @@ const RegisterForm = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3000';
 
   useEffect(() => {
     if (location.state?.error) {
@@ -43,9 +45,9 @@ const RegisterForm = () => {
           {
             client_id: '44396cc4dfe94deabbb7f0292b8f156d',
             response_type: 'token',
-            redirect_uri: 'http://localhost:8000/complete/yandex-oauth2/',
+            redirect_uri: `${BASE_URL}/complete/yandex-oauth2/`,
           },
-          'http://localhost:3000',
+          FRONTEND_URL,
           { view: 'button' }
         )
           .then(({ handler }) => handler())
@@ -76,7 +78,7 @@ const RegisterForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/phone/', {
+      const response = await fetch(`${BASE_URL}/api/auth/phone/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone_number: phoneNumber }),
@@ -116,9 +118,9 @@ const RegisterForm = () => {
             {
               client_id: '44396cc4dfe94deabbb7f0292b8f156d',
               response_type: 'token',
-              redirect_uri: 'http://localhost:8000/complete/yandex-oauth2/',
+              redirect_uri: `${BASE_URL}/complete/yandex-oauth2/`,
             },
-            'http://localhost:3000',
+            FRONTEND_URL,
             { view: 'button' }
           )
             .then(({ handler }) => handler())
@@ -130,7 +132,7 @@ const RegisterForm = () => {
           setError('Yandex SDK не загружен');
         }
       } else {
-        window.location.href = `http://localhost:8000/auth/login/${provider}/`;
+        window.location.href = `${BASE_URL}/auth/login/${provider}/`;
       }
     } catch (err) {
       console.error('Social auth error:', err);
@@ -140,7 +142,7 @@ const RegisterForm = () => {
 
   const handleSocialCallback = async (provider, state) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/auth/social/${provider}/`, {
+      const response = await fetch(`${BASE_URL}/api/auth/social/${provider}/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(state),

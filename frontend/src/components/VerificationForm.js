@@ -8,6 +8,7 @@ const VerificationForm = () => {
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const { phoneNumber, type } = location.state || {};
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
 
   useEffect(() => {
     const inputs = document.querySelectorAll('.code-input');
@@ -56,7 +57,7 @@ const VerificationForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/otp/', {
+      const response = await fetch(`${BASE_URL}/api/auth/otp/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone_number: phoneNumber, otp_code: code }),
@@ -92,7 +93,7 @@ const VerificationForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/phone/', {
+      const response = await fetch(`${BASE_URL}/api/auth/phone/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone_number: phoneNumber }),

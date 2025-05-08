@@ -14,6 +14,8 @@ const Account = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const logsPerPage = 20;
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
   const serviceIcons = {
     gmail: 'google-logo.png',
     mailru: 'mail-logo.png',
@@ -80,7 +82,7 @@ const Account = () => {
           navigate('/auth');
           return;
         }
-        const response = await fetch('http://localhost:8000/api/profile/', {
+        const response = await fetch(`${BASE_URL}/api/profile/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',

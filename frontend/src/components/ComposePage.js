@@ -29,6 +29,8 @@ const ComposePage = () => {
     'Emoji': false,
     'Text Color': false,
   });
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
 
   const folderIcons = {
     'Входящие': {
@@ -150,7 +152,7 @@ const ComposePage = () => {
           return;
         }
 
-        const foldersResponse = await fetch('http://localhost:8000/api/mail/fetch/', {
+        const foldersResponse = await fetch(`${BASE_URL}/api/mail/fetch/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -174,7 +176,7 @@ const ComposePage = () => {
           setError(errorData.error || 'Не удалось загрузить папки');
         }
 
-        const accountsResponse = await fetch('http://localhost:8000/api/profile/', {
+        const accountsResponse = await fetch(`${BASE_URL}/api/profile/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -190,7 +192,7 @@ const ComposePage = () => {
           }
         } else {
           const errorData = await accountsResponse.json().catch(() => ({
-            error: `Server error: ${foldersResponse.statusText}`
+            error: `Server error: ${accountsResponse.statusText}`
           }));
           setError(errorData.error || 'Не удалось загрузить почтовые аккаунты');
         }
@@ -274,7 +276,7 @@ const ComposePage = () => {
     });
 
     try {
-      const response = await fetch('http://localhost:8000/api/mail/send/', {
+      const response = await fetch(`${BASE_URL}/api/mail/send/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -758,7 +760,7 @@ const ComposePage = () => {
                             key={idx}
                             src={`${process.env.PUBLIC_URL}${account.avatar}`}
                             className="avatar-circle-button"
-                            alt={`Avatar for ${account.email_address}`}
+                            alt={`Avatar for ${照顾account.email_address}`}
                           />
                         ))}
                     </div>

@@ -17,6 +17,8 @@ const EmailViewPage = () => {
   const [selectedFolderFilter, setSelectedFolderFilter] = useState(null);
   const [translatedContent, setTranslatedContent] = useState(null);
   const [isTranslating, setIsTranslating] = useState(false);
+  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
 
   const folderIcons = {
     'Входящие': {
@@ -79,7 +81,7 @@ const EmailViewPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8000/api/mail/translate/', {
+      const response = await fetch(`${BASE_URL}/api/mail/translate/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -121,7 +123,7 @@ const EmailViewPage = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:8000/api/mail/emails/${emailData.id}/`, {
+        const response = await fetch(`${BASE_URL}/api/mail/emails/${emailData.id}/`, {
           method: 'PATCH',
           headers: {
             'Authorization': `Token ${token}`,
@@ -172,7 +174,7 @@ const EmailViewPage = () => {
           return;
         }
 
-        const foldersResponse = await fetch('http://localhost:8000/api/mail/fetch/', {
+        const foldersResponse = await fetch(`${BASE_URL}/api/mail/fetch/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -196,7 +198,7 @@ const EmailViewPage = () => {
           setError(errorData.error || 'Не удалось загрузить папки');
         }
 
-        const accountsResponse = await fetch('http://localhost:8000/api/profile/', {
+        const accountsResponse = await fetch(`${BASE_URL}/api/profile/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
