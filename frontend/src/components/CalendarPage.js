@@ -907,7 +907,7 @@ const CalendarPage = () => {
         for (const folderConfig of defaultFolderConfigs) {
           const existingFolder = folders.find(f => f.name.toLowerCase() === folderConfig.name.toLowerCase() && f.email_account === emailAccountId);
           if (!existingFolder) {
-            const newFolder = await createDesk(emailAccountId, folderConfig, token);
+            const newFolder = await createFolder(emailAccountId, folderConfig, token);
             if (newFolder) {
               setFolders(prev => [...prev, newFolder]);
             }
@@ -1886,4 +1886,4 @@ const CalendarPage = () => {
   );
 };
 
-export
+export default CalendarPage;

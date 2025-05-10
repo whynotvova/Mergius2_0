@@ -7,8 +7,8 @@ const RegisterForm = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3000';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://backend:8000';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
 
   useEffect(() => {
     if (location.state?.error) {

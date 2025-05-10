@@ -760,7 +760,7 @@ const ComposePage = () => {
                             key={idx}
                             src={`${process.env.PUBLIC_URL}${account.avatar}`}
                             className="avatar-circle-button"
-                            alt={`Avatar for ${照顾account.email_address}`}
+                            alt={`Avatar for ${account.email_address}`}
                           />
                         ))}
                     </div>
