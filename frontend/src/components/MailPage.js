@@ -33,8 +33,8 @@ const MailPage = () => {
   const emailsPerPage = 20;
   const navigate = useNavigate();
   const location = useLocation();
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
 
   const contentCategories = [
     { name: 'Чаты', icon: '/images/mail/bubble-chat.png' },
@@ -855,7 +855,37 @@ const MailPage = () => {
     setIsAddAccountOpen(true);
   };
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
   const handleAddMailService = async () => {
+    // Validate email format
+    if (!validateEmail(emailAddress)) {
+      setError('Пожалуйста, введите действительный email адрес');
+      return;
+    }
+
+    // For Gmail, require an application-specific password
+    if (selectedService.name === 'Gmail' && !password) {
+      setError(
+        <span>
+          Для Gmail требуется пароль приложения.{' '}
+          <a
+            href="https://myaccount.google.com/security#signin"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#007bff', textDecoration: 'underline' }}
+          >
+            Создайте пароль приложения
+          </a>{' '}
+          в настройках Google Account.
+        </span>
+      );
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -944,7 +974,22 @@ const MailPage = () => {
         }));
         console.error('Failed to add email account:', errorData);
         let errorMessage = errorData.error || 'Не удалось добавить почтовый аккаунт';
-        if (errorMessage.includes('You cannot add more than 2 email accounts for') && userAccountType !== 'Премиум') {
+        if (errorMessage.includes('Invalid email or password') && selectedService.name === 'Gmail') {
+          errorMessage = (
+            <span>
+              Неверный email или пароль для {emailAddress}. Для Gmail используйте{' '}
+              <a
+                href="https://myaccount.google.com/security#signin"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#007bff', textDecoration: 'underline' }}
+              >
+                пароль приложения
+              </a>{' '}
+              или OAuth токен.
+            </span>
+          );
+        } else if (errorMessage.includes('You cannot add more than 2 email accounts') && userAccountType !== 'Премиум') {
           errorMessage = `Нельзя добавить больше 2 почтовых аккаунтов для ${selectedService.name}. Обновите до премиум-аккаунта для снятия ограничений.`;
         }
         setError(errorMessage);
@@ -1675,21 +1720,37 @@ const MailPage = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Пароль</label>
+              <label htmlFor="password">
+                {selectedService?.name === 'Gmail' ? 'Пароль приложения' : 'Пароль'}
+              </label>
               <input
                 type="password"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Введите ваш пароль (опционально)"
+                placeholder={selectedService?.name === 'Gmail' ? 'Введите пароль приложения' : 'Введите ваш пароль (опционально)'}
                 className="form-input"
               />
+              {selectedService?.name === 'Gmail' && (
+                <p className="help-text">
+                  Для Gmail используйте{' '}
+                  <a
+                    href="https://myaccount.google.com/security#signin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#007bff', textDecoration: 'underline' }}
+                  >
+                    пароль приложения
+                  </a>
+                  . Обычный пароль не подойдет, если включена двухфакторная аутентификация.
+                </p>
+              )}
             </div>
             <div className="form-actions">
               <button
                 className="mail-add-button"
                 onClick={handleAddMailService}
-                disabled={!emailAddress}
+                disabled={!emailAddress || (selectedService?.name === 'Gmail' && !password)}
               >
                 Добавить
               </button>

@@ -4,56 +4,57 @@ from django.utils import timezone
 from datetime import timedelta
 import random
 import string
-from twilio.rest import Client
 from django.conf import settings
 from .models import AccountTypes
+from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 import logging
 
 logger = logging.getLogger(__name__)
 
 UserModel = get_user_model()
 
+
 class PhoneSerializer(serializers.Serializer):
-    phone_number = serializers.CharField()
+    phone_number = serializers.CharField(max_length=15)
 
     def validate_phone_number(self, value):
-        if not value.startswith('+') or not value[1:].isdigit():
-            raise serializers.ValidationError('Введите корректный номер телефона (например, +71234567890)')
-        return value
+        # Normalize phone number (remove spaces, dashes, etc.)
+        cleaned_phone = ''.join(filter(str.isdigit, value))
+        if not cleaned_phone.startswith('+'):
+            cleaned_phone = '+' + cleaned_phone
 
-    def send_otp_sms(self, phone_number, otp_code):
-        try:
-            client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-            message = client.messages.create(
-                body=f'Ваш OTP код: {otp_code}',
-                from_=settings.TWILIO_PHONE_NUMBER,
-                to=phone_number
+        # Check if phone number matches TWILIO_PHONE_NUMBER
+        if cleaned_phone == settings.TWILIO_PHONE_NUMBER:
+            raise serializers.ValidationError(
+                "Cannot send OTP to the Twilio sender phone number."
             )
-            logger.info(f'SMS sent to {phone_number}: SID {message.sid}')
-            return True
-        except Exception as e:
-            logger.error(f'Twilio exception: {str(e)}')
-            print(f'OTP for {phone_number}: {otp_code}')
-            return False
 
-    def generate_otp(self, user):
-        user.otp_code = ''.join(random.choices(string.digits, k=6))
-        user.otp_expiry = timezone.now() + timedelta(minutes=5)
-        user.save()
-        logger.info(f'OTP generated for user {user.user_id}: {user.otp_code}, expires at {user.otp_expiry}')
-        self.send_otp_sms(user.phone_number, user.otp_code)
+        return cleaned_phone
 
     def save(self):
         phone_number = self.validated_data['phone_number']
-        logger.debug(f"Processing phone number: {phone_number}")
+        user, created = UserModel.objects.get_or_create(phone_number=phone_number)
+
+        # Generate OTP
+        otp_code = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+        otp_expiry = timezone.now() + timedelta(minutes=5)
+
+        user.otp_code = otp_code
+        user.otp_expiry = otp_expiry
+        user.save()
+
+        # Send OTP via Twilio
         try:
-            user = UserModel.objects.get(phone_number=phone_number)
-            logger.info(f"Found existing user: {user.user_id}")
-        except UserModel.DoesNotExist:
-            logger.debug("User does not exist, creating new user")
-            user = UserModel.objects.create_user(phone_number=phone_number)
-            logger.info(f"Created new user: {user.user_id}")
-        self.generate_otp(user)
+            client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+            message = client.messages.create(
+                body=f'Ваш код подтверждения: {otp_code}',
+                from_=settings.TWILIO_PHONE_NUMBER,
+                to=phone_number
+            )
+        except TwilioRestException as e:
+            raise serializers.ValidationError(f"Failed to send OTP: {str(e)}")
+
         return user
 
 class PhoneUpdateSerializer(serializers.Serializer):

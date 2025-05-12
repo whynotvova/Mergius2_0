@@ -414,6 +414,7 @@ class AddEmailAccountView(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
+            # Validate IMAP credentials
             try:
                 imap_server = email_service.imap_server
                 imap_port = email_service.imap_port
@@ -441,7 +442,7 @@ class AddEmailAccountView(APIView):
                     imap.login(email_address, password)
                 imap.logout()
             except imaplib.IMAP4.error as e:
-                logger.error(f"IMAP login failed for {email_address}: {str(e)}")
+                logger.error(f"IMAP login failed for {email_address}: {str(e)}", exc_info=True)
                 error_str = str(e).lower()
                 if "application-specific password required" in error_str or "neobhodim parol prilozheniya" in error_str:
                     provider_instructions = {
@@ -463,60 +464,90 @@ class AddEmailAccountView(APIView):
                     )
                 else:
                     return Response(
-                        {'error': 'IMAP login failed. Please check your credentials or account settings.'},
+                        {
+                            'error': f'IMAP login failed for {email_address}: {str(e)}. Please check your credentials or account settings.'
+                        },
                         status=status.HTTP_400_BAD_REQUEST
                     )
-
-            with transaction.atomic():
-                email_account = UserEmailAccount.objects.create(
-                    user=user,
-                    service=email_service,
-                    email_address=email_address,
-                    avatar='/images/mail/default-avatar.png',
-                    oauth_token=oauth_token,
-                    last_fetched=None
+            except Exception as e:
+                logger.error(f"Unexpected error during IMAP validation for {email_address}: {str(e)}", exc_info=True)
+                return Response(
+                    {
+                        'error': f'Failed to validate IMAP credentials for {email_address}: {str(e)}'
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
                 )
-                if password and not oauth_token:
-                    email_account.set_password(password)
-                email_account.save()
-                default_folders = [
-                    {'name': 'Входящие', 'icon': '/images/mail/folder-inbox-active.png', 'sort_order': 1},
-                    {'name': 'Отмеченное', 'icon': '/images/mail/folder-marked.png', 'sort_order': 2},
-                    {'name': 'Черновики', 'icon': '/images/mail/folder-drafts.png', 'sort_order': 3},
-                    {'name': 'Отправленное', 'icon': '/images/mail/folder-sender.png', 'sort_order': 4},
-                    {'name': 'Спам', 'icon': '/images/mail/folder-spam.png', 'sort_order': 5},
-                ]
-                for folder in default_folders:
-                    MailFolder.objects.get_or_create(
-                        email_account=email_account,
-                        folder_name=folder['name'],
-                        defaults={
-                            'folder_icon': folder['icon'],
-                            'sort_order': folder['sort_order']
-                        }
+
+            # Create email account
+            try:
+                with transaction.atomic():
+                    email_account = UserEmailAccount.objects.create(
+                        user=user,
+                        service=email_service,
+                        email_address=email_address,
+                        avatar='/images/mail/default-avatar.png',
+                        oauth_token=oauth_token,
+                        last_fetched=None
                     )
+                    if password and not oauth_token:
+                        email_account.set_password(password)
+                    email_account.save()
+                    default_folders = [
+                        {'name': 'Входящие', 'icon': '/images/mail/folder-inbox-active.png', 'sort_order': 1},
+                        {'name': 'Отмеченное', 'icon': '/images/mail/folder-marked.png', 'sort_order': 2},
+                        {'name': 'Черновики', 'icon': '/images/mail/folder-drafts.png', 'sort_order': 3},
+                        {'name': 'Отправленное', 'icon': '/images/mail/folder-sender.png', 'sort_order': 4},
+                        {'name': 'Спам', 'icon': '/images/mail/folder-spam.png', 'sort_order': 5},
+                    ]
+                    for folder in default_folders:
+                        MailFolder.objects.get_or_create(
+                            email_account=email_account,
+                            folder_name=folder['name'],
+                            defaults={
+                                'folder_icon': folder['icon'],
+                                'sort_order': folder['sort_order']
+                            }
+                        )
 
-                fetch_email_avatar(email_account)
-                fetch_emails(email_account, force_refresh=True)
+                    # Fetch avatar and emails
+                    try:
+                        fetch_email_avatar(email_account)
+                    except Exception as e:
+                        logger.error(f"Failed to fetch avatar for {email_address}: {str(e)}", exc_info=True)
+                        email_account.avatar = '/images/mail/default-avatar.png'
+                        email_account.save()
 
-                client_ip = get_client_ip(request)
-                AuditLog.objects.create(
-                    user=user,
-                    action='Добавление почтового ящика',
-                    details=f"Добавлен почтовый ящик {email_address} (сервис: {service_name}, метод: {'OAuth' if oauth_token else 'Password'})",
-                    ip_address=client_ip,
-                    timestamp=timezone.now()
+                    try:
+                        fetch_emails(email_account, force_refresh=True)
+                    except Exception as e:
+                        logger.error(f"Failed to fetch emails for {email_address}: {str(e)}", exc_info=True)
+                        # Continue despite email fetch failure to allow account creation
+
+                    client_ip = get_client_ip(request)
+                    AuditLog.objects.create(
+                        user=user,
+                        action='Добавление почтового ящика',
+                        details=f"Добавлен почтовый ящик {email_address} (сервис: {service_name}, метод: {'OAuth' if oauth_token else 'Password'})",
+                        ip_address=client_ip,
+                        timestamp=timezone.now()
+                    )
+                    logger.info(f"Email account {email_account.email_address} added for user {user.user_id}")
+
+                serializer = UserEmailAccountSerializer(email_account)
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
                 )
-                logger.info(f"Email account {email_account.email_address} added for user {user.user_id}")
 
-            serializer = UserEmailAccountSerializer(email_account)
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
-            )
+            except Exception as e:
+                logger.error(f"Error creating email account for {email_address}: {str(e)}", exc_info=True)
+                return Response(
+                    {'error': f'Failed to create email account: {str(e)}'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
         except Exception as e:
-            logger.error(f"Error adding email account for user {user.user_id}: {str(e)}")
+            logger.error(f"Unexpected error in AddEmailAccountView for user {user.user_id}: {str(e)}", exc_info=True)
             return Response(
                 {'error': 'Internal server error'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
