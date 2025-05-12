@@ -3,31 +3,41 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from datetime import timedelta
 import random
-import string
+import phonenumbers
 from django.conf import settings
 from .models import AccountTypes
-from twilio.rest import Client
-from twilio.base.exceptions import TwilioRestException
+import requests
 import logging
 
 logger = logging.getLogger(__name__)
 
 UserModel = get_user_model()
 
-
 class PhoneSerializer(serializers.Serializer):
     phone_number = serializers.CharField(max_length=15)
 
     def validate_phone_number(self, value):
-        # Normalize phone number (remove spaces, dashes, etc.)
+        # Нормализация номера телефона
         cleaned_phone = ''.join(filter(str.isdigit, value))
         if not cleaned_phone.startswith('+'):
             cleaned_phone = '+' + cleaned_phone
 
-        # Check if phone number matches TWILIO_PHONE_NUMBER
-        if cleaned_phone == settings.TWILIO_PHONE_NUMBER:
+        # Ограничение на российские номера (+7)
+        if not cleaned_phone.startswith('+7'):
             raise serializers.ValidationError(
-                "Cannot send OTP to the Twilio sender phone number."
+                "В настоящее время поддерживаются только российские номера (+7)."
+            )
+
+        # Проверка формата номера с помощью phonenumbers
+        try:
+            parsed_number = phonenumbers.parse(cleaned_phone, None)
+            if not phonenumbers.is_valid_number(parsed_number):
+                raise serializers.ValidationError(
+                    "Неверный формат номера телефона."
+                )
+        except phonenumbers.NumberParseException:
+            raise serializers.ValidationError(
+                "Неверный формат номера телефона."
             )
 
         return cleaned_phone
@@ -36,7 +46,7 @@ class PhoneSerializer(serializers.Serializer):
         phone_number = self.validated_data['phone_number']
         user, created = UserModel.objects.get_or_create(phone_number=phone_number)
 
-        # Generate OTP
+        # Генерация OTP
         otp_code = ''.join([str(random.randint(0, 9)) for _ in range(6)])
         otp_expiry = timezone.now() + timedelta(minutes=5)
 
@@ -44,16 +54,43 @@ class PhoneSerializer(serializers.Serializer):
         user.otp_expiry = otp_expiry
         user.save()
 
-        # Send OTP via Twilio
+        # Отправка OTP через SMSC.ru
         try:
-            client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-            message = client.messages.create(
-                body=f'Ваш код подтверждения: {otp_code}',
-                from_=settings.TWILIO_PHONE_NUMBER,
-                to=phone_number
-            )
-        except TwilioRestException as e:
-            raise serializers.ValidationError(f"Failed to send OTP: {str(e)}")
+            smsc_url = "https://smsc.ru/sys/send.php"
+            params = {
+                "login": settings.SMSC_LOGIN,
+                "psw": settings.SMSC_PASSWORD,
+                "phones": phone_number[1:],  # Убираем '+' для SMSC.ru
+                "mes": f"Ваш код подтверждения: {otp_code}",
+                "fmt": 3,  # JSON-ответ
+                "sender": "INFO",  # Тестовое имя отправителя
+            }
+            response = requests.get(smsc_url, params=params)
+            response_data = response.json()
+
+            if response_data.get("error_code") is None:
+                logger.info(f"OTP отправлен на {phone_number}: id={response_data.get('id')}, cnt={response_data.get('cnt')}, balance={response_data.get('balance')}")
+            else:
+                error_code = response_data.get("error_code")
+                error_msg = response_data.get("error", "Неизвестная ошибка")
+                logger.error(f"Ошибка SMSC.ru при отправке OTP на {phone_number}: {error_msg} (Код: {error_code})")
+                if error_code == 1:
+                    raise serializers.ValidationError("Ошибка отправки SMS: Неверные параметры запроса")
+                elif error_code == 2:
+                    raise serializers.ValidationError("Ошибка отправки SMS: Неверный логин или пароль")
+                elif error_code == 4:
+                    raise serializers.ValidationError("Неверный формат номера телефона")
+                elif error_code == 7:
+                    raise serializers.ValidationError("Недостаточно средств на балансе")
+                elif error_code == 9:
+                    raise serializers.ValidationError("Слишком много запросов, попробуйте позже")
+                raise serializers.ValidationError(f"Не удалось отправить OTP: {error_msg}")
+        except requests.RequestException as e:
+            logger.error(f"Ошибка сети при отправке OTP на {phone_number}: {str(e)}", exc_info=True)
+            raise serializers.ValidationError("Не удалось отправить OTP: Ошибка сети")
+        except ValueError as e:
+            logger.error(f"Ошибка обработки ответа SMSC.ru для {phone_number}: {str(e)}", exc_info=True)
+            raise serializers.ValidationError("Не удалось отправить OTP: Неверный ответ от сервиса")
 
         return user
 
@@ -71,7 +108,7 @@ class PhoneUpdateSerializer(serializers.Serializer):
         instance.phone_number = validated_data['phone_number']
         instance.is_phone_verified = 0
         instance.save()
-        logger.info(f"Phone number updated for user {instance.user_id} to {instance.phone_number}")
+        logger.info(f"Номер телефона обновлен для пользователя {instance.user_id} на {instance.phone_number}")
         return instance
 
 class OTPSerializer(serializers.Serializer):
@@ -84,10 +121,10 @@ class OTPSerializer(serializers.Serializer):
         try:
             user = UserModel.objects.get(phone_number=phone_number)
             if user.otp_code != otp_code or user.otp_expiry < timezone.now():
-                logger.warning(f"Invalid OTP for {phone_number}: code={otp_code}, expiry={user.otp_expiry}")
+                logger.warning(f"Неверный OTP для {phone_number}: код={otp_code}, срок действия={user.otp_expiry}")
                 raise serializers.ValidationError('Неверный OTP код или срок действия истек')
         except UserModel.DoesNotExist:
-            logger.error(f"User not found: {phone_number}")
+            logger.error(f"Пользователь не найден: {phone_number}")
             raise serializers.ValidationError('Пользователь не найден')
         return data
 
@@ -130,5 +167,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         if account_type_id is not None:
             instance.account_type = AccountTypes.objects.get(account_type_id=account_type_id) if account_type_id else None
         instance.save()
-        logger.info(f"Profile updated for user {instance.user_id}")
+        logger.info(f"Профиль обновлен для пользователя {instance.user_id}")
         return instance

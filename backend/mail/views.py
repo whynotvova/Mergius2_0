@@ -103,7 +103,6 @@ def fetch_email_avatar(email_account):
 def fetch_emails(email_account, force_refresh=False):
     try:
         logger.debug(f"Starting email fetch for {email_account.email_address}")
-
         imap_server = email_account.service.imap_server
         imap_port = email_account.service.imap_port
         imap = imaplib.IMAP4_SSL(imap_server, imap_port, timeout=30)
@@ -176,6 +175,11 @@ def fetch_emails(email_account, force_refresh=False):
 
         email_uids = data[0].split()
         logger.info(f"Found {len(email_uids)} emails in {selected_folder} for {email_account.email_address}")
+
+        # Limit to the most recent 100 emails to prevent timeouts
+        max_emails = 100
+        email_uids = email_uids[-max_emails:] if len(email_uids) > max_emails else email_uids
+        logger.debug(f"Limited to {len(email_uids)} emails for processing")
 
         fetched_count = 0
         max_uid = 0
@@ -337,7 +341,7 @@ def fetch_emails(email_account, force_refresh=False):
             except (ValueError, UnicodeDecodeError) as e:
                 logger.error(f"Error processing email {email_uid} for {email_account.email_address}: {str(e)}")
             except Exception as e:
-                logger.error(f"Unexpected error fetching email {email_uid} for {email_account.email_address}: {str(e)}")
+                logger.error(f"Unexpected error fetching email {email_uid} for {email_account.email_address}: {str(e)}", exc_info=True)
 
         email_account.last_fetched = timezone.now()
         email_account.last_fetched_uid = max_uid if max_uid > 0 else None
@@ -347,9 +351,9 @@ def fetch_emails(email_account, force_refresh=False):
         imap.logout()
 
     except imaplib.IMAP4.error as e:
-        logger.error(f"IMAP error fetching emails for {email_account.email_address}: {str(e)}")
+        logger.error(f"IMAP error fetching emails for {email_account.email_address}: {str(e)}", exc_info=True)
     except Exception as e:
-        logger.error(f"Unexpected error fetching emails for {email_account.email_address}: {str(e)}")
+        logger.error(f"Unexpected error fetching emails for {email_account.email_address}: {str(e)}", exc_info=True)
 
 def fetch_emails_periodically():
     logger.info("Starting periodic email fetch for all users")
@@ -509,7 +513,7 @@ class AddEmailAccountView(APIView):
                             }
                         )
 
-                    # Fetch avatar and emails
+                    # Fetch avatar synchronously (quick operation)
                     try:
                         fetch_email_avatar(email_account)
                     except Exception as e:
@@ -517,11 +521,10 @@ class AddEmailAccountView(APIView):
                         email_account.avatar = '/images/mail/default-avatar.png'
                         email_account.save()
 
-                    try:
-                        fetch_emails(email_account, force_refresh=True)
-                    except Exception as e:
-                        logger.error(f"Failed to fetch emails for {email_address}: {str(e)}", exc_info=True)
-                        # Continue despite email fetch failure to allow account creation
+                    # Schedule async email fetching
+                    from .tasks import fetch_emails_task
+                    fetch_emails_task.delay(email_account.email_account_id, force_refresh=True)
+                    logger.info(f"Scheduled async email fetch for {email_account.email_address}")
 
                     client_ip = get_client_ip(request)
                     AuditLog.objects.create(
