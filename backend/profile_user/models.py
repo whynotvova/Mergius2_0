@@ -32,6 +32,7 @@ class UserEmailAccount(models.Model):
     avatar = models.CharField(max_length=255, null=True, blank=True, default='/images/mail/default-avatar.png')
     created_at = models.DateTimeField(auto_now_add=True)
     last_fetched = models.DateTimeField(null=True, blank=True)
+    last_fetched_uid = models.BigIntegerField(default=0, null=True, blank=True)
 
     def set_password(self, raw_password):
         self.password = raw_password

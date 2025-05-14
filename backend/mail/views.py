@@ -20,6 +20,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import base64
+import uuid
+from .tasks import fetch_emails_task
+from django.db.utils import OperationalError
+import time
 
 try:
     from google_auth_oauthlib.flow import InstalledAppFlow
@@ -29,13 +33,7 @@ try:
 except ImportError:
     GOOGLE_AUTH_AVAILABLE = False
 
-import os
 from django.conf import settings
-from datetime import timedelta
-import schedule
-import time
-import threading
-import uuid
 
 logger = logging.getLogger(__name__)
 
@@ -100,279 +98,6 @@ def fetch_email_avatar(email_account):
         email_account.avatar = '/images/mail/default-avatar.png'
         email_account.save()
 
-def fetch_emails(email_account, force_refresh=False):
-    try:
-        logger.debug(f"Starting email fetch for {email_account.email_address}")
-        imap_server = email_account.service.imap_server
-        imap_port = email_account.service.imap_port
-        imap = imaplib.IMAP4_SSL(imap_server, imap_port, timeout=30)
-
-        if email_account.oauth_token and email_account.service.service_name.lower() == 'gmail' and GOOGLE_AUTH_AVAILABLE:
-            logger.debug(f"Using OAuth 2.0 for {email_account.email_address}")
-            try:
-                imap.authenticate('XOAUTH2', lambda
-                    _: f"user={email_account.email_address}\1auth=Bearer {email_account.oauth_token}\1\1".encode())
-            except imaplib.IMAP4.error as e:
-                logger.error(f"OAuth authentication failed for {email_account.email_address}: {str(e)}")
-                return
-        else:
-            logger.debug(f"Using password authentication for {email_account.email_address}")
-            if email_account.oauth_token and not GOOGLE_AUTH_AVAILABLE:
-                logger.warning(
-                    f"OAuth token provided for {email_account.email_address}, but google-auth-oauthlib is not installed.")
-                return
-            password = email_account.password or ''
-            try:
-                imap.login(email_account.email_address, password)
-            except imaplib.IMAP4.error as e:
-                error_str = str(e).lower()
-                if "application-specific password required" in error_str or "neobhodim parol prilozheniya" in error_str:
-                    logger.error(
-                        f"Application-specific password required for {email_account.email_address}. See provider's security settings.")
-                    return
-                elif "invalid credentials" in error_str:
-                    logger.error(
-                        f"Invalid credentials for {email_account.email_address}. Ensure an application-specific password is used.")
-                    return
-                else:
-                    logger.error(f"IMAP login error for {email_account.email_address}: {str(e)}")
-                    raise e
-
-        status, folders = imap.list()
-        if status != 'OK':
-            logger.error(f"Failed to list folders for {email_account.email_address}: {folders}")
-            imap.logout()
-            return
-
-        folder_candidates = ['INBOX']
-        if email_account.service.service_name.lower() == 'gmail':
-            folder_candidates.append('[Gmail]/All Mail')
-
-        selected_folder = None
-        for folder in folder_candidates:
-            try:
-                status, data = imap.select(folder)
-                if status == 'OK':
-                    selected_folder = folder
-                    logger.debug(f"Selected folder {folder} for {email_account.email_address}")
-                    break
-                else:
-                    logger.warning(f"Failed to select {folder} for {email_account.email_address}: {data}")
-            except imaplib.IMAP4.error as e:
-                logger.error(f"IMAP error selecting {folder} for {email_account.email_address}: {str(e)}")
-
-        if not selected_folder:
-            logger.error(f"Failed to select any folder for {email_account.email_address}. Tried: {folder_candidates}")
-            imap.logout()
-            return
-
-        search_criteria = 'ALL'
-        status, data = imap.uid('SEARCH', None, search_criteria)
-        if status != 'OK' or not data or not isinstance(data[0], bytes):
-            logger.warning(f"No email data found in {selected_folder} for {email_account.email_address}: {data}")
-            imap.logout()
-            return
-
-        email_uids = data[0].split()
-        logger.info(f"Found {len(email_uids)} emails in {selected_folder} for {email_account.email_address}")
-
-        # Limit to the most recent 100 emails to prevent timeouts
-        max_emails = 100
-        email_uids = email_uids[-max_emails:] if len(email_uids) > max_emails else email_uids
-        logger.debug(f"Limited to {len(email_uids)} emails for processing")
-
-        fetched_count = 0
-        max_uid = 0
-        for email_uid in email_uids:
-            try:
-                email_uid_str = email_uid.decode('utf-8')
-                status, msg_data = imap.uid('FETCH', email_uid_str, '(RFC822)')
-                if status == 'OK' and msg_data[0]:
-                    raw_email = msg_data[0][1]
-                    msg = email.message_from_bytes(raw_email)
-
-                    imap_id = email_uid_str
-                    message_id = msg['Message-ID'] if msg['Message-ID'] else imap_id
-
-                    subject = ''
-                    if msg['Subject']:
-                        subject_data = decode_header(msg['Subject'])
-                        decoded_part = subject_data[0] if subject_data else ('No Subject', None)
-                        subject_content, encoding = decoded_part if isinstance(decoded_part, tuple) else (
-                            decoded_part, None)
-                        if isinstance(subject_content, bool):
-                            subject = 'No Subject'
-                        elif isinstance(subject_content, bytes):
-                            try:
-                                subject = subject_content.decode(encoding or 'utf-8')
-                            except Exception as e:
-                                logger.error(f"Error decoding subject for email {email_uid_str}: {str(e)}")
-                                subject = 'No Subject'
-                        elif isinstance(subject_content, str):
-                            subject = subject_content
-                        else:
-                            subject = 'No Subject'
-                    else:
-                        subject = 'No Subject'
-
-                    sender = ''
-                    if msg['From']:
-                        sender_data = decode_header(msg['From'])
-                        decoded_part = sender_data[0] if sender_data else ('Unknown Sender', None)
-                        sender_content, encoding = decoded_part if isinstance(decoded_part, tuple) else (
-                            decoded_part, None)
-                        if isinstance(sender_content, bool):
-                            sender = 'Unknown Sender'
-                        elif isinstance(sender_content, bytes):
-                            try:
-                                sender = sender_content.decode(encoding or 'utf-8')
-                            except Exception as e:
-                                logger.error(f"Error decoding sender for email {email_uid_str}: {str(e)}")
-                                sender = 'Unknown Sender'
-                        elif isinstance(sender_content, str):
-                            sender = sender_content
-                        else:
-                            sender = 'Unknown Sender'
-                    else:
-                        sender = 'Unknown Sender'
-
-                    recipients = {'TO': [], 'CC': [], 'BCC': []}
-                    for field in ['To', 'Cc', 'Bcc']:
-                        if msg[field]:
-                            recipient_data = decode_header(msg[field])
-                            for decoded_part in recipient_data:
-                                recipient_content, encoding = decoded_part if isinstance(decoded_part, tuple) else (
-                                    decoded_part, None)
-                                if isinstance(recipient_content, bytes):
-                                    try:
-                                        recipient_content = recipient_content.decode(encoding or 'utf-8')
-                                    except Exception as e:
-                                        logger.error(f"Error decoding {field} for email {email_uid_str}: {str(e)}")
-                                        continue
-                                if isinstance(recipient_content, str):
-                                    recipients[field.upper()] = recipient_content.split(', ')
-                                else:
-                                    recipients[field.upper()] = []
-
-                    body = ''
-                    if msg.is_multipart():
-                        for part in msg.walk():
-                            if part.get_content_type() == 'text/plain':
-                                payload = part.get_payload(decode=True)
-                                if payload and isinstance(payload, bytes):
-                                    body = payload.decode('utf-8', errors='ignore')
-                                else:
-                                    logger.warning(
-                                        f"Invalid payload for email {email_uid_str} in account {email_account.email_address}")
-                                break
-                    else:
-                        payload = msg.get_payload(decode=True)
-                        if payload and isinstance(payload, bytes):
-                            body = payload.decode('utf-8', errors='ignore')
-                        else:
-                            logger.warning(
-                                f"Invalid payload for email {email_uid_str} in account {email_account.email_address}")
-
-                    sent_date = None
-                    if msg['Date']:
-                        try:
-                            sent_date = parsedate_to_datetime(msg['Date'])
-                            if sent_date and not settings.USE_TZ:
-                                sent_date = timezone.make_naive(sent_date)
-                        except (TypeError, ValueError) as e:
-                            logger.warning(
-                                f"Invalid date format for email {email_uid_str} in {email_account.email_address}: {msg['Date']}. Error: {str(e)}. Using current timestamp.")
-                            sent_date = timezone.now()
-                            if not settings.USE_TZ:
-                                sent_date = timezone.make_naive(sent_date)
-
-                    received_date = timezone.now()
-                    if not settings.USE_TZ:
-                        received_date = timezone.make_naive(received_date)
-
-                    with transaction.atomic():
-                        email_obj, created = Emails.objects.update_or_create(
-                            email_account=email_account,
-                            imap_id=imap_id,
-                            defaults={
-                                'message_id': message_id,
-                                'sender': sender,
-                                'subject': subject,
-                                'body': body,
-                                'sent_date': sent_date,
-                                'received_date': received_date,
-                                'status': 'unread'
-                            }
-                        )
-
-                        Email_Recipients.objects.filter(email=email_obj).delete()
-                        recipient_objects = []
-                        for recipient_type, addresses in recipients.items():
-                            for address in addresses:
-                                if address.strip():
-                                    recipient_objects.append(
-                                        Email_Recipients(
-                                            email=email_obj,
-                                            recipient_address=address.strip(),
-                                            recipient_type=recipient_type
-                                        )
-                                    )
-                        if recipient_objects:
-                            Email_Recipients.objects.bulk_create(recipient_objects)
-
-                        inbox_folder = MailFolder.objects.filter(
-                            email_account=email_account,
-                            folder_name='Входящие'
-                        ).first()
-                        if inbox_folder:
-                            EmailFolderAssignment.objects.get_or_create(
-                                email=email_obj,
-                                folder=inbox_folder
-                            )
-
-                    fetched_count += 1
-                    max_uid = max(max_uid, int(email_uid_str))
-                    logger.debug(f"Processed email {email_uid_str} for {email_account.email_address}")
-
-                else:
-                    logger.warning(
-                        f"Failed to fetch email {email_uid_str} for {email_account.email_address}: {msg_data}")
-
-            except (ValueError, UnicodeDecodeError) as e:
-                logger.error(f"Error processing email {email_uid} for {email_account.email_address}: {str(e)}")
-            except Exception as e:
-                logger.error(f"Unexpected error fetching email {email_uid} for {email_account.email_address}: {str(e)}", exc_info=True)
-
-        email_account.last_fetched = timezone.now()
-        email_account.last_fetched_uid = max_uid if max_uid > 0 else None
-        email_account.save()
-        logger.info(
-            f"Completed fetching {fetched_count} of {len(email_uids)} emails for {email_account.email_address} from {selected_folder}")
-        imap.logout()
-
-    except imaplib.IMAP4.error as e:
-        logger.error(f"IMAP error fetching emails for {email_account.email_address}: {str(e)}", exc_info=True)
-    except Exception as e:
-        logger.error(f"Unexpected error fetching emails for {email_account.email_address}: {str(e)}", exc_info=True)
-
-def fetch_emails_periodically():
-    logger.info("Starting periodic email fetch for all users")
-    email_accounts = UserEmailAccount.objects.all()
-    for email_account in email_accounts:
-        logger.debug(f"Fetching all emails for {email_account.email_address} (user {email_account.user.user_id})")
-        fetch_emails(email_account, force_refresh=True)
-    logger.info("Completed periodic email fetch")
-
-schedule.every(1).minutes.do(fetch_emails_periodically)
-
-def run_scheduler():
-    while True:
-        schedule.run_pending()
-        time.sleep(60)
-
-scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
-scheduler_thread.start()
-
 class AddEmailAccountView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -386,7 +111,6 @@ class AddEmailAccountView(APIView):
 
             logger.debug(
                 f"POST /api/mail/email-accounts/add/ by user {user.user_id} with data: {{service_name: {service_name}, email_address: {email_address}, auth_method: {'OAuth' if oauth_token else 'Password'}}}")
-
             if not service_name or not email_address:
                 logger.error("Missing required fields: service_name or email_address")
                 return Response(
@@ -496,24 +220,8 @@ class AddEmailAccountView(APIView):
                     if password and not oauth_token:
                         email_account.set_password(password)
                     email_account.save()
-                    default_folders = [
-                        {'name': 'Входящие', 'icon': '/images/mail/folder-inbox-active.png', 'sort_order': 1},
-                        {'name': 'Отмеченное', 'icon': '/images/mail/folder-marked.png', 'sort_order': 2},
-                        {'name': 'Черновики', 'icon': '/images/mail/folder-drafts.png', 'sort_order': 3},
-                        {'name': 'Отправленное', 'icon': '/images/mail/folder-sender.png', 'sort_order': 4},
-                        {'name': 'Спам', 'icon': '/images/mail/folder-spam.png', 'sort_order': 5},
-                    ]
-                    for folder in default_folders:
-                        MailFolder.objects.get_or_create(
-                            email_account=email_account,
-                            folder_name=folder['name'],
-                            defaults={
-                                'folder_icon': folder['icon'],
-                                'sort_order': folder['sort_order']
-                            }
-                        )
 
-                    # Fetch avatar synchronously (quick operation)
+                    # Fetch avatar synchronously
                     try:
                         fetch_email_avatar(email_account)
                     except Exception as e:
@@ -522,7 +230,6 @@ class AddEmailAccountView(APIView):
                         email_account.save()
 
                     # Schedule async email fetching
-                    from .tasks import fetch_emails_task
                     fetch_emails_task.delay(email_account.email_account_id, force_refresh=True)
                     logger.info(f"Scheduled async email fetch for {email_account.email_address}")
 
@@ -678,7 +385,8 @@ class FetchEmailView(APIView):
                     email_accounts = email_accounts.filter(service__service_name=service_name)
                 logger.debug(f"Found {len(email_accounts)} email accounts for user {request.user.user_id}")
                 for email_account in email_accounts:
-                    threading.Thread(target=fetch_emails, args=(email_account, force_refresh), daemon=True).start()
+                    fetch_emails_task.delay(email_account.email_account_id, force_refresh=True)
+                    logger.info(f"Scheduled async email fetch for {email_account.email_address}")
 
             if not emails.exists():
                 logger.info(
@@ -892,34 +600,51 @@ class AssignCategoriesView(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
             created_count = 0
-            with transaction.atomic():
-                for assignment in assignments:
-                    email_obj = emails.get(email_id=assignment['email_id'])
-                    folder = folders.get(folder_id=assignment['folder_id'])
-                    if not EmailFolderAssignment.objects.filter(
-                            email=email_obj,
-                            folder=folder
-                    ).exists():
-                        EmailFolderAssignment.objects.create(
-                            email=email_obj,
-                            folder=folder
-                        )
-                        created_count += 1
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    with transaction.atomic():
+                        assignment_objects = []
+                        existing_assignments = EmailFolderAssignment.objects.filter(
+                            email__email_id__in=email_ids,
+                            folder__folder_id__in=folder_ids
+                        ).values('email__email_id', 'folder__folder_id')
+                        existing_set = {(a['email__email_id'], a['folder__folder_id']) for a in existing_assignments}
+                        for assignment in assignments:
+                            email_obj = emails.get(email_id=assignment['email_id'])
+                            folder = folders.get(folder_id=assignment['folder_id'])
+                            if (email_obj.email_id, folder.folder_id) not in existing_set:
+                                assignment_objects.append(
+                                    EmailFolderAssignment(
+                                        email=email_obj,
+                                        folder=folder
+                                    )
+                                )
+                        if assignment_objects:
+                            EmailFolderAssignment.objects.bulk_create(assignment_objects, ignore_conflicts=True)
+                            created_count = len(assignment_objects)
+                            client_ip = get_client_ip(request)
+                            AuditLog.objects.create(
+                                user=request.user,
+                                action='Автоматическое назначение категорий',
+                                details=f"Создано {created_count} новых назначений категорий для писем: {email_ids}",
+                                ip_address=client_ip,
+                                timestamp=timezone.now()
+                            )
+                            logger.info(f"Created {created_count} new category assignments for user {request.user.user_id}")
+                        else:
+                            logger.debug("No new assignments needed; all requested assignments already exist")
+                    break  # Exit retry loop on success
+                except OperationalError as e:
+                    if '1213' in str(e):  # Deadlock error
+                        logger.warning(f"Deadlock detected on attempt {attempt + 1}/{max_retries}. Retrying...")
+                        time.sleep(0.5 * (attempt + 1))  # Exponential backoff
+                        if attempt == max_retries - 1:
+                            logger.error(f"Failed to assign categories after {max_retries} attempts: {str(e)}")
+                            raise
                     else:
-                        logger.debug(
-                            f"Skipping duplicate assignment for email_id={assignment['email_id']}, folder_id={assignment['folder_id']}")
-
-                if created_count > 0:
-                    client_ip = get_client_ip(request)
-                    AuditLog.objects.create(
-                        user=request.user,
-                        action='Автоматическое назначение категорий',
-                        details=f"Создано {created_count} новых назначений категорий для писем: {email_ids}",
-                        ip_address=client_ip,
-                        timestamp=timezone.now()
-                    )
-                    logger.info(f"Created {created_count} new category assignments for user {request.user.user_id}")
-
+                        logger.error(f"Database error during category assignment: {str(e)}")
+                        raise
             return Response({'status': f'{created_count} categories assigned successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(f"Error assigning categories for user {request.user.user_id}: {str(e)}", exc_info=True)

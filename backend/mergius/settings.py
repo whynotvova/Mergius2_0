@@ -18,8 +18,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Security settings
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k%l(hgmy_w%ti5-qdoqk@c%7w@0d&9)ch0xja)v-be!wb@mj*^')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend, mergius.ru').split(',')
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://mergius.ru,https://www.mergius.ru, http://mergius.ru').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend,mergius.ru').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://mergius.ru,https://www.mergius.ru,http://mergius.ru').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'social_django',
     'corsheaders',
+    'django_celery_beat',
     'Auth.apps.AuthConfig',
     'profile_user.apps.ProfileUserConfig',
     'mail.apps.MailConfig',
@@ -82,7 +83,7 @@ DATABASES = {
         'HOST': os.getenv('MYSQL_HOST'),
         'PORT': os.getenv('MYSQL_PORT'),
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED",
             'charset': 'utf8mb4',
         },
     }
@@ -183,6 +184,7 @@ SMSC_LOGIN = os.getenv('SMSC_LOGIN')
 SMSC_PASSWORD = os.getenv('SMSC_PASSWORD')
 
 # Yandex settings
+YANDEX_GPT_API_KEY = os.getenv('YANDEX_GPT_API_KEY')
 YANDEX_TRANSLATE_API_KEY = os.getenv('YANDEX_TRANSLATE_API_KEY')
 YANDEX_CLOUD_FOLDER_ID = os.getenv('YANDEX_CLOUD_FOLDER_ID')
 
@@ -198,13 +200,22 @@ CSRF_COOKIE_SECURE = os.getenv('CSRF_COOKIE_SECURE', 'True') == 'True'
 SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'True') == 'True'
 SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'True') == 'True'
 
-# Celery Configuration
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+# Celery settings
+CELERY_IMPORTS = (
+    'mail.tasks',
+    'mail.celery_tasks',
+)
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_WORKER_CONCURRENCY = os.getenv('CELERY_WORKER_CONCURRENCY', 4)  # Limit concurrency to avoid DB overload
+CELERYD_PREFETCH_MULTIPLIER = 1  # Process one task at a time per worker
+CELERY_TASK_ACKS_LATE = True  # Allow tasks to be acknowledged after execution
+CELERY_TASK_TRACK_STARTED = True  # Track task start for better monitoring
 
 # Logging
 LOGGING = {
@@ -234,6 +245,16 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': True,
+        },
+        'celery': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'celery.task': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }

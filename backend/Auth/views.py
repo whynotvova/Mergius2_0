@@ -8,7 +8,7 @@ from .serializers import PhoneSerializer, OTPSerializer, ProfileSerializer, Phon
 from social_django.utils import psa
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 import logging
 
@@ -144,3 +144,11 @@ class CheckUsernameView(APIView):
             return Response({'available': not exists}, status=status.HTTP_200_OK)
         logger.error(f"CheckUsernameView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class GetCSRFTokenView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        logger.debug("GetCSRFTokenView accessed")
+        return Response({'detail': 'CSRF cookie set'}, status=status.HTTP_200_OK)

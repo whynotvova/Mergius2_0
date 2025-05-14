@@ -12,19 +12,28 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/auth/phone/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 60s
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    environment:
+      - DJANGO_SETTINGS_MODULE=mergius.settings
     command: >
-      sh -c "sleep 10 &&
-             python manage.py makemigrations Auth mail profile_user landing &&
-             python manage.py migrate &&
+      sh -c "python manage.py wait_for_db &&
+             python manage.py makemigrations Auth mail profile_user landing django_celery_beat --noinput &&
+             python manage.py migrate --noinput &&
              python manage.py collectstatic --noinput &&
-             gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 120 mergius.wsgi:application"
+             gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 120 --log-level debug mergius.wsgi:application || python manage.py runserver 0.0.0.0:8000"
+    restart: unless-stopped
 
   frontend:
     build:
@@ -51,9 +60,70 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 60s
     networks:
       - app-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.0
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=mergius.settings
+    command: >
+      sh -c "python manage.py wait_for_db && celery -A mergius worker -l info --concurrency=2"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    restart: unless-stopped
+
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=mergius.settings
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py makemigrations django_celery_beat --noinput &&
+             python manage.py migrate --noinput &&
+             celery -A mergius beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    restart: unless-stopped
 
   nginx:
     image: nginx:latest
@@ -66,11 +136,17 @@ services:
       - frontend-build:/usr/share/nginx/html:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
-      - backend
-      - frontend
-      - db
+      backend:
+        condition: service_healthy
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
 
 networks:
   app-network:
