@@ -17,7 +17,7 @@ const SecurityPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('Не указан');
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
 
   useEffect(() => {
     const fetchProfile = async () => {

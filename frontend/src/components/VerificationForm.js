@@ -8,7 +8,7 @@ const VerificationForm = () => {
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const { phoneNumber, type } = location.state || {};
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
 
   useEffect(() => {
     const inputs = document.querySelectorAll('.code-input');

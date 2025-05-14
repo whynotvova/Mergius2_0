@@ -14,8 +14,8 @@ const Account = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const logsPerPage = 20;
   const navigate = useNavigate();
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
   const serviceIcons = {
     gmail: 'google-logo.png',
     mailru: 'mail-logo.png',

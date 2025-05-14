@@ -17,18 +17,15 @@ class PhoneSerializer(serializers.Serializer):
     phone_number = serializers.CharField(max_length=15)
 
     def validate_phone_number(self, value):
-        # Нормализация номера телефона
         cleaned_phone = ''.join(filter(str.isdigit, value))
         if not cleaned_phone.startswith('+'):
             cleaned_phone = '+' + cleaned_phone
 
-        # Ограничение на российские номера (+7)
         if not cleaned_phone.startswith('+7'):
             raise serializers.ValidationError(
                 "В настоящее время поддерживаются только российские номера (+7)."
             )
 
-        # Проверка формата номера с помощью phonenumbers
         try:
             parsed_number = phonenumbers.parse(cleaned_phone, None)
             if not phonenumbers.is_valid_number(parsed_number):
@@ -46,7 +43,11 @@ class PhoneSerializer(serializers.Serializer):
         phone_number = self.validated_data['phone_number']
         user, created = UserModel.objects.get_or_create(phone_number=phone_number)
 
-        # Генерация OTP
+        if created:
+            account_type, _ = AccountTypes.objects.get_or_create(type_name='Персональный')
+            user.account_type = account_type
+
+        # Генерация OTP кода
         otp_code = ''.join([str(random.randint(0, 9)) for _ in range(6)])
         otp_expiry = timezone.now() + timedelta(minutes=5)
 
@@ -54,16 +55,15 @@ class PhoneSerializer(serializers.Serializer):
         user.otp_expiry = otp_expiry
         user.save()
 
-        # Отправка OTP через SMSC.ru
         try:
             smsc_url = "https://smsc.ru/sys/send.php"
             params = {
                 "login": settings.SMSC_LOGIN,
                 "psw": settings.SMSC_PASSWORD,
-                "phones": phone_number[1:],  # Убираем '+' для SMSC.ru
+                "phones": phone_number[1:],
                 "mes": f"Ваш код подтверждения: {otp_code}",
-                "fmt": 3,  # JSON-ответ
-                "sender": "INFO",  # Тестовое имя отправителя
+                "fmt": 3,
+                "sender": "INFO",
             }
             response = requests.get(smsc_url, params=params)
             response_data = response.json()

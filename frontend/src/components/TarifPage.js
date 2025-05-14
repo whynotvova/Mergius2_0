@@ -38,21 +38,21 @@ const Tarifs = () => {
           <div className="pricing-actions">
             <button
               className={`pricing-button pricing-button--basic ${
-                currentTariff === 'basic' ? 'pricing-button--selected' : ''
+                currentTariff === 'Персональный' ? 'pricing-button--selected' : ''
               }`}
-              onClick={() => handleSelectTariff('basic')}
-              disabled={currentTariff === 'basic'}
+              onClick={() => handleSelectTariff('Персональный')}
+              disabled={currentTariff === 'Персональный'}
             >
-              {currentTariff === 'basic' ? 'Выбрано' : 'Выбрать'}
+              {currentTariff === 'Персональный' ? 'Выбрано' : 'Выбрать'}
             </button>
             <button
               className={`pricing-button pricing-button--premium ${
-                currentTariff === 'premium' ? 'pricing-button--selected' : ''
+                currentTariff === 'Премиум' ? 'pricing-button--selected' : ''
               }`}
-              onClick={() => handleSelectTariff('premium')}
-              disabled={currentTariff === 'premium'}
+              onClick={() => handleSelectTariff('Премиум')}
+              disabled={currentTariff === 'Премиум'}
             >
-              {currentTariff === 'premium' ? 'Выбрано' : '399 ₽/мес'}
+              {currentTariff === 'Премиум' ? 'Выбрано' : '399 ₽/мес'}
             </button>
           </div>
         </div>

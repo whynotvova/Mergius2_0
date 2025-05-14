@@ -2410,6 +2410,10 @@ body {
   position: relative;
 }
 
+.side-nav-button.active .side-nav-text {
+  color: var(--primary-color);
+}
+
 .calendar-button {
   background: none;
   border: none;

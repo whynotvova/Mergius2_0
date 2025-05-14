@@ -23,8 +23,6 @@ try:
     GOOGLE_AUTH_AVAILABLE = True
 except ImportError:
     GOOGLE_AUTH_AVAILABLE = False
-
-# Define category rules for keyword-based filtering
 CATEGORY_RULES = {
     'Чаты': [
         'чат', 'сообщение', 'диалог', 'переписка', 'мессенджер', 'message',
@@ -103,7 +101,6 @@ CATEGORY_RULES = {
 }
 
 def assign_email_to_categories(email, categories):
-    """Assigns an email to specified categories (folders)."""
     try:
         logger.debug(f"Assigning categories {categories} to email {email.email_id}")
         assignments = []
@@ -145,7 +142,7 @@ def assign_email_to_categories(email, categories):
                         )
                     break
                 except OperationalError as e:
-                    if '1213' in str(e):  # Deadlock error
+                    if '1213' in str(e):
                         logger.warning(f"Deadlock detected in assign_email_to_categories on attempt {attempt + 1}/{max_retries}. Retrying...")
                         time.sleep(0.5 * (attempt + 1))
                         if attempt == max_retries - 1:
@@ -163,24 +160,19 @@ def assign_email_to_categories(email, categories):
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
 def categorize_email_task(self, email_id):
-    """Classifies an email and assigns it to appropriate folders based on keywords."""
     try:
         logger.debug(f"Starting categorization for email {email_id}")
         email = Emails.objects.get(email_id=email_id)
 
-        # Combine email content for keyword matching
         content = f"{email.subject} {email.sender} {email.body[:1000]}".lower()
 
-        # Initialize categories list
         categories = []
 
-        # Get user's existing folders
         user_folders = MailFolder.objects.filter(
             email_account=email.email_account
         ).values_list('folder_name', flat=True)
         user_folders_lower = [f.lower() for f in user_folders]
 
-        # Check for service-based categories (e.g., Gmail, Yandex)
         sender_domain = email.sender.lower().split('@')[-1].split('.')[-2] if '@' in email.sender else ''
         for service, keywords in CATEGORY_RULES.items():
             if service in ('Gmail', 'Mail.ru', 'Yandex', 'Outlook', 'Yahoo', 'AOL'):
@@ -188,10 +180,9 @@ def categorize_email_task(self, email_id):
                     categories.append(service)
                     logger.debug(f"Matched service category '{service}' for sender domain '{sender_domain}'")
 
-        # Check for content-based categories
         for category, keywords in CATEGORY_RULES.items():
             if category in ('Gmail', 'Mail.ru', 'Yandex', 'Outlook', 'Yahoo', 'AOL'):
-                continue  # Skip service categories
+                continue
             if category.lower() in user_folders_lower:
                 for keyword in keywords:
                     if keyword.lower() in content:
@@ -199,8 +190,6 @@ def categorize_email_task(self, email_id):
                             categories.append(category)
                             logger.debug(f"Matched category '{category}' for keyword '{keyword}'")
                         break
-
-        # Assign categories to email if any match
         if categories:
             assign_email_to_categories(email, categories)
             logger.info(f"Email {email_id} categorized into: {categories}")
@@ -215,7 +204,6 @@ def categorize_email_task(self, email_id):
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
 def fetch_emails_task(self, email_account_id, force_refresh=False):
-    """Asynchronously fetches all new emails from INBOX in batches of 100."""
     logger.info(f"Starting fetch_emails_task for account {email_account_id} with force_refresh={force_refresh}")
     try:
         email_account = UserEmailAccount.objects.get(email_account_id=email_account_id)
@@ -226,7 +214,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
         logger.debug(f"Connecting to IMAP server {imap_server}:{imap_port}")
         imap = imaplib.IMAP4_SSL(imap_server, imap_port, timeout=30)
 
-        # Authentication
         try:
             if email_account.oauth_token and email_account.service.service_name.lower() == 'gmail' and GOOGLE_AUTH_AVAILABLE:
                 logger.debug(f"Using OAuth for {email_account.email_address}")
@@ -239,7 +226,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
             logger.error(f"Authentication failed for {email_account.email_address}: {str(auth_error)}")
             raise self.retry(countdown=60, exc=auth_error)
 
-        # Select INBOX folder
         try:
             status, data = imap.select('INBOX')
             if status != 'OK':
@@ -252,7 +238,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
             imap.logout()
             return
 
-        # Search for all emails
         status, data = imap.uid('SEARCH', None, 'ALL')
         if status != 'OK' or not data or not isinstance(data[0], bytes):
             logger.warning(f"No email data found in INBOX for {email_account.email_address}: {data}")
@@ -267,8 +252,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
         last_fetched_uid = 0 if force_refresh else (email_account.last_fetched_uid or 0)
         max_uid = last_fetched_uid
         total_fetched = 0
-
-        # Process all new emails in batches
         while True:
             new_uids = [uid for uid in email_good if int(uid.decode('utf-8')) > last_fetched_uid][:batch_size]
             if not new_uids:
@@ -289,8 +272,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
 
                     raw_email = msg_data[0][1]
                     msg = email.message_from_bytes(raw_email)
-
-                    # Check email flags for status
                     flags_data = msg_data[0][0].decode('utf-8')
                     email_status = 'read' if r'\Seen' in flags_data else 'unread'
 
@@ -408,7 +389,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                             }
                         )
 
-                        # Create Email_Recipients objects
                         Email_Recipients.objects.filter(email=email_obj).delete()
                         recipient_objects = []
                         for recipient_type, addresses in recipients.items():
@@ -423,8 +403,6 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                                     )
                         if recipient_objects:
                             Email_Recipients.objects.bulk_create(recipient_objects, ignore_conflicts=True)
-
-                        # Assign to INBOX folder
                         inbox_folder = MailFolder.objects.filter(
                             email_account=email_account,
                             folder_name__iexact='Входящие'
@@ -440,23 +418,17 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                     total_fetched += 1
                     max_uid = max(max_uid, int(email_uid_str))
                     logger.debug(f"Processed email {email_uid_str} for {email_account.email_address} (Status: {email_status})")
-
-                    # Trigger categorization
                     categorize_email_task.delay(email_obj.email_id)
 
                 except Exception as e:
                     logger.error(f"Error processing email {email_uid} for {email_account.email_address}: {str(e)}", exc_info=True)
                     continue
-
-            # Update last_fetched_uid after each batch
             email_account.last_fetched_uid = max_uid
             email_account.last_fetched = timezone.now()
             email_account.save()
             last_fetched_uid = max_uid
             logger.info(
                 f"Completed batch: {batch_fetched} of {len(new_uids)} emails for {email_account.email_address}. Total fetched: {total_fetched}")
-
-        # Final update
         email_account.last_fetched = timezone.now()
         email_account.last_fetched_uid = max_uid
         email_account.save()

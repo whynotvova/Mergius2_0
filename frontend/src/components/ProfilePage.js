@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [userAccountType, setUserAccountType] = useState('Персональный');
   const [error, setError] = useState(null);
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
 
   useEffect(() => {
     const fetchUserAccountType = async () => {

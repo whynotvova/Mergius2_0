@@ -41,7 +41,7 @@ const MailPage = () => {
     try {
       const response = await fetch(`${BASE_URL}/api/get-csrf-token/`, {
         method: 'GET',
-        credentials: 'include', // Include cookies
+        credentials: 'include',
       });
       if (response.ok) {
         const data = await response.json();
@@ -1369,6 +1369,7 @@ const MailPage = () => {
                       <span className="unread-badge">{unreadCountsByFolder['Входящие']}</span>
                     )}
                   </div>
+                  <span className="side-nav-text">Входящие</span>
                 </button>
                 <button
                   className={`side-nav-button ${selectedFolderFilter === 'Отмеченное' ? 'active' : ''}`}
@@ -1384,6 +1385,7 @@ const MailPage = () => {
                       <span className="star-unread-badge">{unreadCountsByFolder['Отмеченное']}</span>
                     )}
                   </div>
+                  <span className="side-nav-text">Отмеченное</span>
                 </button>
                 <button
                   className={`side-nav-button ${selectedFolderFilter === 'Черновики' ? 'active' : ''}`}
@@ -1399,6 +1401,7 @@ const MailPage = () => {
                       <span className="unread-badge">{unreadCountsByFolder['Черновики']}</span>
                     )}
                   </div>
+                  <span className="side-nav-text">Черновики</span>
                 </button>
                 <button
                   className={`side-nav-button ${selectedFolderFilter === 'Отправленное' ? 'active' : ''}`}
@@ -1414,6 +1417,7 @@ const MailPage = () => {
                       <span className="unread-badge">{unreadCountsByFolder['Отправленное']}</span>
                     )}
                   </div>
+                  <span className="side-nav-text">Отправленное</span>
                 </button>
                 {folders
                   .filter(
@@ -1440,6 +1444,7 @@ const MailPage = () => {
                           </span>
                         )}
                       </div>
+                      <span className="side-nav-text">{folder.name}</span>
                     </button>
                   ))}
                 <button className="side-nav-button" onClick={() => handleSideNavClick(5)}>
@@ -1450,6 +1455,7 @@ const MailPage = () => {
                       alt="Добавить папку"
                     />
                   </div>
+                  <span className="side-nav-text">Добавить папку</span>
                 </button>
                 <div className="blue-divider"></div>
               </section>
@@ -1468,6 +1474,7 @@ const MailPage = () => {
                       <span className="unread-badge">{unreadCountsByFolder['Спам']}</span>
                     )}
                   </div>
+                  <span className="side-nav-text">Спам</span>
                 </button>
               </section>
             </section>
@@ -1579,9 +1586,6 @@ const MailPage = () => {
                           handleStarClick(email.id);
                         }}
                       />
-                    </div>
-                    <div className="avatar-group">
-                      <img src={email.senderAvatar} alt="Sender Avatar" className="avatar" />
                     </div>
                     <div className="email-text">
                       <h3 className="email-title">{email.title}</h3>

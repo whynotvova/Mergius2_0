@@ -8,7 +8,7 @@ const ThemesPage = () => {
       id: 1,
       isChecked: false,
       isStarred: false,
-      senderAvatar: 'https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/8ae3f093eabf8b5a51c987337fc769cfae4e8b74?placeholderIfAbsent=true',
+      senderAvatar: '',
       title: 'Пример 1',
       preview: 'Это пример письма для темы...',
       date: 'Apr 09, 2025',
@@ -18,7 +18,7 @@ const ThemesPage = () => {
       id: 2,
       isChecked: false,
       isStarred: true,
-      senderAvatar: 'https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/8ae3f093eabf8b5a51c987337fc769cfae4e8b74?placeholderIfAbsent=true',
+      senderAvatar: '',
       title: 'Пример 2',
       preview: 'Еще один пример письма...',
       date: 'Apr 08, 2025',
@@ -28,7 +28,7 @@ const ThemesPage = () => {
       id: 3,
       isChecked: false,
       isStarred: false,
-      senderAvatar: 'https://cdn.builder.io/api/v1/image/assets/28e1f6bb570943708910f922cccb8970/8ae3f093eabf8b5a51c987337fc769cfae4e8b74?placeholderIfAbsent=true',
+      senderAvatar: '',
       title: 'Пример 3',
       preview: 'Третий пример для демонстрации...',
       date: 'Apr 07, 2025',
@@ -41,7 +41,7 @@ const ThemesPage = () => {
   const [theme, setTheme] = useState('default');
   const [showActionIcons, setShowActionIcons] = useState(false);
   const navigate = useNavigate();
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
 
   useEffect(() => {
     const fetchTheme = async () => {

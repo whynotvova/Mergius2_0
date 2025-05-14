@@ -28,6 +28,9 @@ const CategoriesPage = () => {
     { name: 'Личное', icon: '/images/mail/sex-blue.png' },
   ];
 
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
+
   useEffect(() => {
     const fetchFoldersAndAccounts = async () => {
       try {
@@ -37,7 +40,7 @@ const CategoriesPage = () => {
           return;
         }
 
-        const folderResponse = await fetch('http://localhost:8000/api/profile/folders/', {
+        const folderResponse = await fetch(`${BASE_URL}/api/profile/folders/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -75,7 +78,7 @@ const CategoriesPage = () => {
           ]);
         }
 
-        const accountResponse = await fetch('http://localhost:8000/api/mail/email-accounts/', {
+        const accountResponse = await fetch(`${BASE_URL}/api/mail/email-accounts/`, {
           headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json',
@@ -115,7 +118,7 @@ const CategoriesPage = () => {
     }
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8000/api/profile/folders/', {
+      const response = await fetch(`${BASE_URL}/api/profile/folders/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
@@ -155,7 +158,7 @@ const CategoriesPage = () => {
     if (window.confirm('Вы уверены, что хотите удалить эту папку?')) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8000/api/profile/folders/${id}/`, {
+        const response = await fetch(`${BASE_URL}/api/profile/folders/${id}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,

@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from .models import AccountTypes
 import logging
 
 logger = logging.getLogger(__name__)
@@ -100,7 +101,9 @@ class SocialAuthView(APIView):
             if user and user.is_active:
                 if hasattr(user, 'email') and user.email == '':
                     user.email = None
-                    user.save()
+                if not user.account_type:
+                    account_type, _ = AccountTypes.objects.get_or_create(type_name='Персональный')
+                    user.account_type = account_type
                 login(request, user)
                 token, created = Token.objects.get_or_create(user=user)
                 logger.info(f"Social auth success for user {user.user_id}, token: {token.key}")

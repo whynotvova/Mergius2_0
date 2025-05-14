@@ -29,8 +29,8 @@ const ComposePage = () => {
     'Emoji': false,
     'Text Color': false,
   });
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
 
   const folderIcons = {
     'Входящие': {
@@ -186,7 +186,6 @@ const ComposePage = () => {
           const accountsData = await accountsResponse.json();
           setUserEmailAccounts(accountsData.email_accounts || []);
           setUnreadCountsByService(accountsData.unread_counts_by_service || {});
-          // Set default email account for new emails
           if (accountsData.email_accounts?.length > 0 && !location.state?.replyTo) {
             setSelectedEmailAccountId(accountsData.email_accounts[0].email_account_id);
           }
@@ -334,7 +333,7 @@ const ComposePage = () => {
 
   const handleFileSelect = (e) => {
     const selectedFiles = Array.from(e.target.files);
-    const maxSize = 10 * 1024 * 1024; // 10MB limit per file
+    const maxSize = 10 * 1024 * 1024;
     const validFiles = selectedFiles.filter(file => {
       if (file.size > maxSize) {
         setError(`Файл "${file.name}" превышает лимит в 10 МБ`);
@@ -401,6 +400,7 @@ const ComposePage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Входящие']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Входящие</span>
               </button>
               <button
                 className={`side-nav-button ${selectedFolderFilter === 'Отмеченное' ? 'active' : ''}`}
@@ -416,6 +416,7 @@ const ComposePage = () => {
                     <span className="star-unread-badge">{unreadCountsByFolder['Отмеченное']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Отмеченное</span>
               </button>
               <button
                 className={`side-nav-button ${selectedFolderFilter === 'Черновики' ? 'active' : ''}`}
@@ -431,6 +432,7 @@ const ComposePage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Черновики']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Черновики</span>
               </button>
               <button
                 className={`side-nav-button ${selectedFolderFilter === 'Отправленное' ? 'active' : ''}`}
@@ -446,28 +448,36 @@ const ComposePage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Отправленное']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Отправленное</span>
               </button>
-              {folders.filter(folder => !defaultFolders.includes(folder.name)).map(folder => (
-                <button
-                  key={folder.id}
-                  className={`side-nav-button ${selectedFolderFilter === folder.name ? 'active' : ''}`}
-                  onClick={() => handleSideNavClick(folder.id, folder)}
-                >
-                  <div className="mail-icon-container">
-                    <img
-                      src={`${process.env.PUBLIC_URL}${folder.icon}`}
-                      alt={folder.name}
-                      className="product-image stack-spacing"
-                      data-folder-id={folder.id}
-                    />
-                    {unreadCountsByFolder[folder.name] > 0 && (
-                      <span className={isCategoryFolder(folder.name) ? 'category-unread-badge' : 'unread-badge'}>
-                        {unreadCountsByFolder[folder.name]}
-                      </span>
-                    )}
-                  </div>
-                </button>
-              ))}
+              {folders
+                .filter(
+                  folder =>
+                    !defaultFolders.includes(folder.name) &&
+                    !emailServices.some(service => service.name === folder.name)
+                )
+                .map(folder => (
+                  <button
+                    key={folder.id}
+                    className={`side-nav-button ${selectedFolderFilter === folder.name ? 'active' : ''}`}
+                    onClick={() => handleSideNavClick(folder.id, folder)}
+                  >
+                    <div className="mail-icon-container">
+                      <img
+                        src={`${process.env.PUBLIC_URL}${selectedFolderFilter === folder.name ? (folderIcons[folder.name]?.active || folder.icon) : folder.icon}`}
+                        alt={folder.name}
+                        className="product-image stack-spacing"
+                        data-folder-id={folder.id}
+                      />
+                      {unreadCountsByFolder[folder.name] > 0 && (
+                        <span className={isCategoryFolder(folder.name) ? 'category-unread-badge' : 'unread-badge'}>
+                          {unreadCountsByFolder[folder.name]}
+                        </span>
+                      )}
+                    </div>
+                    <span className="side-nav-text">{folder.name}</span>
+                  </button>
+                ))}
               <button className="side-nav-button" onClick={() => handleSideNavClick(5)}>
                 <div className="mail-icon-container">
                   <img
@@ -476,6 +486,7 @@ const ComposePage = () => {
                     alt="Добавить папку"
                   />
                 </div>
+                <span className="side-nav-text">Добавить папку</span>
               </button>
               <div className="blue-divider"></div>
             </section>
@@ -494,6 +505,7 @@ const ComposePage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Спам']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Спам</span>
               </button>
             </section>
           </section>

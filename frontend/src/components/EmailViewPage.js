@@ -17,8 +17,8 @@ const EmailViewPage = () => {
   const [selectedFolderFilter, setSelectedFolderFilter] = useState(null);
   const [translatedContent, setTranslatedContent] = useState(null);
   const [isTranslating, setIsTranslating] = useState(false);
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://backend:8000';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
 
   const folderIcons = {
     'Входящие': {
@@ -328,6 +328,7 @@ const EmailViewPage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Входящие']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Входящие</span>
               </button>
               <button
                 className={`side-nav-button ${selectedFolderFilter === 'Отмеченное' ? 'active' : ''}`}
@@ -343,6 +344,7 @@ const EmailViewPage = () => {
                     <span className="star-unread-badge">{unreadCountsByFolder['Отмеченное']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Отмеченное</span>
               </button>
               <button
                 className={`side-nav-button ${selectedFolderFilter === 'Черновики' ? 'active' : ''}`}
@@ -358,6 +360,7 @@ const EmailViewPage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Черновики']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Черновики</span>
               </button>
               <button
                 className={`side-nav-button ${selectedFolderFilter === 'Отправленное' ? 'active' : ''}`}
@@ -373,28 +376,36 @@ const EmailViewPage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Отправленное']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Отправленное</span>
               </button>
-              {folders.filter(folder => !defaultFolders.includes(folder.name)).map(folder => (
-                <button
-                  key={folder.id}
-                  className={`side-nav-button ${selectedFolderFilter === folder.name ? 'active' : ''}`}
-                  onClick={() => handleSideNavClick(folder.id, folder)}
-                >
-                  <div className="mail-icon-container">
-                    <img
-                      src={`${process.env.PUBLIC_URL}${folder.icon}`}
-                      alt={folder.name}
-                      className="product-image stack-spacing"
-                      data-folder-id={folder.id}
-                    />
-                    {unreadCountsByFolder[folder.name] > 0 && (
-                      <span className={isCategoryFolder(folder.name) ? 'category-unread-badge' : 'unread-badge'}>
-                        {unreadCountsByFolder[folder.name]}
-                      </span>
-                    )}
-                  </div>
-                </button>
-              ))}
+              {folders
+                .filter(
+                  folder =>
+                    !defaultFolders.includes(folder.name) &&
+                    !emailServices.some(service => service.name === folder.name)
+                )
+                .map(folder => (
+                  <button
+                    key={folder.id}
+                    className={`side-nav-button ${selectedFolderFilter === folder.name ? 'active' : ''}`}
+                    onClick={() => handleSideNavClick(folder.id, folder)}
+                  >
+                    <div className="mail-icon-container">
+                      <img
+                        src={`${process.env.PUBLIC_URL}${selectedFolderFilter === folder.name ? (folderIcons[folder.name]?.active || folder.icon) : folder.icon}`}
+                        alt={folder.name}
+                        className="product-image stack-spacing"
+                        data-folder-id={folder.id}
+                      />
+                      {unreadCountsByFolder[folder.name] > 0 && (
+                        <span className={isCategoryFolder(folder.name) ? 'category-unread-badge' : 'unread-badge'}>
+                          {unreadCountsByFolder[folder.name]}
+                        </span>
+                      )}
+                    </div>
+                    <span className="side-nav-text">{folder.name}</span>
+                  </button>
+                ))}
               <button className="side-nav-button" onClick={() => handleSideNavClick(5)}>
                 <div className="mail-icon-container">
                   <img
@@ -403,6 +414,7 @@ const EmailViewPage = () => {
                     alt="Добавить папку"
                   />
                 </div>
+                <span className="side-nav-text">Добавить папку</span>
               </button>
               <div className="blue-divider"></div>
             </section>
@@ -421,6 +433,7 @@ const EmailViewPage = () => {
                     <span className="unread-badge">{unreadCountsByFolder['Спам']}</span>
                   )}
                 </div>
+                <span className="side-nav-text">Спам</span>
               </button>
             </section>
           </section>

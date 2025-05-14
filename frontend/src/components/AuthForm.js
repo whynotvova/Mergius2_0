@@ -7,8 +7,8 @@ const AuthForm = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'http://localhost';
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
 
   useEffect(() => {
     if (location.state?.error) {

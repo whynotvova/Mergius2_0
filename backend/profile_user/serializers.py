@@ -170,7 +170,8 @@ class UserSettingsSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     audit_logs = AuditLogSerializer(many=True)
     date_of_birth = serializers.DateField(format='%d.%m.%Y', allow_null=True)
-    account_type = serializers.CharField(source='account_type.type_name', allow_null=True, default='Не указан')
+    account_type = serializers.CharField(source='account_type.type_name', read_only=True, allow_null=True,
+                                         default='Персональный')
     email_accounts = UserEmailAccountSerializer(many=True)
     folders = serializers.SerializerMethodField()
     phone_number = serializers.CharField(allow_null=True, default='Не указан')
