@@ -35,7 +35,7 @@ const Header = () => {
   const isTariffsPage = location.pathname === '/tarifs';
 
   const handleLogoClick = () => {
-    if (isInternalPage) {
+    if (isAuthenticated) {
       navigate('/mail');
     } else {
       navigate('/');

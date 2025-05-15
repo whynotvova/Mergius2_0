@@ -4,71 +4,42 @@ import '../styles/styles.css';
 
 const RegisterForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [csrfToken, setCsrfToken] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
-  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || 'https://mergius.ru';
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/get-csrf-token/`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setCsrfToken(data.csrfToken);
+        } else {
+          console.error('Failed to fetch CSRF token');
+          setError('Не удалось получить CSRF token');
+        }
+      } catch (error) {
+        console.error('Error fetching CSRF token:', error);
+        setError('Ошибка подключения к серверу при получении CSRF token');
+      }
+    };
+
+    fetchCsrfToken();
+  }, []);
 
   useEffect(() => {
-    if (location.state?.error) {
+    if (location.state?.error && !error) {
       setError(location.state.error);
     }
+  }, [location.state, error]);
 
-    try {
-      if (window.MR) {
-        window.MR.init({
-          clientId: 'e42f6a45b608469a8baa432e4b96f803',
-          onlogin: (state) => {
-            if (state.user) {
-              console.info('MR.login:', state);
-              handleSocialCallback('mailru', state);
-            } else {
-              setError('Ошибка авторизации Mail.ru');
-            }
-          },
-          onlogout: () => {
-            console.info('MR.logout');
-          },
-        });
-      } else {
-        console.warn('Mail.ru SDK not loaded');
-      }
-    } catch (err) {
-      console.error('Mail.ru SDK error:', err);
-      setError('Не удалось загрузить Mail.ru SDK');
-    }
-
-    try {
-      if (window.YaAuthSuggest) {
-        window.YaAuthSuggest.init(
-          {
-            client_id: '44396cc4dfe94deabbb7f0292b8f156d',
-            response_type: 'token',
-            redirect_uri: `${BASE_URL}/complete/yandex-oauth2/`,
-          },
-          FRONTEND_URL,
-          { view: 'button' }
-        )
-          .then(({ handler }) => handler())
-          .then((data) => {
-            console.log('Yandex token:', data);
-            handleSocialCallback('yandex', data);
-          })
-          .catch((error) => {
-            console.error('Yandex SDK error:', error);
-            setError('Ошибка Яндекс авторизации');
-          });
-      } else {
-        console.warn('Yandex SDK not loaded');
-      }
-    } catch (err) {
-      console.error('Yandex SDK error:', err);
-      setError('Не удалось загрузить Яндекс SDK');
-    }
-  }, [location]);
-
-  const handlePhoneAuth = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -77,11 +48,26 @@ const RegisterForm = () => {
       return;
     }
 
+    if (password.length < 8) {
+      setError('Пароль должен содержать не менее 8 символов');
+      return;
+    }
+
+    if (!csrfToken) {
+      setError('CSRF token отсутствует. Попробуйте обновить страницу.');
+      return;
+    }
+
+    console.log('Sending request to:', `${BASE_URL}/api/auth/register/`);
     try {
-      const response = await fetch(`${BASE_URL}/api/auth/phone/`, {
+      const response = await fetch(`${BASE_URL}/api/auth/register/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone_number: phoneNumber }),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        credentials: 'include',
+        body: JSON.stringify({ phone_number: phoneNumber, password }),
       });
 
       if (!response.ok) {
@@ -91,80 +77,14 @@ const RegisterForm = () => {
       }
 
       const data = await response.json();
-      console.info('Phone auth success:', data);
+      console.info('Registration success:', data);
       navigate('/otp', { state: { phoneNumber, type: 'register' } });
     } catch (err) {
-      console.error('Phone auth error:', err.message, err.stack);
+      console.error('Registration error:', err.message, err.stack);
       if (err.message.includes('Failed to fetch')) {
         setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
       } else {
-        setError(`Не удалось подключиться к серверу: ${err.message}`);
-      }
-    }
-  };
-
-  const handleSocialAuth = (provider) => {
-    setError('');
-    try {
-      if (provider === 'mailru') {
-        if (window.MR) {
-          window.MR.login();
-        } else {
-          setError('Mail.ru SDK не загружен');
-        }
-      } else if (provider === 'yandex') {
-        if (window.YaAuthSuggest) {
-          window.YaAuthSuggest.init(
-            {
-              client_id: '44396cc4dfe94deabbb7f0292b8f156d',
-              response_type: 'token',
-              redirect_uri: `${BASE_URL}/complete/yandex-oauth2/`,
-            },
-            FRONTEND_URL,
-            { view: 'button' }
-          )
-            .then(({ handler }) => handler())
-            .catch((error) => {
-              console.error('Yandex error:', error);
-              setError('Ошибка Яндекс авторизации');
-            });
-        } else {
-          setError('Yandex SDK не загружен');
-        }
-      } else {
-        window.location.href = `${BASE_URL}/auth/login/${provider}/`;
-      }
-    } catch (err) {
-      console.error('Social auth error:', err);
-      setError(`Ошибка авторизации через ${provider}`);
-    }
-  };
-
-  const handleSocialCallback = async (provider, state) => {
-    try {
-      const response = await fetch(`${BASE_URL}/api/auth/social/${provider}/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(state),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        console.error('Social auth response:', data);
-        throw new Error(data.detail || `HTTP error ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.info('Social auth success:', data);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user_id', data.user_id);
-      navigate('/social-phone');
-    } catch (err) {
-      console.error('Social callback error:', err.message, err.stack);
-      if (err.message.includes('Failed to fetch')) {
-        setError('Не удалось подключиться к серверу. Проверьте, что сервер работает, и попробуйте снова.');
-      } else {
-        setError(err.message.includes('email') ? err.message : `Ошибка авторизации: ${err.message}`);
+        setError(`Не удалось отправить запрос: ${err.message}`);
       }
     }
   };
@@ -175,7 +95,7 @@ const RegisterForm = () => {
       <div className="social-auth-primary">
         <img
           src={`${process.env.PUBLIC_URL}/images/register/phone-white.png`}
-          alt="Phone Auth"
+          alt="Phone Registration"
           className="social-icon-phone"
         />
         <input
@@ -189,7 +109,21 @@ const RegisterForm = () => {
           maxLength="20"
           required
         />
-        <button onClick={handlePhoneAuth} className="social-icon-button">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="phone-input"
+          required
+        />
+        <button
+          onClick={handleRegister}
+          className="social-icon-button"
+          disabled={!csrfToken}
+        >
           <img
             src={`${process.env.PUBLIC_URL}/images/register/next-white.png`}
             alt="Submit"
@@ -197,60 +131,11 @@ const RegisterForm = () => {
           />
         </button>
       </div>
-      {error && <p className="error-message">{error}</p>}
-      <div className="social-auth-row">
-        <button className="social-auth-button" onClick={() => handleSocialAuth('google-oauth2')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/google-logo.png`}
-            alt="Google Auth"
-            className="social-button-icon"
-          />
-        </button>
-        <button className="social-auth-button" onClick={() => handleSocialAuth('yandex')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/yandex-logo.png`}
-            alt="Yandex Auth"
-            className="social-button-icon"
-          />
-        </button>
-        <button className="social-auth-button" onClick={() => handleSocialAuth('mailru')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/mail-logo.png`}
-            alt="Mail.ru Auth"
-            className="social-button-icon"
-          />
-        </button>
-        <button className="social-auth-button" onClick={() => handleSocialAuth('apple-id')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/apple-logo.png`}
-            alt="Apple Auth"
-            className="social-button-icon"
-          />
-        </button>
-      </div>
-      <div className="social-auth-row secondary">
-        <button className="social-auth-button" onClick={() => handleSocialAuth('yahoo')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/yahoo-logo.png`}
-            alt="Yahoo Auth"
-            className="social-button-icon"
-          />
-        </button>
-        <button className="social-auth-button" onClick={() => handleSocialAuth('vk-oauth2')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/vk-logo.png`}
-            alt="VK Auth"
-            className="social-button-icon"
-          />
-        </button>
-        <button className="social-auth-button" onClick={() => handleSocialAuth('facebook')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/register/facebook-logo.png`}
-            alt="Meta Auth"
-            className="social-button-icon"
-          />
-        </button>
-      </div>
+      {error && (
+        <div className="error-message">
+          <p>{error}</p>
+        </div>
+      )}
       <a href="https://t.me/mergius_support_bot" target="_blank" rel="noopener noreferrer" className="support-button">
         <img
           src={`${process.env.PUBLIC_URL}/images/mail/customer-support.png`}

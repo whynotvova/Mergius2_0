@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from django.middleware.csrf import get_token
 from .models import AccountTypes
 import logging
 
@@ -154,4 +155,5 @@ class GetCSRFTokenView(APIView):
 
     def get(self, request):
         logger.debug("GetCSRFTokenView accessed")
-        return Response({'detail': 'CSRF cookie set'}, status=status.HTTP_200_OK)
+        csrf_token = get_token(request)
+        return Response({'csrfToken': csrf_token}, status=status.HTTP_200_OK)

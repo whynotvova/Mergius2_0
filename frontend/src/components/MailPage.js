@@ -28,6 +28,7 @@ const MailPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedServiceFilter, setSelectedServiceFilter] = useState(null);
   const [selectedFolderFilter, setSelectedFolderFilter] = useState(null);
+  const [isAddingAccount, setIsAddingAccount] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');
   const [userAccountType, setUserAccountType] = useState('Персональный');
   const [csrfToken, setCsrfToken] = useState(null);
@@ -790,6 +791,7 @@ const MailPage = () => {
     setEmailAddress('');
     setPassword('');
     setError(null);
+    setIsAddingAccount(false);
   };
 
   const closeFilter = () => {
@@ -922,7 +924,7 @@ const MailPage = () => {
       );
       return;
     }
-
+    setIsAddingAccount(true);
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -1037,6 +1039,8 @@ const MailPage = () => {
     } catch (error) {
       console.error('Error adding mail service:', error);
       setError('Ошибка подключения к серверу');
+    } finally {
+      setIsAddingAccount(false);
     }
   };
 
@@ -1773,6 +1777,7 @@ const MailPage = () => {
                 onChange={(e) => setEmailAddress(e.target.value)}
                 placeholder="Введите ваш email"
                 className="form-input"
+                disabled={isAddingAccount}
               />
             </div>
             <div className="form-group">
@@ -1786,6 +1791,7 @@ const MailPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={selectedService?.name === 'Gmail' ? 'Введите пароль приложения' : 'Введите ваш пароль (опционально)'}
                 className="form-input"
+                disabled={isAddingAccount}
               />
               {selectedService?.name === 'Gmail' && (
                 <p className="help-text">
@@ -1806,11 +1812,22 @@ const MailPage = () => {
               <button
                 className="mail-add-button"
                 onClick={handleAddMailService}
-                disabled={!emailAddress || (selectedService?.name === 'Gmail' && !password)}
+                disabled={isAddingAccount || !emailAddress || (selectedService?.name === 'Gmail' && !password)}
               >
-                Добавить
+                {isAddingAccount ? (
+                  <div className="loading-container">
+                    <div className="loading-spinner small"></div>
+                    <span>Добавление...</span>
+                  </div>
+                ) : (
+                  'Добавить'
+                )}
               </button>
-              <button className="mail-cancel-button" onClick={closeAddAccount}>
+              <button
+                className="mail-cancel-button"
+                onClick={closeAddAccount}
+                disabled={isAddingAccount}
+              >
                 Отмена
               </button>
             </div>

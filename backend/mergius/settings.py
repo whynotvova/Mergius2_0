@@ -5,23 +5,19 @@ Django settings for mergius project.
 from pathlib import Path
 import os
 
-# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Static and media files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Security settings
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k%l(hgmy_w%ti5-qdoqk@c%7w@0d&9)ch0xja)v-be!wb@mj*^')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend,mergius.ru').split(',')
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://mergius.ru,https://www.mergius.ru,http://mergius.ru').split(',')
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,7 +79,7 @@ DATABASES = {
         'HOST': os.getenv('MYSQL_HOST'),
         'PORT': os.getenv('MYSQL_PORT'),
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED",
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED",
             'charset': 'utf8mb4',
         },
     }
@@ -95,13 +91,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Custom user model
 AUTH_USER_MODEL = 'Auth.CustomUser'
 
-# REST Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -124,7 +117,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
 )
 
-# CORS settings
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'https://mergius.ru,https://www.mergius.ru').split(',')
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -146,25 +138,6 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
-
-# Social auth settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
-SOCIAL_AUTH_YANDEX_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_YANDEX_OAUTH2_KEY')
-SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_YANDEX_OAUTH2_SECRET')
-SOCIAL_AUTH_MAILRU_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_MAILRU_OAUTH2_KEY')
-SOCIAL_AUTH_MAILRU_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_MAILRU_OAUTH2_SECRET')
-SOCIAL_AUTH_APPLE_ID_CLIENT = os.getenv('SOCIAL_AUTH_APPLE_ID_CLIENT')
-SOCIAL_AUTH_APPLE_ID_KEY = os.getenv('SOCIAL_AUTH_APPLE_ID_KEY')
-SOCIAL_AUTH_YAHOO_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_YAHOO_OAUTH2_KEY')
-SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_YAHOO_OAUTH2_SECRET')
-SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
-SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
-SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('SOCIAL_AUTH_FACEBOOK_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
-
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = os.getenv('SOCIAL_AUTH_LOGIN_REDIRECT_URL', 'https://mergius.ru/auth/callback')
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'True') == 'True'
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -205,17 +178,17 @@ CELERY_IMPORTS = (
     'mail.tasks',
     'mail.celery_tasks',
 )
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-CELERY_WORKER_CONCURRENCY = os.getenv('CELERY_WORKER_CONCURRENCY', 4)  # Limit concurrency to avoid DB overload
-CELERYD_PREFETCH_MULTIPLIER = 1  # Process one task at a time per worker
-CELERY_TASK_ACKS_LATE = True  # Allow tasks to be acknowledged after execution
-CELERY_TASK_TRACK_STARTED = True  # Track task start for better monitoring
+CELERY_WORKER_CONCURRENCY = os.getenv('CELERY_WORKER_CONCURRENCY', 4)
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_TASK_ACKS_LATE = True
+CELERY_TASK_TRACK_STARTED = True
 
 # Logging
 LOGGING = {

@@ -7,8 +7,31 @@ const VerificationForm = () => {
   const location = useLocation();
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
+  const [csrfToken, setCsrfToken] = useState(null);
   const { phoneNumber, type } = location.state || {};
   const BASE_URL = process.env.REACT_APP_API_URL || 'https://mergius.ru';
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/get-csrf-token/`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setCsrfToken(data.csrfToken);
+        } else {
+          console.error('Failed to fetch CSRF token');
+          setError('Не удалось получить CSRF token');
+        }
+      } catch (error) {
+        console.error('Error fetching CSRF token:', error);
+        setError('Ошибка подключения к серверу при получении CSRF token');
+      }
+    };
+
+    fetchCsrfToken();
+  }, []);
 
   useEffect(() => {
     const inputs = document.querySelectorAll('.code-input');
@@ -56,10 +79,19 @@ const VerificationForm = () => {
       return;
     }
 
+    if (!csrfToken) {
+      setError('CSRF token отсутствует. Попробуйте обновить страницу.');
+      return;
+    }
+
     try {
       const response = await fetch(`${BASE_URL}/api/auth/otp/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        credentials: 'include',
         body: JSON.stringify({ phone_number: phoneNumber, otp_code: code }),
       });
 
@@ -92,10 +124,19 @@ const VerificationForm = () => {
       return;
     }
 
+    if (!csrfToken) {
+      setError('CSRF token отсутствует. Попробуйте обновить страницу.');
+      return;
+    }
+
     try {
       const response = await fetch(`${BASE_URL}/api/auth/phone/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        credentials: 'include',
         body: JSON.stringify({ phone_number: phoneNumber }),
       });
 
@@ -139,6 +180,7 @@ const VerificationForm = () => {
       <button
         className={`resend-code ${isVerificationPage ? 'active-login' : ''}`}
         onClick={handleResendCode}
+        disabled={!csrfToken}
       >
         Прислать код еще раз
       </button>

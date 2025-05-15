@@ -1,17 +1,11 @@
-from celery.task import periodic_task
+from celery import shared_task
 from profile_user.models import UserEmailAccount
 from .tasks import fetch_emails_task
-from datetime import timedelta
 import logging
 
 logger = logging.getLogger(__name__)
 
-
-@periodic_task(
-    run_every=timedelta(seconds=30),  # Каждые 30 секунд
-    name="fetch_emails_periodically",
-    ignore_result=True
-)
+@shared_task
 def fetch_emails_periodically():
     logger.info("Starting periodic email fetch for all users")
     email_accounts = UserEmailAccount.objects.all()
