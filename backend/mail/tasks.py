@@ -1,16 +1,15 @@
 from celery import shared_task
 from profile_user.models import UserEmailAccount, Emails, MailFolder, EmailFolderAssignment, Email_Recipients, EmailAttachment, AuditLog
 from django.utils import timezone
-from django.db.models import Q
 from django.db import transaction
 from django.conf import settings
+from django.core.mail import send_mail
 import logging
 import imaplib
 import email
 from email.header import decode_header
 from email.utils import parsedate_to_datetime
-import base64
-from datetime import datetime, timedelta
+import socket
 from django.db.utils import OperationalError
 import time
 
@@ -23,6 +22,7 @@ try:
     GOOGLE_AUTH_AVAILABLE = True
 except ImportError:
     GOOGLE_AUTH_AVAILABLE = False
+
 CATEGORY_RULES = {
     'Чаты': [
         'чат', 'сообщение', 'диалог', 'переписка', 'мессенджер', 'message',
@@ -163,48 +163,97 @@ def categorize_email_task(self, email_id):
     try:
         logger.debug(f"Starting categorization for email {email_id}")
         email = Emails.objects.get(email_id=email_id)
-
-        content = f"{email.subject} {email.sender} {email.body[:1000]}".lower()
-
-        categories = []
-
         user_folders = MailFolder.objects.filter(
             email_account=email.email_account
         ).values_list('folder_name', flat=True)
         user_folders_lower = [f.lower() for f in user_folders]
+        existing_assignments = EmailFolderAssignment.objects.filter(
+            email=email
+        ).values_list('folder__folder_name', flat=True)
+        existing_folders_lower = [f.lower() for f in existing_assignments]
 
+        content = f"{email.subject} {email.sender} {email.body[:1000]}".lower()
+        categories = []
         sender_domain = email.sender.lower().split('@')[-1].split('.')[-2] if '@' in email.sender else ''
         for service, keywords in CATEGORY_RULES.items():
             if service in ('Gmail', 'Mail.ru', 'Yandex', 'Outlook', 'Yahoo', 'AOL'):
                 if sender_domain in keywords and service.lower() in user_folders_lower:
-                    categories.append(service)
-                    logger.debug(f"Matched service category '{service}' for sender domain '{sender_domain}'")
-
+                    if service.lower() not in existing_folders_lower:
+                        categories.append(service)
+                        logger.debug(f"Matched service category '{service}' for sender domain '{sender_domain}'")
         for category, keywords in CATEGORY_RULES.items():
             if category in ('Gmail', 'Mail.ru', 'Yandex', 'Outlook', 'Yahoo', 'AOL'):
                 continue
             if category.lower() in user_folders_lower:
                 for keyword in keywords:
                     if keyword.lower() in content:
-                        if category not in categories:
+                        if category.lower() not in existing_folders_lower:
                             categories.append(category)
                             logger.debug(f"Matched category '{category}' for keyword '{keyword}'")
                         break
+
         if categories:
             assign_email_to_categories(email, categories)
             logger.info(f"Email {email_id} categorized into: {categories}")
         else:
-            logger.info(f"No categories assigned for email {email_id} (no matching folders found)")
+            logger.info(f"No new categories assigned for email {email_id} (already categorized or no matches)")
 
     except Emails.DoesNotExist:
         logger.error(f"Email {email_id} not found")
     except Exception as e:
         logger.error(f"Unexpected error categorizing email {email_id}: {str(e)}", exc_info=True)
-        raise self.retry(countdown=60)
+        raise self.retry(countdown=2**self.request.retries * 60)
 
-@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+@shared_task(bind=True, max_retries=3, default_retry_delay=300)
+def categorize_existing_emails_task(self, email_account_id):
+    logger.info(f"Starting categorize_existing_emails_task for account {email_account_id}")
+    try:
+        email_account = UserEmailAccount.objects.get(email_account_id=email_account_id)
+        logger.debug(f"Retrieved email account: {email_account.email_address}")
+        emails = Emails.objects.filter(email_account=email_account)
+        total_emails = emails.count()
+        logger.info(f"Found {total_emails} emails to categorize for {email_account.email_address}")
+
+        batch_size = 100
+        processed = 0
+
+        for i in range(0, total_emails, batch_size):
+            batch = emails[i:i + batch_size]
+            logger.info(f"Processing batch {i//batch_size + 1} of {len(batch)} emails")
+
+            for email in batch:
+                try:
+                    categorize_email_task.delay(email.email_id)
+                    processed += 1
+                    logger.debug(f"Triggered categorization for email {email.email_id}")
+                except Exception as e:
+                    logger.error(f"Error triggering categorization for email {email.email_id}: {str(e)}", exc_info=True)
+                    continue
+
+            logger.info(f"Completed batch: {len(batch)} emails. Total processed: {processed}")
+
+        logger.info(f"Completed categorizing {processed} emails for {email_account.email_address}")
+
+    except UserEmailAccount.DoesNotExist:
+        logger.error(f"Email account {email_account_id} not found")
+    except Exception as e:
+        logger.error(f"Unexpected error in categorize_existing_emails_task for account {email_account_id}: {str(e)}", exc_info=True)
+        try:
+            raise self.retry(countdown=2**self.request.retries * 300)
+        except self.MaxRetriesExceededError:
+            logger.error(f"Max retries exceeded for categorize_existing_emails_task for account {email_account_id}")
+            send_mail(
+                subject='Email Categorization Failure',
+                message=f"Failed to categorize existing emails for account {email_account_id} after retries: {str(e)}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.ADMIN_EMAIL],
+                fail_silently=True,
+            )
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=300)
 def fetch_emails_task(self, email_account_id, force_refresh=False):
     logger.info(f"Starting fetch_emails_task for account {email_account_id} with force_refresh={force_refresh}")
+    imap = None
     try:
         email_account = UserEmailAccount.objects.get(email_account_id=email_account_id)
         logger.debug(f"Retrieved email account: {email_account.email_address}")
@@ -224,24 +273,21 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                 imap.login(email_account.email_address, password)
         except imaplib.IMAP4.error as auth_error:
             logger.error(f"Authentication failed for {email_account.email_address}: {str(auth_error)}")
-            raise self.retry(countdown=60, exc=auth_error)
+            raise self.retry(countdown=2**self.request.retries * 60, exc=auth_error)
 
         try:
             status, data = imap.select('INBOX')
             if status != 'OK':
                 logger.error(f"Failed to select INBOX for {email_account.email_address}: {data}")
-                imap.logout()
-                return
+                raise imaplib.IMAP4.error(f"Failed to select INBOX: {data}")
             logger.debug(f"Selected INBOX for {email_account.email_address}")
         except imaplib.IMAP4.error as e:
             logger.error(f"IMAP error selecting INBOX for {email_account.email_address}: {str(e)}")
-            imap.logout()
-            return
+            raise self.retry(countdown=2**self.request.retries * 60, exc=e)
 
         status, data = imap.uid('SEARCH', None, 'ALL')
         if status != 'OK' or not data or not isinstance(data[0], bytes):
             logger.warning(f"No email data found in INBOX for {email_account.email_address}: {data}")
-            imap.logout()
             return
 
         email_good = data[0].split()
@@ -429,18 +475,37 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
             last_fetched_uid = max_uid
             logger.info(
                 f"Completed batch: {batch_fetched} of {len(new_uids)} emails for {email_account.email_address}. Total fetched: {total_fetched}")
+
         email_account.last_fetched = timezone.now()
         email_account.last_fetched_uid = max_uid
         email_account.save()
         logger.info(
             f"Completed fetching {total_fetched} new emails for {email_account.email_address} from INBOX")
-        imap.logout()
 
     except UserEmailAccount.DoesNotExist:
         logger.error(f"Email account {email_account_id} not found")
+    except socket.timeout as e:
+        logger.error(f"Timeout error fetching emails for account {email_account_id}: {str(e)}", exc_info=True)
+        try:
+            raise self.retry(exc=e, countdown=2**self.request.retries * 300)
+        except self.MaxRetriesExceededError:
+            logger.error(f"Max retries exceeded for account {email_account_id}: {str(e)}")
+            send_mail(
+                subject='Email Fetch Failure',
+                message=f"Failed to fetch emails for account {email_account_id} after retries: {str(e)}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.ADMIN_EMAIL],
+                fail_silently=True,
+            )
     except imaplib.IMAP4.error as e:
-        logger.error(f"IMAP error for account {email_account_id}: {str(e)}")
-        raise self.retry(countdown=60)
+        logger.error(f"IMAP error for account {email_account_id}: {str(e)}", exc_info=True)
+        raise self.retry(countdown=2**self.request.retries * 60, exc=e)
     except Exception as e:
         logger.error(f"Unexpected error fetching emails for account {email_account_id}: {str(e)}", exc_info=True)
-        raise self.retry(countdown=60)
+        raise self.retry(countdown=2**self.request.retries * 60, exc=e)
+    finally:
+        if imap:
+            try:
+                imap.logout()
+            except Exception as e:
+                logger.warning(f"Error during IMAP logout for account {email_account_id}: {str(e)}")

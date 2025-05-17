@@ -5,7 +5,6 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import login
 from .serializers import PhoneSerializer, OTPSerializer, ProfileSerializer, PhoneUpdateSerializer, UsernameSerializer
-from social_django.utils import psa
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
@@ -90,35 +89,6 @@ class OTPView(APIView):
                 return Response({'detail': 'Пользователь не найден'}, status=status.HTTP_400_BAD_REQUEST)
         logger.error(f"OTPView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class SocialAuthView(APIView):
-    permission_classes = [AllowAny]
-
-    @psa('social:complete')
-    def post(self, request, backend):
-        logger.debug(f"SocialAuthView for {backend} with data: {request.data}")
-        try:
-            user = request.backend.auth_complete(**request.data)
-            if user and user.is_active:
-                if hasattr(user, 'email') and user.email == '':
-                    user.email = None
-                if not user.account_type:
-                    account_type, _ = AccountTypes.objects.get_or_create(type_name='Персональный')
-                    user.account_type = account_type
-                login(request, user)
-                token, created = Token.objects.get_or_create(user=user)
-                logger.info(f"Social auth success for user {user.user_id}, token: {token.key}")
-                return Response({
-                    'token': token.key,
-                    'user_id': user.user_id,
-                }, status=status.HTTP_200_OK)
-            logger.warning(f"Invalid social auth data for {backend}")
-            return Response({'detail': 'Неверные данные социальной авторизации'}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"Social auth error for {backend}: {str(e)}")
-            if 'email' in str(e).lower() and 'unique' in str(e).lower():
-                return Response({'detail': 'Этот email уже используется другим пользователем'}, status=status.HTTP_400_BAD_REQUEST)
-            return Response({'detail': f'Ошибка авторизации: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]

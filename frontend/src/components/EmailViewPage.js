@@ -464,11 +464,12 @@ const EmailViewPage = () => {
             </h3>
           )}
           <section className="email-content" style={{
-            width: '1285px',
+            width: '1240px',
             height: '500px',
             overflowY: 'auto',
             padding: '16px',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            margin: '0 0 20px 20px'
           }}>
             <header className="email-content-header">
               <p

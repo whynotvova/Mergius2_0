@@ -1866,7 +1866,6 @@ const CalendarPage = () => {
                       alt={folder.name}
                       className="category-icon"
                     />
-                    <span className="category-label">{folder.name}</span>
                   </button>
                 </div>
               ))}

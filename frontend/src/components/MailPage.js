@@ -1463,24 +1463,22 @@ const MailPage = () => {
                 </button>
                 <div className="blue-divider"></div>
               </section>
-              <section className="bottom-section">
-                <button
-                  className={`side-nav-button ${selectedFolderFilter === 'Спам' ? 'active' : ''}`}
-                  onClick={() => handleSideNavClick(6)}
-                >
-                  <div className="mail-icon-container">
-                    <img
-                      src={`${process.env.PUBLIC_URL}${selectedFolderFilter === 'Спам' ? folderIcons['Спам'].active : folderIcons['Спам'].inactive}`}
-                      alt="Спам"
-                      className="product-image"
-                    />
-                    {unreadCountsByFolder['Спам'] > 0 && (
-                      <span className="unread-badge">{unreadCountsByFolder['Спам']}</span>
-                    )}
-                  </div>
-                  <span className="side-nav-text">Спам</span>
-                </button>
-              </section>
+              <button
+                className={`side-nav-button ${selectedFolderFilter === 'Спам' ? 'active' : ''}`}
+                onClick={() => handleSideNavClick(6)}
+              >
+                <div className="mail-icon-container">
+                  <img
+                    src={`${process.env.PUBLIC_URL}${selectedFolderFilter === 'Спам' ? folderIcons['Спам'].active : folderIcons['Спам'].inactive}`}
+                    alt="Спам"
+                    className="product-image stack-spacing"
+                  />
+                  {unreadCountsByFolder['Спам'] > 0 && (
+                    <span className="unread-badge">{unreadCountsByFolder['Спам']}</span>
+                  )}
+                </div>
+                <span className="side-nav-text">Спам</span>
+              </button>
             </section>
         </nav>
 
@@ -1875,7 +1873,6 @@ const MailPage = () => {
                       alt={folder.name}
                       className="category-icon"
                     />
-                    <span className="category-label">{folder.name}</span>
                   </button>
                 </div>
               ))}

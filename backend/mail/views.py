@@ -13,8 +13,6 @@ import imaplib
 import smtplib
 import requests
 import email
-from email.header import decode_header
-from email.utils import parsedate_to_datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -141,8 +139,6 @@ class AddEmailAccountView(APIView):
                     {'error': 'This email address is already associated with your account'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
-
-            # Validate IMAP credentials
             try:
                 imap_server = email_service.imap_server
                 imap_port = email_service.imap_port
@@ -205,8 +201,6 @@ class AddEmailAccountView(APIView):
                     },
                     status=status.HTTP_400_BAD_REQUEST
                 )
-
-            # Create email account
             try:
                 with transaction.atomic():
                     email_account = UserEmailAccount.objects.create(
@@ -220,16 +214,12 @@ class AddEmailAccountView(APIView):
                     if password and not oauth_token:
                         email_account.set_password(password)
                     email_account.save()
-
-                    # Fetch avatar synchronously
                     try:
                         fetch_email_avatar(email_account)
                     except Exception as e:
                         logger.error(f"Failed to fetch avatar for {email_address}: {str(e)}", exc_info=True)
                         email_account.avatar = '/images/mail/default-avatar.png'
                         email_account.save()
-
-                    # Schedule async email fetching
                     fetch_emails_task.delay(email_account.email_account_id, force_refresh=True)
                     logger.info(f"Scheduled async email fetch for {email_account.email_address}")
 
@@ -634,11 +624,11 @@ class AssignCategoriesView(APIView):
                             logger.info(f"Created {created_count} new category assignments for user {request.user.user_id}")
                         else:
                             logger.debug("No new assignments needed; all requested assignments already exist")
-                    break  # Exit retry loop on success
+                    break
                 except OperationalError as e:
-                    if '1213' in str(e):  # Deadlock error
+                    if '1213' in str(e):
                         logger.warning(f"Deadlock detected on attempt {attempt + 1}/{max_retries}. Retrying...")
-                        time.sleep(0.5 * (attempt + 1))  # Exponential backoff
+                        time.sleep(0.5 * (attempt + 1))
                         if attempt == max_retries - 1:
                             logger.error(f"Failed to assign categories after {max_retries} attempts: {str(e)}")
                             raise
