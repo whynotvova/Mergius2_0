@@ -59,6 +59,18 @@ class UserFolder(models.Model):
         db_table = 'User_Folders'
         managed = True
 
+class User_Settings(models.Model):
+    settings_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='settings', to_field='user_id')
+    language = models.CharField(max_length=10, default='ru')
+    theme = models.CharField(max_length=50, default='light')
+
+    def __str__(self):
+        return f"Settings for {self.user.username}"
+
+    class Meta:
+        db_table = 'User_Settings'
+        managed = True
 
 class MailFolder(models.Model):
     folder_id = models.AutoField(primary_key=True)
@@ -72,20 +84,6 @@ class MailFolder(models.Model):
 
     class Meta:
         db_table = 'mail_folders'
-        managed = True
-
-
-class User_Settings(models.Model):
-    settings_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='settings', to_field='user_id')
-    language = models.CharField(max_length=10, default='ru')
-    theme = models.CharField(max_length=50, default='light')
-
-    def __str__(self):
-        return f"Settings for {self.user.username}"
-
-    class Meta:
-        db_table = 'User_Settings'
         managed = True
 
 

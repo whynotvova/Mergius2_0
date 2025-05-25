@@ -7,13 +7,13 @@ logger = logging.getLogger(__name__)
 
 @shared_task
 def fetch_emails_periodically():
-    logger.info("Starting periodic email fetch for all users")
+    logger.info("Начало периодической выборки писем для всех пользователей")
     email_accounts = UserEmailAccount.objects.all()
     total_accounts = email_accounts.count()
-    logger.info(f"Found {total_accounts} email accounts to process")
+    logger.info(f"Найдено {total_accounts} почтовых аккаунтов для обработки")
 
     if total_accounts == 0:
-        logger.warning("No email accounts found for periodic fetch")
+        logger.warning("Почтовые аккаунты для периодической выборки не найдены")
         return
 
     processed_accounts = 0
@@ -26,4 +26,4 @@ def fetch_emails_periodically():
             logger.error(f"Error scheduling fetch for {email_account.email_address}: {str(e)}")
             continue
 
-    logger.info(f"Scheduled fetch for {processed_accounts} of {total_accounts} email accounts")
+    logger.info(f"Запланирована выборка для {processed_accounts} из {total_accounts} почтовых аккаунтов")

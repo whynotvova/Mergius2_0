@@ -189,62 +189,62 @@ def categorize_email_task(self, email_id):
                     if keyword.lower() in content:
                         if category.lower() not in existing_folders_lower:
                             categories.append(category)
-                            logger.debug(f"Matched category '{category}' for keyword '{keyword}'")
+                            logger.debug(f"Подходящая категория '{category}' по ключевому слову '{keyword}'")
                         break
 
         if categories:
             assign_email_to_categories(email, categories)
-            logger.info(f"Email {email_id} categorized into: {categories}")
+            logger.info(f"Электронное письмо {email_id} разделенные на: {categories}")
         else:
-            logger.info(f"No new categories assigned for email {email_id} (already categorized or no matches)")
+            logger.info(f"Нет новых категорий для электронного письма {email_id} (уже в категории либо нет похожих)")
 
     except Emails.DoesNotExist:
-        logger.error(f"Email {email_id} not found")
+        logger.error(f"Электронное письмо {email_id} не найдено")
     except Exception as e:
-        logger.error(f"Unexpected error categorizing email {email_id}: {str(e)}", exc_info=True)
+        logger.error(f"Неожиданная ошибка при категории элетронного письма {email_id}: {str(e)}", exc_info=True)
         raise self.retry(countdown=2**self.request.retries * 60)
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=300)
 def categorize_existing_emails_task(self, email_account_id):
-    logger.info(f"Starting categorize_existing_emails_task for account {email_account_id}")
+    logger.info(f"Начало задачи categorize_existing_emails_task для аккаунта {email_account_id}")
     try:
         email_account = UserEmailAccount.objects.get(email_account_id=email_account_id)
-        logger.debug(f"Retrieved email account: {email_account.email_address}")
+        logger.debug(f"Восстановлено электронное письмо для: {email_account.email_address}")
         emails = Emails.objects.filter(email_account=email_account)
         total_emails = emails.count()
-        logger.info(f"Found {total_emails} emails to categorize for {email_account.email_address}")
+        logger.info(f"Найдено {total_emails} электронных писем в категории для {email_account.email_address}")
 
         batch_size = 100
         processed = 0
 
         for i in range(0, total_emails, batch_size):
             batch = emails[i:i + batch_size]
-            logger.info(f"Processing batch {i//batch_size + 1} of {len(batch)} emails")
+            logger.info(f"Пакетная обработка {i//batch_size + 1} из {len(batch)} электронных писем")
 
             for email in batch:
                 try:
                     categorize_email_task.delay(email.email_id)
                     processed += 1
-                    logger.debug(f"Triggered categorization for email {email.email_id}")
+                    logger.debug(f"Триггерная категоризация электронных писем {email.email_id}")
                 except Exception as e:
-                    logger.error(f"Error triggering categorization for email {email.email_id}: {str(e)}", exc_info=True)
+                    logger.error(f"Ошибка при запуске категоризации электронной почты {email.email_id}: {str(e)}", exc_info=True)
                     continue
 
-            logger.info(f"Completed batch: {len(batch)} emails. Total processed: {processed}")
+            logger.info(f"Завершенная партия: {len(batch)} электронных писем. Всего обработано: {processed}")
 
-        logger.info(f"Completed categorizing {processed} emails for {email_account.email_address}")
+        logger.info(f"Завершена категоризация {processed} электронных писем для {email_account.email_address}")
 
     except UserEmailAccount.DoesNotExist:
-        logger.error(f"Email account {email_account_id} not found")
+        logger.error(f"Почтовый аккаунт {email_account_id} не найден")
     except Exception as e:
-        logger.error(f"Unexpected error in categorize_existing_emails_task for account {email_account_id}: {str(e)}", exc_info=True)
+        logger.error(f"Непредвиденная ошибка в задаче categorize_existing_emails_task для аккаунта {email_account_id}: {str(e)}")
         try:
             raise self.retry(countdown=2**self.request.retries * 300)
         except self.MaxRetriesExceededError:
-            logger.error(f"Max retries exceeded for categorize_existing_emails_task for account {email_account_id}")
+            logger.error(f"Превышено максимальное количество попыток для задачи categorize_existing_emails_task для аккаунта {email_account_id}")
             send_mail(
-                subject='Email Categorization Failure',
-                message=f"Failed to categorize existing emails for account {email_account_id} after retries: {str(e)}",
+                subject='Ошибка категоризации писем',
+                message=f"Не удалось категоризировать существующие письма для аккаунта {email_account_id} после повторных попыток: {str(e)}",
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[settings.ADMIN_EMAIL],
                 fail_silently=True,
@@ -252,47 +252,47 @@ def categorize_existing_emails_task(self, email_account_id):
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=300)
 def fetch_emails_task(self, email_account_id, force_refresh=False):
-    logger.info(f"Starting fetch_emails_task for account {email_account_id} with force_refresh={force_refresh}")
+    logger.info(f"Начало задачи fetch_emails_task для аккаунта {email_account_id} с force_refresh={force_refresh}")
     imap = None
     try:
         email_account = UserEmailAccount.objects.get(email_account_id=email_account_id)
-        logger.debug(f"Retrieved email account: {email_account.email_address}")
+        logger.debug(f"Получен аккаунт электронной почты: {email_account.email_address}")
 
         imap_server = email_account.service.imap_server
         imap_port = email_account.service.imap_port
-        logger.debug(f"Connecting to IMAP server {imap_server}:{imap_port}")
+        logger.debug(f"Соединение с IMAP сервером {imap_server}:{imap_port}")
         imap = imaplib.IMAP4_SSL(imap_server, imap_port, timeout=30)
 
         try:
             if email_account.oauth_token and email_account.service.service_name.lower() == 'gmail' and GOOGLE_AUTH_AVAILABLE:
-                logger.debug(f"Using OAuth for {email_account.email_address}")
+                logger.debug(f"Использование OAuth {email_account.email_address}")
                 imap.authenticate('XOAUTH2', lambda _: f"user={email_account.email_address}\1auth=Bearer {email_account.oauth_token}\1\1".encode())
             else:
                 password = email_account.password or ''
-                logger.debug(f"Using password authentication for {email_account.email_address}")
+                logger.debug(f"Использование пароля для {email_account.email_address}")
                 imap.login(email_account.email_address, password)
         except imaplib.IMAP4.error as auth_error:
-            logger.error(f"Authentication failed for {email_account.email_address}: {str(auth_error)}")
+            logger.error(f"Ошибка аутентификации для {email_account.email_address}: {str(auth_error)}")
             raise self.retry(countdown=2**self.request.retries * 60, exc=auth_error)
 
         try:
             status, data = imap.select('INBOX')
             if status != 'OK':
-                logger.error(f"Failed to select INBOX for {email_account.email_address}: {data}")
-                raise imaplib.IMAP4.error(f"Failed to select INBOX: {data}")
-            logger.debug(f"Selected INBOX for {email_account.email_address}")
+                logger.error(f"Ошибка выборки INBOX: {email_account.email_address}: {data}")
+                raise imaplib.IMAP4.error(f"Ошибка выборки INBOX: {data}")
+            logger.debug(f"Выборка INBOX для {email_account.email_address}")
         except imaplib.IMAP4.error as e:
-            logger.error(f"IMAP error selecting INBOX for {email_account.email_address}: {str(e)}")
+            logger.error(f"IMAP ошибка выборки INBOX для {email_account.email_address}: {str(e)}")
             raise self.retry(countdown=2**self.request.retries * 60, exc=e)
 
         status, data = imap.uid('SEARCH', None, 'ALL')
         if status != 'OK' or not data or not isinstance(data[0], bytes):
-            logger.warning(f"No email data found in INBOX for {email_account.email_address}: {data}")
+            logger.warning(f"Не найдено электронных писем в INBOX для {email_account.email_address}: {data}")
             return
 
         email_good = data[0].split()
         total_emails = len(email_good)
-        logger.info(f"Found {total_emails} emails in INBOX for {email_account.email_address}")
+        logger.info(f"Найдено {total_emails} электронных писем INBOX для {email_account.email_address}")
 
         batch_size = 100
         last_fetched_uid = 0 if force_refresh else (email_account.last_fetched_uid or 0)
@@ -301,19 +301,19 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
         while True:
             new_uids = [uid for uid in email_good if int(uid.decode('utf-8')) > last_fetched_uid][:batch_size]
             if not new_uids:
-                logger.info(f"No more new emails after UID {last_fetched_uid} for {email_account.email_address}")
+                logger.info(f"Нет больше новых электронных писем {last_fetched_uid} для {email_account.email_address}")
                 break
 
-            logger.info(f"Processing batch of {len(new_uids)} new emails after UID {last_fetched_uid}")
+            logger.info(f"Обработка пакеты  {len(new_uids)} новых электронных писем после UID {last_fetched_uid}")
             batch_fetched = 0
 
             for email_uid in new_uids:
                 try:
                     email_uid_str = email_uid.decode('utf-8')
-                    logger.debug(f"Fetching email UID {email_uid_str}")
+                    logger.debug(f"Выборка почты UID {email_uid_str}")
                     status, msg_data = imap.uid('FETCH', email_uid_str, '(RFC822 FLAGS)')
                     if status != 'OK' or not msg_data[0]:
-                        logger.warning(f"Failed to fetch email {email_uid_str} for {email_account.email_address}: {msg_data}")
+                        logger.warning(f"Ошибка выборки писем {email_uid_str} для {email_account.email_address}: {msg_data}")
                         continue
 
                     raw_email = msg_data[0][1]
@@ -327,44 +327,44 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                     subject = ''
                     if msg['Subject']:
                         subject_data = decode_header(msg['Subject'])
-                        decoded_part = subject_data[0] if subject_data else ('No Subject', None)
+                        decoded_part = subject_data[0] if subject_data else ('Нет заголовка', None)
                         subject_content, encoding = decoded_part if isinstance(decoded_part, tuple) else (
                             decoded_part, None)
                         if isinstance(subject_content, bool):
-                            subject = 'No Subject'
+                            subject = 'Нет заголовка'
                         elif isinstance(subject_content, bytes):
                             try:
                                 subject = subject_content.decode(encoding or 'utf-8')
                             except Exception as e:
-                                logger.error(f"Error decoding subject for email {email_uid_str}: {str(e)}")
-                                subject = 'No Subject'
+                                logger.error(f"Ошибка декодинга заголовка для почты {email_uid_str}: {str(e)}")
+                                subject = 'Нет заголовка'
                         elif isinstance(subject_content, str):
                             subject = subject_content
                         else:
-                            subject = 'No Subject'
+                            subject = 'Нет заголовка'
                     else:
-                        subject = 'No Subject'
+                        subject = 'Нет заголовка'
 
                     sender = ''
                     if msg['From']:
                         sender_data = decode_header(msg['From'])
-                        decoded_part = sender_data[0] if sender_data else ('Unknown Sender', None)
+                        decoded_part = sender_data[0] if sender_data else ('Неизвестный отправитель', None)
                         sender_content, encoding = decoded_part if isinstance(decoded_part, tuple) else (
                             decoded_part, None)
                         if isinstance(sender_content, bool):
-                            sender = 'Unknown Sender'
+                            sender = 'Неизвестный отправитель'
                         elif isinstance(sender_content, bytes):
                             try:
                                 sender = sender_content.decode(encoding or 'utf-8')
                             except Exception as e:
-                                logger.error(f"Error decoding sender for email {email_uid_str}: {str(e)}")
-                                sender = 'Unknown Sender'
+                                logger.error(f"Ошибка декодинга электронного письма для {email_uid_str}: {str(e)}")
+                                sender = 'Неизвестный отправитель'
                         elif isinstance(sender_content, str):
                             sender = sender_content
                         else:
-                            sender = 'Unknown Sender'
+                            sender = 'Неизвестный отправитель'
                     else:
-                        sender = 'Unknown Sender'
+                        sender = 'Неизвестный отправитель'
 
                     recipients = {'TO': [], 'CC': [], 'BCC': []}
                     for field in ['To', 'Cc', 'Bcc']:
@@ -377,7 +377,7 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                                     try:
                                         recipient_content = recipient_content.decode(encoding or 'utf-8')
                                     except Exception as e:
-                                        logger.error(f"Error decoding {field} for email {email_uid_str}: {str(e)}")
+                                        logger.error(f"Ошибка декодинга {field} для почты {email_uid_str}: {str(e)}")
                                         continue
                                 if isinstance(recipient_content, str):
                                     recipients[field.upper()] = recipient_content.split(', ')
@@ -393,7 +393,7 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                                     body = payload.decode('utf-8', errors='ignore')
                                 else:
                                     logger.warning(
-                                        f"Invalid payload for email {email_uid_str} in account {email_account.email_address}")
+                                        f"Ошибка пэйлоада для почты {email_uid_str} в аккаунте {email_account.email_address}")
                                 break
                     else:
                         payload = msg.get_payload(decode=True)
@@ -401,7 +401,7 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                             body = payload.decode('utf-8', errors='ignore')
                         else:
                             logger.warning(
-                                f"Invalid payload for email {email_uid_str} in account {email_account.email_address}")
+                                f"Ошибка пэйлоада для почты {email_uid_str} в аккаунте {email_account.email_address}")
 
                     sent_date = None
                     if msg['Date']:
@@ -411,7 +411,7 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                                 sent_date = timezone.make_naive(sent_date)
                         except (TypeError, ValueError) as e:
                             logger.warning(
-                                f"Invalid date format for email {email_uid_str} in {email_account.email_address}: {msg['Date']}. Error: {str(e)}. Using current timestamp.")
+                                f"Ошибка форматирования даты для почты {email_uid_str} в {email_account.email_address}: {msg['Date']}. Ошибка: {str(e)}. ИСпользование current timestamp.")
                             sent_date = timezone.now()
                             if not settings.USE_TZ:
                                 sent_date = timezone.make_naive(sent_date)
@@ -458,54 +458,54 @@ def fetch_emails_task(self, email_account_id, force_refresh=False):
                                 email=email_obj,
                                 folder=inbox_folder
                             )
-                            logger.debug(f"Assigned email {email_obj.email_id} to INBOX folder")
+                            logger.debug(f"Присвоенный адрес электронной почты {email_obj.email_id} к INBOX папке")
 
                     batch_fetched += 1
                     total_fetched += 1
                     max_uid = max(max_uid, int(email_uid_str))
-                    logger.debug(f"Processed email {email_uid_str} for {email_account.email_address} (Status: {email_status})")
+                    logger.debug(f"Обработанно электронное письмо {email_uid_str} для {email_account.email_address} (Статус: {email_status})")
                     categorize_email_task.delay(email_obj.email_id)
 
                 except Exception as e:
-                    logger.error(f"Error processing email {email_uid} for {email_account.email_address}: {str(e)}", exc_info=True)
+                    logger.error(f"Ошибка обработанного электронного письма {email_uid} для {email_account.email_address}: {str(e)}", exc_info=True)
                     continue
             email_account.last_fetched_uid = max_uid
             email_account.last_fetched = timezone.now()
             email_account.save()
             last_fetched_uid = max_uid
             logger.info(
-                f"Completed batch: {batch_fetched} of {len(new_uids)} emails for {email_account.email_address}. Total fetched: {total_fetched}")
+                f"Полный пакет: {batch_fetched} для {len(new_uids)} электронных писем для {email_account.email_address}. Всего пакетов: {total_fetched}")
 
         email_account.last_fetched = timezone.now()
         email_account.last_fetched_uid = max_uid
         email_account.save()
         logger.info(
-            f"Completed fetching {total_fetched} new emails for {email_account.email_address} from INBOX")
+            f"Завершена выборка {total_fetched} новыъ электронных писем для {email_account.email_address} от INBOX")
 
     except UserEmailAccount.DoesNotExist:
-        logger.error(f"Email account {email_account_id} not found")
+        logger.error(f"Почтовый аккаунт {email_account_id} не найден")
     except socket.timeout as e:
-        logger.error(f"Timeout error fetching emails for account {email_account_id}: {str(e)}", exc_info=True)
+        logger.error(f"Ошибка таймаута при выборке писем для аккаунта {email_account_id}: {str(e)}")
         try:
             raise self.retry(exc=e, countdown=2**self.request.retries * 300)
         except self.MaxRetriesExceededError:
-            logger.error(f"Max retries exceeded for account {email_account_id}: {str(e)}")
+            logger.error(f"Превышено максимальное количество попыток для аккаунта {email_account_id}: {str(e)}")
             send_mail(
-                subject='Email Fetch Failure',
-                message=f"Failed to fetch emails for account {email_account_id} after retries: {str(e)}",
+                subject='Ошибка выборки писем',
+                message=f"Не удалось выполнить выборку писем для аккаунта {email_account_id} после повторных попыток: {str(e)}",
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[settings.ADMIN_EMAIL],
                 fail_silently=True,
             )
     except imaplib.IMAP4.error as e:
-        logger.error(f"IMAP error for account {email_account_id}: {str(e)}", exc_info=True)
+        logger.error(f"Ошибка IMAP для аккаунта {email_account_id}: {str(e)}")
         raise self.retry(countdown=2**self.request.retries * 60, exc=e)
     except Exception as e:
-        logger.error(f"Unexpected error fetching emails for account {email_account_id}: {str(e)}", exc_info=True)
+        logger.error(f"Непредвиденная ошибка при выборке писем для аккаунта {email_account_id}: {str(e)}")
         raise self.retry(countdown=2**self.request.retries * 60, exc=e)
     finally:
         if imap:
             try:
                 imap.logout()
             except Exception as e:
-                logger.warning(f"Error during IMAP logout for account {email_account_id}: {str(e)}")
+                logger.warning(f"Ошибка при выходе из IMAP для аккаунта {email_account_id}: {str(e)}")

@@ -94,6 +94,20 @@ class PhoneSerializer(serializers.Serializer):
 
         return user
 
+class VKAuthSerializer(serializers.Serializer):
+    code = serializers.CharField()
+    code_verifier = serializers.CharField()
+    device_id = serializers.CharField(required=False)
+
+    def validate(self, data):
+        code = data.get('code')
+        code_verifier = data.get('code_verifier')
+        if not code:
+            raise serializers.ValidationError('Код авторизации обязателен')
+        if not code_verifier:
+            raise serializers.ValidationError('Code verifier обязателен')
+        return data
+
 class PhoneUpdateSerializer(serializers.Serializer):
     phone_number = serializers.CharField()
 

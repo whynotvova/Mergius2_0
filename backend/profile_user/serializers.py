@@ -36,7 +36,7 @@ class UserEmailAccountSerializer(serializers.ModelSerializer):
         try:
             service = EmailService.objects.get(service_name=service_name)
         except EmailService.DoesNotExist:
-            raise serializers.ValidationError({'service_name': f"Email service '{service_name}' not found"})
+            raise serializers.ValidationError({'service_name': f"Почтовый сервис '{service_name}' не найден"})
         validated_data['service'] = service
         return super().create(validated_data)
 

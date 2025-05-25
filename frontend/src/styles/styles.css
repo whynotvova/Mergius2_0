@@ -1061,6 +1061,13 @@ body {
   cursor: pointer;
 }
 
+.vk-one-tap-button {
+  width: 465px;
+  height: 56px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+}
 
 .error-message {
   color: red;
@@ -3877,6 +3884,11 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 20px;
+  }
+
+  .vk-one-tap-button {
+      width: 100%;
+      max-width: 400px;
   }
 
   .social-auth-row {

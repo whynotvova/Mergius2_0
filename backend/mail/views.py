@@ -40,32 +40,32 @@ def get_client_ip(request):
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0].strip()
     else:
-        ip = request.META.get('REMOTE_ADDR', 'unknown')
+        ip = request.META.get('REMOTE_ADDR', 'неизвестный')
 
-    if ip in ('127.0.0.1', '::1', 'unknown'):
+    if ip in ('127.0.0.1', '::1', 'неизвестный'):
         try:
             response = requests.get('https://api.ipify.org?format=json', timeout=5)
             response.raise_for_status()
             ip_data = response.json()
-            ip = ip_data.get('ip', 'unknown')
+            ip = ip_data.get('ip', 'неизвестный')
         except requests.RequestException as e:
-            logger.error(f"Error fetching public IP: {str(e)}")
-            ip = 'unknown'
+            logger.error(f"Ошибка получения общедоступного IP-адреса: {str(e)}")
+            ip = 'неизвестный'
     return ip
 
 def fetch_email_avatar(email_account):
     try:
-        logger.debug(f"Fetching avatar for {email_account.email_address}")
+        logger.debug(f"Получение аватара для {email_account.email_address}")
         imap_server = email_account.service.imap_server
         imap_port = email_account.service.imap_port
         imap = imaplib.IMAP4_SSL(imap_server, imap_port, timeout=30)
         if email_account.oauth_token and GOOGLE_AUTH_AVAILABLE:
-            logger.debug(f"Using OAuth for {email_account.email_address}")
+            logger.debug(f"Использование OAuth для {email_account.email_address}")
             imap.authenticate('XOAUTH2', lambda
                 _: f"user={email_account.email_address}\1auth=Bearer {email_account.oauth_token}\1\1".encode())
         else:
             password = email_account.password or ''
-            logger.debug(f"Using password authentication for {email_account.email_address}")
+            logger.debug(f"Использование аутентификации по паролю для {email_account.email_address}")
             imap.login(email_account.email_address, password)
 
         imap.select('INBOX')
@@ -75,24 +75,24 @@ def fetch_email_avatar(email_account):
             avatar_url = f'https://api.adorable.io/avatars/100/{email_account.email_address}'
             email_account.avatar = avatar_url
             email_account.save()
-            logger.debug(f"Avatar set for {email_account.email_address}: {avatar_url}")
+            logger.debug(f"Аватар установлен для {email_account.email_address}: {avatar_url}")
         else:
-            logger.warning(f"Failed to fetch header for avatar for {email_account.email_address}: {data}")
+            logger.warning(f"Не удалось получить заголовок аватара для {email_account.email_address}: {data}")
 
         imap.logout()
     except imaplib.IMAP4.error as e:
-        logger.error(f"IMAP error fetching avatar for {email_account.email_address}: {str(e)}")
+        logger.error(f"Ошибка IMAP при загрузке аватара для {email_account.email_address}: {str(e)}")
         error_str = str(e).lower()
         if "application-specific password required" in error_str or "neobhodim parol prilozheniya" in error_str:
             logger.error(
-                f"Application-specific password required for {email_account.email_address}. See provider's security settings.")
+                f"Пароль для конкретного приложения, необходимый для {email_account.email_address}. Проверьте настройки безопасности провайдера.")
         elif "invalid credentials" in error_str:
             logger.error(
-                f"Invalid credentials for {email_account.email_address}. Ensure correct password or OAuth token.")
+                f"Неверные учетные данные для {email_account.email_address}. Убедитесь, что пароль или токен OAuth правильный.")
         email_account.avatar = '/images/mail/default-avatar.png'
         email_account.save()
     except Exception as e:
-        logger.error(f"Unexpected error fetching avatar for {email_account.email_address}: {str(e)}")
+        logger.error(f"Непредвиденная ошибка при получении аватара для {email_account.email_address}: {str(e)}")
         email_account.avatar = '/images/mail/default-avatar.png'
         email_account.save()
 
@@ -108,35 +108,35 @@ class AddEmailAccountView(APIView):
             oauth_token = request.data.get('oauth_token')
 
             logger.debug(
-                f"POST /api/mail/email-accounts/add/ by user {user.user_id} with data: {{service_name: {service_name}, email_address: {email_address}, auth_method: {'OAuth' if oauth_token else 'Password'}}}")
+                f"POST /api/mail/email-accounts/add/ пользователем {user.user_id} с данными: {{service_name: {service_name}, email_address: {email_address}, auth_method: {'OAuth' if oauth_token else 'Password'}}}")
             if not service_name or not email_address:
-                logger.error("Missing required fields: service_name or email_address")
+                logger.error("Отсутствуют обязательные поля: имя_сервиса или адрес_электронной_почты")
                 return Response(
-                    {'error': 'Service name and email address are required'},
+                    {'ошибка': 'Название сервиса и адрес электронной почты обязательны'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             try:
                 email_service = EmailService.objects.get(service_name=service_name)
             except EmailService.DoesNotExist:
-                logger.error(f"Email service '{service_name}' not found")
+                logger.error(f"Почтовый сервис '{service_name}' не найден")
                 return Response(
-                    {'error': f"Email service '{service_name}' not found"},
+                    {'ошибка': f"Почтовый сервис '{service_name}' не найден"},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
             existing_accounts = UserEmailAccount.objects.filter(user=user, service=email_service).count()
             if existing_accounts >= 2:
-                logger.error(f"User {user.user_id} already has 2 email accounts for service {service_name}")
+                logger.error(f"Пользователь {user.user_id} уже имеет 2 почтовых аккаунта для сервиса {service_name}")
                 return Response(
-                    {'error': f'You cannot add more than 2 email accounts for {service_name}'},
+                    {'ошибка': f'Нельзя добавить более 2 почтовых аккаунтов для {service_name}'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             if UserEmailAccount.objects.filter(user=user, email_address=email_address).exists():
-                logger.error(f"Email address {email_address} already associated with user {user.user_id}")
+                logger.error(f"Адрес электронной почты {email_address} уже связан с пользователем {user.user_id}")
                 return Response(
-                    {'error': 'This email address is already associated with your account'},
+                    {'ошибка': 'Этот адрес электронной почты уже связан с вашим аккаунтом'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
             try:
@@ -144,60 +144,60 @@ class AddEmailAccountView(APIView):
                 imap_port = email_service.imap_port
                 imap = imaplib.IMAP4_SSL(imap_server, imap_port, timeout=30)
                 if oauth_token and service_name.lower() == 'gmail' and GOOGLE_AUTH_AVAILABLE:
-                    logger.info(f"Validating OAuth token for {email_address}")
+                    logger.info(f"Проверка токена OAuth для {email_address}")
                     imap.authenticate('XOAUTH2',
                                       lambda _: f"user={email_address}\1auth=Bearer {oauth_token}\1\1".encode())
                 else:
                     if oauth_token and not GOOGLE_AUTH_AVAILABLE:
-                        logger.warning("OAuth token provided, but google-auth-oauthlib is not installed.")
+                        logger.warning("Токен OAuth предоставлен, но google-auth-oauthlib не установлен")
                         return Response(
                             {
-                                'error': 'OAuth authentication is not available. Please install google-auth-oauthlib or use an application-specific password.'
+                                'ошибка': 'Аутентификация OAuth недоступна. Установите google-auth-oauthlib или используйте пароль для конкретного приложения'
                             },
                             status=status.HTTP_400_BAD_REQUEST
                         )
                     if not password:
-                        logger.error("Password required for non-OAuth authentication")
+                        logger.error("Требуется пароль для аутентификации без OAuth")
                         return Response(
-                            {'error': f'Password is required for {service_name} authentication'},
+                            {'ошибка': f'Пароль необходим для аутентификации {service_name}'},
                             status=status.HTTP_400_BAD_REQUEST
                         )
-                    logger.info(f"Validating password for {email_address}")
+                    logger.info(f"Проверка пароля для {email_address}")
                     imap.login(email_address, password)
                 imap.logout()
             except imaplib.IMAP4.error as e:
-                logger.error(f"IMAP login failed for {email_address}: {str(e)}", exc_info=True)
+                logger.error(f"Не удалось войти в IMAP для {email_address}: {str(e)}", exc_info=True)
                 error_str = str(e).lower()
                 if "application-specific password required" in error_str or "neobhodim parol prilozheniya" in error_str:
                     provider_instructions = {
-                        'mail.ru': 'Go to Mail.ru account settings > Security > App passwords to generate an app-specific password.',
-                        'gmail': 'Go to Google Account > Security > 2-Step Verification > App passwords to generate an app-specific password, or use OAuth 2.0.'
+                        'mail.ru': 'Перейдите в настройки учетной записи Mail.ru > Безопасность > Пароли приложений, чтобы сгенерировать пароль для конкретного приложения.',
+                        'gmail': 'Перейдите в «Аккаунт Google» > «Безопасность» > «Двухэтапная проверка» > «Пароли приложений», чтобы сгенерировать пароль для конкретного приложения, или используйте OAuth 2.0.'
                     }
                     return Response(
                         {
-                            'error': f'An application-specific password is required for {service_name}. {provider_instructions.get(service_name.lower(), "Check your provider’s security settings.")}'
+                            'ошибка': f'Для {service_name} требуется пароль для конкретного приложения. {provider_instructions.get(service_name.lower(), "Проверьте настройки безопасности вашего провайдера.")}'
                         },
                         status=status.HTTP_400_BAD_REQUEST
                     )
                 elif "invalid credentials" in error_str:
                     return Response(
                         {
-                            'error': f'Invalid email or password for {email_address}. If 2FA is enabled, use an application-specific password or OAuth token.'
+                            'ошибка': f'Неверный адрес электронной почты или пароль для {email_address}. Если включена двухфакторная аутентификация, используйте пароль приложения или токен OAuth.'
                         },
                         status=status.HTTP_400_BAD_REQUEST
                     )
                 else:
                     return Response(
                         {
-                            'error': f'IMAP login failed for {email_address}: {str(e)}. Please check your credentials or account settings.'
+                            'ошибка': f'Не удалось войти в IMAP для {email_address}: {str(e)}. Проверьте учетные данные или настройки аккаунта.'
                         },
                         status=status.HTTP_400_BAD_REQUEST
                     )
             except Exception as e:
-                logger.error(f"Unexpected error during IMAP validation for {email_address}: {str(e)}", exc_info=True)
+                logger.error(f"Непредвиденная ошибка при проверке IMAP для {email_address}: {str(e)}", exc_info=True)
                 return Response(
                     {
-                        'error': f'Failed to validate IMAP credentials for {email_address}: {str(e)}'
+                        'ошибка': f'Не удалось проверить учетные данные IMAP для {email_address}: {str(e)}'
                     },
                     status=status.HTTP_400_BAD_REQUEST
                 )
@@ -217,11 +217,11 @@ class AddEmailAccountView(APIView):
                     try:
                         fetch_email_avatar(email_account)
                     except Exception as e:
-                        logger.error(f"Failed to fetch avatar for {email_address}: {str(e)}", exc_info=True)
+                        logger.error(f"Не удалось получить аватар для {email_address}: {str(e)}", exc_info=True)
                         email_account.avatar = '/images/mail/default-avatar.png'
                         email_account.save()
                     fetch_emails_task.delay(email_account.email_account_id, force_refresh=True)
-                    logger.info(f"Scheduled async email fetch for {email_account.email_address}")
+                    logger.info(f"Запланирована асинхронная загрузка писем для {email_account.email_address}")
 
                     client_ip = get_client_ip(request)
                     AuditLog.objects.create(
@@ -231,7 +231,7 @@ class AddEmailAccountView(APIView):
                         ip_address=client_ip,
                         timestamp=timezone.now()
                     )
-                    logger.info(f"Email account {email_account.email_address} added for user {user.user_id}")
+                    logger.info(f"Почтовый аккаунт {email_account.email_address} добавлен для пользователя {user.user_id}")
 
                 serializer = UserEmailAccountSerializer(email_account)
                 return Response(
@@ -240,16 +240,16 @@ class AddEmailAccountView(APIView):
                 )
 
             except Exception as e:
-                logger.error(f"Error creating email account for {email_address}: {str(e)}", exc_info=True)
+                logger.error(f"Ошибка создания почтового аккаунта для {email_address}: {str(e)}", exc_info=True)
                 return Response(
-                    {'error': f'Failed to create email account: {str(e)}'},
+                    {'ошибка': f'Не удалось создать почтовый аккаунт: {str(e)}'},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
 
         except Exception as e:
-            logger.error(f"Unexpected error in AddEmailAccountView for user {user.user_id}: {str(e)}", exc_info=True)
+            logger.error(f"Непредвиденная ошибка в AddEmailAccountView для пользователя {user.user_id}: {str(e)}", exc_info=True)
             return Response(
-                {'error': 'Internal server error'},
+                {'ошибка': 'Внутренняя ошибка сервера'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
@@ -260,12 +260,12 @@ class EmailServiceView(APIView):
         try:
             services = EmailService.objects.all()
             serializer = EmailServiceSerializer(services, many=True)
-            logger.debug(f"GET /api/mail/email-services/ by user {request.user.user_id}")
+            logger.debug(f"GET /api/mail/email-services/ пользователем {request.user.user_id}")
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f"Error fetching email services: {str(e)}")
+            logger.error(f"Ошибка получения почтовых сервисов: {str(e)}")
             return Response(
-                {'error': 'Internal server error'},
+                {'ошибка': 'Внутренняя ошибка сервера'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
@@ -274,7 +274,7 @@ class FetchEmailView(APIView):
 
     def get(self, request):
         try:
-            logger.debug(f"GET /api/mail/fetch/ by user {request.user.user_id} with params: {request.query_params}")
+            logger.debug(f"GET /api/mail/fetch/ пользователем {request.user.user_id} с параметрами: {request.query_params}")
             force_refresh = request.query_params.get('force_refresh', 'false').lower() == 'true'
             page = int(request.query_params.get('page', 1))
             page_size = int(request.query_params.get('page_size', 20))
@@ -292,30 +292,30 @@ class FetchEmailView(APIView):
                     emails = emails.filter(
                         folder_assignments__folder__folder_name__iexact=folder_name
                     ).distinct()
-                    logger.debug(f"Filtering emails for folder: {folder_name}")
+                    logger.debug(f"Фильтрация писем по папке: {folder_name}")
                 else:
                     logger.warning(
-                        f"Folder '{folder_name}' not found for user {request.user.user_id}. Returning empty email list.")
+                        f"Папка '{folder_name}' не найдена для пользователя {request.user.user_id}. Возвращён пустой список писем.")
                     emails = Emails.objects.none()
             if service_name:
                 emails = emails.filter(email_account__service__service_name=service_name)
-                logger.debug(f"Filtering emails for service: {service_name}")
+                logger.debug(f"Фильтрация писем по сервису: {service_name}")
             if search_query:
                 emails = emails.filter(
                     Q(subject__icontains=search_query) |
                     Q(sender__icontains=search_query) |
                     Q(body__icontains=search_query)
                 )
-                logger.debug(f"Applying search query: {search_query}")
+                logger.debug(f"Применён поисковый запрос: {search_query}")
             if filter_param == 'sort-az':
                 emails = emails.order_by('subject')
-                logger.debug("Sorting emails A-Z")
+                logger.debug("Сортировка писем по алфавиту")
             elif filter_param == 'sort-date':
                 emails = emails.order_by('-sent_date')
-                logger.debug("Sorting emails by date")
+                logger.debug("Сортировка писем по дате отправки")
             else:
                 emails = emails.order_by('-received_date')
-                logger.debug("Sorting emails by received date (default)")
+                logger.debug("Сортировка писем по дате получения (по умолчанию)")
             total_emails = emails.count()
             unread_count = emails.filter(status='unread').count()
             unread_counts_by_service = Emails.objects.filter(
@@ -328,7 +328,7 @@ class FetchEmailView(APIView):
                 item['email_account__service__service_name']: item['count']
                 for item in unread_counts_by_service
             }
-            logger.debug(f"Unread counts by service for user {request.user.user_id}: {unread_counts_by_service}")
+            logger.debug(f"Количество непрочитанных писем по сервисам для пользователя {request.user.user_id}: {unread_counts_by_service}")
             unread_counts_by_folder = Emails.objects.filter(
                 email_account__user=request.user,
                 status='unread',
@@ -346,13 +346,13 @@ class FetchEmailView(APIView):
             ).count()
             unread_counts_by_folder['Входящие'] = unread_counts_by_folder.get('Входящие', 0) or inbox_unread_count
 
-            logger.debug(f"Unread counts by folder for user {request.user.user_id}: {unread_counts_by_folder}")
+            logger.debug(f"Количество непрочитанных писем по папкам для пользователя {request.user.user_id}: {unread_counts_by_folder}")
             paginator = Paginator(emails, page_size)
             try:
                 page_obj = paginator.page(page)
             except:
-                logger.error(f"Invalid page number: {page}")
-                return Response({'error': 'Invalid page number'}, status=status.HTTP_400_BAD_REQUEST)
+                logger.error(f"Неверный номер страницы: {page}")
+                return Response({'ошибка': 'Неверный номер страницы'}, status=status.HTTP_400_BAD_REQUEST)
             email_serializer = EmailSerializer(page_obj, many=True)
             folder_serializer = MailFolderSerializer(
                 MailFolder.objects.filter(email_account__user=request.user),
@@ -373,38 +373,38 @@ class FetchEmailView(APIView):
                 email_accounts = UserEmailAccount.objects.filter(user=request.user)
                 if service_name:
                     email_accounts = email_accounts.filter(service__service_name=service_name)
-                logger.debug(f"Found {len(email_accounts)} email accounts for user {request.user.user_id}")
+                logger.debug(f"Найдено {len(email_accounts)} почтовых аккаунтов для пользователя {request.user.user_id}")
                 for email_account in email_accounts:
                     fetch_emails_task.delay(email_account.email_account_id, force_refresh=True)
-                    logger.info(f"Scheduled async email fetch for {email_account.email_address}")
+                    logger.info(f"Запланирована асинхронная загрузка писем для {email_account.email_address}")
 
             if not emails.exists():
                 logger.info(
-                    f"No emails found for user {request.user.user_id} with filters: folder_name={folder_name}, service_name={service_name}, search={search_query}")
+                    f"Письма не найдены для пользователя {request.user.user_id} с фильтрами: folder_name={folder_name}, service_name={service_name}, search={search_query}")
             return Response(response_data, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f"Error fetching emails for user {request.user.user_id}: {str(e)}", exc_info=True)
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка получения писем для пользователя {request.user.user_id}: {str(e)}", exc_info=True)
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class EmailAccountListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         try:
-            logger.debug(f"GET /api/mail/email-accounts/ by user {request.user.user_id}")
+            logger.debug(f"GET /api/mail/email-accounts/ пользователем {request.user.user_id}")
             email_accounts = UserEmailAccount.objects.filter(user=request.user)
             serializer = UserEmailAccountSerializer(email_accounts, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f"Error fetching email accounts for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка получения почтовых аккаунтов для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class EmailDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, email_id):
         try:
-            logger.debug(f"GET /api/mail/emails/{email_id}/ by user {request.user.user_id}")
+            logger.debug(f"GET /api/mail/emails/{email_id}/ пользователем {request.user.user_id}")
             email_obj = Emails.objects.get(email_id=email_id, email_account__user=request.user)
             recipients = Email_Recipients.objects.filter(email=email_obj)
             recipient_addresses = {
@@ -425,21 +425,21 @@ class EmailDetailView(APIView):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Emails.DoesNotExist:
-            logger.error(f"Email {email_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Email not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Письмо {email_id} не найдено для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Письмо не найдено'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error fetching email {email_id} for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка получения письма {email_id} для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def patch(self, request, email_id):
         try:
-            logger.debug(f"PATCH /api/mail/emails/{email_id}/ by user {request.user.user_id}")
+            logger.debug(f"PATCH /api/mail/emails/{email_id}/ пользователем {request.user.user_id}")
             email_obj = Emails.objects.get(email_id=email_id, email_account__user=request.user)
             status_value = request.data.get('status')
             if status_value not in ['read', 'unread']:
-                logger.error(f"Invalid status value: {status_value}")
+                logger.error(f"Недопустимое значение статуса: {status_value}")
                 return Response(
-                    {'error': 'Invalid status value. Must be "read" or "unread"'},
+                    {'ошибка': 'Недопустимое значение статуса. Должно быть "прочитано" или "непрочитано"'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
             email_obj.status = status_value
@@ -453,18 +453,18 @@ class EmailDetailView(APIView):
                 ip_address=client_ip,
                 timestamp=timezone.now()
             )
-            logger.info(f"Email {email_id} status updated to {status_value} for user {request.user.user_id}")
-            return Response({'status': email_obj.status}, status=status.HTTP_200_OK)
+            logger.info(f"Статус письма {email_id} изменён на {status_value} для пользователя {request.user.user_id}")
+            return Response({'статус': email_obj.status}, status=status.HTTP_200_OK)
         except Emails.DoesNotExist:
-            logger.error(f"Email {email_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Email not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Письмо {email_id} не найдено для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Письмо не найдено'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error updating email {email_id} for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка обновления письма {email_id} для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request, email_id):
         try:
-            logger.debug(f"DELETE /api/mail/emails/{email_id}/ by user {request.user.user_id}")
+            logger.debug(f"DELETE /api/mail/emails/{email_id}/ пользователем {request.user.user_id}")
             email_obj = Emails.objects.get(email_id=email_id, email_account__user=request.user)
             with transaction.atomic():
                 Email_Recipients.objects.filter(email=email_obj).delete()
@@ -480,45 +480,45 @@ class EmailDetailView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-            logger.info(f"Email {email_id} deleted for user {request.user.user_id}")
+            logger.info(f"Письмо {email_id} удалено для пользователя {request.user.user_id}")
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Emails.DoesNotExist:
-            logger.error(f"Email {email_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Email not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Письмо {email_id} не найдено для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Письмо не найдено'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error deleting email {email_id} for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка удаления письма {email_id} для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class EmailFolderAssignmentView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
-            logger.debug(f"POST /api/mail/emails/assign-folder/ by user {request.user.user_id}")
+            logger.debug(f"POST /api/mail/emails/assign-folder/ пользователем {request.user.user_id}")
             email_ids = request.data.get('email_ids', [])
             folder_id = request.data.get('folder_id')
 
             if not email_ids or not folder_id:
-                logger.error("Missing email_ids or folder_id")
+                logger.error("Отсутствуют email_ids или folder_id")
                 return Response(
-                    {'error': 'email_ids and folder_id are required'},
+                    {'ошибка': 'email_ids и folder_id обязательны'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             try:
                 folder = MailFolder.objects.get(folder_id=folder_id, email_account__user=request.user)
             except MailFolder.DoesNotExist:
-                logger.error(f"Folder {folder_id} not found for user {request.user.user_id}")
+                logger.error(f"Папка {folder_id} не найдена для пользователя {request.user.user_id}")
                 return Response(
-                    {'error': 'Folder not found'},
+                    {'ошибка': 'Папка не найдена'},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
             emails = Emails.objects.filter(email_id__in=email_ids, email_account__user=request.user)
             if not emails.exists():
-                logger.error(f"No valid emails found for IDs: {email_ids}")
+                logger.error(f"Валидные письма не найдены для ID: {email_ids}")
                 return Response(
-                    {'error': 'No valid emails found'},
+                    {'ошибка': 'Валидные письма не найдены'},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
@@ -537,12 +537,12 @@ class EmailFolderAssignmentView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Emails {email_ids} assigned to folder {folder_id} for user {request.user.user_id}")
+                logger.info(f"Письма {email_ids} назначены в папку {folder_id} для пользователя {request.user.user_id}")
 
-            return Response({'status': 'Emails assigned to folder'}, status=status.HTTP_200_OK)
+            return Response({'статус': 'Письма назначены в папку'}, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f"Error assigning emails to folder for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка назначения писем в папку для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class AssignCategoriesView(APIView):
     permission_classes = [IsAuthenticated]
@@ -550,20 +550,20 @@ class AssignCategoriesView(APIView):
     def post(self, request):
         try:
             logger.debug(
-                f"POST /api/mail/emails/assign-categories/ by user {request.user.user_id} with data: {request.data}")
+                f"POST /api/mail/emails/assign-categories/ пользователем {request.user.user_id} с данными: {request.data}")
             serializer = AssignCategoriesSerializer(data=request.data, many=True)
             if not serializer.is_valid():
-                logger.error(f"Invalid data for category assignment: {serializer.errors}")
+                logger.error(f"Неверные данные для назначения категории: {serializer.errors}")
                 return Response(
-                    {'error': 'Invalid data', 'details': serializer.errors},
+                    {'ошибка': 'Неверные данные', 'детали': serializer.errors},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             assignments = serializer.validated_data
             if not assignments:
-                logger.warning("No assignments provided")
+                logger.warning("Назначения не указаны")
                 return Response(
-                    {'error': 'No assignments provided'},
+                    {'ошибка': 'Назначения не указаны'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
@@ -584,9 +584,9 @@ class AssignCategoriesView(APIView):
                 if assignment['email_id'] not in email_id_set or assignment['folder_id'] not in folder_id_set
             ]
             if invalid_assignments:
-                logger.error(f"Invalid assignments: {invalid_assignments}")
+                logger.error(f"Недопустимые назначения: {invalid_assignments}")
                 return Response(
-                    {'error': 'Some email_ids or folder_ids are invalid or not accessible'},
+                    {'ошибка': 'Некоторые email_ids или folder_ids недействительны или недоступны'},
                     status=status.HTTP_404_NOT_FOUND
                 )
             created_count = 0
@@ -621,24 +621,24 @@ class AssignCategoriesView(APIView):
                                 ip_address=client_ip,
                                 timestamp=timezone.now()
                             )
-                            logger.info(f"Created {created_count} new category assignments for user {request.user.user_id}")
+                            logger.info(f"Создано {created_count} новых назначений категорий для пользователя {request.user.user_id}")
                         else:
-                            logger.debug("No new assignments needed; all requested assignments already exist")
+                            logger.debug("Новые назначения не требуются; все запрошенные назначения уже существуют")
                     break
                 except OperationalError as e:
                     if '1213' in str(e):
-                        logger.warning(f"Deadlock detected on attempt {attempt + 1}/{max_retries}. Retrying...")
+                        logger.warning(f"Обнаружен deadlock на попытке {attempt + 1}/{max_retries}. Повторная попытка...")
                         time.sleep(0.5 * (attempt + 1))
                         if attempt == max_retries - 1:
-                            logger.error(f"Failed to assign categories after {max_retries} attempts: {str(e)}")
+                            logger.error(f"Не удалось назначить категории после {max_retries} попыток: {str(e)}")
                             raise
                     else:
-                        logger.error(f"Database error during category assignment: {str(e)}")
+                        logger.error(f"Ошибка базы данных при назначении категорий: {str(e)}")
                         raise
-            return Response({'status': f'{created_count} categories assigned successfully'}, status=status.HTTP_200_OK)
+            return Response({'статус': f'{created_count} категорий успешно назначено'}, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f"Error assigning categories for user {request.user.user_id}: {str(e)}", exc_info=True)
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка назначения категорий для пользователя {request.user.user_id}: {str(e)}", exc_info=True)
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class DeleteEmailAccountView(APIView):
     permission_classes = [IsAuthenticated]
@@ -659,26 +659,26 @@ class DeleteEmailAccountView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Email account {email_account.email_address} deleted for user {request.user.user_id}")
+                logger.info(f"Почтовый аккаунт {email_account.email_address} удалён для пользователя {request.user.user_id}")
             return Response(status=status.HTTP_204_NO_CONTENT)
         except UserEmailAccount.DoesNotExist:
-            logger.error(f"Email account {email_account_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Email account not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Почтовый аккаунт {email_account_id} не найден для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Почтовый аккаунт не найден'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error deleting email account {email_account_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка удаления почтового аккаунта {email_account_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class FolderCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
-            logger.debug(f"POST /api/mail/folders/ by user {request.user.user_id} with data: {request.data}")
+            logger.debug(f"POST /api/mail/folders/ пользователем {request.user.user_id} с данными: {request.data}")
             serializer = MailFolderSerializer(data=request.data)
             if not serializer.is_valid():
-                logger.error(f"Invalid data for folder creation: {serializer.errors}")
+                logger.error(f"Неверные данные для создания папки: {serializer.errors}")
                 return Response(
-                    {'error': 'Invalid data', 'details': serializer.errors},
+                    {'ошибка': 'Неверные данные', 'детали': serializer.errors},
                     status=status.HTTP_400_BAD_REQUEST
                 )
             email_account_id = serializer.validated_data['email_account'].email_account_id
@@ -686,9 +686,9 @@ class FolderCreateView(APIView):
                     email_account_id=email_account_id,
                     user=request.user
             ).exists():
-                logger.error(f"Email account {email_account_id} not found for user {request.user.user_id}")
+                logger.error(f"Почтовый аккаунт {email_account_id} не найден для пользователя {request.user.user_id}")
                 return Response(
-                    {'error': 'Email account not found or not authorized'},
+                    {'ошибка': 'Почтовый аккаунт не найден или не авторизован'},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
@@ -702,19 +702,19 @@ class FolderCreateView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Folder {folder.folder_name} created for user {request.user.user_id}")
+                logger.info(f"Папка {folder.folder_name} создана для пользователя {request.user.user_id}")
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
-            logger.error(f"Error creating folder for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка создания папки для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class FolderDeleteView(APIView):
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, folder_id):
         try:
-            logger.debug(f"DELETE /api/mail/folders/{folder_id}/ by user {request.user.user_id}")
+            logger.debug(f"DELETE /api/mail/folders/{folder_id}/ пользователем {request.user.user_id}")
             folder = MailFolder.objects.get(
                 folder_id=folder_id,
                 email_account__user=request.user
@@ -732,26 +732,26 @@ class FolderDeleteView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Folder {folder_name} (ID: {folder_id}) deleted for user {request.user.user_id}")
+                logger.info(f"Папка {folder_name} (ID: {folder_id}) удалена для пользователя {request.user.user_id}")
             return Response(status=status.HTTP_204_NO_CONTENT)
         except MailFolder.DoesNotExist:
-            logger.error(f"Folder {folder_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Folder not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Папка {folder_id} не найдена для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Папка не найдена'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error deleting folder {folder_id} for user {request.user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка удаления папки {folder_id} для пользователя {request.user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class TranslateEmailView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
-            logger.debug(f"POST /api/translate/ by user {request.user.user_id} with data: {request.data}")
+            logger.debug(f"POST /api/translate/ пользователем {request.user.user_id} с данными: {request.data}")
             serializer = TranslateEmailSerializer(data=request.data)
             if not serializer.is_valid():
-                logger.error(f"Invalid data for translation: {serializer.errors}")
+                logger.error(f"Неверные данные для перевода: {serializer.errors}")
                 return Response(
-                    {'error': 'Invalid data', 'details': serializer.errors},
+                    {'ошибка': 'Неверные данные', 'детали': serializer.errors},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
@@ -776,43 +776,43 @@ class TranslateEmailView(APIView):
                 response_data = translation_response.json()
                 translated_text = response_data.get('translations', [{}])[0].get('text')
                 if not translated_text:
-                    logger.error("Yandex Translate API returned empty response")
+                    logger.error("API перевода Yandex вернул пустой ответ")
                     return Response(
-                        {'error': 'Translation service returned empty response'},
+                        {'ошибка': 'Сервис перевода вернул пустой ответ'},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR
                     )
             except requests.HTTPError as e:
                 if e.response.status_code == 401:
-                    logger.error(f"Yandex Translate API unauthorized: {e.response.text}")
+                    logger.error(f"API перевода Yandex: ошибка авторизации: {e.response.text}")
                     return Response(
                         {
-                            'error': 'Translation service authentication failed. Check API key and permissions.',
-                            'details': e.response.text
+                            'ошибка': 'Ошибка аутентификации сервиса перевода. Проверьте API-ключ и права доступа.',
+                            'детали': e.response.text
                         },
                         status=status.HTTP_401_UNAUTHORIZED
                     )
                 elif e.response.status_code == 403:
-                    logger.error(f"Yandex Translate API forbidden: {e.response.text}")
+                    logger.error(f"API перевода Yandex: доступ запрещён: {e.response.text}")
                     return Response(
                         {
-                            'error': 'Translation service access denied. Check service subscription or folder ID.',
-                            'details': e.response.text
+                            'ошибка': 'Доступ к сервису перевода запрещён. Проверьте подписку или ID папки.',
+                            'детали': e.response.text
                         },
                         status=status.HTTP_403_FORBIDDEN
                     )
                 else:
-                    logger.error(f"Yandex Translate API error: {e.response.status_code} - {e.response.text}")
+                    logger.error(f"Ошибка API перевода Yandex: {e.response.status_code} - {e.response.text}")
                     return Response(
                         {
-                            'error': 'Translation service error.',
-                            'details': e.response.text
+                            'ошибка': 'Ошибка сервиса перевода.',
+                            'детали': e.response.text
                         },
                         status=status.HTTP_503_SERVICE_UNAVAILABLE
                     )
             except requests.RequestException as e:
-                logger.error(f"Error connecting to Yandex Translate API: {str(e)}")
+                logger.error(f"Ошибка подключения к API перевода Yandex: {str(e)}")
                 return Response(
-                    {'error': 'Failed to connect to translation service'},
+                    {'ошибка': 'Не удалось подключиться к сервису перевода'},
                     status=status.HTTP_503_SERVICE_UNAVAILABLE
                 )
             client_ip = get_client_ip(request)
@@ -823,17 +823,17 @@ class TranslateEmailView(APIView):
                 ip_address=client_ip,
                 timestamp=timezone.now()
             )
-            logger.info(f"Text translated to {target_language} for user {request.user.user_id}")
+            logger.info(f"Текст переведён на {target_language} для пользователя {request.user.user_id}")
 
             return Response(
-                {'translated_text': translated_text},
+                {'переведённый_текст': translated_text},
                 status=status.HTTP_200_OK
             )
 
         except Exception as e:
-            logger.error(f"Error translating text for user {request.user.user_id}: {str(e)}", exc_info=True)
+            logger.error(f"Ошибка перевода текста для пользователя {request.user.user_id}: {str(e)}", exc_info=True)
             return Response(
-                {'error': 'Internal server error'},
+                {'ошибка': 'Внутренняя ошибка сервера'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
@@ -842,17 +842,17 @@ class SendEmailView(APIView):
 
     def post(self, request):
         try:
-            logger.debug(f"POST /api/mail/send/ by user {request.user.user_id} with data: {request.data}")
+            logger.debug(f"POST /api/mail/send/ пользователем {request.user.user_id} с данными: {request.data}")
             serializer = SendEmailSerializer(data=request.data)
             if not serializer.is_valid():
-                logger.error(f"Invalid data for sending email: {serializer.errors}")
+                logger.error(f"Неверные данные для отправки письма: {serializer.errors}")
                 return Response(
-                    {'error': 'Invalid data', 'details': serializer.errors},
+                    {'ошибка': 'Неверные данные', 'детали': serializer.errors},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             recipient = serializer.validated_data['recipient']
-            subject = serializer.validated_data['subject'] or 'No Subject'
+            subject = serializer.validated_data['subject'] or 'Без темы'
             body = serializer.validated_data['body'] or ''
             email_account_id = serializer.validated_data.get('email_account_id')
             attachments = serializer.validated_data.get('attachments', [])
@@ -863,20 +863,20 @@ class SendEmailView(APIView):
                         user=request.user
                     )
                 except UserEmailAccount.DoesNotExist:
-                    logger.error(f"Email account {email_account_id} not found for user {request.user.user_id}")
+                    logger.error(f"Почтовый аккаунт {email_account_id} не найден для пользователя {request.user.user_id}")
                     return Response(
-                        {'error': 'Email account not found or not authorized'},
+                        {'ошибка': 'Почтовый аккаунт не найден или не авторизован'},
                         status=status.HTTP_404_NOT_FOUND
                     )
             else:
                 email_account = UserEmailAccount.objects.filter(user=request.user).first()
                 if not email_account:
-                    logger.error(f"No email accounts found for user {request.user.user_id}")
+                    logger.error(f"Почтовые аккаунты не найдены для пользователя {request.user.user_id}")
                     return Response(
-                        {'error': 'No email accounts configured for sending'},
+                        {'ошибка': 'Не настроены почтовые аккаунты для отправки'},
                         status=status.HTTP_400_BAD_REQUEST
                     )
-                logger.debug(f"No email_account_id provided; using default account: {email_account.email_address}")
+                logger.debug(f"Не указан email_account_id; используется аккаунт по умолчанию: {email_account.email_address}")
             msg = MIMEMultipart()
             msg['From'] = email_account.email_address
             msg['To'] = recipient
@@ -899,9 +899,9 @@ class SendEmailView(APIView):
                         'file_size': file.size
                     })
                 except Exception as e:
-                    logger.error(f"Error processing attachment {file.name}: {str(e)}")
+                    logger.error(f"Ошибка обработки вложения {file.name}: {str(e)}")
                     return Response(
-                        {'error': f'Failed to process attachment: {file.name}'},
+                        {'ошибка': f'Не удалось обработать вложение: {file.name}'},
                         status=status.HTTP_400_BAD_REQUEST
                     )
             smtp_server = email_account.service.smtp_server
@@ -910,7 +910,7 @@ class SendEmailView(APIView):
 
             try:
                 if service_name == 'gmail' and email_account.oauth_token and GOOGLE_AUTH_AVAILABLE:
-                    logger.debug(f"Using OAuth2 for SMTP authentication for {email_account.email_address}")
+                    logger.debug(f"Использование OAuth2 для SMTP-аутентификации для {email_account.email_address}")
                     smtp = smtplib.SMTP(smtp_server, smtp_port)
                     smtp.ehlo()
                     smtp.starttls()
@@ -920,11 +920,11 @@ class SendEmailView(APIView):
                     smtp.sendmail(email_account.email_address, recipient, msg.as_string())
                     smtp.quit()
                 else:
-                    logger.debug(f"Using password authentication for SMTP for {email_account.email_address}")
+                    logger.debug(f"Использование аутентификации по паролю для SMTP для {email_account.email_address}")
                     if not email_account.password:
-                        logger.error(f"No password available for {email_account.email_address}")
+                        logger.error(f"Пароль отсутствует для {email_account.email_address}")
                         return Response(
-                            {'error': 'Password required for SMTP authentication'},
+                            {'ошибка': 'Пароль необходим для SMTP-аутентификации'},
                             status=status.HTTP_400_BAD_REQUEST
                         )
                     if smtp_port == 587:
@@ -975,7 +975,7 @@ class SendEmailView(APIView):
                             folder=sent_folder
                         )
                 client_ip = get_client_ip(request)
-                attachment_log = f", {len(attachment_details)} attachments (total size: {(sum(a['file_size'] for a in attachment_details) / 1024 / 1024):.2f} MB)" if attachment_details else ""
+                attachment_log = f", {len(attachment_details)} вложений (общий размер: {(sum(a['file_size'] for a in attachment_details) / 1024 / 1024):.2f} МБ)" if attachment_details else ""
                 AuditLog.objects.create(
                     user=request.user,
                     action='Отправка письма',
@@ -983,55 +983,55 @@ class SendEmailView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Email sent from {email_account.email_address} to {recipient} by user {request.user.user_id} with {len(attachment_details)} attachments")
+                logger.info(f"Письмо отправлено с {email_account.email_address} на {recipient} пользователем {request.user.user_id} с {len(attachment_details)} вложениями")
 
                 return Response(
-                    {'status': 'Email sent successfully'},
+                    {'статус': 'Письмо успешно отправлено'},
                     status=status.HTTP_200_OK
                 )
 
             except smtplib.SMTPAuthenticationError as e:
-                logger.error(f"SMTP authentication failed for {email_account.email_address}: {str(e)}")
+                logger.error(f"Ошибка SMTP-аутентификации для {email_account.email_address}: {str(e)}")
                 error_str = str(e).lower()
                 if "application-specific password required" in error_str or "neobhodim parol prilozheniya" in error_str:
                     provider_instructions = {
-                        'mail.ru': 'Go to Mail.ru account settings > Security > App passwords to generate an app-specific password.',
-                        'gmail': 'Go to Google Account > Security > 2-Step Verification > App passwords to generate an app-specific password, or use OAuth 2.0.'
+                        'mail.ru': 'Перейдите в настройки учетной записи Mail.ru > Безопасность > Пароли приложений, чтобы сгенерировать пароль для конкретного приложения.',
+                        'gmail': 'Перейдите в «Аккаунт Google» > «Безопасность» > «Двухэтапная проверка» > «Пароли приложений», чтобы сгенерировать пароль для конкретного приложения, или используйте OAuth 2.0.'
                     }
                     return Response(
                         {
-                            'error': f'An application-specific password is required for {service_name}. {provider_instructions.get(service_name, "Check your provider’s security settings.")}'
+                            'ошибка': f'Для {service_name} требуется пароль для конкретного приложения. {provider_instructions.get(service_name, "Проверьте настройки безопасности вашего провайдера.")}'
                         },
                         status=status.HTTP_400_BAD_REQUEST
                     )
                 elif "invalid credentials" in error_str or "authentication failed" in error_str:
                     return Response(
                         {
-                            'error': f'Invalid credentials for {email_account.email_address}. If 2FA is enabled, use an application-specific password or OAuth token.'
+                            'ошибка': f'Неверные учетные данные для {email_account.email_address}. Если включена двухфакторная аутентификация, используйте пароль приложения или токен OAuth.'
                         },
                         status=status.HTTP_400_BAD_REQUEST
                     )
                 else:
                     return Response(
-                        {'error': 'SMTP authentication failed. Please check your credentials.'},
+                        {'ошибка': 'Ошибка SMTP-аутентификации. Проверьте учетные данные.'},
                         status=status.HTTP_400_BAD_REQUEST
                     )
             except smtplib.SMTPException as e:
-                logger.error(f"SMTP error sending email from {email_account.email_address}: {str(e)}")
+                logger.error(f"Ошибка SMTP при отправке письма с {email_account.email_address}: {str(e)}")
                 return Response(
-                    {'error': 'Failed to send email due to SMTP error.'},
+                    {'ошибка': 'Не удалось отправить письмо из-за ошибки SMTP.'},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
             except Exception as e:
-                logger.error(f"Unexpected error sending email from {email_account.email_address}: {str(e)}")
+                logger.error(f"Непредвиденная ошибка при отправке письма с {email_account.email_address}: {str(e)}")
                 return Response(
-                    {'error': 'Internal server error'},
+                    {'ошибка': 'Внутренняя ошибка сервера'},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
 
         except Exception as e:
-            logger.error(f"Error processing send email request for user {request.user.user_id}: {str(e)}")
+            logger.error(f"Ошибка обработки запроса на отправку письма для пользователя {request.user.user_id}: {str(e)}")
             return Response(
-                {'error': 'Internal server error'},
+                {'ошибка': 'Внутренняя ошибка сервера'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

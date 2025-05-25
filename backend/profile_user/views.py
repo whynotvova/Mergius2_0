@@ -20,17 +20,17 @@ def get_client_ip(request):
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0].strip()
     else:
-        ip = request.META.get('REMOTE_ADDR', 'unknown')
+        ip = request.META.get('REMOTE_ADDR', 'неизвестный')
 
-    if ip in ('127.0.0.1', '::1', 'unknown'):
+    if ip in ('127.0.0.1', '::1', 'неизвестный'):
         try:
             response = requests.get('https://api.ipify.org?format=json', timeout=5)
             response.raise_for_status()
             ip_data = response.json()
-            ip = ip_data.get('ip', 'unknown')
+            ip = ip_data.get('ip', 'неизвестный')
         except requests.RequestException as e:
-            logger.error(f"Error fetching public IP: {str(e)}")
-            ip = 'unknown'
+            logger.error(f"Ошибка получения общедоступного IP-адреса: {str(e)}")
+            ip = 'неизвестный'
     return ip
 
 
@@ -39,13 +39,13 @@ class UserProfileView(APIView):
 
     def get(self, request):
         user = request.user
-        logger.debug(f"GET /api/profile/ by user {user.user_id}")
+        logger.debug(f"GET /api/profile/ пользователем {user.user_id}")
         serializer = UserProfileSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request):
         user = request.user
-        logger.debug(f"DELETE /api/profile/ by user {user.user_id}")
+        logger.debug(f"DELETE /api/profile/ пользователем {user.user_id}")
         try:
             client_ip = get_client_ip(request)
             AuditLog.objects.create(
@@ -56,11 +56,11 @@ class UserProfileView(APIView):
                 timestamp=timezone.now()
             )
             user.delete()
-            logger.info(f"User account {user.user_id} deleted")
-            return Response({'message': 'Account deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+            logger.info(f"Аккаунт пользователя {user.user_id} удалён")
+            return Response({'сообщение': 'Аккаунт успешно удалён'}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
-            logger.error(f"Error deleting account for user {user.user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка удаления аккаунта пользователя {user.user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class MailFolderView(APIView):
@@ -68,7 +68,7 @@ class MailFolderView(APIView):
 
     def get(self, request):
         user = request.user
-        logger.debug(f"GET /api/profile/folders/ by user {user.user_id}")
+        logger.debug(f"GET /api/profile/folders/ пользователем {user.user_id}")
         email_accounts = UserEmailAccount.objects.filter(user=user)
         folders = MailFolder.objects.filter(email_account__in=email_accounts)
         serializer = MailFolderSerializer(folders, many=True)
@@ -76,7 +76,7 @@ class MailFolderView(APIView):
 
     def post(self, request):
         user = request.user
-        logger.debug(f"POST /api/profile/folders/ by user {user.user_id} with data: {request.data}")
+        logger.debug(f"POST /api/profile/folders/ пользователем {user.user_id} с данными: {request.data}")
         email_account = UserEmailAccount.objects.filter(user=user).first()
         if not email_account:
             email_service, created = EmailService.objects.get_or_create(
@@ -95,7 +95,7 @@ class MailFolderView(APIView):
                 email_address=f"{user.username or 'user'}_{user.user_id}@example.com",
                 created_at=timezone.now()
             )
-            logger.info(f"Created default email account for user {user.user_id}: {email_account.email_address}")
+            logger.info(f"Создан почтовый аккаунт по умолчанию для пользователя {user.user_id}: {email_account.email_address}")
 
         data = request.data.copy()
         data['email_account'] = email_account.email_account_id
@@ -110,17 +110,17 @@ class MailFolderView(APIView):
                 ip_address=client_ip,
                 timestamp=timezone.now()
             )
-            logger.info(f"Folder '{folder.folder_name}' created for user {user.user_id}")
+            logger.info(f"Папка '{folder.folder_name}' создана для пользователя {user.user_id}")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        logger.error(f"Serializer errors: {serializer.errors}")
+        logger.error(f"Ошибки сериализатора: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, folder_id):
         try:
             folder = MailFolder.objects.get(folder_id=folder_id, email_account__user=request.user)
         except MailFolder.DoesNotExist:
-            logger.error(f"Folder {folder_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Folder not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Папка {folder_id} не найдена для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Папка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = MailFolderSerializer(folder, data=request.data, partial=True)
         if serializer.is_valid():
@@ -133,17 +133,17 @@ class MailFolderView(APIView):
                 ip_address=client_ip,
                 timestamp=timezone.now()
             )
-            logger.info(f"Folder '{folder.folder_name}' updated for user {request.user.user_id}")
+            logger.info(f"Папка '{folder.folder_name}' обновлена для пользователя {request.user.user_id}")
             return Response(serializer.data, status=status.HTTP_200_OK)
-        logger.error(f"Serializer errors: {serializer.errors}")
+        logger.error(f"Ошибки сериализатора: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, folder_id):
         try:
             folder = MailFolder.objects.get(folder_id=folder_id, email_account__user=request.user)
         except MailFolder.DoesNotExist:
-            logger.error(f"Folder {folder_id} not found for user {request.user.user_id}")
-            return Response({'error': 'Folder not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Папка {folder_id} не найдена для пользователя {request.user.user_id}")
+            return Response({'ошибка': 'Папка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
         folder_name = folder.folder_name
         folder.delete()
@@ -155,7 +155,7 @@ class MailFolderView(APIView):
             ip_address=client_ip,
             timestamp=timezone.now()
         )
-        logger.info(f"Folder '{folder_name}' deleted for user {request.user.user_id}")
+        logger.info(f"Папка '{folder_name}' удалена для пользователя {request.user.user_id}")
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -163,15 +163,15 @@ class UserSettingsView(APIView):
     def get(self, request):
         user_id = request.data.get('user_id') or request.query_params.get('user_id')
         if not user_id:
-            logger.error("No user_id provided in GET /api/profile/settings/")
-            return Response({'error': 'user_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+            logger.error("Не указан user_id в GET /api/profile/settings/")
+            return Response({'ошибка': 'user_id обязателен'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             user = User.objects.get(user_id=user_id)
             logger.debug(
-                f"GET /api/profile/settings/ for user {user.user_id}, Origin: {request.META.get('HTTP_ORIGIN', 'unknown')}")
+                f"GET /api/profile/settings/ для пользователя {user.user_id}, Источник: {request.META.get('HTTP_ORIGIN', 'неизвестный')}")
             settings = User_Settings.objects.filter(user=user).first()
             if not settings:
-                logger.info(f"Creating new settings for user {user.user_id}")
+                logger.info(f"Создание новых настроек для пользователя {user.user_id}")
                 client_ip = get_client_ip(request)
                 settings = User_Settings.objects.create(
                     user=user,
@@ -185,28 +185,28 @@ class UserSettingsView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=light")
+                logger.info(f"Созданы настройки по умолчанию для пользователя {user.user_id}: language=ru, theme=light")
             serializer = UserSettingsSerializer(settings)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
-            logger.error(f"User with user_id {user_id} not found")
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Пользователь с user_id {user_id} не найден")
+            return Response({'ошибка': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error fetching settings for user_id {user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка получения настроек для user_id {user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def put(self, request):
         user_id = request.data.get('user_id')
         if not user_id:
-            logger.error("No user_id provided in PUT /api/profile/settings/")
-            return Response({'error': 'user_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+            logger.error("Не указан user_id в PUT /api/profile/settings/")
+            return Response({'ошибка': 'user_id обязателен'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             user = User.objects.get(user_id=user_id)
             logger.debug(
-                f"PUT /api/profile/settings/ for user {user.user_id} with data: {request.data}, Origin: {request.META.get('HTTP_ORIGIN', 'unknown')}")
+                f"PUT /api/profile/settings/ для пользователя {user.user_id} с данными: {request.data}, Источник: {request.META.get('HTTP_ORIGIN', 'неизвестный')}")
             settings = User_Settings.objects.filter(user=user).first()
             if not settings:
-                logger.info(f"Creating new settings for user {user.user_id}")
+                logger.info(f"Создание новых настроек для пользователя {user.user_id}")
                 client_ip = get_client_ip(request)
                 settings = User_Settings.objects.create(
                     user=user,
@@ -220,7 +220,7 @@ class UserSettingsView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Created default settings for user {user.user_id}: language=ru, theme=light")
+                logger.info(f"Созданы настройки по умолчанию для пользователя {user.user_id}: language=ru, theme=light")
 
             serializer = UserSettingsSerializer(settings, data=request.data, partial=True)
             if serializer.is_valid():
@@ -233,29 +233,29 @@ class UserSettingsView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Settings updated for user {user.user_id}: {request.data}")
+                logger.info(f"Настройки обновлены для пользователя {user.user_id}: {request.data}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            logger.error(f"Serializer errors: {serializer.errors}")
+            logger.error(f"Ошибки сериализатора: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
-            logger.error(f"User with user_id {user_id} not found")
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Пользователь с user_id {user_id} не найден")
+            return Response({'ошибка': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error updating settings for user_id {user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка обновления настроек для user_id {user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def post(self, request):
         user_id = request.data.get('user_id')
         if not user_id:
-            logger.error("No user_id provided in POST /api/profile/settings/")
-            return Response({'error': 'user_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+            logger.error("Не указан user_id в POST /api/profile/settings/")
+            return Response({'ошибка': 'user_id обязателен'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             user = User.objects.get(user_id=user_id)
             logger.debug(
-                f"POST /api/profile/settings/ for user {user.user_id} with data: {request.data}, Origin: {request.META.get('HTTP_ORIGIN', 'unknown')}")
+                f"POST /api/profile/settings/ для пользователя {user.user_id} с данными: {request.data}, Источник: {request.META.get('HTTP_ORIGIN', 'неизвестный')}")
             if User_Settings.objects.filter(user=user).exists():
-                logger.warning(f"Settings already exist for user {user.user_id}")
-                return Response({'error': 'Settings already exist for this user'}, status=status.HTTP_400_BAD_REQUEST)
+                logger.warning(f"Настройки уже существуют для пользователя {user.user_id}")
+                return Response({'ошибка': 'Настройки для этого пользователя уже существуют'}, status=status.HTTP_400_BAD_REQUEST)
 
             serializer = UserSettingsSerializer(data=request.data)
             if serializer.is_valid():
@@ -268,16 +268,16 @@ class UserSettingsView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Settings created for user {user.user_id}: {request.data}")
+                logger.info(f"Настройки созданы для пользователя {user.user_id}: {request.data}")
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-            logger.error(f"Serializer errors: {serializer.errors}")
+            logger.error(f"Ошибки сериализатора: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
-            logger.error(f"User with user_id {user_id} not found")
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            logger.error(f"Пользователь с user_id {user_id} не найден")
+            return Response({'ошибка': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.error(f"Error creating settings for user_id {user_id}: {str(e)}")
-            return Response({'error': 'Internal server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Ошибка создания настроек для user_id {user_id}: {str(e)}")
+            return Response({'ошибка': 'Внутренняя ошибка сервера'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class EmailServiceView(APIView):
@@ -287,12 +287,12 @@ class EmailServiceView(APIView):
         try:
             services = EmailService.objects.all()
             serializer = EmailServiceSerializer(services, many=True)
-            logger.debug(f"GET /api/mail/email-services/ by user {request.user.user_id}")
+            logger.debug(f"GET /api/mail/email-services/ пользователем {request.user.user_id}")
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f"Error fetching email services: {str(e)}")
+            logger.error(f"Ошибка получения почтовых сервисов: {str(e)}")
             return Response(
-                {'error': 'Internal server error'},
+                {'ошибка': 'Внутренняя ошибка сервера'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
@@ -308,28 +308,27 @@ class AddEmailAccountView(APIView):
             password = request.data.get('password')
 
             logger.debug(
-                f"POST /api/mail/email-accounts/add/ by user {user.user_id} with data: {{service_name: {service_name}, email_address: {email_address}}}")
-
+                f"POST /api/mail/email-accounts/add/ пользователем {user.user_id} с данными: {{service_name: {service_name}, email_address: {email_address}}}")
             if not all([service_name, email_address]):
-                logger.error("Missing required fields: service_name or email_address")
+                logger.error("Отсутствуют обязательные поля: service_name или email_address")
                 return Response(
-                    {'error': 'Service name and email address are required'},
+                    {'ошибка': 'Название сервиса и адрес электронной почты обязательны'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             try:
                 email_service = EmailService.objects.get(service_name=service_name)
             except EmailService.DoesNotExist:
-                logger.error(f"Email service '{service_name}' not found")
+                logger.error(f"Почтовый сервис '{service_name}' не найден")
                 return Response(
-                    {'error': f"Email service '{service_name}' not found"},
+                    {'ошибка': f"Почтовый сервис '{service_name}' не найден"},
                     status=status.HTTP_404_NOT_FOUND
                 )
 
             if UserEmailAccount.objects.filter(user=user, email_address=email_address).exists():
-                logger.error(f"Email address {email_address} already associated with user {user.user_id}")
+                logger.error(f"Адрес электронной почты {email_address} уже связан с пользователем {user.user_id}")
                 return Response(
-                    {'error': 'This email address is already associated with your account'},
+                    {'ошибка': 'Этот адрес электронной почты уже связан с вашим аккаунтом'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
@@ -341,9 +340,9 @@ class AddEmailAccountView(APIView):
                     imap.login(email_address, password)
                     imap.logout()
                 except Exception as e:
-                    logger.error(f"IMAP login failed for {email_address}: {str(e)}")
+                    logger.error(f"Ошибка входа IMAP для {email_address}: {str(e)}")
                     return Response(
-                        {'error': 'Invalid email or password'},
+                        {'ошибка': 'Неверный email или пароль'},
                         status=status.HTTP_400_BAD_REQUEST
                     )
 
@@ -366,16 +365,16 @@ class AddEmailAccountView(APIView):
                     ip_address=client_ip,
                     timestamp=timezone.now()
                 )
-                logger.info(f"Email account {email_address} added for user {user.user_id}")
+                logger.info(f"Почтовый аккаунт {email_address} добавлен для пользователя {user.user_id}")
 
             return Response(
-                {'message': f"Email account {email_address} added successfully"},
+                {'сообщение': f"Почтовый аккаунт {email_address} успешно добавлен"},
                 status=status.HTTP_201_CREATED
             )
 
         except Exception as e:
-            logger.error(f"Error adding email account for user {user.user_id}: {str(e)}")
+            logger.error(f"Ошибка добавления почтового аккаунта для пользователя {user.user_id}: {str(e)}")
             return Response(
-                {'error': 'Internal server error'},
+                {'ошибка': 'Внутренняя ошибка сервера'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

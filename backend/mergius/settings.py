@@ -4,6 +4,9 @@ Django settings for mergius project.
 
 from pathlib import Path
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -68,8 +71,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mergius.wsgi.application'
-
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -84,8 +85,6 @@ DATABASES = {
         },
     }
 }
-
-# Internationalization
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -104,8 +103,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
-
-# Authentication backends
 AUTHENTICATION_BACKENDS = (
     'Auth.backends.CustomAuthBackend',
     'social_core.backends.google.GoogleOAuth2',
@@ -151,27 +148,28 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
     'Auth.pipeline.save_token',
 )
-
-# Twilio settings
 SMSC_LOGIN = os.getenv('SMSC_LOGIN')
 SMSC_PASSWORD = os.getenv('SMSC_PASSWORD')
-
-# Yandex settings
 YANDEX_GPT_API_KEY = os.getenv('YANDEX_GPT_API_KEY')
 YANDEX_TRANSLATE_API_KEY = os.getenv('YANDEX_TRANSLATE_API_KEY')
 YANDEX_CLOUD_FOLDER_ID = os.getenv('YANDEX_CLOUD_FOLDER_ID')
-
-# Google OAuth credentials
 GOOGLE_OAUTH_CREDENTIALS = {
     'client_id': os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
     'client_secret': os.getenv('GOOGLE_OAUTH_CLIENT_SECRET'),
     'redirect_uri': os.getenv('GOOGLE_OAUTH_REDIRECT_URI', 'https://mergius.ru/oauth2callback'),
 }
-
-# Security settings for production
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('VK_CLIENT_ID')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('VK_CLIENT_SECRET')
+SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI = os.getenv('VK_REDIRECT_URI', 'https://mergius.ru/vk/callback/')
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['phone', 'first_name']
+SOCIAL_AUTH_VK_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'v': '5.199'}
 CSRF_COOKIE_SECURE = os.getenv('CSRF_COOKIE_SECURE', 'True') == 'True'
 SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'True') == 'True'
 SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'True') == 'True'
+
+# Log VK OAuth settings for debugging
+logger.debug(f"VK_CLIENT_ID: {SOCIAL_AUTH_VK_OAUTH2_KEY}")
+logger.debug(f"VK_REDIRECT_URI: {SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI}")
 
 # Celery settings
 CELERY_IMPORTS = (
