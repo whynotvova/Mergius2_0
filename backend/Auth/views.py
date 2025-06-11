@@ -7,7 +7,7 @@ from django.contrib.auth import login
 from .serializers import PhoneSerializer, OTPSerializer, ProfileSerializer, PhoneUpdateSerializer, UsernameSerializer, VKAuthSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 from django.middleware.csrf import get_token
 from .models import AccountTypes
@@ -37,7 +37,7 @@ def generate_random_nickname():
         nickname = f"{adjective}{noun}{number}"
     return nickname
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class PhoneAuthView(APIView):
     permission_classes = [AllowAny]
 
@@ -51,7 +51,7 @@ class PhoneAuthView(APIView):
         logger.error(f"PhoneAuthView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class PhoneUpdateView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -70,7 +70,7 @@ class PhoneUpdateView(APIView):
         logger.error(f"PhoneUpdateView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class OTPView(APIView):
     permission_classes = [AllowAny]
 
@@ -110,7 +110,7 @@ class OTPView(APIView):
         logger.error(f"OTPView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class VKCallbackView(APIView):
     permission_classes = [AllowAny]
 
@@ -277,7 +277,7 @@ class ProfileView(APIView):
         logger.error(f"ProfileView errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class CheckUsernameView(APIView):
     permission_classes = [AllowAny]
 

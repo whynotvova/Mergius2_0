@@ -8,7 +8,7 @@ const Header = () => {
   const isAuthenticated = !!localStorage.getItem('token');
   const [language, setLanguage] = useState(localStorage.getItem('language') || 'ru');
 
-  // Translation dictionary
+  // Переводы
   const translations = {
     ru: {
       tariffs: 'Тарифы',
