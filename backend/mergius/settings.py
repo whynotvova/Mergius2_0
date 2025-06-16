@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'profile_user.apps.ProfileUserConfig',
     'mail.apps.MailConfig',
     'landing.apps.LandingConfig',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

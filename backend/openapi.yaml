@@ -1,0 +1,1368 @@
+openapi: 3.0.3
+info:
+  title: API Mergius
+  version: 1.0.0
+  description: API для приложения Mergius, обеспечивающее аутентификацию, управление электронной почтой и операции с профилем пользователя.
+servers:
+  - url: https://mergius.ru/api
+    description: Продакшен-сервер
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Сообщение об ошибке
+        details:
+          type: object
+          description: Дополнительные детали ошибки
+      required:
+        - error
+    PhoneAuthRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          example: "+79991234567"
+          description: Номер телефона пользователя
+      required:
+        - phone_number
+    PhoneAuthResponse:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          example: "+79991234567"
+          description: Обработанный номер телефона
+    OTPRequest:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          example: "+79991234567"
+          description: Номер телефона пользователя
+        otp_code:
+          type: string
+          example: "123456"
+          description: Код одноразового пароля (OTP)
+      required:
+        - phone_number
+        - otp_code
+    OTPResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "abc123token"
+          description: Токен аутентификации
+        user_id:
+          type: integer
+          example: 1
+          description: Идентификатор пользователя
+        is_phone_verified:
+          type: integer
+          example: 1
+          description: Флаг подтверждения номера телефона
+        username:
+          type: string
+          example: "CoolStar123"
+          description: Имя пользователя
+        country:
+          type: string
+          example: "Россия"
+          description: Страна пользователя
+        date_of_birth:
+          type: string
+          format: date
+          example: "1990-01-01"
+          description: Дата рождения пользователя
+    VKAuthRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "vk_auth_code"
+          description: Код авторизации VK
+        device_id:
+          type: string
+          example: "device123"
+          description: Идентификатор устройства
+        code_verifier:
+          type: string
+          example: "verifier123"
+          description: Проверочный код для OAuth
+      required:
+        - code
+        - code_verifier
+    VKAuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "abc123token"
+          description: Токен аутентификации
+        user_id:
+          type: integer
+          example: 1
+          description: Идентификатор пользователя
+        is_phone_verified:
+          type: integer
+          example: 1
+          description: Флаг подтверждения номера телефона
+        username:
+          type: string
+          example: "CoolStar123"
+          description: Имя пользователя
+        phone_number:
+          type: string
+          example: "+79991234567"
+          description: Номер телефона пользователя
+        needs_phone_verification:
+          type: boolean
+          example: false
+          description: Требуется ли верификация телефона
+        date_of_birth:
+          type: string
+          format: date
+          example: "1990-01-01"
+          description: Дата рождения пользователя
+        country:
+          type: string
+          example: "Россия"
+          description: Страна пользователя
+    ProfileUpdateRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "NewUsername"
+          description: Новое имя пользователя
+        date_of_birth:
+          type: string
+          format: date
+          example: "1990-01-01"
+          description: Новая дата рождения
+        country:
+          type: string
+          example: "Россия"
+          description: Новая страна
+    ProfileResponse:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1
+          description: Идентификатор пользователя
+        username:
+          type: string
+          example: "CoolStar123"
+          description: Имя пользователя
+        phone_number:
+          type: string
+          example: "+79991234567"
+          description: Номер телефона пользователя
+        date_of_birth:
+          type: string
+          format: date
+          example: "1990-01-01"
+          description: Дата рождения пользователя
+        country:
+          type: string
+          example: "Россия"
+          description: Страна пользователя
+        is_phone_verified:
+          type: integer
+          example: 1
+          description: Флаг подтверждения номера телефона
+    UsernameCheckRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "CoolStar123"
+          description: Проверяемое имя пользователя
+      required:
+        - username
+    UsernameCheckResponse:
+      type: object
+      properties:
+        available:
+          type: boolean
+          example: true
+          description: Доступность имени пользователя
+    CSRFTokenResponse:
+      type: object
+      properties:
+        csrfToken:
+          type: string
+          example: "csrf123token"
+          description: Токен CSRF
+    AddEmailAccountRequest:
+      type: object
+      properties:
+        service_name:
+          type: string
+          example: "Gmail"
+          description: Название почтовой службы
+        email_address:
+          type: string
+          example: "test@gmail.com"
+          description: Адрес электронной почты
+        password:
+          type: string
+          example: "app_specific_password"
+          description: Пароль приложения
+        oauth_token:
+          type: string
+          example: "oauth_token123"
+          description: Токен OAuth
+      required:
+        - service_name
+        - email_address
+    EmailAccountResponse:
+      type: object
+      properties:
+        email_account_id:
+          type: integer
+          example: 1
+          description: Идентификатор почтового аккаунта
+        email_address:
+          type: string
+          example: "test@gmail.com"
+          description: Адрес электронной почты
+        service_name:
+          type: string
+          example: "Gmail"
+          description: Название почтовой службы
+        avatar:
+          type: string
+          example: "/images/mail/default-avatar.png"
+          description: URL аватара
+    EmailServiceResponse:
+      type: object
+      properties:
+        service_id:
+          type: integer
+          example: 1
+          description: Идентификатор почтовой службы
+        service_name:
+          type: string
+          example: "Gmail"
+          description: Название почтовой службы
+        service_icon:
+          type: string
+          example: "/images/mail/google-logo.png"
+          description: URL иконки службы
+    FetchEmailResponse:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailFolder'
+          description: Список папок
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+          description: Список писем
+        total_emails:
+          type: integer
+          example: 100
+          description: Общее количество писем
+        unread_count:
+          type: integer
+          example: 10
+          description: Количество непрочитанных писем
+        unread_counts_by_service:
+          type: object
+          example: { "Gmail": 5, "Yandex": 3 }
+          description: Количество непрочитанных писем по службам
+        unread_counts_by_folder:
+          type: object
+          example: { "Входящие": 5, "Важное": 2 }
+          description: Количество непрочитанных писем по папкам
+        current_page:
+          type: integer
+          example: 1
+          description: Текущая страница
+        total_pages:
+          type: integer
+          example: 5
+          description: Общее количество страниц
+    MailFolder:
+      type: object
+      properties:
+        folder_id:
+          type: integer
+          example: 1
+          description: Идентификатор папки
+        folder_name:
+          type: string
+          example: "Входящие"
+          description: Название папки
+        sort_order:
+          type: integer
+          example: 0
+          description: Порядок сортировки
+        folder_icon:
+          type: string
+          example: "/images/folder.png"
+          description: URL иконки папки
+    Email:
+      type: object
+      properties:
+        email_id:
+          type: integer
+          example: 1
+          description: Идентификатор письма
+        subject:
+          type: string
+          example: "Приветственное письмо"
+          description: Тема письма
+        sender:
+          type: string
+          example: "sender@gmail.com"
+          description: Отправитель письма
+        body:
+          type: string
+          example: "Привет, добро пожаловать!"
+          description: Тело письма
+        sent_date:
+          type: string
+          format: date-time
+          example: "2025-06-15T10:00:00Z"
+          description: Дата отправки
+        status:
+          type: string
+          example: "непрочитано"
+          description: Статус письма
+    EmailDetailResponse:
+      type: object
+      properties:
+        email_id:
+          type: integer
+          example: 1
+          description: Идентификатор письма
+        subject:
+          type: string
+          example: "Приветственное письмо"
+          description: Тема письма
+        sender:
+          type: string
+          example: "sender@gmail.com"
+          description: Отправитель письма
+        recipient_addresses:
+          type: object
+          properties:
+            TO:
+              type: array
+              items:
+                type: string
+              description: Получатели (TO)
+            CC:
+              type: array
+              items:
+                type: string
+              description: Копия (CC)
+            BCC:
+              type: array
+              items:
+                type: string
+              description: Скрытая копия (BCC)
+          example:
+            TO: ["recipient@gmail.com"]
+            CC: []
+            BCC: []
+          description: Адреса получателей
+        body:
+          type: string
+          example: "Привет, добро пожаловать!"
+          description: Тело письма
+        sent_date:
+          type: string
+          format: date-time
+          example: "2025-06-15T10:00:00Z"
+          description: Дата отправки
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAttachment'
+          description: Вложения письма
+    EmailAttachment:
+      type: object
+      properties:
+        attachment_id:
+          type: integer
+          example: 1
+          description: Идентификатор вложения
+        file_name:
+          type: string
+          example: "document.pdf"
+          description: Имя файла
+        file_size:
+          type: integer
+          example: 102400
+          description: Размер файла в байтах
+    EmailFolderAssignmentRequest:
+      type: object
+      properties:
+        email_ids:
+          type: array
+          items:
+            type: integer
+          example: [1, 2]
+          description: Список идентификаторов писем
+        folder_id:
+          type: integer
+          example: 1
+          description: Идентификатор папки
+      required:
+        - email_ids
+        - folder_id
+    AssignCategoriesRequest:
+      type: array
+      items:
+        type: object
+        properties:
+          email_id:
+            type: integer
+            example: 1
+            description: Идентификатор письма
+          folder_id:
+            type: integer
+            example: 1
+            description: Идентификатор папки
+        required:
+          - email_id
+          - folder_id
+    TranslateEmailRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          example: "Привет, как дела?"
+          description: Текст для перевода
+        target_language:
+          type: string
+          example: "ru"
+          description: Целевой язык перевода
+      required:
+        - text
+        - target_language
+    TranslateEmailResponse:
+      type: object
+      properties:
+        translated_text:
+          type: string
+          example: "Hello, how are you?"
+          description: Переведённый текст
+    SendEmailRequest:
+      type: object
+      properties:
+        recipient:
+          type: string
+          example: "recipient@gmail.com"
+          description: Адрес получателя
+        subject:
+          type: string
+          example: "Тестовое письмо"
+          description: Тема письма
+        body:
+          type: string
+          example: "<p>Привет!</p>"
+          description: Тело письма
+        email_account_id:
+          type: integer
+          example: 1
+          description: Идентификатор почтового аккаунта
+        attachments:
+          type: array
+          items:
+            type: string
+            format: binary
+          description: Вложения письма
+      required:
+        - recipient
+    UserProfileResponse:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1
+          description: Идентификатор пользователя
+        username:
+          type: string
+          example: "CoolStar123"
+          description: Имя пользователя
+        phone_number:
+          type: string
+          example: "+79991234567"
+          description: Номер телефона пользователя
+        date_of_birth:
+          type: string
+          format: date
+          example: "1990-01-01"
+          description: Дата рождения пользователя
+        country:
+          type: string
+          example: "Россия"
+          description: Страна пользователя
+    UserSettingsRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1
+          description: Идентификатор пользователя
+        language:
+          type: string
+          example: "ru"
+          description: Язык интерфейса
+        theme:
+          type: string
+          example: "dark"
+          description: Тема оформления
+      required:
+        - user_id
+    UserSettingsResponse:
+      type: object
+      properties:
+        settings_id:
+          type: integer
+          example: 1
+          description: Идентификатор настроек
+        language:
+          type: string
+          example: "ru"
+          description: Язык интерфейса
+        theme:
+          type: string
+          example: "dark"
+          description: Тема оформления
+paths:
+  /auth/phone/:
+    post:
+      summary: Инициировать аутентификацию по телефону
+      tags: [Аутентификация]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneAuthRequest'
+      responses:
+        '200':
+          description: Номер телефона обработан для OTP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneAuthResponse'
+        '400':
+          description: Неверный номер телефона
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/phone/update/:
+    patch:
+      summary: Обновить номер телефона
+      tags: [Аутентификация]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneAuthRequest'
+      responses:
+        '200':
+          description: Номер телефона обновлён
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneAuthResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/otp/:
+    post:
+      summary: Проверить код OTP
+      tags: [Аутентификация]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTPRequest'
+      responses:
+        '200':
+          description: OTP проверен, выдан токен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPResponse'
+        '400':
+          description: Неверный OTP или пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/vk/callback/:
+    post:
+      summary: Обработать обратный вызов VK OAuth
+      tags: [Аутентификация]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VKAuthRequest'
+      responses:
+        '200':
+          description: Аутентификация VK успешна
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VKAuthResponse'
+        '400':
+          description: Неверные данные аутентификации VK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/profile/:
+    patch:
+      summary: Обновить профиль пользователя
+      tags: [Аутентификация]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUpdateRequest'
+      responses:
+        '200':
+          description: Профиль обновлён
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/username/check/:
+    get:
+      summary: Проверить доступность имени пользователя
+      tags: [Аутентификация]
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Имя пользователя для проверки
+      responses:
+        '200':
+          description: Статус доступности имени пользователя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsernameCheckResponse'
+        '400':
+          description: Неверное имя пользователя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/get-csrf-token/:
+    get:
+      summary: Получить токен CSRF
+      tags: [Аутентификация]
+      responses:
+        '200':
+          description: Токен CSRF получен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CSRFTokenResponse'
+  /mail/email-accounts/add/:
+    post:
+      summary: Добавить почтовый аккаунт
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEmailAccountRequest'
+      responses:
+        '201':
+          description: Почтовый аккаунт добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailAccountResponse'
+        '400':
+          description: Неверный запрос или учетные данные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Почтовая служба не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/email-services/:
+    get:
+      summary: Список почтовых служб
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Список почтовых служб
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailServiceResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/fetch/:
+    get:
+      summary: Получить письма
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: force_refresh
+          in: query
+          schema:
+            type: boolean
+          description: Принудительное обновление
+        - name: page
+          in: query
+          schema:
+            type: integer
+          description: Номер страницы
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+          description: Размер страницы
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Поисковый запрос
+        - name: service_name
+          in: query
+          schema:
+            type: string
+          description: Название почтовой службы
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Фильтр писем
+        - name: folder_name
+          in: query
+          schema:
+            type: string
+          description: Название папки
+      responses:
+        '200':
+          description: Письма получены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchEmailResponse'
+        '400':
+          description: Неверная страница
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/email-accounts/:
+    get:
+      summary: Список почтовых аккаунтов
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Список почтовых аккаунтов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailAccountResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/emails/{email_id}/:
+    get:
+      summary: Получить детали письма
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: email_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор письма
+      responses:
+        '200':
+          description: Детали письма
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDetailResponse'
+        '404':
+          description: Письмо не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Обновить статус письма
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: email_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор письма
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [прочитано, непрочитано]
+                  description: Новый статус письма
+      responses:
+        '200':
+          description: Статус письма обновлён
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Обновлённый статус
+        '400':
+          description: Неверный статус
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Письмо не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Удалить письмо
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: email_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор письма
+      responses:
+        '204':
+          description: Письмо удалено
+        '404':
+          description: Письмо не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/emails/assign-folder/:
+    post:
+      summary: Назначить письма в папку
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailFolderAssignmentRequest'
+      responses:
+        '200':
+          description: Письма назначены в папку
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Статус операции
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Папка или письма не найдены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/emails/assign-categories/:
+    post:
+      summary: Назначить категории письмам
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignCategoriesRequest'
+      responses:
+        '200':
+          description: Категории назначены
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Статус операции
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Неверные идентификаторы писем или папок
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/email-accounts/{email_account_id}/:
+    delete:
+      summary: Удалить почтовый аккаунт
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: email_account_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор почтового аккаунта
+      responses:
+        '204':
+          description: Почтовый аккаунт удалён
+        '404':
+          description: Почтовый аккаунт не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/folders/:
+    post:
+      summary: Создать папку для писем
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_account:
+                  type: integer
+                  description: Идентификатор почтового аккаунта
+                folder_name:
+                  type: string
+                  description: Название папки
+                sort_order:
+                  type: integer
+                  description: Порядок сортировки
+                folder_icon:
+                  type: string
+                  description: URL иконки папки
+              required:
+                - email_account
+                - folder_name
+      responses:
+        '201':
+          description: Папка создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailFolder'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/folders/{folder_id}/:
+    delete:
+      summary: Удалить папку для писем
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: folder_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор папки
+      responses:
+        '204':
+          description: Папка удалена
+        '404':
+          description: Папка не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/translate/:
+    post:
+      summary: Перевести текст письма
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslateEmailRequest'
+      responses:
+        '200':
+          description: Текст переведён
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslateEmailResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Ошибка аутентификации API перевода
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Доступ к API перевода запрещён
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mail/send/:
+    post:
+      summary: Отправить письмо
+      tags: [Почта]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailRequest'
+      responses:
+        '200':
+          description: Письмо отправлено
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Статус операции
+        '400':
+          description: Неверный запрос или ошибка SMTP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Почтовый аккаунт не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /profile/:
+    get:
+      summary: Получить профиль пользователя
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Профиль пользователя получен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+    delete:
+      summary: Удалить аккаунт пользователя
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Аккаунт удалён
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /profile/folders/:
+    get:
+      summary: Список почтовых папок
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Список почтовых папок
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailFolder'
+    post:
+      summary: Создать почтовую папку
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                folder_name:
+                  type: string
+                  description: Название папки
+      responses:
+        '201':
+          description: Папка создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailFolder'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /profile/folders/{folder_id}/:
+    put:
+      summary: Обновить почтовую папку
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: folder_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор папки
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                folder_name:
+                  type: string
+                  description: Название папки
+                sort_order:
+                  type: integer
+                  description: Порядок сортировки
+                folder_icon:
+                  type: string
+                  description: URL иконки папки
+      responses:
+        '200':
+          description: Папка обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailFolder'
+        '404':
+          description: Папка не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Удалить почтовую папку
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: folder_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор папки
+      responses:
+        '204':
+          description: Папка удалена
+        '404':
+          description: Папка не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /profile/settings/:
+    get:
+      summary: Получить настройки пользователя
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор пользователя
+      responses:
+        '200':
+          description: Настройки пользователя получены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSettingsResponse'
+        '400':
+          description: Отсутствует user_id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Обновить настройки пользователя
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSettingsRequest'
+      responses:
+        '200':
+          description: Настройки обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSettingsResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Создать настройки пользователя
+      tags: [Профиль]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSettingsRequest'
+      responses:
+        '201':
+          description: Настройки созданы
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSettingsResponse'
+        '400':
+          description: Неверный запрос или настройки уже существуют
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

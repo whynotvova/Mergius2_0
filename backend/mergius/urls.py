@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
+from .swagger import schema_view
 
 class HealthCheckView(APIView):
     permission_classes = [AllowAny]
@@ -23,5 +24,7 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
     path('api/get-csrf-token/', GetCSRFTokenView.as_view(), name='get_csrf_token'),
     path('health/', HealthCheckView.as_view(), name='health_check'),
+    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     re_path(r'^.*$', serve, {'document_root': settings.STATICFILES_DIRS[0], 'path': 'index.html'}),
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

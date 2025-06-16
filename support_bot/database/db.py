@@ -9,7 +9,6 @@ class Database:
         self.pool = None
 
     async def init_pool(self):
-        """Инициализация пула соединений к базе mergius_db."""
         try:
             self.pool = await aiomysql.create_pool(
                 host=DB_HOST,
@@ -31,7 +30,6 @@ class Database:
             raise
 
     async def create_tables(self):
-        """Создание таблиц users_tg и tickets в базе mergius_db."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -62,7 +60,6 @@ class Database:
                     raise
 
     async def add_user(self, user_id: int, username: str):
-        """Добавление пользователя в таблицу users_tg, если он не существует."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -84,7 +81,6 @@ class Database:
                     logger.error(f"Ошибка добавления пользователя {user_id}: {e}")
 
     async def add_ticket(self, user_id: int, message_type: str, message_content: str) -> int:
-        """Добавление заявки в таблицу tickets."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -103,7 +99,6 @@ class Database:
                     return 0
 
     async def mark_ticket_answered(self, ticket_id: int):
-        """Пометка заявки как отвеченной."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -118,7 +113,6 @@ class Database:
                     logger.error(f"Ошибка обновления заявки #{ticket_id}: {e}")
 
     async def get_unanswered_tickets(self) -> list:
-        """Получение списка неотвеченных заявок."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -133,7 +127,6 @@ class Database:
                     return []
 
     async def get_users(self) -> list:
-        """Получение списка всех пользователей Telegram."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -148,7 +141,6 @@ class Database:
                     return []
 
     async def get_user(self, user_id: int) -> dict:
-        """Получение данных пользователя Telegram по ID."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -166,7 +158,6 @@ class Database:
                     return None
 
     async def update_tariff(self, user_id: int, tariff: str):
-        """Обновление тарифа пользователя Telegram."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -181,7 +172,6 @@ class Database:
                     logger.error(f"Ошибка обновления тарифа для пользователя {user_id}: {e}")
 
     async def get_site_users(self) -> list:
-        """Получение списка всех пользователей сайта."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -196,7 +186,6 @@ class Database:
                     return []
 
     async def get_site_user(self, user_id: int) -> dict:
-        """Получение данных пользователя сайта по ID."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -214,7 +203,6 @@ class Database:
                     return None
 
     async def update_site_tariff(self, user_id: int, tariff: str):
-        """Обновление тарифа пользователя сайта."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -229,7 +217,6 @@ class Database:
                     logger.error(f"Ошибка обновления тарифа для пользователя сайта {user_id}: {e}")
 
     async def get_stats(self) -> dict:
-        """Получение статистики."""
         if not self.pool:
             raise RuntimeError("Пул соединений не инициализирован.")
         async with self.pool.acquire() as conn:
@@ -253,7 +240,6 @@ class Database:
                     return None
 
     async def close(self):
-        """Закрытие пула соединений."""
         if self.pool:
             self.pool.close()
             await self.pool.wait_closed()

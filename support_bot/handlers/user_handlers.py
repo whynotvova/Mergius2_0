@@ -15,7 +15,7 @@ router = Router()
 class Broadcast(StatesGroup):
     message = State()
 
-@router.message(~F.text.startswith('/'), ~StateFilter(ReplyTicket.message))  # Skip commands and ReplyTicket state
+@router.message(~F.text.startswith('/'), ~StateFilter(ReplyTicket.message))
 async def handle_user_message(message: Message, db, state: FSMContext):
     user_id = message.from_user.id
     username = message.from_user.username or message.from_user.full_name
