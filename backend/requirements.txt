@@ -1,6 +1,7 @@
 Django==5.2
 djangorestframework==3.16.0
 django-cors-headers==4.7.0
+drf-yasg==1.21.10
 gunicorn==23.0.0
 mysqlclient==2.2.7
 social-auth-app-django==5.4.0
